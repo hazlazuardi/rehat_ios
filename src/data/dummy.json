@@ -1,0 +1,112 @@
+[
+    {
+        "endDate": "2023-09-11T01:13:11.727+1000",
+        "id": "46C4C466-2380-4AF7-A25C-7E47DA06DB57",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-11T01:13:11.727+1000",
+        "value": 63
+    },
+    {
+        "endDate": "2023-09-11T01:13:08.727+1000",
+        "id": "9D8E6068-31CD-4440-8E84-A4CBDBB41CBF",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-11T01:13:08.727+1000",
+        "value": 64
+    },
+    {
+        "endDate": "2023-09-11T01:13:03.727+1000",
+        "id": "523AF621-CB36-4BD0-8E77-135012ED4CFF",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-11T01:13:03.727+1000",
+        "value": 66
+    },
+    {
+        "endDate": "2023-09-11T01:10:32.668+1000",
+        "id": "647851D7-E6E7-4331-A64D-5F5B61CF2E2B",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-11T01:10:32.668+1000",
+        "value": 64.87046813964844
+    },
+    {
+        "endDate": "2023-09-10T18:46:17.959+1000",
+        "id": "5A8984EC-585D-46A8-8FE6-F31635875829",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-10T18:46:17.959+1000",
+        "value": 92.00000000000001
+    },
+    {
+        "endDate": "2023-09-10T18:46:12.959+1000",
+        "id": "04CC0957-4233-4BF3-A462-592A93DC798C",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-10T18:46:12.959+1000",
+        "value": 93
+    },
+    {
+        "endDate": "2023-09-10T18:46:10.959+1000",
+        "id": "0901BB4C-88FD-423D-A727-92FBFC304799",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-10T18:46:10.959+1000",
+        "value": 92.00000000000001
+    },
+    {
+        "endDate": "2023-09-10T18:46:05.959+1000",
+        "id": "F0757E07-21F1-4D62-BBAB-B90CA5DB6C62",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-10T18:46:05.959+1000",
+        "value": 91
+    },
+    {
+        "endDate": "2023-09-10T18:45:57.959+1000",
+        "id": "3A24B23E-FAE5-45DF-A31D-DBF040C56D6B",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-10T18:45:57.959+1000",
+        "value": 97
+    },
+    {
+        "endDate": "2023-09-10T18:45:51.959+1000",
+        "id": "D80CD9A6-8ACC-4D27-8E09-952DFD71C492",
+        "metadata": {
+            "HKMetadataKeyHeartRateMotionContext": 0
+        },
+        "sourceId": "com.apple.health.1B749145-C7F5-4361-AE0B-58E6D77A3E05",
+        "sourceName": "Wishnu’s Apple Watch",
+        "startDate": "2023-09-10T18:45:51.959+1000",
+        "value": 96
+    }
+]
