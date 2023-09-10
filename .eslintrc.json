@@ -1,0 +1,55 @@
+{
+	"parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"requireConfigFile": false
+	},
+	"env": {
+		"browser": true,
+		"react-native/react-native": true,
+		"es2021": true
+	},
+	"plugins": [
+		"react",
+		"react-native",
+		"react-hooks"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:jsdoc/recommended"
+	],
+	"rules": {
+		"react-native/no-unused-styles": 2,
+		"react-native/split-platform-components": 2,
+		"react-native/no-inline-styles": 2,
+		"react-native/no-color-literals": 2,
+		"react-native/no-raw-text": 2,
+		"react-native/sort-styles": [
+			"error",
+			"asc",
+			{
+				"ignoreClassNames": false,
+				"ignoreStyleProperties": false
+			}
+		],
+		"react/no-multi-comp": [
+			2,
+			{
+				"ignoreStateless": true
+			}
+		],
+		"react/jsx-pascal-case": 2,
+		"jsx-quotes": [
+			"error",
+			"prefer-double"
+		],
+		"no-multi-spaces": "error",
+		"react/no-children-prop": "off"
+	},
+	"globals": {
+		"JSX": "readonly"
+	}
+}
