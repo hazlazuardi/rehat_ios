@@ -17,6 +17,8 @@
 		5D9CDD472AAEBD9300748DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD462AAEBD9300748DDD /* Assets.xcassets */; };
 		5D9CDD4A2AAEBD9300748DDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD492AAEBD9300748DDD /* Preview Assets.xcassets */; };
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */; };
+		5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD542AAF54A100748DDD /* TherapyView.swift */; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -71,6 +73,8 @@
 		5D9CDD442AAEBD9000748DDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5D9CDD462AAEBD9300748DDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D9CDD492AAEBD9300748DDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactView.swift; sourceTree = "<group>"; };
+		5D9CDD542AAF54A100748DDD /* TherapyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyView.swift; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-rehat_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rehat_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios-rehat_iosTests.release.xcconfig"; path = "Target Support Files/Pods-rehat_ios-rehat_iosTests/Pods-rehat_ios-rehat_iosTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 			children = (
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
+				5D9CDD542AAF54A100748DDD /* TherapyView.swift */,
+				5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */,
 				5D9CDD462AAEBD9300748DDD /* Assets.xcassets */,
 				5D9CDD482AAEBD9300748DDD /* Preview Content */,
 			);
@@ -513,8 +519,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
+				5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
