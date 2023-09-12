@@ -22,12 +22,6 @@ struct TherapyView: View {
       }
     }
     .navigationTitle("Therapy")
-    .toolbar {
-      ToolbarItem(placement: .primaryAction) {
-        Button("Add") {
-        }
-      }
-    }
   }
 }
 

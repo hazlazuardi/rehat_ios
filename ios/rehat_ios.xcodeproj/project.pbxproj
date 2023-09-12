@@ -19,6 +19,8 @@
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */; };
 		5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD542AAF54A100748DDD /* TherapyView.swift */; };
+		5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD562AAF63D800748DDD /* RNConnector.swift */; };
+		5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -75,6 +77,8 @@
 		5D9CDD492AAEBD9300748DDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactView.swift; sourceTree = "<group>"; };
 		5D9CDD542AAF54A100748DDD /* TherapyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyView.swift; sourceTree = "<group>"; };
+		5D9CDD562AAF63D800748DDD /* RNConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConnector.swift; sourceTree = "<group>"; };
+		5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityView.swift; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-rehat_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rehat_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios-rehat_iosTests.release.xcconfig"; path = "Target Support Files/Pods-rehat_ios-rehat_iosTests/Pods-rehat_ios-rehat_iosTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -152,8 +156,10 @@
 			isa = PBXGroup;
 			children = (
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
+				5D9CDD562AAF63D800748DDD /* RNConnector.swift */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
 				5D9CDD542AAF54A100748DDD /* TherapyView.swift */,
+				5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */,
 				5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */,
 				5D9CDD462AAEBD9300748DDD /* Assets.xcassets */,
 				5D9CDD482AAEBD9300748DDD /* Preview Content */,
@@ -522,7 +528,9 @@
 				5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
+				5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */,
 				5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */,
+				5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,8 +624,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = rehat_ios;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,iPhone";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -644,7 +657,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = rehat_ios;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,iPhone";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -671,6 +689,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = rehat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "org.reactjs.native.example.rehat-ios";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -687,7 +706,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
 			};
 			name = Debug;
 		};
@@ -714,6 +733,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = rehat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "org.reactjs.native.example.rehat-ios";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -729,7 +749,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
 			};
 			name = Release;
 		};
@@ -803,6 +823,8 @@
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = iPhone;
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
 			};
 			name = Debug;
 		};
@@ -868,7 +890,9 @@
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = iPhone;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
 			};
 			name = Release;
 		};
