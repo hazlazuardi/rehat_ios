@@ -23,6 +23,10 @@
 		5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9EC2AB17165004D33D9 /* MLUtils.swift */; };
+		EA63C9F12AB172CB004D33D9 /* MLTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F02AB172CB004D33D9 /* MLTestView.swift */; };
+		EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */; };
+		EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +86,10 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-rehat_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rehat_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios-rehat_iosTests.release.xcconfig"; path = "Target Support Files/Pods-rehat_ios-rehat_iosTests/Pods-rehat_ios-rehat_iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		EA63C9EC2AB17165004D33D9 /* MLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLUtils.swift; sourceTree = "<group>"; };
+		EA63C9F02AB172CB004D33D9 /* MLTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLTestView.swift; sourceTree = "<group>"; };
+		EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PanicAttackClassifier.mlmodel; sourceTree = "<group>"; };
+		EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthUtils.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -155,10 +163,14 @@
 		5D9CDD412AAEBD9000748DDD /* rehat Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */,
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
+				EA63C9EC2AB17165004D33D9 /* MLUtils.swift */,
 				5D9CDD562AAF63D800748DDD /* RNConnector.swift */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
+				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
 				5D9CDD542AAF54A100748DDD /* TherapyView.swift */,
+				EA63C9F02AB172CB004D33D9 /* MLTestView.swift */,
 				5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */,
 				5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */,
 				5D9CDD462AAEBD9300748DDD /* Assets.xcassets */,
@@ -525,12 +537,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA63C9F12AB172CB004D33D9 /* MLTestView.swift in Sources */,
 				5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */,
+				EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */,
+				EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */,
 				5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */,
 				5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */,
+				EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,7 +625,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z72BJ7LM52;
+				DEVELOPMENT_TEAM = KC9T8QY96D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -622,7 +638,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
 				PRODUCT_NAME = rehat_ios;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -643,7 +659,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z72BJ7LM52;
+				DEVELOPMENT_TEAM = KC9T8QY96D;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -655,7 +671,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
 				PRODUCT_NAME = rehat_ios;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -682,7 +698,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "\"rehat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Z72BJ7LM52;
+				DEVELOPMENT_TEAM = KC9T8QY96D;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -697,7 +713,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -706,7 +722,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -726,7 +742,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"rehat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Z72BJ7LM52;
+				DEVELOPMENT_TEAM = KC9T8QY96D;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -740,7 +756,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -749,7 +765,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

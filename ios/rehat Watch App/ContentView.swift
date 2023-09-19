@@ -14,6 +14,7 @@ struct ContentView: View {
   var body: some View {
     NavigationStack {
       TabView {
+        MLTestView()
         ConnectivityView()
         EmergencyContactView()
         TherapyView()
