@@ -22,6 +22,7 @@
 		5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD562AAF63D800748DDD /* RNConnector.swift */; };
 		5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
+		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,8 @@
 		5D9CDD562AAF63D800748DDD /* RNConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConnector.swift; sourceTree = "<group>"; };
 		5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityView.swift; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-rehat_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80AE77EA2ABE2B9A00217E1B /* HKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKView.swift; sourceTree = "<group>"; };
+		80AE77EC2ABE2C1C00217E1B /* rehat Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "rehat Watch App.entitlements"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rehat_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios-rehat_iosTests.release.xcconfig"; path = "Target Support Files/Pods-rehat_ios-rehat_iosTests/Pods-rehat_ios-rehat_iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -155,9 +158,11 @@
 		5D9CDD412AAEBD9000748DDD /* rehat Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				80AE77EC2ABE2C1C00217E1B /* rehat Watch App.entitlements */,
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
 				5D9CDD562AAF63D800748DDD /* RNConnector.swift */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
+				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
 				5D9CDD542AAF54A100748DDD /* TherapyView.swift */,
 				5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */,
 				5D9CDD522AAF4D9600748DDD /* EmergencyContactView.swift */,
@@ -531,6 +536,7 @@
 				5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */,
 				5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */,
 				5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */,
+				80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +684,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "rehat Watch App/rehat Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -686,6 +693,8 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = rehat_ios/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = rehat_ios/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = rehat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "org.reactjs.native.example.rehat-ios";
@@ -706,7 +715,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -721,6 +730,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "rehat Watch App/rehat Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -730,6 +740,8 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = rehat_ios/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = rehat_ios/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = rehat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "org.reactjs.native.example.rehat-ios";
@@ -749,7 +761,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};

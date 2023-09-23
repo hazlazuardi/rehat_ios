@@ -39,7 +39,7 @@ function App() {
 						onPress={() =>{
 							console.log('pressed send')
 							sendMessage(
-								{ text: message },
+								{ "messageFromApp": message },
 								reply => { console.log(reply, message); },
 								error => {
 									if (error) {
