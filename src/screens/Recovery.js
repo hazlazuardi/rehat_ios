@@ -18,9 +18,4 @@ function Recovery({ navigation }) {
     );
 }
 
-// const RecoveryScreen = ({ navigation }) => {
-//     return (
-//     )
-// }
-
 export default Recovery;

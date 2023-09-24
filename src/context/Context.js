@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
+import { storage } from "../../App";
+
+
+
 
 
 const ThemeContext = createContext(null);
@@ -40,9 +44,24 @@ function journalReducer(state, action) {
 			}
 		}
 		case 'saveJournal': {
-			return {
-				...initialJournal
+			const strJournals = storage.getString('journals');
+			const newJournalData = { ...state };
+
+
+			let journals = [];
+
+			if (strJournals) {
+				journals = JSON.parse(strJournals);
+				console.log('from storage', journals);
 			}
+
+			journals.push(newJournalData);
+
+			const newJournals = JSON.stringify(journals);
+			storage.set('journals', newJournals);
+			console.log('saved journals', newJournals);
+
+			return { ...initialJournal };
 		}
 		default: {
 			throw Error(`Unkown action: ${action.type}`);
