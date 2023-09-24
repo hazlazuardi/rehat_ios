@@ -22,19 +22,19 @@ function BottomTabBar() {
 			}}>
 			<Tab.Screen
 				name="Dashboard"
-				children={() => <Dashboard />}
+				component={Dashboard}
 			/>
 			<Tab.Screen
 				name="Recovery"
-				children={() => <Recovery />}
+				component={Recovery}
 			/>
 			<Tab.Screen
 				name="Learn"
-				children={() => <Learn />}
+				component={Learn}
 			/>
 			<Tab.Screen
 				name="Monitoring"
-				children={() => <Monitoring />}
+				component={Monitoring}
 			/>
 		</Tab.Navigator>
 	);
