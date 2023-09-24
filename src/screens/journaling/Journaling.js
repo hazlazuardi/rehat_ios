@@ -43,7 +43,7 @@ export const EmotionCategoryScreen = ({ navigation }) => {
         // const isSelected = true
         return (
             <>
-                <Pressable onPress={() => dispatchJournal({type: 'setJournal', emotionCategory: title})} style={{ backgroundColor: isSelected ? 'green' : 'grey', aspectRatio: 1, alignItems: 'center', justifyContent: 'center', padding: sizes.padding.sm, width: '40%', borderRadius: sizes.radius }}>
+                <Pressable onPress={() => dispatchJournal({ type: 'setJournal', payload: { emotionCategory: title } })} style={{ backgroundColor: isSelected ? 'green' : 'grey', aspectRatio: 1, alignItems: 'center', justifyContent: 'center', padding: sizes.padding.sm, width: '40%', borderRadius: sizes.radius }}>
                     <Text style={{ fontWeight: 'bold', textAlign: 'center' }} >{title}</Text>
                 </Pressable>
             </>
@@ -78,11 +78,73 @@ export const EmotionCategoryScreen = ({ navigation }) => {
 }
 
 export const EmotionsScreen = ({ navigation }) => {
+
+    const { journal, dispatchJournal } = useJournal()
+
+    function onPressChip(emotion) {
+
+        if (journal.emotions.includes(emotion)) {
+            dispatchJournal({ type: 'setJournal', payload: { emotions: [...journal.emotions.filter(selectedEmotion => selectedEmotion !== emotion)] } })
+        } else {
+            dispatchJournal({ type: 'setJournal', payload: { emotions: [...journal.emotions, emotion] } })
+        }
+    }
+
+    const isChipSelected = (emotion) => journal.emotions.includes(emotion)
+
+    console.log('isSelected', isChipSelected('Amazing'))
+
+
     return (
         <SafeAreaView>
-            <Text>Emotions</Text>
+            <View style={{ alignItems: 'center', marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
+                <Text style={{ fontSize: sizes.text.header1 }} >{journal.emotionCategory}</Text>
+                <Text style={{ fontSize: sizes.text.header1 }} >What best decribes this feeling?</Text>
+
+                <Chip text={'Amazing'} onPress={() => onPressChip('Amazing')} isSelected={isChipSelected('Amazing')} />
+                <Chip text={'Tolol'} onPress={() => onPressChip('Tolol')} isSelected={isChipSelected('Tolol')} />
+                <Chip text={'Calm'} onPress={() => onPressChip('Calm')} isSelected={isChipSelected('Calm')} />
+                <Pressable onPress={() => navigation.navigate('JournalDone')} style={{ backgroundColor: 'green', width: '100%', justifyContent: 'center', alignItems: 'center', padding: sizes.button.padding.sm, borderRadius: sizes.button.radius }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }} >Done</Text>
+                </Pressable>
+            </View>
         </SafeAreaView>
     )
 }
+
+const Chip = ({ text, onPress, isSelected }) => {
+
+    // const [selected, setSelected] = useState(false)
+    function handlePress() {
+        onPress()
+        // setSelected(!selected)
+    }
+
+    return (
+        <Pressable onPress={handlePress} style={{ backgroundColor: isSelected ? 'green' : 'grey', borderRadius: sizes.button.radius, padding: sizes.button.padding.sm }}>
+            <Text style={{ color: 'white', fontWeight: 'bold' }} >{text}</Text>
+        </Pressable>
+    );
+}
+
+export function JournalDoneScreen({ navigation }) {
+
+    const { dispatchJournal } = useJournal();
+
+    function handlePress() {
+        dispatchJournal({ type: 'saveJournal' })
+        navigation.navigate('Journaling')
+    }
+
+    return (
+        <SafeAreaView>
+            <Text>Your daily journal has been saved</Text>
+            <Pressable onPress={handlePress} style={{ backgroundColor: 'green', width: '100%', justifyContent: 'center', alignItems: 'center', padding: sizes.button.padding.sm, borderRadius: sizes.button.radius }}>
+                <Text style={{ color: 'white', fontWeight: 'bold' }} >Done</Text>
+            </Pressable>
+        </SafeAreaView>
+    )
+}
+
 
 export default Journaling

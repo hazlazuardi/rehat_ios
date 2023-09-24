@@ -3,7 +3,7 @@ import StoreProvider from './src/context/Context';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomTabBar from './src/components/BottomTabBar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Journaling, { EmotionCategoryScreen, EmotionsScreen } from './src/screens/journaling/Journaling';
+import Journaling, { EmotionCategoryScreen, EmotionsScreen, JournalDoneScreen } from './src/screens/journaling/Journaling';
 import Recovery from './src/screens/Recovery';
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +24,7 @@ function App() {
 						<Stack.Screen name='Journaling' component={Journaling} />
 						<Stack.Screen name='Emotion Category' component={EmotionCategoryScreen} options={nestedHeaderOptions} />
 						<Stack.Screen name='Emotions' component={EmotionsScreen} options={nestedHeaderOptions} />
+						<Stack.Screen name='JournalDone' component={JournalDoneScreen} options={nestedHeaderOptions} />
 					</Stack.Group>
 				</Stack.Navigator>
 			</NavigationContainer>

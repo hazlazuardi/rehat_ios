@@ -36,7 +36,7 @@ function journalReducer(state, action) {
 		case 'setJournal': {
 			return {
 				...state,
-				emotionCategory: action.emotionCategory
+				...action.payload
 			}
 		}
 		case 'saveJournal': {
