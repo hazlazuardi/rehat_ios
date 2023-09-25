@@ -137,6 +137,7 @@ const initialJournal = {
 	emotions: [],
 	hr: 0,
 	hrv: 0,
+	photo: {},
 	withWho: '',
 	where: '',
 	thoughts: '',

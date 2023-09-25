@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { sizes } from '../../data/theme';
 import { useJournal } from '../../context/Context';
+import PrimaryButton from '../../components/PrimaryButton';
 
 /**
  * A button component for emotion categories.
@@ -87,19 +88,11 @@ function JournalCategory({ navigation }) {
                         <EmotionCategoryButton title="Very Pleasant" />
                     </View>
                 </View>
-                <Pressable
+                <PrimaryButton
                     onPress={() => navigation.navigate('Journal Emotions')}
-                    style={{
-                        backgroundColor: 'green',
-                        width: '100%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: sizes.button.padding.sm,
-                        borderRadius: sizes.button.radius,
-                    }}
-                >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Done</Text>
-                </Pressable>
+                    text={'Done'}
+                    color={'green'}
+                />
             </View>
         </SafeAreaView>
     );

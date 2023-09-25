@@ -4,6 +4,7 @@ import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { sizes } from '../../data/theme';
 import { useJournal } from '../../context/Context';
 import Chip from '../../components/Chip';
+import PrimaryButton from '../../components/PrimaryButton';
 
 /**
  * A React Native component for selecting emotions.
@@ -66,19 +67,11 @@ function JournalEmotions({ navigation }) {
                 <Chip text={'Calm'} onPress={() => onPressChip('Calm')} isSelected={isChipSelected('Calm')} />
 
                 {/* Done Button */}
-                <Pressable
+                <PrimaryButton
                     onPress={() => navigation.navigate('Journal Thoughts')}
-                    style={{
-                        backgroundColor: 'green',
-                        width: '100%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: sizes.button.padding.sm,
-                        borderRadius: sizes.button.radius,
-                    }}
-                >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Done</Text>
-                </Pressable>
+                    text={'Done'}
+                    color={'green'}
+                />
             </View>
         </SafeAreaView>
     );

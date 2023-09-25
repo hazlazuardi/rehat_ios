@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { ImageBackground, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useJournal } from '../../context/Context';
 import Divider from '../../components/Divider';
 import { sizes } from '../../data/theme';
 import Chip from '../../components/Chip';
 import ChipInput from '../../components/ChipInput';
 import TextArea from '../../components/TextArea';
+import { launchImageLibrary } from 'react-native-image-picker';
+import PrimaryButton from '../../components/PrimaryButton';
 
 /**
  * A component for journaling thoughts and providing contexts.
@@ -60,6 +62,29 @@ function JournalThoughts({ navigation }) {
         return journal[type]?.includes(value);
     };
 
+    const onPressAddPhoto = async () => {
+        await launchImageLibrary()
+            .then((result) => {
+                if (typeof result.assets[0] === 'object') {
+                    // dispatch({
+                    //     type: 'setPhoto',
+                    //     photo: result.assets[0],
+                    // });
+                    console.log('photo', result.assets[0])
+                    dispatchJournal({
+                        type: 'setJournal',
+                        payload: { photo: result.assets[0] }
+                    })
+                }
+            })
+            .catch((e) => console.log(e));
+    }
+
+    const onPressRemovePhoto = () => {
+        dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
+    }
+
+    console.log('ctx journal', journal)
     return (
         <SafeAreaView>
             <ScrollView style={{ height: '100%' }}>
@@ -73,7 +98,39 @@ function JournalThoughts({ navigation }) {
                     <Divider />
                     <Text>HR Data</Text>
                     <Divider />
-                    <Text>Add a photo</Text>
+                    {Object.keys(journal.photo).length === 0 ? (
+                        <Pressable onPress={onPressAddPhoto}>
+                            <Text>Add a photo</Text>
+                        </Pressable>
+
+                    ) :
+                        <>
+                            <ImageBackground
+                                source={{ uri: journal.photo?.uri }}
+                                style={{
+                                    alignItems: 'center',
+                                    aspectRatio: journal.photo.width / journal.photo.height,
+                                    borderRadius: 10,
+                                    borderWidth: 4,
+                                    display: 'flex',
+                                    flex: 1,
+                                    justifyContent: 'flex-end',
+                                    marginBottom: sizes.padding.md,
+                                    overflow: 'hidden',
+                                    paddingBottom: sizes.padding.md,
+                                    width: '100%',
+                                }}
+                            />
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Pressable onPress={onPressAddPhoto}>
+                                    <Text >Change Photo</Text>
+                                </Pressable>
+                                <Pressable onPress={onPressRemovePhoto}>
+                                    <Text style={{ color: 'red' }}>Remove Photo</Text>
+                                </Pressable>
+                            </View>
+                        </>
+                    }
                     <Divider />
                     <Text>Who are you with?</Text>
                     <View style={{ flexDirection: 'row', gap: sizes.padding.sm, flexWrap: 'wrap' }}>
@@ -104,19 +161,11 @@ function JournalThoughts({ navigation }) {
                     <Text>Write your thoughts</Text>
                     <TextArea placeholder={'Today, I met...'} numberOfLines={250} onEndEditing={handleWriteThoughts} />
                     {/* Done Button */}
-                    <Pressable
+                    <PrimaryButton
                         onPress={() => navigation.navigate('Journal Success')}
-                        style={{
-                            backgroundColor: 'green',
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            padding: sizes.button.padding.sm,
-                            borderRadius: sizes.button.radius,
-                        }}
-                    >
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Done</Text>
-                    </Pressable>
+                        text={'Done'}
+                        color={'green'}
+                    />
                 </View>
             </ScrollView>
         </SafeAreaView>
