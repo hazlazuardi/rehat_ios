@@ -30,9 +30,9 @@ function StoreProvider({ children }) {
 	/**
 	 * UseReducer hook to manage journal data and dispatch actions.
 	 *
-	 * @type {[object, function]}
+	 * @type {[object, Function]}
 	 * @property {object} journal - The current state of the journal.
-	 * @property {function} dispatchJournal - A function to dispatch actions to modify the journal state.
+	 * @property {Function} dispatchJournal - A function to dispatch actions to modify the journal state.
 	 */
 	const [journal, dispatchJournal] = useReducer(journalReducer, initialJournal);
 
@@ -97,7 +97,10 @@ function journalReducer(state, action) {
 		}
 		case 'saveJournal': {
 			const strJournals = storage.getString('journals');
-			const newJournalData = { ...state };
+			const newJournalData = {
+				...state,
+				dateAdded: Date.now()
+			};
 
 			let journals = [];
 

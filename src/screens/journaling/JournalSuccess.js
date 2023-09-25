@@ -8,8 +8,8 @@ import { useJournal } from '../../context/Context';
  * A component for displaying a success message after saving a journal entry.
  *
  * @component
- * @param {object} props - The component's properties.
- * @param {function} props.navigation - The navigation function.
+ * @param {JournalSuccessProps} props - The component's properties.
+ * @returns {JSX.Element} The rendered JournalSuccess component.
  */
 function JournalSuccess({ navigation }) {
     const { dispatchJournal } = useJournal();
@@ -46,7 +46,7 @@ function JournalSuccess({ navigation }) {
  * Prop types for the JournalSuccess component.
  *
  * @typedef {object} JournalSuccessProps
- * @property {function} navigation - The navigation function.
+ * @property {object} navigation - The navigation function.
  */
 
 /**
@@ -55,7 +55,7 @@ function JournalSuccess({ navigation }) {
  * @type {JournalSuccessProps}
  */
 JournalSuccess.propTypes = {
-    navigation: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
 };
 
 export default JournalSuccess;

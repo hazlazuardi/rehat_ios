@@ -19,7 +19,7 @@ function JournalEmotions({ navigation }) {
      *
      * @type {object}
      * @property {object} journal - The journal state.
-     * @property {function} dispatchJournal - A function to dispatch journal-related actions.
+     * @property {Function} dispatchJournal - A function to dispatch journal-related actions.
      */
     const { journal, dispatchJournal } = useJournal();
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Pressable, SafeAreaView, Text, View } from 'react-native';
-import { sizes } from '../../data/theme';
+import { Pressable, SafeAreaView, Text } from 'react-native';
 import { useJournal } from '../../context/Context';
 import { storage } from '../../../App';
 
@@ -9,8 +8,8 @@ import { storage } from '../../../App';
  * A component for journaling and managing journals.
  *
  * @component
- * @param {object} props - The component's properties.
- * @param {object} props.navigation - The navigation function.
+ * @param {JournalingProps} props - The component's properties.
+ * @returns {JSX.Element} The rendered Journaling component.
  */
 function Journaling({ navigation }) {
     const { dispatchJournal } = useJournal();
@@ -20,7 +19,7 @@ function Journaling({ navigation }) {
     }, []);
 
     const strAllJournals = storage.getString('journals');
-    const allJournals = strAllJournals && JSON.parse(strAllJournals);
+    const allJournals = strAllJournals ? JSON.parse(strAllJournals) : [];
     console.log('allJournalsFromStorage', allJournals);
 
     return (
@@ -32,14 +31,11 @@ function Journaling({ navigation }) {
                 <Text>Clear Journals</Text>
             </Pressable>
 
-            {allJournals &&
-                allJournals.map((journal) => {
-                    return (
-                        <Text style={{ marginTop: 8 }} key={journal.dateAdded + journal.emotions[0]}>
-                            {journal.emotions[0]}
-                        </Text>
-                    );
-                })}
+            {allJournals.map((journal) => (
+                <Text style={{ marginTop: 8 }} key={journal.dateAdded + journal.emotions[0]}>
+                    {journal.emotions[0]}
+                </Text>
+            ))}
         </SafeAreaView>
     );
 }

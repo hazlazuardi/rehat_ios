@@ -9,7 +9,7 @@ import { sizes } from '../data/theme';
  * @component
  * @param {object} props - The component's properties.
  * @param {string} props.type - The type of anything really (e.g 'location' or 'people').
- * @param {function} props.onEndEditing - A callback function to be executed when the input ends editing.
+ * @param {Function} props.onEndEditing - A callback function to be executed when the input ends editing.
  * @returns {JSX.Element} The rendered ChipInput component.
  */
 function ChipInput({ type, onEndEditing }) {
@@ -51,7 +51,7 @@ function ChipInput({ type, onEndEditing }) {
  *
  * @typedef {object} ChipInputProps
  * @property {string} type - The type of anything really (e.g 'location' or 'people').
- * @property {function} onEndEditing - A callback function to be executed when the input ends editing.
+ * @property {Function} onEndEditing - A callback function to be executed when the input ends editing.
  */
 
 /**
