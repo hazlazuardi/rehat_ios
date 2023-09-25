@@ -8,7 +8,8 @@ export const sizes = {
     radius: 20,
     padding: {
         sm: 8,
-        md: 16
+        md: 16,
+        lg: 32
     },
     text: {
         header1: 32,

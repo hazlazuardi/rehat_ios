@@ -9,7 +9,7 @@ import { sizes } from '../data/theme';
  * @component
  * @param {object} props - The component's properties.
  * @param {string} props.text - The text content displayed on the chip.
- * @param {function} props.onPress - A callback function to be executed when the chip is pressed.
+ * @param {function} [props.onPress] - A callback function to be executed when the chip is pressed (optional).
  * @param {boolean} props.isSelected - Indicates whether the chip is selected or not.
  * @returns {JSX.Element} The rendered Chip component.
  */
@@ -18,7 +18,9 @@ function Chip({ text, onPress, isSelected }) {
      * Handles the press event of the chip.
      */
     function handlePress() {
-        onPress();
+        if (onPress) {
+            onPress();
+        }
     }
 
     return (
@@ -40,7 +42,7 @@ function Chip({ text, onPress, isSelected }) {
  *
  * @typedef {object} ChipProps
  * @property {string} text - The text content displayed on the chip.
- * @property {function} onPress - A callback function to be executed when the chip is pressed.
+ * @property {function} [onPress] - A callback function to be executed when the chip is pressed (optional).
  * @property {boolean} isSelected - Indicates whether the chip is selected or not.
  */
 
@@ -60,7 +62,7 @@ Chip.defaultProps = {
  */
 Chip.propTypes = {
     text: PropTypes.string.isRequired,
-    onPress: PropTypes.func.isRequired,
+    onPress: PropTypes.func,
     isSelected: PropTypes.bool,
 };
 

@@ -11,9 +11,9 @@ import Chip from '../../components/Chip';
  * @component
  * @param {object} props - The component's properties.
  * @param {object} props.navigation - The navigation object from React Navigation.
- * @returns {JSX.Element} The rendered Emotions component.
+ * @returns {JSX.Element} The rendered JournalEmotions component.
  */
-function Emotions({ navigation }) {
+function JournalEmotions({ navigation }) {
     /**
      * Custom hook to access journal data and dispatch actions.
      *
@@ -67,7 +67,7 @@ function Emotions({ navigation }) {
 
                 {/* Done Button */}
                 <Pressable
-                    onPress={() => navigation.navigate('JournalDone')}
+                    onPress={() => navigation.navigate('Journal Thoughts')}
                     style={{
                         backgroundColor: 'green',
                         width: '100%',
@@ -85,26 +85,26 @@ function Emotions({ navigation }) {
 }
 
 /**
- * Prop types for the Emotions component.
+ * Prop types for the JournalEmotions component.
  *
  * @typedef {object} EmotionsProps
  * @property {object} navigation - The navigation object from React Navigation.
  */
 
 /**
- * Default props for the Emotions component.
+ * Default props for the JournalEmotions component.
  *
  * @type {EmotionsProps}
  */
-Emotions.defaultProps = {};
+JournalEmotions.defaultProps = {};
 
 /**
- * Prop types for the Emotions component.
+ * Prop types for the JournalEmotions component.
  *
  * @type {EmotionsProps}
  */
-Emotions.propTypes = {
+JournalEmotions.propTypes = {
     navigation: PropTypes.object.isRequired,
 };
 
-export default Emotions;
+export default JournalEmotions;
