@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TherapyView: View {
-  @State private var showToolbarTitle = false
+//  @State private var showToolbarTitle = false
   
   
   var body: some View {

@@ -13,6 +13,7 @@ struct EmergencyContactView: View {
     VStack {
       Button("Call Emergency Contact") {}
     }
+    .navigationTitle("Emergency Contact")
   }
 }
 
