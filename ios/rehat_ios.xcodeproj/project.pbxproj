@@ -573,13 +573,10 @@
 				5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */,
 				5D9CDD532AAF4D9600748DDD /* EmergencyContactView.swift in Sources */,
 				5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */,
-<<<<<<< HEAD
 				80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */,
-=======
 				281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */,
 				289028AE2AB5FF91008C96F4 /* EmergencyCallView.swift in Sources */,
 				28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */,
->>>>>>> f2c96de (Feat: Added RecoverView: Emergency Call, and more)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

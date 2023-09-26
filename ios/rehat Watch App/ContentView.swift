@@ -12,11 +12,8 @@ struct ContentView: View {
   var body: some View {
     NavigationStack {
       TabView {
-<<<<<<< HEAD
         HKView()
-=======
         RecoveryView()
->>>>>>> f2c96de (Feat: Added RecoverView: Emergency Call, and more)
         ConnectivityView()
 //        EmergencyContactView()
 //        TherapyView()
