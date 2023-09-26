@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Pressable, SafeAreaView, Text } from 'react-native';
 import { useJournal } from '../../context/Context';
 import { storage } from '../../../App';
+import { sizes } from '../../data/theme';
 
 /**
  * A component for journaling and managing journals.
@@ -23,7 +24,7 @@ function Journaling({ navigation }) {
     console.log('allJournalsFromStorage', allJournals);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ marginTop: sizes.padding.md, paddingHorizontal: sizes.padding.md }} >
             <Pressable onPress={() => navigation.navigate('Journal Category')}>
                 <Text>Create a Journal</Text>
             </Pressable>

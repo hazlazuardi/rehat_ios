@@ -6,6 +6,7 @@ import { useJournal } from '../../context/Context';
 import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
 import { convertToCamelCase } from '../../helpers/helpers';
+import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 
 /**
  * A React Native component for selecting emotions.
@@ -64,17 +65,19 @@ function JournalEmotions({ navigation }) {
 
     return (
         <SafeAreaView>
-            <View style={{ alignItems: 'center', marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
-                <Text style={{ fontSize: sizes.text.header1 }}>{journal.emotionCategory}</Text>
+            <View style={{ alignItems: 'center', paddingTop: sizes.padding.lg, marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
+                <EmotionCategoryButton title={journal.emotionCategory} />
                 <Text style={{ fontSize: sizes.text.header1 }}>What best describes this feeling?</Text>
 
                 {/* Emotion Chips */}
-                {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
-                    return (
-                        <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
+                <View style={{flexDirection:'row', gap: sizes.padding.sm}} >
+                    {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
+                        return (
+                            <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
 
-                    )
-                })}
+                        )
+                    })}
+                </View>
 
                 {/* Done Button */}
                 <PrimaryButton

@@ -13,7 +13,7 @@ import JournalThoughts from './src/screens/journaling/JournalThoughts';
 const Stack = createNativeStackNavigator();
 
 const nestedHeaderOptions = {
-	headerTitle: '', headerTransparent: true, headerBlurEffect: 'regular'
+	headerTitle: '', headerTransparent: true, headerBlurEffect: 'extraLight'
 }
 
 export const storage = new MMKV();

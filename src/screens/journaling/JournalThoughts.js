@@ -86,14 +86,14 @@ function JournalThoughts({ navigation }) {
 
     console.log('ctx journal', journal)
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        // <SafeAreaView style={{ flex: 1 }}>
             <KeyboardAwareScrollView
                 extraScrollHeight={64}
                 keyboardOpeningTime={10}
                 contentContainerStyle={{ flexGrow: 1 }}
             >
-                <ScrollView style={{ flex: 1 }}>
-                    <View style={{ paddingHorizontal: sizes.padding.lg, flexDirection: 'column', gap: sizes.padding.md }}>
+                <ScrollView style={{ flex: 1, paddingTop: sizes.padding.lg*2 }}>
+                    <View style={{ padding: sizes.padding.lg, flexDirection: 'column', gap: sizes.padding.md }}>
                         <Text>I'm feeling {journal.emotionCategory}</Text>
                         <View style={{ flexDirection: 'row', gap: sizes.padding.sm }}>
                             {journal.emotions?.map((emotion) => (
@@ -180,7 +180,7 @@ function JournalThoughts({ navigation }) {
                     </View>
                 </ScrollView>
             </KeyboardAwareScrollView>
-        </SafeAreaView>
+        // </SafeAreaView>
     );
 }
 
