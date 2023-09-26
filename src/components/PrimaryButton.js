@@ -11,11 +11,13 @@ import { sizes } from '../data/theme';
  * @param {Function} props.onPress - The function to call when the button is pressed.
  * @param {string} props.text - The text to display on the button.
  * @param {string} props.color - The background color of the button.
+ * @param {boolean} props.disabled - The button is disabled or not
  * @returns {JSX.Element} The rendered PrimaryButton component.
  */
-function PrimaryButton({ onPress, text, color }) {
+function PrimaryButton({ onPress, text, color, disabled }) {
     return (
         <Pressable
+            disabled={disabled}
             onPress={onPress}
             style={{
                 backgroundColor: color,
@@ -38,6 +40,7 @@ function PrimaryButton({ onPress, text, color }) {
  * @property {Function} onPress - The function to call when the button is pressed.
  * @property {string} text - The text to display on the button.
  * @property {string} color - The background color of the button.
+ * @property {boolean} disabled - The button is disabled or not
  */
 
 /**
@@ -49,6 +52,7 @@ PrimaryButton.propTypes = {
     onPress: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
+    disabled: PropTypes.bool
 };
 
 export default PrimaryButton;

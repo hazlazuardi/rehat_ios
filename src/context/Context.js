@@ -147,6 +147,46 @@ const initialJournal = {
 };
 
 const initialJournalingConfig = {
+	journalEmotions: {
+		unpleasant: [
+			"Angry",
+			"Anxious",
+			"Confused",
+			"Depressed",
+			"Disgusted",
+			"Frustrated",
+			"Guilty",
+			"Irritated",
+			"Lonely",
+			"Sad",
+		],
+		slightlyUnpleasant: [
+			"Bored",
+			"Distracted",
+			"Indifferent",
+			"Nervous",
+			"Tired",
+		],
+		neutral: [
+			"Calm",
+			"Content",
+			"Relaxed",
+			"Satisfied",
+			"Serene",
+			"Tranquil",
+		],
+		pleasant: [
+			"Amused",
+			"Excited",
+			"Happy",
+			"Joyful",
+			"Optimistic",
+			"Proud",
+		],
+		veryPleasant: [
+			"Blissful", "Ecstatic", "Euphoric"
+		]
+	},
 	journalThoughts: {
 		people: [
 			'Mom', 'Dad', 'Brother', 'Friends', 'Partner', 'Teacher', 'Boss'

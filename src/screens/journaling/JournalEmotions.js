@@ -5,6 +5,7 @@ import { sizes } from '../../data/theme';
 import { useJournal } from '../../context/Context';
 import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
+import { convertToCamelCase } from '../../helpers/helpers';
 
 /**
  * A React Native component for selecting emotions.
@@ -22,7 +23,7 @@ function JournalEmotions({ navigation }) {
      * @property {object} journal - The journal state.
      * @property {Function} dispatchJournal - A function to dispatch journal-related actions.
      */
-    const { journal, dispatchJournal } = useJournal();
+    const { journal, dispatchJournal, journalingConfig } = useJournal();
 
     /**
      * Handles the press event of a chip.
@@ -68,9 +69,12 @@ function JournalEmotions({ navigation }) {
                 <Text style={{ fontSize: sizes.text.header1 }}>What best describes this feeling?</Text>
 
                 {/* Emotion Chips */}
-                <Chip text={'Amazing'} onPress={() => onPressChip('Amazing')} isSelected={isChipSelected('Amazing')} />
-                <Chip text={'Tolol'} onPress={() => onPressChip('Tolol')} isSelected={isChipSelected('Tolol')} />
-                <Chip text={'Calm'} onPress={() => onPressChip('Calm')} isSelected={isChipSelected('Calm')} />
+                {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
+                    return (
+                        <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
+
+                    )
+                })}
 
                 {/* Done Button */}
                 <PrimaryButton

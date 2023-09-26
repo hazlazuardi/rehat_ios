@@ -71,6 +71,9 @@ EmotionCategoryButton.propTypes = {
  * @returns {JSX.Element} The rendered JournalCategory component.
  */
 function JournalCategory({ navigation }) {
+
+    const { journal } = useJournal()
+
     return (
         <SafeAreaView>
             <View style={{ alignItems: 'center', marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
@@ -92,6 +95,9 @@ function JournalCategory({ navigation }) {
                     onPress={() => navigation.navigate('Journal Emotions')}
                     text={'Done'}
                     color={'green'}
+                    disabled={journal.emotionCategory === ''}
+
+
                 />
             </View>
         </SafeAreaView>
