@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
 import { storage } from "../../App";
+import { formatDate } from "../helpers/useDateFormatter";
 
 /**
  * Context for managing theme-related data.
@@ -97,9 +98,10 @@ function journalReducer(state, action) {
 		}
 		case 'saveJournal': {
 			const strJournals = storage.getString('journals');
+
 			const newJournalData = {
 				...state,
-				dateAdded: Date.now()
+				id: state.dateAdded
 			};
 
 			let journals = [];

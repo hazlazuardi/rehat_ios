@@ -13,7 +13,7 @@ import { sizes } from '../data/theme';
  * @param {Function} props.onEndEditing - A callback function to be called when editing ends.
  * @returns {JSX.Element} The rendered TextArea component.
  */
-function TextArea({ placeholder, numberOfLines, onEndEditing }) {
+function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
     const [inputText, setInputText] = useState('');
 
     /**
@@ -24,7 +24,7 @@ function TextArea({ placeholder, numberOfLines, onEndEditing }) {
         onEndEditing(trimmedText); // Call the onEndEditing callback with the trimmed input text
 
         // Clear the input field
-        setInputText('');
+        // setInputText('');
     };
 
     return (
@@ -32,7 +32,7 @@ function TextArea({ placeholder, numberOfLines, onEndEditing }) {
             multiline
             numberOfLines={numberOfLines}
             placeholder={placeholder}
-            value={inputText}
+            value={value || inputText}
             onChangeText={(text) => setInputText(text)}
             onEndEditing={handleEndEditing}
             style={{

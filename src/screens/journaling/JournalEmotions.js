@@ -53,6 +53,12 @@ function JournalEmotions({ navigation }) {
      */
     const isChipSelected = (emotion) => journal.emotions.includes(emotion);
 
+
+    const handlePrimaryButton = () => {
+        dispatchJournal({ type: 'setJournal', payload: { dateAdded: Date.now() } })
+        navigation.navigate('Journal Thoughts')
+    }
+
     console.log('isSelected', isChipSelected('Amazing'));
 
     return (
@@ -68,7 +74,7 @@ function JournalEmotions({ navigation }) {
 
                 {/* Done Button */}
                 <PrimaryButton
-                    onPress={() => navigation.navigate('Journal Thoughts')}
+                    onPress={handlePrimaryButton}
                     text={'Done'}
                     color={'green'}
                 />
