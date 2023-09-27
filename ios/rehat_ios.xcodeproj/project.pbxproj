@@ -33,6 +33,7 @@
 		5D9CDD592AAF65BE00748DDD /* ConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
+		80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5C8BF2AC481540059AA10 /* PanicView.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-rehat_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AE77EA2ABE2B9A00217E1B /* HKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKView.swift; sourceTree = "<group>"; };
 		80AE77EC2ABE2C1C00217E1B /* rehat Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "rehat Watch App.entitlements"; sourceTree = "<group>"; };
+		80B5C8BF2AC481540059AA10 /* PanicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicView.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rehat_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios-rehat_iosTests.release.xcconfig"; path = "Target Support Files/Pods-rehat_ios-rehat_iosTests/Pods-rehat_ios-rehat_iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -182,6 +184,7 @@
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
 				5D9CDD562AAF63D800748DDD /* RNConnector.swift */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
+				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
 				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
 				5D9CDD542AAF54A100748DDD /* TherapyView.swift */,
 				5D9CDD582AAF65BE00748DDD /* ConnectivityView.swift */,
@@ -567,6 +570,7 @@
 				5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */,
 				288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
+				80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */,
 				28EA34AA2AB62EB000E344A3 /* ReadData.swift in Sources */,
 				285FA8442AB1A2F8005A6EDE /* RecoveryView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,

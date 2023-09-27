@@ -20,12 +20,12 @@ struct Therapy: Identifiable, Decodable {
 
 
 class ReadDataTherapy: ObservableObject {
-    @Published var therapies = [Therapy]()
-
-    init(){
-        loadData()
-    }
-
+  @Published var therapies = [Therapy]()
+  
+  init(){
+    loadData()
+  }
+  
   func loadData() {
     guard let url = Bundle.main.url(forResource: "recoveryData", withExtension: "json") else {
       print("JSON file not found")
@@ -53,38 +53,32 @@ class ReadDataTherapy: ObservableObject {
 struct RecoveryView: View {
   @ObservedObject var recoveryDatas = ReadDataTherapy()
   
-//  init() {
-//    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
-//  }
-
-
+  //  init() {
+  //    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
+  //  }
+  
+  
   
   var body: some View {
-    NavigationStack {
-      ScrollView {
-        VStack {
-          NavigationLink(destination: EmergencyCallView()) {
-            Text("Emergency Call")
-          }
-          NavigationLink(destination: BreathView()) {
-            Text("Breathing Exercise")
-          }
-          ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-            NavigationLink(destination: DetailView(therapy: therapy)) {
-              Text(therapy.name)
-//                .font(.title3)
-//                .fontWeight(.regular)
-//                .foregroundColor(Color.primary)
-            }
-          }
-          NavigationLink(destination: AffirmView()) {
-            Text("Words of Affirmation")
+    NavigationSplitView {
+      List {
+        NavigationLink(destination: BreathView()) {
+          Text("Breathe")
+        }
+        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
+          NavigationLink(destination: DetailView(therapy: therapy)) {
+            Text(therapy.name)
+              .font(.title3)
+              .fontWeight(.regular)
+              .foregroundColor(Color.primary)
           }
         }
-      }
-      .navigationTitle("Recovery")
-      .navigationBarTitleDisplayMode(.automatic)
-      
+        NavigationLink(destination: AffirmView()) {
+          Text("Words of Affirmation")
+        }
+      } .navigationTitle("Recovery")
+    } detail: {
+      BreathView()
     }
   }
 }
@@ -95,3 +89,31 @@ struct RecoveryView_Previews: PreviewProvider {
     RecoveryView()
   }
 }
+
+//  NavigationStack {
+//    ScrollView {
+//      VStack {
+//        NavigationLink(destination: EmergencyCallView()) {
+//          Text("Emergency Call")
+//        }
+//        NavigationLink(destination: BreathView()) {
+//          Text("Breathing Exercise")
+//        }
+//        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
+//          NavigationLink(destination: DetailView(therapy: therapy)) {
+//            Text(therapy.name)
+////                .font(.title3)
+////                .fontWeight(.regular)
+////                .foregroundColor(Color.primary)
+//          }
+//        }
+//        NavigationLink(destination: AffirmView()) {
+//          Text("Words of Affirmation")
+//        }
+//      }
+//    }
+//    .navigationTitle("Recovery")
+//    .navigationBarTitleDisplayMode(.automatic)
+//    
+//  }
+//}

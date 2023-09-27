@@ -10,15 +10,11 @@ import SwiftUI
 struct ContentView: View {
   
   var body: some View {
-    NavigationStack {
-      TabView {
-        HKView()
-        RecoveryView()
-        ConnectivityView()
-//        EmergencyContactView()
-//        TherapyView()
-      }
-//      .navigationTitle("Avanox")
+    TabView {
+      PanicView()
+      RecoveryView()
+        .navigationTitle("Recovery")
+      EmergencyCallView()
     }
   }
 }
