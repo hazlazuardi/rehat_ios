@@ -44,6 +44,7 @@ function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
                 paddingTop: sizes.padding.md,
                 paddingBottom: sizes.padding.md,
                 paddingVertical: sizes.padding.lg,
+                fontSize: sizes.text.header3
             }}
         />
     );

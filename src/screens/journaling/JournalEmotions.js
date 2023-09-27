@@ -7,6 +7,7 @@ import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
 import { convertToCamelCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
+import Divider from '../../components/Divider';
 
 /**
  * A React Native component for selecting emotions.
@@ -65,18 +66,20 @@ function JournalEmotions({ navigation }) {
 
     return (
         <SafeAreaView>
-            <View style={{ alignItems: 'center', paddingTop: sizes.padding.lg, marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
+            <View style={{ alignItems: 'center', paddingTop: sizes.padding.lg, marginHorizontal: sizes.padding.md, gap: sizes.padding.lg }}>
                 <EmotionCategoryButton title={journal.emotionCategory} />
-                <Text style={{ fontSize: sizes.text.header1 }}>What best describes this feeling?</Text>
+                <View style={{ gap: sizes.padding.md }}>
+                    <Text style={{ fontSize: sizes.text.header1, paddingHorizontal: sizes.padding.sm }}>What best describes this feeling?</Text>
+                    <Divider />
+                    {/* Emotion Chips */}
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm, paddingHorizontal: sizes.padding.sm }} >
+                        {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
+                            return (
+                                <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
 
-                {/* Emotion Chips */}
-                <View style={{flexDirection:'row', gap: sizes.padding.sm}} >
-                    {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
-                        return (
-                            <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
-
-                        )
-                    })}
+                            )
+                        })}
+                    </View>
                 </View>
 
                 {/* Done Button */}

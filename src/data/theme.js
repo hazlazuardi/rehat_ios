@@ -14,7 +14,9 @@ export const sizes = {
     text: {
         header1: 32,
         header2: 24,
-        header3: 20
+        header3: 20,
+        bodyLg: 18,
+        body: 16
     },
     button: {
         radius: 50,

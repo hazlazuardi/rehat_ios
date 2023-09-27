@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SafeAreaView, Text, View } from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { sizes } from '../../data/theme';
 import { useJournal } from '../../context/Context';
 import PrimaryButton from '../../components/PrimaryButton';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
 
 /**
@@ -20,34 +21,46 @@ function JournalCategory({ navigation }) {
     const { journal } = useJournal()
 
     return (
-        <SafeAreaView>
-            <View style={{ alignItems: 'center', paddingTop: sizes.padding.md, marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
-                <Text style={{ fontSize: sizes.text.header1 }}>Choose How You're Feeling Right Now</Text>
-                <View style={{ width: '100%', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
-                        <EmotionCategoryButton title="Unpleasant" />
-                        <EmotionCategoryButton title="Slightly Unpleasant" />
+            <SafeAreaView>
+                <View style={{ alignItems: 'center', paddingTop: sizes.padding.md, marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
+                    <Text style={{ fontSize: sizes.text.header1, textAlign: 'center', color:'white' }}>Choose How You're Feeling Right Now</Text>
+                    <View style={{ width: '100%', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                            <EmotionCategoryButton title="Unpleasant" />
+                            <EmotionCategoryButton title="Slightly Unpleasant" />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', margin: sizes.padding.md }}>
+                            <EmotionCategoryButton title="Neutral" />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                            <EmotionCategoryButton title="Pleasant" />
+                            <EmotionCategoryButton title="Very Pleasant" />
+                        </View>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', margin: sizes.padding.md }}>
-                        <EmotionCategoryButton title="Neutral" />
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
-                        <EmotionCategoryButton title="Pleasant" />
-                        <EmotionCategoryButton title="Very Pleasant" />
-                    </View>
+                    <PrimaryButton
+                        onPress={() => navigation.navigate('Journal Emotions')}
+                        text={'Done'}
+                        color={'green'}
+                        disabled={journal.emotionCategory === ''}
+
+
+                    />
                 </View>
-                <PrimaryButton
-                    onPress={() => navigation.navigate('Journal Emotions')}
-                    text={'Done'}
-                    color={'green'}
-                    disabled={journal.emotionCategory === ''}
-
-
-                />
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    background: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1000
+        // Adjust other styles as needed
+    },
+});
 
 /**
  * Prop types for the JournalCategory component.

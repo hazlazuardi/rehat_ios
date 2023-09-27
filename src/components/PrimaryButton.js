@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable, Text } from 'react-native';
 import { sizes } from '../data/theme';
+import { getContrastColor } from '../helpers/helpers';
 
 /**
  * A primary button component.
@@ -14,7 +15,18 @@ import { sizes } from '../data/theme';
  * @param {boolean} props.disabled - The button is disabled or not
  * @returns {JSX.Element} The rendered PrimaryButton component.
  */
-function PrimaryButton({ onPress, text, color, disabled }) {
+function PrimaryButton({ variant, onPress, text, color, disabled }) {
+
+    const textColor = getContrastColor(color)
+
+    const style = {
+        primary: {
+            backgroundColor: color,
+            padding: sizes.button.padding.sm,
+            borderRadius: sizes.button.radius,
+        }
+    }
+
     return (
         <Pressable
             disabled={disabled}
@@ -28,7 +40,12 @@ function PrimaryButton({ onPress, text, color, disabled }) {
                 borderRadius: sizes.button.radius,
             }}
         >
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>{text}</Text>
+            <Text style={{
+                color: textColor,
+                fontWeight: 'bold'
+            }}>
+                {text}
+            </Text>
         </Pressable>
     );
 }

@@ -9,35 +9,53 @@ import JournalSuccess from './src/screens/journaling/JournalSuccess';
 import { MMKV } from "react-native-mmkv";
 import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
+import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 const nestedHeaderOptions = {
-	headerTitle: '', headerTransparent: true, headerBlurEffect: 'extraLight'
+	headerTitle: '', headerTransparent: true, headerBlurEffect: 'systemThickMaterial'
 }
 
 export const storage = new MMKV();
 
+const MyTheme = {
+	dark: false,
+	colors: {
+		primary: 'rgb(255, 45, 85)',
+		background: 'rgb(242, 242, 242)',
+		card: 'rgb(255, 255, 255)',
+		text: 'white',
+		border: 'rgb(199, 199, 204)',
+		notification: 'rgb(255, 69, 58)',
+	},
+};
+
 function App() {
 	return (
 		<StoreProvider>
-			<NavigationContainer>
-				<Stack.Navigator screenOptions={{ headerShown: false }}>
-					<Stack.Screen name='Root' component={BottomTabBar} />
+			<BlurredEllipsesBackground>
+				<NavigationContainer theme={MyTheme}>
+					{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
+					<Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }}>
+						<Stack.Screen name='Root' component={BottomTabBar} />
 
-					{/* Recovery Screens */}
-					<Stack.Group screenOptions={{ headerShown: true, }}>
-						<Stack.Screen name='Journaling' component={Journaling} options={{ headerBackTitle: 'Recovery' }} />
-						<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
-						<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
-						<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
-						<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
-					</Stack.Group>
+						{/* Recovery Screens */}
+						<Stack.Group screenOptions={{ headerShown: true, }}>
+							<Stack.Screen name='Journaling' component={Journaling} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
+							<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
+							<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
+							<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
+						</Stack.Group>
 
 
-				</Stack.Navigator>
-			</NavigationContainer>
-		</StoreProvider>
+					</Stack.Navigator>
+					{/* </View> */}
+				</NavigationContainer>
+			</BlurredEllipsesBackground>
+		</StoreProvider >
 	);
 }
 
