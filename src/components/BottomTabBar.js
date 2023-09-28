@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Dashboard from "../screens/Dashboard";
+import Dashboard from "../screens/dashboard/Dashboard";
 import Learn from "../screens/Learn";
 import Monitoring from "../screens/Monitoring";
 import Recovery from "../screens/Recovery";
