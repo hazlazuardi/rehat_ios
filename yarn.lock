@@ -6181,6 +6181,11 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-contacts@^7.0.7:
+  version "7.0.7"
+  resolved "https://registry.npmjs.org/react-native-contacts/-/react-native-contacts-7.0.7.tgz"
+  integrity sha512-UYECbAS7iQPN8vwXSex6oklXGTiJ/6KpWf8EJgMGVg+E1uU3Hx5T+WIiD0g2wNr6pDPNY8u5f1zFNksWSI9Pgw==
+
 react-native-haptic-feedback@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/react-native-haptic-feedback/-/react-native-haptic-feedback-2.2.0.tgz"
@@ -6230,7 +6235,7 @@ react-native-svg@^13.14.0:
     css-select "^5.1.0"
     css-tree "^1.1.3"
 
-react-native@*, react-native@>=0.42.0, react-native@>=0.48.4, react-native@>=0.60.0, react-native@>=0.71.0, react-native@0.72.4:
+react-native@*, react-native@>=0.42.0, react-native@>=0.48.4, react-native@>=0.60.0, react-native@>=0.64.0, react-native@>=0.71.0, react-native@0.72.4:
   version "0.72.4"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.4.tgz"
   integrity sha512-+vrObi0wZR+NeqL09KihAAdVlQ9IdplwznJWtYrjnQ4UbCW6rkzZJebRsugwUneSOKNFaHFEo1uKU89HsgtYBg==

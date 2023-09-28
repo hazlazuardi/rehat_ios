@@ -53,7 +53,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<key>NSContactsUsageDescription</key>
+	<string>Read contacts to set Emergency Contacts</string>
 </dict>
 </plist>

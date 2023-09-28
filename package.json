@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^6.9.13",
     "react": "18.2.0",
     "react-native": "0.72.4",
+    "react-native-contacts": "^7.0.7",
     "react-native-haptic-feedback": "^2.2.0",
     "react-native-image-picker": "^7.0.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

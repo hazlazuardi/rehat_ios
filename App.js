@@ -11,6 +11,8 @@ import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
 import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
 import { View } from 'react-native';
+import Settings from './src/screens/dashboard/Settings';
+import ManageEmergencyContacts from './src/screens/dashboard/ManageEmergencyContacts';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,26 +37,35 @@ const MyTheme = {
 function App() {
 	return (
 		<StoreProvider>
-			<BlurredEllipsesBackground>
-				<NavigationContainer theme={MyTheme}>
-					{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
-					<Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }}>
-						<Stack.Screen name='Root' component={BottomTabBar} />
+			{/* <BlurredEllipsesBackground> */}
+			<NavigationContainer theme={MyTheme}>
+				{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
+				<Stack.Navigator screenOptions={{
+					headerShown: false,
+					// contentStyle: { backgroundColor: 'transparent' } 
+				}}>
+					<Stack.Screen name='Root' component={BottomTabBar} />
 
-						{/* Recovery Screens */}
-						<Stack.Group screenOptions={{ headerShown: true, }}>
-							<Stack.Screen name='Journaling' component={Journaling} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
-							<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
-							<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
-							<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
-							<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
-						</Stack.Group>
+					<Stack.Group screenOptions={{ headerShown: true }}>
+						<Stack.Screen name='Settings' component={Settings} options={{ ...nestedHeaderOptions, headerBackTitle: 'Dashboard' }} />
+						<Stack.Screen name='Manage Emergency Contact' component={ManageEmergencyContacts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }} />
+					</Stack.Group>
+
+					{/* Recovery Screens */}
+					<Stack.Group screenOptions={{ headerShown: true, }}>
+						<Stack.Screen name='Journaling' component={Journaling} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+						<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
+						<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
+						<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
+						<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
+					</Stack.Group>
 
 
-					</Stack.Navigator>
-					{/* </View> */}
-				</NavigationContainer>
-			</BlurredEllipsesBackground>
+
+				</Stack.Navigator>
+				{/* </View> */}
+			</NavigationContainer>
+			{/* </BlurredEllipsesBackground> */}
 		</StoreProvider >
 	);
 }

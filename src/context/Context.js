@@ -17,6 +17,8 @@ const ThemeContext = createContext(null);
  */
 const JournalContext = createContext(null);
 
+const EmergencyContactsContext = createContext(null)
+
 /**
  * A provider component that wraps the application and provides
  * context for managing theme and journal data.
@@ -33,17 +35,21 @@ function StoreProvider({ children }) {
 	 *
 	 * @type {[object, Function]}
 	 * @property {object} journal - The current state of the journal.
-	 * @property {Function} dispatchJournal - A function to dispatch actions to modify the journal state.
+	 * @property {React.DispatchWithoutAction} dispatchJournal - A function to dispatch actions to modify the journal state.
 	 */
 	const [journal, dispatchJournal] = useReducer(journalReducer, initialJournal);
 
 	const [journalingConfig, setJournalingConfig] = useState(initialJournalingConfig);
 
+	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
+
 	return (
 		<ThemeContext.Provider value={{}}>
-			<JournalContext.Provider value={{ journal, dispatchJournal, journalingConfig, setJournalingConfig }}>
-				{children}
-			</JournalContext.Provider>
+			<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
+				<JournalContext.Provider value={{ journal, dispatchJournal, journalingConfig, setJournalingConfig }}>
+					{children}
+				</JournalContext.Provider>
+			</EmergencyContactsContext.Provider>
 		</ThemeContext.Provider>
 	);
 }
@@ -68,6 +74,10 @@ export function useTheme() {
  */
 export function useJournal() {
 	return useContext(JournalContext);
+}
+
+export function useEmergencyContact() {
+	return useContext(EmergencyContactsContext);
 }
 
 /**
@@ -196,5 +206,37 @@ const initialJournalingConfig = {
 		]
 	}
 }
+
+function contactReducer(state, action) {
+    switch (action.type) {
+		case 'getAllEmergencyContacts': {
+            const strEmergencyContacts = storage.getString('emergencyContacts');
+            if (strEmergencyContacts) {
+                const emergencyContacts = JSON.parse(strEmergencyContacts);
+                return emergencyContacts;
+            }
+            return state; // return the current state if there is no data in storage
+        }
+        case 'saveEmergencyContacts': {
+            const strEmergencyContacts = JSON.stringify(state);
+            storage.set('emergencyContacts', strEmergencyContacts);
+            console.log('saved emergencyContacts', strEmergencyContacts);
+            return state; // return the current state as there is no change in state
+        }
+        case 'removeContact': {
+            const updatedContacts = state.filter(contact => contact.recordID !== action.payload.recordID);
+            return updatedContacts; // return the updated state
+        }
+        case 'addContact': {
+            const updatedContacts = [...state, action.payload];
+            return updatedContacts; // return the updated state
+        }
+        default: {
+            throw Error(`Unknown action: ${action.type}`);
+        }
+    }
+}
+
+const initialEmergencyContactConfig = []
 
 export default StoreProvider;
