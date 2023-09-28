@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Pressable, SafeAreaView, Text } from 'react-native';
+import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { useJournal } from '../../context/Context';
 import { storage } from '../../../App';
 import { sizes } from '../../data/theme';
+import PrimaryButton from '../../components/PrimaryButton';
+import { trigger } from 'react-native-haptic-feedback';
 
 /**
  * A component for journaling and managing journals.
@@ -25,18 +27,29 @@ function Journaling({ navigation }) {
 
     return (
         <SafeAreaView style={{ marginTop: sizes.padding.md, paddingHorizontal: sizes.padding.md }} >
-            <Pressable onPress={() => navigation.navigate('Journal Category')}>
-                <Text>Create a Journal</Text>
-            </Pressable>
-            <Pressable onPress={() => dispatchJournal({ type: 'eraseJournals' })}>
-                <Text>Clear Journals</Text>
-            </Pressable>
-
-            {allJournals.map((journal) => (
-                <Text style={{ marginTop: 8 }} key={journal.dateAdded + journal.emotions[0]}>
-                    {journal.emotions[0]}
-                </Text>
-            ))}
+            <View style={{ gap: sizes.padding.md}}>
+                <PrimaryButton
+                    color='green'
+                    text='Create a Journal'
+                    onPress={() => {
+                        navigation.navigate("Journal Category")
+                        trigger('rigid')
+                    }}
+                />
+                <PrimaryButton
+                    color='red'
+                    text='Clear all journal'
+                    onPress={() => {
+                        dispatchJournal({ type: 'eraseJournals' })
+                        trigger('impactHeavy')
+                    }}
+                />
+                {allJournals.map((journal) => (
+                    <Text style={{ marginTop: 8 }} key={journal.dateAdded + journal.emotions[0]}>
+                        {journal.emotions[0]}
+                    </Text>
+                ))}
+            </View>
         </SafeAreaView>
     );
 }
