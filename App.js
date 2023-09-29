@@ -2,10 +2,38 @@ import React, { useState, useEffect } from 'react';
 import StoreProvider from './src/context/Context';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomTabBar from './src/components/BottomTabBar';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Journaling from './src/screens/journaling/Journaling';
+import JournalCategory from './src/screens/journaling/JournalCategory';
+import JournalSuccess from './src/screens/journaling/JournalSuccess';
+import { MMKV } from "react-native-mmkv";
+import JournalEmotions from './src/screens/journaling/JournalEmotions';
+import JournalThoughts from './src/screens/journaling/JournalThoughts';
+import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
+import { View } from 'react-native';
 import { sendMessage, watchEvents } from 'react-native-watch-connectivity';
 import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity } from 'react-native';
 
+
+const Stack = createNativeStackNavigator();
+
+const nestedHeaderOptions = {
+	headerTitle: '', headerTransparent: true, headerBlurEffect: 'systemThickMaterial'
+}
+
+export const storage = new MMKV();
+
+const MyTheme = {
+	dark: false,
+	colors: {
+		primary: 'rgb(255, 45, 85)',
+		background: 'rgb(242, 242, 242)',
+		card: 'rgb(255, 255, 255)',
+		text: 'white',
+		border: 'rgb(199, 199, 204)',
+		notification: 'rgb(255, 69, 58)',
+	},
+};
 
 function App() {
 
@@ -22,40 +50,27 @@ function App() {
 	console.log(message)
 	return (
 		<StoreProvider>
-			<NavigationContainer>
+			<BlurredEllipsesBackground>
+				<NavigationContainer theme={MyTheme}>
+					{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
+					<Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }}>
+						<Stack.Screen name='Root' component={BottomTabBar} />
 
-				<SafeAreaView>
-					<Text>Received from Watch App!</Text>
-					<Text>{messageFromWatch}</Text>
-					<Text>Send to Watch App!</Text>
-					<TextInput placeholder='Message' onChangeText={setMessage}>
-						{message}
-					</TextInput>
-					{/*
-	    * Call sendMessage on button press
-	    * <http://mtford.co.uk/react-native-watch-connectivity/docs/communication#send-messages>　
-	    */}
-					<TouchableOpacity
-						onPress={() =>{
-							console.log('pressed send')
-							sendMessage(
-								{ "messageFromApp": message },
-								reply => { console.log(reply, message); },
-								error => {
-									if (error) {
-										console.log('error: ', error)
-										Alert.alert("The message can't be sent! The watchOS application is probably not running in the foreground! 🤔");
-									}
-								}
-							)}
-						}
-					>
-						<Text>SEND!</Text>
-					</TouchableOpacity>
-				</SafeAreaView>
-				<BottomTabBar />
-			</NavigationContainer>
-		</StoreProvider>
+						{/* Recovery Screens */}
+						<Stack.Group screenOptions={{ headerShown: true, }}>
+							<Stack.Screen name='Journaling' component={Journaling} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
+							<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
+							<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
+							<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
+						</Stack.Group>
+
+
+					</Stack.Navigator>
+					{/* </View> */}
+				</NavigationContainer>
+			</BlurredEllipsesBackground>
+		</StoreProvider >
 	);
 }
 

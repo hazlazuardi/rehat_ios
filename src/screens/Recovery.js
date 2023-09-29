@@ -1,10 +1,14 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { Pressable, SafeAreaView, Text } from 'react-native';
 
-function Recovery() {
+function Recovery({ navigation }) {
+
+    // console.log('props', props)
     return (
         <SafeAreaView>
-            <Text>This is Recovery Screen</Text>
+            <Pressable onPress={() => navigation.navigate('Journaling')}>
+                <Text>Journaling</Text>
+            </Pressable>
         </SafeAreaView>
     );
 }
