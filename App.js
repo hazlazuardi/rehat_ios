@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StoreProvider from './src/context/Context';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomTabBar from './src/components/BottomTabBar';
@@ -11,6 +11,9 @@ import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
 import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
 import { View } from 'react-native';
+import { sendMessage, watchEvents } from 'react-native-watch-connectivity';
+import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity } from 'react-native';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +36,18 @@ const MyTheme = {
 };
 
 function App() {
+
+	const [messageFromWatch, setMessageFromWatch] = useState("Waiting...");
+	const [message, setMessage] = useState("");
+	// Listener when receive message
+	const messageListener = () => watchEvents.on('message', (message) => {
+		setMessageFromWatch(message.watchMessage);
+	});
+	useEffect(() => {
+		messageListener();
+	}, []);
+
+	console.log(message)
 	return (
 		<StoreProvider>
 			<BlurredEllipsesBackground>
