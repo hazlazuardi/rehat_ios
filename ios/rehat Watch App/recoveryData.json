@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Cognitive Reconstruction",
+    "slides": [
+      {
+        "title": "Title 1",
+        "subTitle": "SubTitle 1"
+      },
+      {
+        "title": "Title 2",
+        "subTitle": "SubTitle 2"
+      },
+      {
+        "title": "Title 3",
+        "subTitle": "SubTitle 3"
+      },
+      {
+        "title": "Title 4",
+        "subTitle": "SubTitle 4"
+      },
+      {
+        "title": "Title 5",
+        "subTitle": "SubTitle 5"
+      }
+    ]
+  },
+  {
+    "name": "5-4-3-2-1",
+    "slides": [
+      {
+        "title": "Notice 5 things that you can see.",
+        "subTitle": "How does it look? Do you notice any patterns on it? What's the most prominent color?"
+      },
+      {
+        "title": "Notice 4 things that you can touch.",
+        "subTitle": "How does it feel? What's the texture like? What is it made of?"
+      },
+      {
+        "title": "Notice 3 things that you can hear.",
+        "subTitle": "How loud is it? What is it saying? Where is it coming from?"
+      },
+      {
+        "title": "Notice 2 things that you can smell.",
+        "subTitle": "What are the notes of the scent? Is it strong, or is it subtle?"
+      },
+      {
+        "title": "Notice 1 thing that you can taste",
+        "subTitle": "What's the flavor profile?"
+      }
+    ]
+  }
+]
