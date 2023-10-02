@@ -208,33 +208,33 @@ const initialJournalingConfig = {
 }
 
 function contactReducer(state, action) {
-    switch (action.type) {
+	switch (action.type) {
 		case 'getAllEmergencyContacts': {
-            const strEmergencyContacts = storage.getString('emergencyContacts');
-            if (strEmergencyContacts) {
-                const emergencyContacts = JSON.parse(strEmergencyContacts);
-                return emergencyContacts;
-            }
-            return state; // return the current state if there is no data in storage
-        }
-        case 'saveEmergencyContacts': {
-            const strEmergencyContacts = JSON.stringify(state);
-            storage.set('emergencyContacts', strEmergencyContacts);
-            console.log('saved emergencyContacts', strEmergencyContacts);
-            return state; // return the current state as there is no change in state
-        }
-        case 'removeContact': {
-            const updatedContacts = state.filter(contact => contact.recordID !== action.payload.recordID);
-            return updatedContacts; // return the updated state
-        }
-        case 'addContact': {
-            const updatedContacts = [...state, action.payload];
-            return updatedContacts; // return the updated state
-        }
-        default: {
-            throw Error(`Unknown action: ${action.type}`);
-        }
-    }
+			const strEmergencyContacts = storage.getString('emergencyContacts');
+			if (strEmergencyContacts) {
+				const emergencyContacts = JSON.parse(strEmergencyContacts);
+				return emergencyContacts;
+			}
+			return [...state]; // return the current state if there is no data in storage
+		}
+		case 'saveEmergencyContacts': {
+			const strEmergencyContacts = JSON.stringify(state);
+			storage.set('emergencyContacts', strEmergencyContacts);
+			// console.log('saved emergencyContacts', strEmergencyContacts);
+			return [...state]; // return the current state as there is no change in state
+		}
+		case 'removeContact': {
+			const updatedContacts = state.filter(contact => contact.recordID !== action.payload.recordID);
+			return [...updatedContacts]; // return the updated state
+		}
+		case 'addContact': {
+			const updatedContacts = [...state, action.payload];
+			return [...updatedContacts]; // return the updated state
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
 }
 
 const initialEmergencyContactConfig = []
