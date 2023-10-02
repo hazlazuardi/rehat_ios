@@ -1,9 +1,7 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
 import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
-import * as WatchConnectivity from 'react-native-watch-connectivity';
-
 
 /**
  * Context for managing theme-related data.
@@ -44,27 +42,6 @@ function StoreProvider({ children }) {
 	const [journalingConfig, setJournalingConfig] = useState(initialJournalingConfig);
 
 	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
-
-
-	// Sync emergencyContacts between iOS app and watchOS app
-	useEffect(() => {
-		// This will run when the component (app) mounts, i.e., when the user opens the app.
-		const syncEmergencyContactsToWatch = async () => {
-			try {
-				// Fetch the latest emergencyContacts from storage
-				dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
-
-				// Send the latest emergencyContacts to the watch app
-				await WatchConnectivity.updateApplicationContext({ emergencyContacts });
-				console.log('Data sent to watch successfully');
-			} catch (err) {
-				console.error('Error sending data to watch:', err);
-			}
-		};
-
-		syncEmergencyContactsToWatch();
-	}, []);
-
 
 	return (
 		<ThemeContext.Provider value={{}}>
@@ -231,37 +208,33 @@ const initialJournalingConfig = {
 }
 
 function contactReducer(state, action) {
-	switch (action.type) {
+    switch (action.type) {
 		case 'getAllEmergencyContacts': {
-			const strEmergencyContacts = storage.getString('emergencyContacts');
-			if (strEmergencyContacts) {
-				const emergencyContacts = JSON.parse(strEmergencyContacts);
-				return emergencyContacts;
-			}
-			return state; // return the current state if there is no data in storage
-		}
-		case 'syncEmergencyContacts': {
-			// Sync to Apple Watch
-
-		}
-		case 'saveEmergencyContacts': {
-			const strEmergencyContacts = JSON.stringify(state);
-			storage.set('emergencyContacts', strEmergencyContacts);
-			console.log('saved emergencyContacts', strEmergencyContacts);
-			return state; // return the current state as there is no change in state
-		}
-		case 'removeContact': {
-			const updatedContacts = state.filter(contact => contact.recordID !== action.payload.recordID);
-			return updatedContacts; // return the updated state
-		}
-		case 'addContact': {
-			const updatedContacts = [...state, action.payload];
-			return updatedContacts; // return the updated state
-		}
-		default: {
-			throw Error(`Unknown action: ${action.type}`);
-		}
-	}
+            const strEmergencyContacts = storage.getString('emergencyContacts');
+            if (strEmergencyContacts) {
+                const emergencyContacts = JSON.parse(strEmergencyContacts);
+                return emergencyContacts;
+            }
+            return state; // return the current state if there is no data in storage
+        }
+        case 'saveEmergencyContacts': {
+            const strEmergencyContacts = JSON.stringify(state);
+            storage.set('emergencyContacts', strEmergencyContacts);
+            console.log('saved emergencyContacts', strEmergencyContacts);
+            return state; // return the current state as there is no change in state
+        }
+        case 'removeContact': {
+            const updatedContacts = state.filter(contact => contact.recordID !== action.payload.recordID);
+            return updatedContacts; // return the updated state
+        }
+        case 'addContact': {
+            const updatedContacts = [...state, action.payload];
+            return updatedContacts; // return the updated state
+        }
+        default: {
+            throw Error(`Unknown action: ${action.type}`);
+        }
+    }
 }
 
 const initialEmergencyContactConfig = []
