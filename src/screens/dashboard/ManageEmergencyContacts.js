@@ -4,7 +4,6 @@ import useContacts from '../../helpers/useContacts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { sizes } from '../../data/theme';
 import Contacts from 'react-native-contacts';
-// import { useEmergencyContact } from '../../context/Context';
 import PrimaryButton from '../../components/PrimaryButton';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
 
@@ -26,7 +25,7 @@ function ManageEmergencyContacts() {
         (contact) => !(emergencyContacts || []).some((econ) => econ.recordID === contact.recordID)
     );
 
-    console.log('econ', emergencyContacts)
+    // console.log('econ', displayedContacts)
 
     const handleAddEmergencyContact = (econ) => {
         dispatchEmergencyContacts({ type: 'addContact', payload: econ });
@@ -47,6 +46,7 @@ function ManageEmergencyContacts() {
         }
         setEditMode(!editMode); // Toggle editMode state
     };
+
 
 
     return (
