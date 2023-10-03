@@ -43,7 +43,7 @@ class ReadDataTherapy: ObservableObject {
       }
       
       self.therapies = decodedTherapies
-      print("JSON data successfully loaded.")
+//      print("JSON data successfully loaded.")
     } catch let error {
       print("Error loading JSON data: \(error)")
     }
@@ -52,11 +52,6 @@ class ReadDataTherapy: ObservableObject {
 
 struct RecoveryView: View {
   @ObservedObject var recoveryDatas = ReadDataTherapy()
-  
-  //  init() {
-  //    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
-  //  }
-  
   
   
   var body: some View {
@@ -89,31 +84,3 @@ struct RecoveryView_Previews: PreviewProvider {
     RecoveryView()
   }
 }
-
-//  NavigationStack {
-//    ScrollView {
-//      VStack {
-//        NavigationLink(destination: EmergencyCallView()) {
-//          Text("Emergency Call")
-//        }
-//        NavigationLink(destination: BreathView()) {
-//          Text("Breathing Exercise")
-//        }
-//        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-//          NavigationLink(destination: DetailView(therapy: therapy)) {
-//            Text(therapy.name)
-////                .font(.title3)
-////                .fontWeight(.regular)
-////                .foregroundColor(Color.primary)
-//          }
-//        }
-//        NavigationLink(destination: AffirmView()) {
-//          Text("Words of Affirmation")
-//        }
-//      }
-//    }
-//    .navigationTitle("Recovery")
-//    .navigationBarTitleDisplayMode(.automatic)
-//    
-//  }
-//}
