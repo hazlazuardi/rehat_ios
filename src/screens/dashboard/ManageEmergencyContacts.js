@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ActivityIndicator, ScrollView, View, TextInput, Pressable, Alert } from 'react-native';
-import useContacts from '../../helpers/useContacts';
+import {
+    Text,
+    ScrollView,
+    View,
+    TextInput,
+    Pressable,
+    ActivityIndicator,
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { sizes } from '../../data/theme';
-import Contacts from 'react-native-contacts';
-import PrimaryButton from '../../components/PrimaryButton';
+import useContacts from '../../helpers/useContacts';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
-import { getReachability, sendMessage, watchEvents, updateApplicationContext } from 'react-native-watch-connectivity';
+import PrimaryButton from '../../components/PrimaryButton';
+import { sizes } from '../../data/theme';
+
 
 function ManageEmergencyContacts() {
     const { emergencyContacts, getAllEmergencyContacts, dispatchEmergencyContacts } = useEmergencyContacts();
@@ -14,19 +20,8 @@ function ManageEmergencyContacts() {
     const [searchResult, setSearchResult] = useState([]);
     const [editMode, setEditMode] = useState(false);
 
-    const [messageFromWatch, setMessageFromWatch] = useState("Waiting...");
-    // Listener when receive message
-    const messageListener = () => watchEvents.on('message', (message) => {
-        setMessageFromWatch(message.watchMessage)
-    })
     useEffect(() => {
-        messageListener()
-    }, [])
-
-    console.log('from Watch', messageFromWatch)
-
-    useEffect(() => {
-        getAllEmergencyContacts(); // get all emergency contacts when the component mounts
+        getAllEmergencyContacts(); // Get all emergency contacts when the component mounts
     }, []);
 
     if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
@@ -36,8 +31,6 @@ function ManageEmergencyContacts() {
         (contact) => !(emergencyContacts || []).some((econ) => econ.recordID === contact.recordID)
     );
 
-    // console.log('econ', displayedContacts)
-
     const handleAddEmergencyContact = (econ) => {
         dispatchEmergencyContacts({ type: 'addContact', payload: econ });
         setSearchResult((prev) => prev.filter((contact) => contact.recordID !== econ.recordID));
@@ -45,11 +38,11 @@ function ManageEmergencyContacts() {
 
     const handleRemoveEmergencyContact = (id) => {
         dispatchEmergencyContacts({ type: 'removeContact', payload: { recordID: id } });
-    }
+    };
 
     const handleSaveEmergencyContacts = () => {
         dispatchEmergencyContacts({ type: 'saveEmergencyContacts' });
-    }
+    };
 
     const handleButtonPress = () => {
         if (editMode) {
@@ -59,9 +52,6 @@ function ManageEmergencyContacts() {
     };
 
 
-    // console.log('econ', emergencyContacts)
-
-    const isReachable = getReachability()
     return (
         <KeyboardAwareScrollView
             extraScrollHeight={64}
@@ -92,24 +82,6 @@ function ManageEmergencyContacts() {
                         text={editMode ? 'Save' : 'Edit'}
                         color={editMode ? 'green' : 'grey'}
                         onPress={handleButtonPress}
-                    />
-                    <PrimaryButton
-                        text='Send to watch'
-                        color='red'
-                        // onPress={() => {
-                        //     if (isReachable) {
-                        //         sendMessage({ 'emergencyContacts': emergencyContacts }, (reply) => {
-                        //             console.log("Message sent and reply received:", reply);
-                        //         }, (error) => {
-                        //             console.error("Error sending message:", error);
-                        //         });
-                        //     } else {
-                        //         console.error("WatchConnectivity session is not reachable.");
-                        //     }
-                        // }}
-                        onPress={() => {
-                            updateApplicationContext({ 'emergencyContacts': emergencyContacts })
-                        }}
                     />
                     <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
                     <ContactSearch setResult={setSearchResult} />
