@@ -27,6 +27,8 @@
 		EA63C9F12AB172CB004D33D9 /* MLTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F02AB172CB004D33D9 /* MLTestView.swift */; };
 		EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */; };
 		EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */; };
+		EAD7C80B2ACB5722008721AB /* CSVUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7C80A2ACB5722008721AB /* CSVUtils.swift */; };
+		EAD7C80D2ACB7054008721AB /* dataset.csv in Resources */ = {isa = PBXBuildFile; fileRef = EAD7C80C2ACB7054008721AB /* dataset.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		EA63C9F02AB172CB004D33D9 /* MLTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLTestView.swift; sourceTree = "<group>"; };
 		EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PanicAttackClassifier.mlmodel; sourceTree = "<group>"; };
 		EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthUtils.swift; sourceTree = "<group>"; };
+		EAD7C80A2ACB5722008721AB /* CSVUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVUtils.swift; sourceTree = "<group>"; };
+		EAD7C80C2ACB7054008721AB /* dataset.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dataset.csv; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -166,6 +170,8 @@
 				EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */,
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
 				EA63C9EC2AB17165004D33D9 /* MLUtils.swift */,
+				EAD7C80A2ACB5722008721AB /* CSVUtils.swift */,
+				EAD7C80C2ACB7054008721AB /* dataset.csv */,
 				5D9CDD562AAF63D800748DDD /* RNConnector.swift */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
 				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
@@ -359,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D9CDD4A2AAEBD9300748DDD /* Preview Assets.xcassets in Resources */,
+				EAD7C80D2ACB7054008721AB /* dataset.csv in Resources */,
 				5D9CDD472AAEBD9300748DDD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,6 +548,7 @@
 				5D9CDD552AAF54A100748DDD /* TherapyView.swift in Sources */,
 				EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */,
 				EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */,
+				EAD7C80B2ACB5722008721AB /* CSVUtils.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				5D9CDD572AAF63D800748DDD /* RNConnector.swift in Sources */,
@@ -840,7 +848,7 @@
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = iPhone;
-				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -908,7 +916,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = iPhone;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
