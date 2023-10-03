@@ -34,16 +34,16 @@ final class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   }
   
   private func loadStoredContacts() {
-      self.contacts = StorageManager.shared.retrieveContacts()
+    self.contacts = StorageManager.shared.retrieveContacts()
   }
   
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     // Handle session activation completion if needed
   }
   
-  func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-    guard let contactsArray = message["emergencyContacts"] as? [[String: Any]] else {
-      replyHandler(["status": "error", "message": "Failed to get emergencyContacts data."])
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    guard let contactsArray = applicationContext["emergencyContacts"] as? [[String: Any]] else {
+      print("Failed to get emergencyContacts data from ApplicationContext.")
       return
     }
     
@@ -61,10 +61,38 @@ final class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
     }
     
     DispatchQueue.main.async {
-        self.contacts = newContacts
-        StorageManager.shared.saveContacts(newContacts)
+      self.contacts = newContacts
+      StorageManager.shared.saveContacts(newContacts)
+      print("Successfully updated contacts from ApplicationContext.")
     }
-    
-    replyHandler(["status": "success", "message": "Data received successfully."])
   }
+  
+  //  func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+  //    guard let contactsArray = message["emergencyContacts"] as? [[String: Any]] else {
+  //      replyHandler(["status": "error", "message": "Failed to get emergencyContacts data."])
+  //      return
+  //    }
+  //
+  //    // Convert the dictionaries to Contact objects
+  //    let newContacts = contactsArray.compactMap { dict -> Contact? in
+  //      guard let givenName = dict["givenName"] as? String,
+  //            let familyName = dict["familyName"] as? String,
+  //            let recordID = dict["recordID"] as? String,
+  //            let phoneNumbers = dict["phoneNumbers"] as? [[String: Any]],
+  //            let firstPhoneNumber = phoneNumbers.first?["number"] as? String
+  //      else { return nil }
+  //
+  //      let name = "\(givenName) \(familyName)"
+  //      return Contact(id: UUID(uuidString: recordID) ?? UUID(), name: name, phoneNum: firstPhoneNumber)
+  //    }
+  //
+  //    DispatchQueue.main.async {
+  //        self.contacts = newContacts
+  //        StorageManager.shared.saveContacts(newContacts)
+  //    }
+  //
+  //    replyHandler(["status": "success", "message": "Data received successfully."])
+  //  }
+  
+  
 }

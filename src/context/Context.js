@@ -229,6 +229,7 @@ function contactReducer(state, action) {
 		case 'saveEmergencyContacts': {
 			const strEmergencyContacts = JSON.stringify(state);
 			storage.set('emergencyContacts', strEmergencyContacts);
+			updateApplicationContext({ 'emergencyContacts': [...state] })
 			// console.log('saved emergencyContacts', strEmergencyContacts);
 			// Sync to Apple Watch
 			// updateApplicationContext({ emergencyContacts: state })
