@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+  @ObservedObject var rnConnector = RNConnector()
   
   var body: some View {
     TabView {
+//      ConnectivityView(rnConnector: rnConnector)
       PanicView()
       RecoveryView()
         .navigationTitle("Recovery")
-      EmergencyCallView()
+//      EmergencyCallView()
+      EmergencyContactsView(rnConnector: rnConnector)
     }
   }
 }
