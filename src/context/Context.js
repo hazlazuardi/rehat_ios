@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
 import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
+import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
+
 
 /**
  * Context for managing theme-related data.
@@ -43,6 +45,13 @@ function StoreProvider({ children }) {
 
 	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
 
+	// useEffect(() => {
+	// 	WatchConnectivity.initialize();
+	// }, [])
+
+	// const unsubscribe = watchEvents.addListener('application-context', context => {
+	// 	console.log('context', context)
+	// })
 	return (
 		<ThemeContext.Provider value={{}}>
 			<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
@@ -221,6 +230,22 @@ function contactReducer(state, action) {
 			const strEmergencyContacts = JSON.stringify(state);
 			storage.set('emergencyContacts', strEmergencyContacts);
 			// console.log('saved emergencyContacts', strEmergencyContacts);
+			// Sync to Apple Watch
+			// updateApplicationContext({ emergencyContacts: state })
+			// .then(() => console.log('Data sent to watch successfully'))
+			// .catch(err => console.error('Error sending data to watch:', err));
+
+			// sendMessage({ emergencyContacts: [...state] },
+			// 	(reply) => {
+			// 		if (reply.success) {
+			// 			console.log('rep', reply)
+			// 		} else {
+			// 			console.error('Error sending data', reply.error)
+			// 		}
+			// 	},
+			// 	(err) => {
+			// 		console.log('err', err)
+			// 	})
 			return [...state]; // return the current state as there is no change in state
 		}
 		case 'removeContact': {

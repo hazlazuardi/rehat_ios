@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ActivityIndicator, ScrollView, View, TextInput, Pressable } from 'react-native';
+import { Text, ActivityIndicator, ScrollView, View, TextInput, Pressable, Alert } from 'react-native';
 import useContacts from '../../helpers/useContacts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { sizes } from '../../data/theme';
 import Contacts from 'react-native-contacts';
 import PrimaryButton from '../../components/PrimaryButton';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
+import { getReachability, sendMessage, watchEvents } from 'react-native-watch-connectivity';
 
 function ManageEmergencyContacts() {
     const { emergencyContacts, getAllEmergencyContacts, dispatchEmergencyContacts } = useEmergencyContacts();
@@ -13,6 +14,16 @@ function ManageEmergencyContacts() {
     const [searchResult, setSearchResult] = useState([]);
     const [editMode, setEditMode] = useState(false);
 
+    const [messageFromWatch, setMessageFromWatch] = useState("Waiting...");
+    // Listener when receive message
+    const messageListener = () => watchEvents.on('message', (message) => {
+        setMessageFromWatch(message.watchMessage)
+    })
+    useEffect(() => {
+        messageListener()
+    }, [])
+
+    console.log('from Watch', messageFromWatch)
 
     useEffect(() => {
         getAllEmergencyContacts(); // get all emergency contacts when the component mounts
@@ -48,7 +59,9 @@ function ManageEmergencyContacts() {
     };
 
 
+    // console.log('econ', emergencyContacts)
 
+    const isReachable = getReachability()
     return (
         <KeyboardAwareScrollView
             extraScrollHeight={64}
@@ -79,6 +92,21 @@ function ManageEmergencyContacts() {
                         text={editMode ? 'Save' : 'Edit'}
                         color={editMode ? 'green' : 'grey'}
                         onPress={handleButtonPress}
+                    />
+                    <PrimaryButton
+                        text='Send to watch'
+                        color='red'
+                        onPress={() => {
+                            if (isReachable) {
+                                sendMessage({ 'emergencyContacts': emergencyContacts }, (reply) => {
+                                    console.log("Message sent and reply received:", reply);
+                                }, (error) => {
+                                    console.error("Error sending message:", error);
+                                });
+                            } else {
+                                console.error("WatchConnectivity session is not reachable.");
+                            }
+                        }}
                     />
                     <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
                     <ContactSearch setResult={setSearchResult} />
