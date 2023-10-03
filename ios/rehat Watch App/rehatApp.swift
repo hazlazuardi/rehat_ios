@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct rehat_Watch_AppApp: App {
+struct rehat_Watch_App: App {
   var body: some Scene {
     WindowGroup {
       ContentView()

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ConnectivityView: View {
   @ObservedObject var rnConnector = RNConnector()
-  
   var body: some View {
     VStack(spacing: 5) {
       Text("Send to Watch")
@@ -22,6 +21,8 @@ struct ConnectivityView: View {
       Text("Message from App")
       Text(self.rnConnector.receivedMessage).padding()
     }
+    .navigationTitle("Connectivity")
+
   }
   
   
