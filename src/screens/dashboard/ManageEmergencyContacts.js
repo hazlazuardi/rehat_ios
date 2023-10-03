@@ -6,7 +6,7 @@ import { sizes } from '../../data/theme';
 import Contacts from 'react-native-contacts';
 import PrimaryButton from '../../components/PrimaryButton';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
-import { getReachability, sendMessage, watchEvents } from 'react-native-watch-connectivity';
+import { getReachability, sendMessage, watchEvents, updateApplicationContext } from 'react-native-watch-connectivity';
 
 function ManageEmergencyContacts() {
     const { emergencyContacts, getAllEmergencyContacts, dispatchEmergencyContacts } = useEmergencyContacts();
@@ -96,16 +96,19 @@ function ManageEmergencyContacts() {
                     <PrimaryButton
                         text='Send to watch'
                         color='red'
+                        // onPress={() => {
+                        //     if (isReachable) {
+                        //         sendMessage({ 'emergencyContacts': emergencyContacts }, (reply) => {
+                        //             console.log("Message sent and reply received:", reply);
+                        //         }, (error) => {
+                        //             console.error("Error sending message:", error);
+                        //         });
+                        //     } else {
+                        //         console.error("WatchConnectivity session is not reachable.");
+                        //     }
+                        // }}
                         onPress={() => {
-                            if (isReachable) {
-                                sendMessage({ 'emergencyContacts': emergencyContacts }, (reply) => {
-                                    console.log("Message sent and reply received:", reply);
-                                }, (error) => {
-                                    console.error("Error sending message:", error);
-                                });
-                            } else {
-                                console.error("WatchConnectivity session is not reachable.");
-                            }
+                            updateApplicationContext({ 'emergencyContacts': emergencyContacts })
                         }}
                     />
                     <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
