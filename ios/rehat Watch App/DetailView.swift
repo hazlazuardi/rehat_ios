@@ -32,7 +32,6 @@ struct DetailView: View {
         }
       }
       .containerBackground(.green.gradient, for: .navigation)
-
 //      .tint(.teal)
 //      .containerBackground(.teal.gradient, for: .tabView)
       .navigationTitle(therapy.name)

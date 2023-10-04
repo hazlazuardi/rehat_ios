@@ -60,6 +60,8 @@ struct BreathView: View {
     .onDisappear {
       textTimer?.invalidate()
     }
+//    .navigationBarBackButtonHidden(true)
+
   }
   
   private func startTimer(with duration: TimeInterval, breathIn: Bool) {

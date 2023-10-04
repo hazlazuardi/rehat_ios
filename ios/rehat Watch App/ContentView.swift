@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
   @StateObject var rnConnector = RNConnector()
+  @State private var selectedTab = 0
+
   
   var body: some View {
     TabView {
@@ -17,6 +19,32 @@ struct ContentView: View {
       EmergencyContactsView(rnConnector: rnConnector)
     }
   }
+//  var body: some View {
+//          TabView(selection: $selectedTab) {
+//              Button(action: {
+//                  selectedTab = 1  // Navigate to Recovery View tab
+//                  // Additional logic to present BreatheView as the primary view of Recovery View
+//              }) {
+//                  Text("Panic Button")
+//              }
+//              .tag(0)
+//              .tabItem {
+//                  Text("Panic")
+//              }
+//
+//              RecoveryView()
+//                  .tag(1)
+//                  .tabItem {
+//                      Text("Recovery")
+//                  }
+//
+//              EmergencyCallView()
+//                  .tag(2)
+//                  .tabItem {
+//                      Text("Emergency Call")
+//                  }
+//          }
+//      }
 }
 
 

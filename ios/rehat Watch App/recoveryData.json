@@ -1,6 +1,31 @@
 [
   {
-    "name": "Cognitive Reconstruction",
+    "name": "Muscle Relaxation",
+    "slides": [
+      {
+        "title": "Title 1",
+        "subTitle": "SubTitle 1"
+      },
+      {
+        "title": "Title 2",
+        "subTitle": "SubTitle 2"
+      },
+      {
+        "title": "Title 3",
+        "subTitle": "SubTitle 3"
+      },
+      {
+        "title": "Title 4",
+        "subTitle": "SubTitle 4"
+      },
+      {
+        "title": "Title 5",
+        "subTitle": "SubTitle 5"
+      }
+    ]
+  },
+  {
+    "name": "Closed Eyes Visualization",
     "slides": [
       {
         "title": "Title 1",
