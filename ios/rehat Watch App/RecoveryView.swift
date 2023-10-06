@@ -1,10 +1,3 @@
-//
-//  RecoveryView.swift
-//  rehat Watch App
-//
-//  Created by Kevin Kurniawan on 13/9/2023.
-//
-
 import SwiftUI
 
 struct Therapy: Identifiable, Decodable {
@@ -17,7 +10,6 @@ struct Therapy: Identifiable, Decodable {
     var subTitle: String
   }
 }
-
 
 class ReadDataTherapy: ObservableObject {
   @Published var therapies = [Therapy]()
