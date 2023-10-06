@@ -22,6 +22,8 @@ const JournalContext = createContext(null);
 
 const EmergencyContactsContext = createContext(null)
 
+const RecoveryReferencesContext = createContext(null)
+
 /**
  * A provider component that wraps the application and provides
  * context for managing theme and journal data.
@@ -46,10 +48,13 @@ function StoreProvider({ children }) {
 
 	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
 
+	const [recoveryReferences, dispatchRecoveryReferences] = useReducer(recoveryReferencesReducer, initialRecoveryReferences)
+
 
 	// Retrieve emergency contacts from the storage
 	useEffect(() => {
 		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' })
+		dispatchRecoveryReferences({ type: 'getRecoveryReferences' })
 	}, [])
 
 	// Update ApplicationContext for the Watch App
@@ -58,16 +63,23 @@ function StoreProvider({ children }) {
 		if (emergencyContacts.length !== 0) {
 			updateApplicationContext({ 'emergencyContacts': [...emergencyContacts] })
 		}
+		const strRecoveryReferences = storage.getString('recoveryReferences');
+		if (strRecoveryReferences) {
+			const parsedRecoveryReferences = JSON.parse(strRecoveryReferences);
+			updateApplicationContext({ 'recoveryReferences': [...parsedRecoveryReferences] })
+		}
 		console.log('updateContext')
-	}, [emergencyContacts.length])
+	}, [emergencyContacts.length, recoveryReferences.length])
 
 	return (
 		<ThemeContext.Provider value={{}}>
-			<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
-				<JournalContext.Provider value={{ journal, dispatchJournal, journalingConfig, setJournalingConfig }}>
-					{children}
-				</JournalContext.Provider>
-			</EmergencyContactsContext.Provider>
+			<RecoveryReferencesContext.Provider value={{ recoveryReferences, dispatchRecoveryReferences }}>
+				<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
+					<JournalContext.Provider value={{ journal, dispatchJournal, journalingConfig, setJournalingConfig }}>
+						{children}
+					</JournalContext.Provider>
+				</EmergencyContactsContext.Provider>
+			</RecoveryReferencesContext.Provider>
 		</ThemeContext.Provider>
 	);
 }
@@ -96,6 +108,10 @@ export function useJournal() {
 
 export function useEmergencyContact() {
 	return useContext(EmergencyContactsContext);
+}
+
+export function useRecoveryReferences() {
+	return useContext(RecoveryReferencesContext)
 }
 
 /**
@@ -224,6 +240,40 @@ const initialJournalingConfig = {
 		]
 	}
 }
+
+function recoveryReferencesReducer(state, action) {
+	switch (action.type) {
+		case 'getRecoveryReferences': {
+			const strRecoveryReferences = storage.getString('recoveryReferences');
+			if (strRecoveryReferences) {
+				const recoveryReferences = JSON.parse(strRecoveryReferences);
+				return recoveryReferences;
+			}
+			return [...state]; // return the current state if there is no data in storage
+		}
+		case 'sortRecoveryReferences': {
+			console.log('sorted', action.payload)
+			const strRecoveryReferences = JSON.stringify(action.payload);
+			storage.set('recoveryReferences', strRecoveryReferences);
+			console.log('saved', action.payload)
+			updateApplicationContext({ 'recoveryReferences': [...action.payload] })
+			return [
+				...action.payload
+			]
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+
+const initialRecoveryReferences = [
+	{ key: '1', label: 'Guided Breathing' },
+	{ key: '2', label: '5-4-3-2-1' },
+	{ key: '3', label: 'Self-Affirmation' },
+	{ key: '4', label: 'Emergency Call' },
+]
 
 function contactReducer(state, action) {
 	switch (action.type) {

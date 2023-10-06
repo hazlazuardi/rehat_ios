@@ -109,7 +109,7 @@ function JournalThoughts({ navigation }) {
                             <Chip key={emotion} text={emotion} />
                         ))}
                     </View>
-                    <Divider />
+                    <Divider color={'white'} />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text>HR Data</Text>
                         <View style={{ gap: sizes.padding.sm }}>
@@ -117,7 +117,7 @@ function JournalThoughts({ navigation }) {
                             <Text style={{ textAlign: 'right' }}>at {timeString}</Text>
                         </View>
                     </View>
-                    <Divider />
+                    <Divider color={'white'} />
                     {Object.keys(journal.photo).length === 0 ? (
                         <Pressable onPress={onPressAddPhoto}>
                             <Text>Add a photo</Text>
@@ -151,7 +151,7 @@ function JournalThoughts({ navigation }) {
                             </View>
                         </>
                     }
-                    <Divider />
+                    <Divider color={'white'} />
                     <Text>Who are you with?</Text>
                     <View style={{ flexDirection: 'row', gap: sizes.padding.sm, flexWrap: 'wrap' }}>
                         {journalingConfig.journalThoughts.people.map((person) => (
@@ -164,7 +164,7 @@ function JournalThoughts({ navigation }) {
                         ))}
                         <ChipInput type="people" onEndEditing={handleAddJournalConfig} />
                     </View>
-                    <Divider />
+                    <Divider color={'white'} />
                     <Text>Where are you?</Text>
                     <View style={{ flexDirection: 'row', gap: sizes.padding.sm, flexWrap: 'wrap' }}>
                         {journalingConfig.journalThoughts.locations.map((location) => (
@@ -177,7 +177,7 @@ function JournalThoughts({ navigation }) {
                         ))}
                         <ChipInput type="locations" onEndEditing={handleAddJournalConfig} />
                     </View>
-                    <Divider />
+                    <Divider color={'white'} />
                     <Text>Write your thoughts</Text>
                     <TextArea placeholder={'Today, I met...'} numberOfLines={250} onEndEditing={handleWriteThoughts} />
                     {/* Done Button */}

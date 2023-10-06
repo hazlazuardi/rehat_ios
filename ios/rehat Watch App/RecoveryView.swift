@@ -43,7 +43,7 @@ class ReadDataTherapy: ObservableObject {
       }
       
       self.therapies = decodedTherapies
-//      print("JSON data successfully loaded.")
+      //      print("JSON data successfully loaded.")
     } catch let error {
       print("Error loading JSON data: \(error)")
     }
@@ -52,28 +52,39 @@ class ReadDataTherapy: ObservableObject {
 
 struct RecoveryView: View {
   @ObservedObject var recoveryDatas = ReadDataTherapy()
-  
+  @ObservedObject var rnConnector = RNConnector()
+  @State private var isPresented: Bool = true
   
   var body: some View {
     NavigationSplitView {
       List {
-        NavigationLink(destination: BreathView()) {
-          Text("Breathe")
-        }
-        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-          NavigationLink(destination: DetailView(therapy: therapy)) {
-            Text(therapy.name)
-              .font(.title3)
-              .fontWeight(.regular)
-              .foregroundColor(Color.primary)
+        ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
+          if reference.label == "Self-Affirmation" {
+            NavigationLink(destination: AffirmView()) {
+              Text(reference.label)
+            }
+          } else if reference.label == "Guided Breathing" {
+            NavigationLink(destination: BreathView()) {
+              Text(reference.label)
+            }
+          }
+          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
+            NavigationLink(destination: DetailView(therapy: therapy)) {
+              Text(therapy.name)
+                .font(.title3)
+                .fontWeight(.regular)
+                .foregroundColor(Color.primary)
+            }
+            .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
           }
         }
-        NavigationLink(destination: AffirmView()) {
-          Text("Words of Affirmation")
-        }
-      } .navigationTitle("Recovery")
+      }
+      .navigationTitle("Recovery")
+      
     } detail: {
+      
       BreathView()
+      
     }
   }
 }
