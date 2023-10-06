@@ -13,7 +13,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E82C22ABAC49B00CEB553 /* HealthKit.swift */; };
-		285FA8442AB1A2F8005A6EDE /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285FA8432AB1A2F8005A6EDE /* RecoveryView.swift */; };
 		2864EA972AB31E3100217F34 /* recoveryData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2864EA962AB31E3100217F34 /* recoveryData.json */; };
 		288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DAB2D2AB37B3E00892CE7 /* DetailView.swift */; };
 		28EA34AC2AB7623400E344A3 /* BreathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AB2AB7623400E344A3 /* BreathView.swift */; };
@@ -28,6 +27,7 @@
 		805FE2C32ACBDC68001CDD55 /* RNConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C22ACBDC68001CDD55 /* RNConnector.swift */; };
 		805FE2C92ACBF0E8001CDD55 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */; };
 		805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */; };
+		808E22672AD0CB32005806E7 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808E22662AD0CB32005806E7 /* RecoveryView.swift */; };
 		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
 		80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5C8BF2AC481540059AA10 /* PanicView.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -76,7 +76,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rehat_ios/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios-rehat_iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		281E82C22ABAC49B00CEB553 /* HealthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKit.swift; sourceTree = "<group>"; };
-		285FA8432AB1A2F8005A6EDE /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		2864EA962AB31E3100217F34 /* recoveryData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recoveryData.json; sourceTree = "<group>"; };
 		288DAB2D2AB37B3E00892CE7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		28EA34AB2AB7623400E344A3 /* BreathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathView.swift; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		805FE2C22ACBDC68001CDD55 /* RNConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConnector.swift; sourceTree = "<group>"; };
 		805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactsView.swift; sourceTree = "<group>"; };
 		805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		808E22662AD0CB32005806E7 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		80AE77EA2ABE2B9A00217E1B /* HKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKView.swift; sourceTree = "<group>"; };
 		80AE77EC2ABE2C1C00217E1B /* rehat Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "rehat Watch App.entitlements"; sourceTree = "<group>"; };
 		80B5C8BF2AC481540059AA10 /* PanicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicView.swift; sourceTree = "<group>"; };
@@ -177,8 +177,8 @@
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
 				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
 				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
-				285FA8432AB1A2F8005A6EDE /* RecoveryView.swift */,
 				288DAB2D2AB37B3E00892CE7 /* DetailView.swift */,
+				808E22662AD0CB32005806E7 /* RecoveryView.swift */,
 				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
 				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
 				805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */,
@@ -556,8 +556,8 @@
 				28EA34AC2AB7623400E344A3 /* BreathView.swift in Sources */,
 				288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
+				808E22672AD0CB32005806E7 /* RecoveryView.swift in Sources */,
 				80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */,
-				285FA8442AB1A2F8005A6EDE /* RecoveryView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				805FE2C32ACBDC68001CDD55 /* RNConnector.swift in Sources */,
 				805FE2C92ACBF0E8001CDD55 /* EmergencyContactsView.swift in Sources */,
