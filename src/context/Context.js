@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
 import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
+import useEmergencyContacts from "../helpers/useEmergencyContacts";
 
 
 /**
@@ -45,13 +46,21 @@ function StoreProvider({ children }) {
 
 	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
 
-	// useEffect(() => {
-	// 	WatchConnectivity.initialize();
-	// }, [])
 
-	// const unsubscribe = watchEvents.addListener('application-context', context => {
-	// 	console.log('context', context)
-	// })
+	// Retrieve emergency contacts from the storage
+	useEffect(() => {
+		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' })
+	}, [])
+
+	// Update ApplicationContext for the Watch App
+	useEffect(() => {
+		console.log(emergencyContacts)
+		if (emergencyContacts.length !== 0) {
+			updateApplicationContext({ 'emergencyContacts': [...emergencyContacts] })
+		}
+		console.log('updateContext')
+	}, [emergencyContacts.length])
+
 	return (
 		<ThemeContext.Provider value={{}}>
 			<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
@@ -230,23 +239,6 @@ function contactReducer(state, action) {
 			const strEmergencyContacts = JSON.stringify(state);
 			storage.set('emergencyContacts', strEmergencyContacts);
 			updateApplicationContext({ 'emergencyContacts': [...state] })
-			// console.log('saved emergencyContacts', strEmergencyContacts);
-			// Sync to Apple Watch
-			// updateApplicationContext({ emergencyContacts: state })
-			// .then(() => console.log('Data sent to watch successfully'))
-			// .catch(err => console.error('Error sending data to watch:', err));
-
-			// sendMessage({ emergencyContacts: [...state] },
-			// 	(reply) => {
-			// 		if (reply.success) {
-			// 			console.log('rep', reply)
-			// 		} else {
-			// 			console.error('Error sending data', reply.error)
-			// 		}
-			// 	},
-			// 	(err) => {
-			// 		console.log('err', err)
-			// 	})
 			return [...state]; // return the current state as there is no change in state
 		}
 		case 'removeContact': {
