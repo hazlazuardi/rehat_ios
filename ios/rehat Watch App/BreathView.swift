@@ -35,42 +35,44 @@ struct BreathView: View {
         BreathPhase(breathInDuration: 4, holdDuration: 7, breathOutDuration: 8, holdTwoDuration: 0),
     ]
     
-    var body: some View {
-        VStack {
-            if timerState == .selection {
-                ForEach(breathingOptions.indices, id: \.self) { index in
-                    Button(action: {
-                        startTimer(with: breathingOptions[index])
-                    }) {
-                      Text("\(Int(breathingOptions[index].breathInDuration))-\(Int(breathingOptions[index].holdDuration))-\(Int(breathingOptions[index].breathOutDuration))-\(Int(breathingOptions[index].holdTwoDuration))")
-
-                            .font(.headline)
-                            .frame(height:30)
-                    }
-                }
-            } else {
-                Text("\(breathingStatus)")
-                Text("\(Int(remainingTime))")
-                    .font(.title)
-                    .padding()
-                
-                Button(action: {
-                    stopTimer()
-                }) {
-                    Text("Stop")
-                        .font(.headline)
-                        .padding()
-                }
+  var body: some View {
+    ScrollView{
+      VStack {
+        if timerState == .selection {
+          ForEach(breathingOptions.indices, id: \.self) { index in
+            Button(action: {
+              startTimer(with: breathingOptions[index])
+            }) {
+              Text("\(Int(breathingOptions[index].breathInDuration))-\(Int(breathingOptions[index].holdDuration))-\(Int(breathingOptions[index].breathOutDuration))-\(Int(breathingOptions[index].holdTwoDuration))")
+              
+                .font(.headline)
+                .frame(height:30)
             }
+          }
+        } else {
+          Text("\(breathingStatus)")
+          Text("\(Int(remainingTime))")
+            .font(.title)
+            .padding()
+          
+          Button(action: {
+            stopTimer()
+          }) {
+            Text("Stop")
+              .font(.headline)
+              .padding()
+          }
         }
-        .navigationTitle("Breathing")
-        .onAppear {
-            startTextTimer()
-        }
-        .onDisappear {
-            textTimer?.invalidate()
-        }
+      }
     }
+    .navigationTitle("Breathing")
+    .onAppear {
+      startTextTimer()
+    }
+    .onDisappear {
+      textTimer?.invalidate()
+    }
+  }
     
   private func startTimer(with phase: BreathPhase) {
     timer?.invalidate()
@@ -115,24 +117,27 @@ struct BreathView: View {
       return
     }
     
-    var totalTime = phase.breathInDuration + phase.holdDuration + phase.breathOutDuration + phase.holdTwoDuration
-
-    let totalTimeInMinutes = 60 / totalTime
-
+    let totalTime = phase.breathInDuration + phase.holdDuration + phase.breathOutDuration + phase.holdTwoDuration
+    
 //    print("\(totalTime) total time")
 //    print("\(totalTimeInMinutes) total time in minutes")
+//    print("\(60/totalTime)")
     
     var remainingBackTime = remainingTime
     
     if totalTime == 16.0 {
       remainingBackTime = remainingTime + 4
     }
+    
+    if totalTime == 19.0 {
+      remainingBackTime = remainingTime + 16
+    }
       
     let remainingTimeInCycle = totalTime - remainingBackTime.truncatingRemainder(dividingBy: totalTime)
     
-//    print("\(remainingTimeInCycle) Remaining time in cycle")
+    print("\(remainingTimeInCycle) Remaining time in cycle")
     print("\(remainingBackTime)")
-    print("\(remainingTime.truncatingRemainder(dividingBy: totalTime)) Remaining time bla bla")
+//    print("\(remainingTime.truncatingRemainder(dividingBy: totalTime)) Remaining time bla bla")
     
     
     if remainingTimeInCycle <= phase.breathInDuration {
