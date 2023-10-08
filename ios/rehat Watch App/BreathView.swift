@@ -34,6 +34,12 @@ struct BreathView: View {
         BreathPhase(breathInDuration: 4, holdDuration: 0, breathOutDuration: 2, holdTwoDuration: 0),
         BreathPhase(breathInDuration: 4, holdDuration: 7, breathOutDuration: 8, holdTwoDuration: 0),
     ]
+  
+  private func formatDuration(_ duration: TimeInterval) -> String {
+      let intDuration = Int(duration)
+      return intDuration > 0 ? "\(intDuration)" : ""
+  }
+
     
   var body: some View {
     ScrollView{
@@ -43,15 +49,22 @@ struct BreathView: View {
             Button(action: {
               startTimer(with: breathingOptions[index])
             }) {
-              Text("\(Int(breathingOptions[index].breathInDuration))-\(Int(breathingOptions[index].holdDuration))-\(Int(breathingOptions[index].breathOutDuration))-\(Int(breathingOptions[index].holdTwoDuration))")
-              
-                .font(.headline)
-                .frame(height:30)
+              Text([
+                formatDuration(breathingOptions[index].breathInDuration),
+                formatDuration(breathingOptions[index].holdDuration),
+                formatDuration(breathingOptions[index].breathOutDuration),
+                formatDuration(breathingOptions[index].holdTwoDuration)
+              ]
+                .filter { !$0.isEmpty }
+                .joined(separator: "-")
+              )
+              .font(.headline)
+              .frame(height:30)
             }
           }
         } else {
           Text("\(breathingStatus)")
-          Text("\(Int(remainingTime))")
+          Text("\(Int(remainingTime + 1))")
             .font(.title)
             .padding()
           
@@ -135,8 +148,8 @@ struct BreathView: View {
       
     let remainingTimeInCycle = totalTime - remainingBackTime.truncatingRemainder(dividingBy: totalTime)
     
-    print("\(remainingTimeInCycle) Remaining time in cycle")
-    print("\(remainingBackTime)")
+//    print("\(remainingTimeInCycle) Remaining time in cycle")
+//    print("\(remainingBackTime)")
 //    print("\(remainingTime.truncatingRemainder(dividingBy: totalTime)) Remaining time bla bla")
     
     
@@ -147,7 +160,7 @@ struct BreathView: View {
     } else if remainingTimeInCycle <= (phase.breathInDuration + phase.holdDuration + phase.breathOutDuration) {
       breathingStatus = "Breath Out"
     } else if remainingTimeInCycle <= (phase.breathInDuration + phase.holdDuration + phase.breathOutDuration + phase.holdTwoDuration) {
-      breathingStatus = "Hold Two"
+      breathingStatus = "Hold"
     }
   }
 }
