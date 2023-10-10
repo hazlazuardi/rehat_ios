@@ -35,7 +35,7 @@ class ReadDataTherapy: ObservableObject {
       }
       
       self.therapies = decodedTherapies
-      //      print("JSON data successfully loaded.")
+//      print("JSON data successfully loaded.")
     } catch let error {
       print("Error loading JSON data: \(error)")
     }
