@@ -44,7 +44,7 @@ class ReadDataTherapy: ObservableObject {
 
 struct RecoveryView: View {
   @ObservedObject var recoveryDatas = ReadDataTherapy()
-  @ObservedObject var rnConnector = RNConnector()
+  @ObservedObject var rnConnector: RNConnector
   @State private var isPresented: Bool = true
   
   var body: some View {
@@ -82,8 +82,7 @@ struct RecoveryView: View {
 }
 
 
-struct RecoveryView_Previews: PreviewProvider {
-  static var previews: some View {
-    RecoveryView()
-  }
+#Preview {
+  let rnConnector = RNConnector() // Create an instance of RNConnector
+  return RecoveryView(rnConnector: rnConnector) // Pass it to  RecoveryView
 }

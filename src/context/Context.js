@@ -58,18 +58,18 @@ function StoreProvider({ children }) {
 	}, [])
 
 	// Update ApplicationContext for the Watch App
-	useEffect(() => {
-		console.log(emergencyContacts)
-		if (emergencyContacts.length !== 0) {
-			updateApplicationContext({ 'emergencyContacts': [...emergencyContacts] })
-		}
-		const strRecoveryReferences = storage.getString('recoveryReferences');
-		if (strRecoveryReferences) {
-			const parsedRecoveryReferences = JSON.parse(strRecoveryReferences);
-			updateApplicationContext({ 'recoveryReferences': [...parsedRecoveryReferences] })
-		}
-		console.log('updateContext')
-	}, [emergencyContacts.length, recoveryReferences.length])
+	// useEffect(() => {
+	// 	console.log(emergencyContacts)
+	// 	if (emergencyContacts.length !== 0) {
+	// 		updateApplicationContext({ 'emergencyContacts': [...emergencyContacts] })
+	// 	}
+	// 	const strRecoveryReferences = storage.getString('recoveryReferences');
+	// 	if (strRecoveryReferences) {
+	// 		const parsedRecoveryReferences = JSON.parse(strRecoveryReferences);
+	// 		updateApplicationContext({ 'recoveryReferences': [...parsedRecoveryReferences] })
+	// 	}
+	// 	console.log('updateContext')
+	// }, [emergencyContacts.length, recoveryReferences.length])
 
 	return (
 		<ThemeContext.Provider value={{}}>
