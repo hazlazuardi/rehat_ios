@@ -38,7 +38,7 @@ function useContacts() {
     }
   };
 
-  return { contacts, error, loading, result, handleSearch };
+  return { contacts, error, loading, result, handleSearch, setResult };
 }
 
 export default useContacts;

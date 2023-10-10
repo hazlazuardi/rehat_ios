@@ -22,9 +22,10 @@
 		281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E82C22ABAC49B00CEB553 /* HealthKit.swift */; };
 		2864EA972AB31E3100217F34 /* recoveryData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2864EA962AB31E3100217F34 /* recoveryData.json */; };
 		286B837B2AD511140056E1B0 /* rehatCircularComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286B837A2AD511140056E1B0 /* rehatCircularComplication.swift */; };
+		286B83822AD532440056E1B0 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808E22662AD0CB32005806E7 /* RecoveryView.swift */; };
+		286B83832AD532440056E1B0 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */; };
 		288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DAB2D2AB37B3E00892CE7 /* DetailView.swift */; };
 		28D1E1BF2ACD434C00207881 /* RNConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C22ACBDC68001CDD55 /* RNConnector.swift */; };
-		28D1E1C02ACD436800207881 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */; };
 		28EA34AC2AB7623400E344A3 /* BreathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AB2AB7623400E344A3 /* BreathView.swift */; };
 		28EA34AE2AB7782100E344A3 /* affirmWordsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 28EA34AD2AB7782100E344A3 /* affirmWordsData.json */; };
 		28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AF2AB778C700E344A3 /* AffirmView.swift */; };
@@ -35,7 +36,6 @@
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */; };
-		808E22672AD0CB32005806E7 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808E22662AD0CB32005806E7 /* RecoveryView.swift */; };
 		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
 		80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5C8BF2AC481540059AA10 /* PanicView.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -261,17 +261,16 @@
 				EAD7C80C2ACB7054008721AB /* dataset.csv */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
 				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
-				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
 				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
 				EA63C9F02AB172CB004D33D9 /* MLTestView.swift */,
 				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
 				288DAB2D2AB37B3E00892CE7 /* DetailView.swift */,
-				808E22662AD0CB32005806E7 /* RecoveryView.swift */,
-				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
 				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
 				805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */,
 				28EA34AB2AB7623400E344A3 /* BreathView.swift */,
 				28EA34AF2AB778C700E344A3 /* AffirmView.swift */,
+				808E22662AD0CB32005806E7 /* RecoveryView.swift */,
+				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
 				28EA34AD2AB7782100E344A3 /* affirmWordsData.json */,
 				2864EA962AB31E3100217F34 /* recoveryData.json */,
 				5D9CDD462AAEBD9300748DDD /* Assets.xcassets */,
@@ -694,16 +693,16 @@
 				28EA34AC2AB7623400E344A3 /* BreathView.swift in Sources */,
 				288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */,
 				5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */,
+				286B83822AD532440056E1B0 /* RecoveryView.swift in Sources */,
 				28D1E1BF2ACD434C00207881 /* RNConnector.swift in Sources */,
 				80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */,
-				285FA8442AB1A2F8005A6EDE /* RecoveryView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */,
-				805FE2C92ACBF0E8001CDD55 /* EmergencyContactsView.swift in Sources */,
 				80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */,
 				281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */,
 				28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */,
 				805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */,
+				286B83832AD532440056E1B0 /* EmergencyContactsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +732,7 @@
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-rehat_ios-rehat_iosTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -761,6 +761,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				INFOPLIST_FILE = rehat_iosTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -787,7 +788,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KC9T8QY96D;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -800,7 +801,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.kevin";
 				PRODUCT_NAME = rehat_ios;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -821,7 +822,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KC9T8QY96D;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -833,7 +834,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.kevin";
 				PRODUCT_NAME = rehat_ios;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -860,7 +861,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = KC9T8QY96D;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -877,7 +878,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar.rehat-Watch-Widget";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.kevinWatch.Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -905,7 +906,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = KC9T8QY96D;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -921,7 +922,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar.rehat-Watch-Widget";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.kevinWatch.Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -949,14 +950,23 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "\"rehat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = KC9T8QY96D;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = rehat_ios/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = rehat;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_CFBundleDisplayName = rehat_ios;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use camera to add photos";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Read contacts to set Emergency Contacts";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Rehat App wants to access health data and analyze it";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Rehat App wants to access health data and analyze it";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Rehat App wants to access health data and analyze it";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Import photo from library";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "org.reactjs.native.example.rehat-ios";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -966,7 +976,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.kevinWatch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -997,14 +1007,23 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"rehat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = KC9T8QY96D;
+				DEVELOPMENT_TEAM = GVAY82DVX9;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = rehat_ios/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = rehat;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_CFBundleDisplayName = rehat_ios;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use camera to add photos";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Read contacts to set Emergency Contacts";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Rehat App wants to access health data and analyze it";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Rehat App wants to access health data and analyze it";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Rehat App wants to access health data and analyze it";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Import photo from library";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "org.reactjs.native.example.rehat-ios";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1013,7 +1032,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatar";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.kevinWatch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
