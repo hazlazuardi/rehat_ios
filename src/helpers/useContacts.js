@@ -5,32 +5,40 @@ function useContacts() {
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const fetchContacts = async () => {
+      setLoading(true);
       Contacts.getAll()
         .then(res => {
-          setContacts(res)
+          setContacts(res);
+          setLoading(false);
         })
         .catch(err => {
-          // console.log('error', err)
-          setError(err)
-        })
-      // setLoading(true);
-      // try {
-      //   const contactsList = await Contacts.getAll();
-      //   setContacts(contactsList);
-      // } catch (err) {
-      //   setError(err);
-      // } finally {
-      //   setLoading(false);
-      // }
+          setError(err);
+          setLoading(false);
+        });
     };
 
     fetchContacts();
   }, []);
 
-  return { contacts, error, loading };
+  const handleSearch = async (searchTerm) => {
+    if (searchTerm.trim()) {
+      try {
+        const results = await Contacts.getContactsMatchingString(searchTerm);
+        console.log('from API', results);
+        setResult(results);
+      } catch (error) {
+        console.error('Error searching contacts:', error);
+      }
+    } else {
+      setResult([]);
+    }
+  };
+
+  return { contacts, error, loading, result, handleSearch };
 }
 
 export default useContacts;
