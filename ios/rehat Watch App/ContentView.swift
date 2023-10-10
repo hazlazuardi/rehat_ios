@@ -14,6 +14,7 @@ struct ContentView: View {
   
   var body: some View {
     TabView {
+      NotifTestView()
       PanicView()
       RecoveryView()
       EmergencyContactsView(rnConnector: rnConnector)
