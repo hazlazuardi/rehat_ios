@@ -39,7 +39,7 @@ function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
                 minHeight: sizes.padding.lg * 3,
                 backgroundColor: 'grey',
                 color: 'white',
-                borderRadius: sizes.radius,
+                borderRadius: sizes.radius.sm,
                 paddingHorizontal: sizes.padding.md,
                 paddingTop: sizes.padding.md,
                 paddingBottom: sizes.padding.md,

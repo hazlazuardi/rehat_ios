@@ -53,6 +53,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSContactsUsageDescription</key>
+	<string>Read contacts to set Emergency Contacts</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Rehat App wants to access health data and analyze it</string>
 	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>

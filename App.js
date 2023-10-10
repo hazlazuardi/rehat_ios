@@ -58,65 +58,43 @@ function App() {
   }, []);
 
   console.log(message);
-  return (
-    <StoreProvider>
-      {/* <BlurredEllipsesBackground> */}
-      <NavigationContainer theme={MyTheme}>
-        {/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            // contentStyle: { backgroundColor: 'transparent' }
-          }}>
-          <Stack.Screen name="Root" component={BottomTabBar} />
+	return (
+		<StoreProvider>
+			{/* <BlurredEllipsesBackground> */}
+			<GestureHandlerRootView style={{ flex: 1 }}>
+				<NavigationContainer theme={MyTheme}>
+					{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
+					<Stack.Navigator screenOptions={{
+						headerShown: false,
+						// contentStyle: { backgroundColor: 'transparent' } 
+					}}>
+						<Stack.Screen name='Root' component={BottomTabBar} />
 
-          <Stack.Group screenOptions={{headerShown: true}}>
-            <Stack.Screen
-              name="Settings"
-              component={Settings}
-              options={{...nestedHeaderOptions, headerBackTitle: 'Dashboard'}}
-            />
-            <Stack.Screen
-              name="Manage Emergency Contact"
-              component={ManageEmergencyContacts}
-              options={{...nestedHeaderOptions, headerBackTitle: 'Settings'}}
-            />
-          </Stack.Group>
+						{/* Settings */}
+						<Stack.Group screenOptions={{ headerShown: true }}>
+							<Stack.Screen name='Settings' component={Settings} options={{ ...nestedHeaderOptions, headerBackTitle: 'Dashboard' }} />
+							<Stack.Screen name='Manage Emergency Contact' component={ManageEmergencyContacts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }} />
+							<Stack.Screen name='Manage Recovery Preferences' component={ManageRecoveryPreferences} options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }} />
+						</Stack.Group>
 
-          {/* Recovery Screens */}
-          <Stack.Group screenOptions={{headerShown: true}}>
-            <Stack.Screen
-              name="Journaling"
-              component={Journaling}
-              options={{...nestedHeaderOptions, headerBackTitle: 'Recovery'}}
-            />
-            <Stack.Screen
-              name="Journal Category"
-              component={JournalCategory}
-              options={{...nestedHeaderOptions, headerBackTitle: 'Journaling'}}
-            />
-            <Stack.Screen
-              name="Journal Emotions"
-              component={JournalEmotions}
-              options={{...nestedHeaderOptions, headerBackTitle: 'Category'}}
-            />
-            <Stack.Screen
-              name="Journal Thoughts"
-              component={JournalThoughts}
-              options={{...nestedHeaderOptions, headerBackTitle: 'Emotions'}}
-            />
-            <Stack.Screen
-              name="Journal Success"
-              component={JournalSuccess}
-              options={{...nestedHeaderOptions, headerShown: false}}
-            />
-          </Stack.Group>
-        </Stack.Navigator>
-        {/* </View> */}
-      </NavigationContainer>
-      {/* </BlurredEllipsesBackground> */}
-    </StoreProvider>
-  );
+						{/* Recovery Screens */}
+						<Stack.Group screenOptions={{ headerShown: true, }}>
+							<Stack.Screen name='Journaling' component={Journaling} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
+							<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
+							<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
+							<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
+						</Stack.Group>
+
+
+
+					</Stack.Navigator>
+					{/* </View> */}
+				</NavigationContainer>
+			</GestureHandlerRootView>
+			{/* </BlurredEllipsesBackground> */}
+		</StoreProvider >
+	);
 }
 
 export default App;

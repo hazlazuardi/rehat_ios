@@ -70,7 +70,7 @@ function JournalEmotions({ navigation }) {
                 <EmotionCategoryButton title={journal.emotionCategory} />
                 <View style={{ gap: sizes.padding.md }}>
                     <Text style={{ fontSize: sizes.text.header1, paddingHorizontal: sizes.padding.sm }}>What best describes this feeling?</Text>
-                    <Divider />
+                    <Divider color={'white'} />
                     {/* Emotion Chips */}
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm, paddingHorizontal: sizes.padding.sm }} >
                         {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {

@@ -122,7 +122,7 @@ const styles = {
         padding: sizes.padding.md,
         backgroundColor: 'grey',
         borderColor: 'white',
-        borderRadius: sizes.radius,
+        borderRadius: sizes.radius.sm,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItem: 'center'
@@ -134,7 +134,7 @@ const styles = {
         minHeight: sizes.padding.lg,
         backgroundColor: 'grey',
         color: 'white',
-        borderRadius: sizes.radius,
+        borderRadius: sizes.radius.sm,
         paddingHorizontal: sizes.padding.md,
         paddingVertical: sizes.padding.md,
         fontSize: sizes.text.header3,

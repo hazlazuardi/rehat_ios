@@ -1,10 +1,3 @@
-//
-//  RecoveryView.swift
-//  rehat Watch App
-//
-//  Created by Kevin Kurniawan on 13/9/2023.
-//
-
 import SwiftUI
 
 struct Therapy: Identifiable, Decodable {
@@ -17,7 +10,6 @@ struct Therapy: Identifiable, Decodable {
     var subTitle: String
   }
 }
-
 
 class ReadDataTherapy: ObservableObject {
   @Published var therapies = [Therapy]()
@@ -52,28 +44,39 @@ class ReadDataTherapy: ObservableObject {
 
 struct RecoveryView: View {
   @ObservedObject var recoveryDatas = ReadDataTherapy()
-  
+  @ObservedObject var rnConnector = RNConnector()
+  @State private var isPresented: Bool = true
   
   var body: some View {
     NavigationSplitView {
       List {
-        NavigationLink(destination: BreathView()) {
-          Text("Breathe")
-        }
-        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-          NavigationLink(destination: DetailView(therapy: therapy)) {
-            Text(therapy.name)
-              .font(.title3)
-              .fontWeight(.regular)
-              .foregroundColor(Color.primary)
+        ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
+          if reference.label == "Self-Affirmation" {
+            NavigationLink(destination: AffirmView()) {
+              Text(reference.label)
+            }
+          } else if reference.label == "Guided Breathing" {
+            NavigationLink(destination: BreathView()) {
+              Text(reference.label)
+            }
+          }
+          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
+            NavigationLink(destination: DetailView(therapy: therapy)) {
+              Text(therapy.name)
+                .font(.title3)
+                .fontWeight(.regular)
+                .foregroundColor(Color.primary)
+            }
+            .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
           }
         }
-        NavigationLink(destination: AffirmView()) {
-          Text("Words of Affirmation")
-        }
-      } .navigationTitle("Recovery")
+      }
+      .navigationTitle("Recovery")
+      
     } detail: {
+      
       BreathView()
+      
     }
   }
 }

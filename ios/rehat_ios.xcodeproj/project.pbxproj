@@ -20,7 +20,6 @@
 		280A5F3B2AD46B1400F3D058 /* RehatComplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A5F3A2AD46B1400F3D058 /* RehatComplicationView.swift */; };
 		280A5F3D2AD46BD400F3D058 /* rehatCornerComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A5F3C2AD46BD400F3D058 /* rehatCornerComplication.swift */; };
 		281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E82C22ABAC49B00CEB553 /* HealthKit.swift */; };
-		285FA8442AB1A2F8005A6EDE /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285FA8432AB1A2F8005A6EDE /* RecoveryView.swift */; };
 		2864EA972AB31E3100217F34 /* recoveryData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2864EA962AB31E3100217F34 /* recoveryData.json */; };
 		286B837B2AD511140056E1B0 /* rehatCircularComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286B837A2AD511140056E1B0 /* rehatCircularComplication.swift */; };
 		288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DAB2D2AB37B3E00892CE7 /* DetailView.swift */; };
@@ -36,6 +35,7 @@
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */; };
+		808E22672AD0CB32005806E7 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808E22662AD0CB32005806E7 /* RecoveryView.swift */; };
 		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
 		80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5C8BF2AC481540059AA10 /* PanicView.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -126,7 +126,6 @@
 		280A5F3A2AD46B1400F3D058 /* RehatComplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RehatComplicationView.swift; sourceTree = "<group>"; };
 		280A5F3C2AD46BD400F3D058 /* rehatCornerComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rehatCornerComplication.swift; sourceTree = "<group>"; };
 		281E82C22ABAC49B00CEB553 /* HealthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKit.swift; sourceTree = "<group>"; };
-		285FA8432AB1A2F8005A6EDE /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		2864EA962AB31E3100217F34 /* recoveryData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recoveryData.json; sourceTree = "<group>"; };
 		286B837A2AD511140056E1B0 /* rehatCircularComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rehatCircularComplication.swift; sourceTree = "<group>"; };
 		288DAB2D2AB37B3E00892CE7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -145,6 +144,7 @@
 		805FE2C22ACBDC68001CDD55 /* RNConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConnector.swift; sourceTree = "<group>"; };
 		805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactsView.swift; sourceTree = "<group>"; };
 		805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		808E22662AD0CB32005806E7 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		80AE77EA2ABE2B9A00217E1B /* HKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKView.swift; sourceTree = "<group>"; };
 		80AE77EC2ABE2C1C00217E1B /* rehat Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "rehat Watch App.entitlements"; sourceTree = "<group>"; };
 		80B5C8BF2AC481540059AA10 /* PanicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicView.swift; sourceTree = "<group>"; };
@@ -263,11 +263,12 @@
 				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
 				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
 				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
-				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
-				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
 				EA63C9F02AB172CB004D33D9 /* MLTestView.swift */,
-				285FA8432AB1A2F8005A6EDE /* RecoveryView.swift */,
+				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
 				288DAB2D2AB37B3E00892CE7 /* DetailView.swift */,
+				808E22662AD0CB32005806E7 /* RecoveryView.swift */,
+				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
+				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
 				805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */,
 				28EA34AB2AB7623400E344A3 /* BreathView.swift */,
 				28EA34AF2AB778C700E344A3 /* AffirmView.swift */,
@@ -698,11 +699,11 @@
 				285FA8442AB1A2F8005A6EDE /* RecoveryView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */,
+				805FE2C92ACBF0E8001CDD55 /* EmergencyContactsView.swift in Sources */,
 				80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */,
 				281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */,
 				28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */,
 				805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */,
-				28D1E1C02ACD436800207881 /* EmergencyContactsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
