@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
   @StateObject var rnConnector = RNConnector()
-
   var body: some View {
     TabView {
       PanicView()
-      RecoveryView()
+      RecoveryView(rnConnector: rnConnector)
       EmergencyContactsView(rnConnector: rnConnector)
+//      EmergencyContactsView()
     }
   }
 }

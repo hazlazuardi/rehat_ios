@@ -1,56 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import StoreProvider from './src/context/Context';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import BottomTabBar from './src/components/BottomTabBar';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Journaling from './src/screens/journaling/Journaling';
 import JournalCategory from './src/screens/journaling/JournalCategory';
 import JournalSuccess from './src/screens/journaling/JournalSuccess';
-import { MMKV } from "react-native-mmkv";
+import {MMKV} from 'react-native-mmkv';
 import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
 import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
-import { View } from 'react-native';
+import {View} from 'react-native';
+import {sendMessage, watchEvents} from 'react-native-watch-connectivity';
+import {
+  Alert,
+  SafeAreaView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ManageRecoveryPreferences from './src/screens/dashboard/ManageRecoveryPreferences';
 import Settings from './src/screens/dashboard/Settings';
 import ManageEmergencyContacts from './src/screens/dashboard/ManageEmergencyContacts';
-import { sendMessage, watchEvents } from 'react-native-watch-connectivity';
-import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity } from 'react-native';
-import ManageRecoveryPreferences from './src/screens/dashboard/ManageRecoveryPreferences';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
 const nestedHeaderOptions = {
-	headerTitle: '', headerTransparent: true, headerBlurEffect: 'systemThickMaterial'
-}
+  headerTitle: '',
+  headerTransparent: true,
+  headerBlurEffect: 'systemThickMaterial',
+};
 
 export const storage = new MMKV();
 
 const MyTheme = {
-	dark: false,
-	colors: {
-		primary: 'rgb(255, 45, 85)',
-		background: 'rgb(242, 242, 242)',
-		card: 'rgb(255, 255, 255)',
-		text: 'white',
-		border: 'rgb(199, 199, 204)',
-		notification: 'rgb(255, 69, 58)',
-	},
+  dark: false,
+  colors: {
+    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(242, 242, 242)',
+    card: 'rgb(255, 255, 255)',
+    text: 'white',
+    border: 'rgb(199, 199, 204)',
+    notification: 'rgb(255, 69, 58)',
+  },
 };
 
 function App() {
+  const [messageFromWatch, setMessageFromWatch] = useState('Waiting...');
+  const [message, setMessage] = useState('');
+  // Listener when receive message
+  const messageListener = () =>
+    watchEvents.on('message', message => {
+      setMessageFromWatch(message.watchMessage);
+    });
+  useEffect(() => {
+    messageListener();
+  }, []);
 
-	const [messageFromWatch, setMessageFromWatch] = useState("Waiting...");
-	const [message, setMessage] = useState("");
-	// Listener when receive message
-	const messageListener = () => watchEvents.on('message', (message) => {
-		setMessageFromWatch(message.watchMessage);
-	});
-	useEffect(() => {
-		messageListener();
-	}, []);
-
-	console.log(message)
+  console.log(message);
 	return (
 		<StoreProvider>
 			{/* <BlurredEllipsesBackground> */}

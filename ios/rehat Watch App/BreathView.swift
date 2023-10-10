@@ -8,39 +8,63 @@
 import SwiftUI
 
 struct BreathView: View {
-  enum TimerState: Equatable {
-    case selection
-    case running(time: TimeInterval, breathIn: Bool)
+    enum TimerState: Equatable {
+        case selection
+        case running(phase: BreathPhase)
+    }
+    
+    struct BreathPhase: Equatable {
+        let breathInDuration: TimeInterval
+        let holdDuration: TimeInterval
+        let breathOutDuration: TimeInterval
+        let holdTwoDuration: TimeInterval
+    }
+    
+    @State private var timerState: TimerState = .selection
+    @State private var remainingTime: TimeInterval = 0
+    @State private var timer: Timer? = nil
+    @State private var textTimer: Timer? = nil
+    @State private var breathingStatus = ""
+    
+    var breathingOptions: [BreathPhase] = [
+        BreathPhase(breathInDuration: 4, holdDuration: 0, breathOutDuration: 6, holdTwoDuration: 0),
+        BreathPhase(breathInDuration: 4, holdDuration: 2, breathOutDuration: 4, holdTwoDuration: 0),
+        BreathPhase(breathInDuration: 5, holdDuration: 0, breathOutDuration: 5, holdTwoDuration: 0),
+        BreathPhase(breathInDuration: 4, holdDuration: 4, breathOutDuration: 4, holdTwoDuration: 4),
+        BreathPhase(breathInDuration: 4, holdDuration: 0, breathOutDuration: 2, holdTwoDuration: 0),
+        BreathPhase(breathInDuration: 4, holdDuration: 7, breathOutDuration: 8, holdTwoDuration: 0),
+    ]
+  
+  private func formatDuration(_ duration: TimeInterval) -> String {
+      let intDuration = Int(duration)
+      return intDuration > 0 ? "\(intDuration)" : ""
   }
-  
-  @State private var timerState: TimerState = .selection
-  @State private var remainingTime: TimeInterval = 0
-  @State private var isBreathIn = true
-  @State private var timer: Timer? = nil
-  @State private var textTimer: Timer? = nil
-  @State private var textUpdateInterval: TimeInterval = 5 // 5 second interval for the timer
-  
+
+    
   var body: some View {
+    ScrollView{
       VStack {
         if timerState == .selection {
-          Button(action: {
-            startTimer(with: 30, breathIn: true)
-          }) {
-            Text("30-Second Breathing")
+          ForEach(breathingOptions.indices, id: \.self) { index in
+            Button(action: {
+              startTimer(with: breathingOptions[index])
+            }) {
+              Text([
+                formatDuration(breathingOptions[index].breathInDuration),
+                formatDuration(breathingOptions[index].holdDuration),
+                formatDuration(breathingOptions[index].breathOutDuration),
+                formatDuration(breathingOptions[index].holdTwoDuration)
+              ]
+                .filter { !$0.isEmpty }
+                .joined(separator: "-")
+              )
               .font(.headline)
               .frame(height:30)
-          }
-          
-          Button(action: {
-            startTimer(with: 60, breathIn: true)
-          }) {
-            Text("1-Minute Breathing")
-              .font(.headline)
-              .frame(height:30)
+            }
           }
         } else {
-          Text(isBreathIn ? "Breath In" : "Breath Out")
-          Text("\(Int(remainingTime))")
+          Text("\(breathingStatus)")
+          Text("\(Int(remainingTime + 1))")
             .font(.title)
             .padding()
           
@@ -53,6 +77,7 @@ struct BreathView: View {
           }
         }
       }
+    }
     .navigationTitle("Breathing")
     .onAppear {
       startTextTimer()
@@ -61,44 +86,81 @@ struct BreathView: View {
       textTimer?.invalidate()
     }
   }
-  
-  private func startTimer(with duration: TimeInterval, breathIn: Bool) {
+    
+  private func startTimer(with phase: BreathPhase) {
     timer?.invalidate()
     timer = nil
     
-    timerState = .running(time: duration, breathIn: breathIn)
-    remainingTime = duration
-    isBreathIn = breathIn
+    timerState = .running(phase: phase)
+    remainingTime = 59
     
     startTextTimer()
     
+    updateBreathingStatus()
+    
+    
     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
       if remainingTime <= 0 {
-        if isBreathIn {
-          isBreathIn = false
-        } else {
-          isBreathIn = true
-        }
         stopTimer()
       } else {
         remainingTime -= 1
+        updateBreathingStatus()
       }
     }
   }
-  
-  private func stopTimer() {
-    timer?.invalidate()
-    timer = nil
     
-    timerState = .selection
-    remainingTime = 0
-  }
-  
-  private func startTextTimer() {
-    textTimer?.invalidate()
-    textTimer = Timer.scheduledTimer(withTimeInterval: textUpdateInterval, repeats: true) { timer in
-      // Toggle between "Breath In" and "Breath Out" every 5 seconds interval
-      isBreathIn.toggle()
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+        
+        timerState = .selection
+        remainingTime = 0
+        breathingStatus = ""
+    }
+    
+    private func startTextTimer() {
+        textTimer?.invalidate()
+        textTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+//            updateBreathingStatus()
+        }
+    }
+    
+  private func updateBreathingStatus() {
+    guard case let .running(phase) = timerState else {
+      return
+    }
+    
+    let totalTime = phase.breathInDuration + phase.holdDuration + phase.breathOutDuration + phase.holdTwoDuration
+    
+//    print("\(totalTime) total time")
+//    print("\(totalTimeInMinutes) total time in minutes")
+//    print("\(60/totalTime)")
+    
+    var remainingBackTime = remainingTime
+    
+    if totalTime == 16.0 {
+      remainingBackTime = remainingTime + 4
+    }
+    
+    if totalTime == 19.0 {
+      remainingBackTime = remainingTime + 16
+    }
+      
+    let remainingTimeInCycle = totalTime - remainingBackTime.truncatingRemainder(dividingBy: totalTime)
+    
+//    print("\(remainingTimeInCycle) Remaining time in cycle")
+//    print("\(remainingBackTime)")
+//    print("\(remainingTime.truncatingRemainder(dividingBy: totalTime)) Remaining time bla bla")
+    
+    
+    if remainingTimeInCycle <= phase.breathInDuration {
+      breathingStatus = "Breath In"
+    } else if remainingTimeInCycle <= (phase.breathInDuration + phase.holdDuration) {
+      breathingStatus = "Hold"
+    } else if remainingTimeInCycle <= (phase.breathInDuration + phase.holdDuration + phase.breathOutDuration) {
+      breathingStatus = "Breath Out"
+    } else if remainingTimeInCycle <= (phase.breathInDuration + phase.holdDuration + phase.breathOutDuration + phase.holdTwoDuration) {
+      breathingStatus = "Hold"
     }
   }
 }
@@ -108,4 +170,3 @@ struct BreathView_Previews: PreviewProvider {
         BreathView()
     }
 }
-
