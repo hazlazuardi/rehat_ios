@@ -12,36 +12,11 @@ struct ContentView: View {
   var body: some View {
     TabView {
       PanicView()
-      RecoveryView()
+      RecoveryView(rnConnector: rnConnector)
       EmergencyContactsView(rnConnector: rnConnector)
+//      EmergencyContactsView()
     }
   }
-//  var body: some View {
-//          TabView(selection: $selectedTab) {
-//              Button(action: {
-//                  selectedTab = 1  // Navigate to Recovery View tab
-//                  // Additional logic to present BreatheView as the primary view of Recovery View
-//              }) {
-//                  Text("Panic Button")
-//              }
-//              .tag(0)
-//              .tabItem {
-//                  Text("Panic")
-//              }
-//
-//              RecoveryView()
-//                  .tag(1)
-//                  .tabItem {
-//                      Text("Recovery")
-//                  }
-//
-//              EmergencyCallView()
-//                  .tag(2)
-//                  .tabItem {
-//                      Text("Emergency Call")
-//                  }
-//          }
-//      }
 }
 
 struct ContentView_Previews: PreviewProvider {
