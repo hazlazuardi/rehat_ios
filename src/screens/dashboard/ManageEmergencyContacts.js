@@ -12,6 +12,8 @@ import useContacts from '../../helpers/useContacts';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
 import PrimaryButton from '../../components/PrimaryButton';
 import { sizes } from '../../data/theme';
+import Contacts from 'react-native-contacts';
+
 
 
 function ManageEmergencyContacts() {
