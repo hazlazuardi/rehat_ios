@@ -39,9 +39,9 @@ function JournalThoughts({ navigation }) {
         });
     };
 
-    const handleWriteThoughts = (newThoughts) => {
-        dispatchJournal({ type: 'setJournal', payload: { thoughts: newThoughts } });
-    };
+    const handleWriteThoughts = (field, value) => {
+        dispatchJournal({ type: 'setJournal', payload: { [field]: value } });
+    }
 
     /**
      * Handles the press event of a chip.
@@ -178,8 +178,11 @@ function JournalThoughts({ navigation }) {
                         <ChipInput type="locations" onEndEditing={handleAddJournalConfig} />
                     </View>
                     <Divider color={'white'} />
+                    <Text>Journal Title</Text>
+                    <TextArea placeholder={'A Wonderful Night'} numberOfLines={1} onEndEditing={(titleValue) => handleWriteThoughts('title', titleValue)} />
+                    <Divider color={'white'} />
                     <Text>Write your thoughts</Text>
-                    <TextArea placeholder={'Today, I met...'} numberOfLines={250} onEndEditing={handleWriteThoughts} />
+                    <TextArea placeholder={'Today, I met...'} numberOfLines={250} onEndEditing={(thoughtValue) => handleWriteThoughts('thoughts', thoughtValue)} />
                     {/* Done Button */}
                 </View>
                 <View style={{ paddingHorizontal: sizes.padding.md, marginBottom: sizes.padding.lg * 2 }} >

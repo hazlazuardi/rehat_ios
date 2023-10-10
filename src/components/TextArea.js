@@ -29,14 +29,14 @@ function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
 
     return (
         <TextInput
-            multiline
+            multiline={numberOfLines === 1 ? false : true}
             numberOfLines={numberOfLines}
             placeholder={placeholder}
             value={value || inputText}
             onChangeText={(text) => setInputText(text)}
             onEndEditing={handleEndEditing}
             style={{
-                minHeight: sizes.padding.lg * 3,
+                minHeight: numberOfLines === 1 ? sizes.padding.lg : sizes.padding.lg * 3,
                 backgroundColor: 'grey',
                 color: 'white',
                 borderRadius: sizes.radius.sm,
