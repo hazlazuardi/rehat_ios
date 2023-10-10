@@ -16,7 +16,7 @@ import { sizes } from '../../data/theme';
 
 function ManageEmergencyContacts() {
     const { emergencyContacts, getAllEmergencyContacts, dispatchEmergencyContacts } = useEmergencyContacts();
-    const { contacts, error, loading, result: searchResult, handleSearch } = useContacts();
+    const { contacts, error, loading, result: searchResult, setResult: setSearchResult, handleSearch } = useContacts();
     const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {

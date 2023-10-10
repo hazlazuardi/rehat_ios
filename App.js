@@ -20,6 +20,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ManageRecoveryPreferences from './src/screens/dashboard/ManageRecoveryPreferences';
 import Settings from './src/screens/dashboard/Settings';
 import ManageEmergencyContacts from './src/screens/dashboard/ManageEmergencyContacts';
 
