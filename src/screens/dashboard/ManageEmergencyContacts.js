@@ -16,8 +16,7 @@ import { sizes } from '../../data/theme';
 
 function ManageEmergencyContacts() {
     const { emergencyContacts, getAllEmergencyContacts, dispatchEmergencyContacts } = useEmergencyContacts();
-    const { contacts, error, loading } = useContacts([]);
-    const [searchResult, setSearchResult] = useState([]);
+    const { contacts, error, loading, result: searchResult, setResult: setSearchResult, handleSearch } = useContacts();
     const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
@@ -27,6 +26,7 @@ function ManageEmergencyContacts() {
     if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
     if (error) return <Text>Error loading contacts: {error.message}</Text>;
 
+    console.log(searchResult)
     const displayedContacts = (searchResult?.length > 0 ? searchResult : contacts || []).filter(
         (contact) => !(emergencyContacts || []).some((econ) => econ.recordID === contact.recordID)
     );
@@ -84,7 +84,7 @@ function ManageEmergencyContacts() {
                         onPress={handleButtonPress}
                     />
                     <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
-                    <ContactSearch setResult={setSearchResult} />
+                    <ContactSearch handleSearch={handleSearch} />
                     <View style={styles.contactList}>
                         {displayedContacts?.map((contact) => (
                             <View key={contact.recordID} style={styles.contactItem}>
@@ -122,7 +122,7 @@ const styles = {
         padding: sizes.padding.md,
         backgroundColor: 'grey',
         borderColor: 'white',
-        borderRadius: sizes.radius,
+        borderRadius: sizes.radius.sm,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItem: 'center'
@@ -134,7 +134,7 @@ const styles = {
         minHeight: sizes.padding.lg,
         backgroundColor: 'grey',
         color: 'white',
-        borderRadius: sizes.radius,
+        borderRadius: sizes.radius.sm,
         paddingHorizontal: sizes.padding.md,
         paddingVertical: sizes.padding.md,
         fontSize: sizes.text.header3,
@@ -142,21 +142,8 @@ const styles = {
 
 };
 
-function ContactSearch({ setResult }) {
+function ContactSearch({ handleSearch }) {
     const [searchString, setSearchString] = useState('');
-
-    const handleSearch = async () => {
-        if (searchString.trim()) {
-            try {
-                const results = await Contacts.getContactsMatchingString(searchString);
-                setResult(results);
-            } catch (error) {
-                console.error('Error searching contacts:', error);
-            }
-        } else {
-            setResult([]);
-        }
-    };
 
     return (
         <TextInput
@@ -164,7 +151,7 @@ function ContactSearch({ setResult }) {
             placeholder="Search by name, email, or phone number"
             value={searchString}
             onChangeText={setSearchString}
-            onEndEditing={handleSearch}
+            onEndEditing={() => handleSearch(searchString)} // Directly use handleSearch from the hook
         />
     );
 }

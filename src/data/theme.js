@@ -5,7 +5,17 @@ export const colors = {
 }
 
 export const sizes = {
-    radius: 20,
+    radius: {
+        sm: 12,
+        md: 16,
+        lg: 20
+    },
+    gap: {
+        sm: 8,
+        md: 16,
+        lg: 24,
+        xl: 32
+    },
     padding: {
         sm: 8,
         md: 16,
@@ -16,7 +26,9 @@ export const sizes = {
         header2: 24,
         header3: 20,
         bodyLg: 18,
-        body: 16
+        body1: 16,
+        listTitle: 20,
+        listSubtitle: 16
     },
     button: {
         radius: 50,
@@ -26,4 +38,23 @@ export const sizes = {
         }
     }
 
+}
+
+export const styles = {
+    text: {
+        header2: {
+            fontWeight: 'bold',
+            fontSize: sizes.text.header2,
+            color: 'white'
+        },
+        listTitle: {
+            fontWeight: 'bold',
+            fontSize: sizes.text.listTitle,
+            color: 'white'
+        },
+        listSubtitle: {
+            fontSize: sizes.text.listSubtitle,
+            color: 'white'
+        }
+    }
 }

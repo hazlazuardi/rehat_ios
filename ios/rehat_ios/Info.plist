@@ -37,6 +37,14 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Use camera to add photos</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Read contacts to set Emergency Contacts</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Rehat App wants to access health data and analyze it</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Rehat App wants to access health data and analyze it</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Rehat App wants to access health data and analyze it</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -53,12 +61,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Rehat App wants to access health data and analyze it</string>
-	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
-	<string>Rehat App wants to access health data and analyze it</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Rehat App wants to access health data and analyze it</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

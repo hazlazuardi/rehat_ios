@@ -37,7 +37,7 @@ function EmotionCategoryButton({ title }) {
                     justifyContent: 'center',
                     padding: sizes.padding.sm,
                     width: '40%',
-                    borderRadius: sizes.radius,
+                    borderRadius: sizes.radius.lg,
                 }}
             >
                 <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
