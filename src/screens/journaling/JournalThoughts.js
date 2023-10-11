@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ImageBackground, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { useJournal } from '../../context/Context';
+import { useJournal, useJournalingConfig } from '../../context/Context';
 import Divider from '../../components/Divider';
 import { sizes } from '../../data/theme';
 import Chip from '../../components/Chip';
@@ -22,23 +22,17 @@ import EmotionCategoryButton from '../../components/journaling/EmotionCategoryBu
  * @returns {JSX.Element} The rendered JournalThoughts component.
  */
 function JournalThoughts({ navigation }) {
-    const { journal, dispatchJournal, journalingConfig, setJournalingConfig } = useJournal();
+    const { journal, dispatchJournal } = useJournal();
+    const { journalingConfig, dispatchJournalingConfig } = useJournalingConfig()
     const { dateString, timeString } = useFormattedDate(journal.dateAdded)
 
-    /**
-     * Handles the addition of a new Journal Config.
-     * @param {string} newConfig - The new Journal Config to add.
-     * @param {string} type - The type of Journal Config (e.g., 'locations' or 'people').
-     */
     const handleAddJournalConfig = (newConfig, type) => {
-        // Add the new Journal Config to your state or context based on the type
-        setJournalingConfig((prev) => {
-            const updatedConfig = { ...prev.journalThoughts };
-            updatedConfig[type] = [...updatedConfig[type], newConfig];
-            return { ...prev, journalThoughts: updatedConfig };
+        dispatchJournalingConfig({
+            type: 'updateJournalingConfig',
+            payload: { newConfig, type }
         });
     };
-
+    
     const handleWriteThoughts = (field, value) => {
         dispatchJournal({ type: 'setJournal', payload: { [field]: value } });
     }

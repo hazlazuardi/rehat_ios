@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { sizes } from '../../data/theme';
-import { useJournal } from '../../context/Context';
+import { useJournal, useJournalingConfig } from '../../context/Context';
 import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
 import { convertToCamelCase } from '../../helpers/helpers';
@@ -25,7 +25,9 @@ function JournalEmotions({ navigation }) {
      * @property {object} journal - The journal state.
      * @property {Function} dispatchJournal - A function to dispatch journal-related actions.
      */
-    const { journal, dispatchJournal, journalingConfig } = useJournal();
+    const { journal, dispatchJournal } = useJournal();
+
+    const { journalingConfig } = useJournalingConfig()
 
     /**
      * Handles the press event of a chip.
