@@ -3,24 +3,44 @@
     "name": "Muscle Relaxation",
     "slides": [
       {
-        "title": "Title 1",
-        "subTitle": "SubTitle 1"
+        "title": "",
+        "subTitle": "Start by lying or sitting down. Relax your entire body. Take five deep, slow breaths."
       },
       {
-        "title": "Title 2",
-        "subTitle": "SubTitle 2"
+        "title": "",
+        "subTitle": "Lift your toes upward. Hold, then let go. "
       },
       {
-        "title": "Title 3",
-        "subTitle": "SubTitle 3"
+        "title": "",
+        "subTitle": "Pull your toes downward. Hold, then let go."
       },
       {
-        "title": "Title 4",
-        "subTitle": "SubTitle 4"
+        "title": "",
+        "subTitle": "Move your knees toward each other. Hold, then let go."
       },
       {
-        "title": "Title 5",
-        "subTitle": "SubTitle 5"
+        "title": "",
+        "subTitle": "Clench your hands. Pause, then let go."
+      },
+      {
+        "title": "",
+        "subTitle": "Tense your arms. Hold, then let go."
+      },
+      {
+        "title": "",
+        "subTitle": "Contract your abdominal muscles. Pause, then let go."
+      },
+      {
+        "title": "",
+        "subTitle": "Inhale and tighten your chest. Hold, then exhale and let go."
+      },
+      {
+        "title": "",
+        "subTitle": "Raise your shoulders to your ears. Pause, then let go."
+      },
+      {
+        "title": "",
+        "subTitle": "Close your eyes tightly. Pause, then release."
       }
     ]
   },
@@ -28,24 +48,44 @@
     "name": "Closed Eyes Visualization",
     "slides": [
       {
-        "title": "Title 1",
-        "subTitle": "SubTitle 1"
+        "title": "1. Find a Quiet Space:",
+        "subTitle": "Choose a quiet and comfortable space where you can sit or lie down. Make sure you won't be disturbed during the exercise."
       },
       {
-        "title": "Title 2",
-        "subTitle": "SubTitle 2"
+        "title": "2. Close Your Eyes:",
+        "subTitle": "Gently close your eyes to block out external distractions."
       },
       {
-        "title": "Title 3",
-        "subTitle": "SubTitle 3"
+        "title": "3. Deep Breathing:",
+        "subTitle": "Take a few deep breaths to calm your body and mind. Inhale slowly through your nose, hold for a moment, and exhale slowly through your mouth. Repeat this a few times to relax."
       },
       {
-        "title": "Title 4",
-        "subTitle": "SubTitle 4"
+        "title": "4. Choose a Peaceful Image:",
+        "subTitle": "Imagine a peaceful and serene place. It could be a quiet forest, a tranquil beach, a meadow, or any location where you feel relaxed and content."
       },
       {
-        "title": "Title 5",
-        "subTitle": "SubTitle 5"
+        "title": "5. Focus on Details:",
+        "subTitle": "Begin to visualize the details of this place. Imagine the colors, shapes, and features. Picture the scenery as vividly as you can."
+      },
+      {
+        "title": "6. Engage Your Senses:",
+        "subTitle": "Bring your senses into the visualization. Imagine the sounds, such as birds singing or waves crashing. Feel the warmth of the sun or a gentle breeze on your skin. Imagine the scent of nature or the ocean air."
+      },
+      {
+        "title": "7. Embrace Calm Emotions:",
+        "subTitle": "As you immerse yourself in this peaceful place, focus on the emotions it evokes. Feel the calm, serenity, and relaxation that come from being in this beautiful location"
+      },
+      {
+        "title": "8. Stay Present:",
+        "subTitle": "Keep your mind focused on this tranquil scene. If your thoughts start to wander, gently guide your attention back to the visualization."
+      },
+      {
+        "title": "9. Conclude the Exercise:",
+        "subTitle": "As your chosen time limit approaches, start to transition out of the visualization. Become aware of your physical surroundings and the sensation of your body. Gently wiggle your fingers and toes."
+      },
+      {
+        "title": "10. Open Your Eyes:",
+        "subTitle": "When you're ready, open your eyes."
       }
     ]
   },
@@ -62,7 +102,7 @@
       },
       {
         "title": "Notice 3 things that you can hear.",
-        "subTitle": "How loud is it? What is it saying? Where is it coming from?  lskfjlskjf s;dlkfjasf dl;ksjf;lskadfj ls;kjfsl; kfjs;dalf as;dlfk sajdlf;js da;lfkjsadflkjs d;flksjad f"
+        "subTitle": "How loud is it? What is it saying? Where is it coming from?"
       },
       {
         "title": "Notice 2 things that you can smell.",
@@ -70,7 +110,7 @@
       },
       {
         "title": "Notice 1 thing that you can taste",
-        "subTitle": "What's the flavor profile? lskfjlskjf s;dlkfjasf dl;ksjf;lskadfj ls;kjfsl; kfjs;dalf as;dlfk sajdlf;js da;lfkjsadflkjs d;flksjad f"
+        "subTitle": "What's the flavor profile?"
       }
     ]
   }
