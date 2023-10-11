@@ -46,6 +46,7 @@
 		EAD7C81B2AD4F53D008721AB /* NotifUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7C81A2AD4F53D008721AB /* NotifUtils.swift */; };
 		EAD7C81D2AD4FF91008721AB /* NotifTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7C81C2AD4FF91008721AB /* NotifTestView.swift */; };
 		EADDF11B2AD5521100987695 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */; };
+		EADDF11D2AD55CEC00987695 /* HKUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADDF11C2AD55CEC00987695 /* HKUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		EAD7C80C2ACB7054008721AB /* dataset.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dataset.csv; sourceTree = "<group>"; };
 		EAD7C81A2AD4F53D008721AB /* NotifUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifUtils.swift; sourceTree = "<group>"; };
 		EAD7C81C2AD4FF91008721AB /* NotifTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTestView.swift; sourceTree = "<group>"; };
+		EADDF11C2AD55CEC00987695 /* HKUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKUtils.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -268,6 +270,7 @@
 				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
 				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
 				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
+				EADDF11C2AD55CEC00987695 /* HKUtils.swift */,
 				288DAB2D2AB37B3E00892CE7 /* DetailView.swift */,
 				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
 				805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */,
@@ -698,6 +701,7 @@
 				EAD7C81B2AD4F53D008721AB /* NotifUtils.swift in Sources */,
 				286B83822AD532440056E1B0 /* RecoveryView.swift in Sources */,
 				28D1E1BF2ACD434C00207881 /* RNConnector.swift in Sources */,
+				EADDF11D2AD55CEC00987695 /* HKUtils.swift in Sources */,
 				80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */,
@@ -807,7 +811,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatarios";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios";
 				PRODUCT_NAME = rehat_ios;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -843,7 +847,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios.avatarios";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.rehat-ios";
 				PRODUCT_NAME = rehat_ios;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
