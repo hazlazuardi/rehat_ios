@@ -67,7 +67,7 @@ function JournalEmotions({ navigation }) {
     return (
         <SafeAreaView>
             <View style={{ alignItems: 'center', paddingTop: sizes.padding.lg, marginHorizontal: sizes.padding.md, gap: sizes.padding.lg }}>
-                <EmotionCategoryButton title={journal.emotionCategory} />
+                <EmotionCategoryButton title={journal.emotionCategory} width={100} />
                 <View style={{ gap: sizes.padding.md }}>
                     <Text style={{ fontSize: sizes.text.header1, paddingHorizontal: sizes.padding.sm }}>What best describes this feeling?</Text>
                     <Divider color={'white'} />

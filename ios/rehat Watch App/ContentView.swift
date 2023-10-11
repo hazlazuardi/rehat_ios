@@ -14,7 +14,6 @@ struct ContentView: View {
       PanicView()
       RecoveryView(rnConnector: rnConnector)
       EmergencyContactsView(rnConnector: rnConnector)
-//      EmergencyContactsView()
     }
   }
 }
