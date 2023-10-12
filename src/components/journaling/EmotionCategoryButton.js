@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pressable, Text, View } from 'react-native';
-import { sizes } from '../../data/theme';
+import { ImageBackground, Pressable, Text, View } from 'react-native';
+import { sizes, styles } from '../../data/theme';
 import { useJournal } from '../../context/Context';
+import assets from '../../data/assets';
 
 
 /**
@@ -13,7 +14,7 @@ import { useJournal } from '../../context/Context';
  * @param {string} props.title - The title of the emotion category.
  * @returns {JSX.Element} The rendered EmotionCategoryButton component.
  */
-function EmotionCategoryButton({ title, isFillContainer, width, disabled }) {
+function EmotionCategoryButton({ title, isFillContainer, width, disabled, variant }) {
     const { journal, dispatchJournal } = useJournal();
     const isSelected = journal.emotionCategory === title;
 
@@ -28,7 +29,7 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled }) {
         if (!disabled) dispatchJournal({ type: 'setJournal', payload: { emotionCategory: title } });
     };
 
-    const styles =
+    const innerStyles =
     {
         backgroundColor: isSelected || disabled ? 'green' : 'grey',
         aspectRatio: 1,
@@ -42,22 +43,55 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled }) {
 
     if (disabled) {
         return (
-            <View style={{ ...styles }}>
-                <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
-            </View>
+            // <View style={{ ...innerStyles }}>
+            //     <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{title}</Text>
+            // </View>
+            <ImageBackground source={assets.images[variant]}
+                width={width}
+                height={width}
+            >
+                <View style={{
+                    width: width,
+                    height: width,
+                }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: sizes.padding.md }}>
+                        <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>{title}</Text>
+                    </View>
+                </View>
+            </ImageBackground>
         )
     }
 
     return (
         <>
-            <Pressable
+            {/* <Pressable
                 onPress={() => { handleEmotionCategoryPress(title) }}
                 style={{
-                    ...styles
+                    ...innerStyles
                 }}
             >
-                <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
+                <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{title}</Text>
+            </Pressable> */}
+
+            <Pressable onPress={() => { handleEmotionCategoryPress(title) }}>
+                <ImageBackground source={assets.images[variant]}
+                    width={width}
+                    height={width}
+                    style={{
+                        opacity: isSelected ? 1 : .5
+                    }}
+                >
+                    <View style={{
+                        width: width,
+                        height: width,
+                    }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: sizes.padding.md }}>
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>{title}</Text>
+                        </View>
+                    </View>
+                </ImageBackground>
             </Pressable>
+
         </>
     );
 }

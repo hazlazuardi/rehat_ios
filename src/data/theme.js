@@ -29,10 +29,12 @@ export const sizes = {
         header1: 32,
         header2: 24,
         header3: 20,
-        bodyLg: 18,
-        body1: 16,
-        listTitle: 20,
-        listSubtitle: 16
+        body1: 20,
+        body2: 16,
+        body3: 14,
+        semi1: 20,
+        semi2: 16,
+        caption: 12,
     },
     button: {
         radius: 50,
@@ -43,36 +45,105 @@ export const sizes = {
     },
     icon: {
         xs: 24,
-        sm: 32
+        sm: 32,
+        md: 48,
+        lg: 54,
+        xl: 64
     }
 
 }
+
+// 'Merriweather', serif;
+// 'Poppins', sans-serif;
 
 export const styles = {
     text: {
         header1: {
             fontWeight: 'bold',
             fontSize: sizes.text.header1,
-            color: 'white'
+            color: 'white',
+            fontFamily: 'Poppins'
         },
         header2: {
             fontWeight: 'bold',
             fontSize: sizes.text.header2,
-            color: 'white'
+            color: 'white',
+            fontFamily: 'Poppins'
         },
         header3: {
             fontWeight: 'bold',
             fontSize: sizes.text.header3,
-            color: 'white'
+            color: 'white',
+            fontFamily: 'Poppins'
         },
+        body1: {
+            fontWeight: '500',
+            fontSize: sizes.text.body1,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+        body2: {
+            fontWeight: '400',
+            fontSize: sizes.text.body2,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+        body2Transparent: {
+            fontWeight: '400',
+            fontSize: sizes.text.body2,
+            color: 'rgba(203, 228, 222, .45))',
+            fontFamily: 'Poppins'
+        },
+        body3: {
+            fontWeight: '400',
+            fontSize: sizes.text.body3,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+        semi1: {
+            fontWeight: '600',
+            fontSize: sizes.text.semi1,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+        semi2: {
+            fontWeight: '600',
+            fontSize: sizes.text.semi2,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+
+        caption: {
+            fontWeight: '500',
+            fontSize: sizes.text.caption,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+
         listTitle: {
             fontWeight: 'bold',
-            fontSize: sizes.text.listTitle,
-            color: 'white'
+            fontSize: sizes.text.body1,
+            color: 'white',
+            fontFamily: 'Poppins'
         },
         listSubtitle: {
-            fontSize: sizes.text.listSubtitle,
-            color: 'white'
+            fontSize: sizes.text.body2,
+            color: 'white',
+            fontFamily: 'Poppins'
+        },
+        merri: {
+            body1: {
+                fontWeight: '400',
+                fontSize: sizes.text.body1,
+                color: 'white',
+                fontFamily: 'Merriweather'
+            },
+            body2: {
+                fontWeight: '400',
+                fontSize: sizes.text.body2,
+                color: 'white',
+                fontFamily: 'Merriweather'
+            },
         }
     }
 }

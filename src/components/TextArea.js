@@ -13,7 +13,7 @@ import { sizes } from '../data/theme';
  * @param {Function} props.onEndEditing - A callback function to be called when editing ends.
  * @returns {JSX.Element} The rendered TextArea component.
  */
-function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
+function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
     const [inputText, setInputText] = useState('');
 
     /**
@@ -27,24 +27,30 @@ function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
         // setInputText('');
     };
 
+    const innerTextStyle = textStyle ? { ...textStyle } : {
+        color: 'white',
+        fontSize: sizes.text.header3,
+    }
+
     return (
         <TextInput
-            multiline={numberOfLines === 1 ? false : true}
-            numberOfLines={numberOfLines}
+            multiline={true}
+            maxLength={!multiline ? 50 : 100_000_000}
+            // multiline={numberOfLines === 1 ? false : true}
             placeholder={placeholder}
             value={value || inputText}
             onChangeText={(text) => setInputText(text)}
             onEndEditing={handleEndEditing}
+            scrollEnabled={false}
             style={{
-                minHeight: numberOfLines === 1 ? sizes.padding.lg : sizes.padding.lg * 3,
+                minHeight: !multiline ? sizes.padding.md / 2 : sizes.padding.lg * 4,
                 backgroundColor: 'grey',
-                color: 'white',
                 borderRadius: sizes.radius.sm,
                 paddingHorizontal: sizes.padding.md,
                 paddingTop: sizes.padding.md,
                 paddingBottom: sizes.padding.md,
-                paddingVertical: sizes.padding.lg,
-                fontSize: sizes.text.header3
+                // paddingVertical: 0,
+                ...innerTextStyle,
             }}
         />
     );
@@ -66,7 +72,6 @@ function TextArea({ placeholder, numberOfLines, onEndEditing, value }) {
  */
 TextArea.propTypes = {
     placeholder: PropTypes.string.isRequired,
-    numberOfLines: PropTypes.number.isRequired,
     onEndEditing: PropTypes.func.isRequired,
 };
 

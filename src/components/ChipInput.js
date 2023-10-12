@@ -19,28 +19,33 @@ function ChipInput({ type, onEndEditing }) {
      * Handles the end of input editing.
      */
     const handleEndEditing = () => {
-        if (inputText.trim() !== '') {
-            // Call the onEndEditing callback with the trimmed input text and type
-            onEndEditing(inputText.trim(), type);
+        const trimmedText = inputText.trim();
+        onEndEditing(trimmedText, type); // Call the onEndEditing callback with the trimmed input text
 
-            // Clear the input field
-            setInputText('');
-        }
+        // Clear the input field
+        setInputText('');
     };
+
+    const handleChange = text => {
+        setInputText(text)
+    }
 
     return (
         <TextInput
             placeholder="     +     "
-            placeholderTextColor="white"
+            // placeholderTextColor="white"
             value={inputText}
-            onChangeText={(text) => setInputText(text)}
-            onEndEditing={handleEndEditing}
+            onChangeText={handleChange}
+            onSubmitEditing={handleEndEditing}
             style={{
-                backgroundColor: 'grey',
+                backgroundColor: 'transparent',
                 color: 'white',
                 fontWeight: 'bold',
                 borderRadius: sizes.button.radius,
+                borderColor: 'grey',
+                borderWidth: 1,
                 padding: sizes.button.padding.sm,
+                width: 'auto'
             }}
         />
     );

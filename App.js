@@ -72,7 +72,7 @@ function App() {
 						{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
 						<Stack.Navigator screenOptions={{
 							headerShown: false,
-							// contentStyle: { backgroundColor: 'transparent' } 
+							contentStyle: { backgroundColor: 'transparent' }
 						}}>
 							<Stack.Screen name='Root' component={BottomTabBar} />
 
