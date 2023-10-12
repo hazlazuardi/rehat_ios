@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
+import { toAssetCase } from '../../helpers/helpers';
 
 
 /**
@@ -81,7 +82,7 @@ function JournalThoughts({ navigation }) {
         dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
     }
 
-    console.log('ctx journal', journal.emotionCategory.toLowerCase().replace(' ', '_'))
+    // console.log('ctx journal', journal.emotionCategory.toLowerCase().replace(' ', '_'))
 
     // const { CameraIcon } = useIcons()
     return (
@@ -99,7 +100,7 @@ function JournalThoughts({ navigation }) {
 
                         {/* journalCategory */}
                         <View style={{ flexDirection: 'row', gap: sizes.padding.md, alignItems: 'center', maxWidth: '100%' }} >
-                            <EmotionCategoryButton disabled title={journal.emotionCategory} width={120} variant={journal.emotionCategory.toLowerCase().replace(' ', '_')} />
+                            <EmotionCategoryButton disabled title={journal.emotionCategory} width={120} variant={toAssetCase(journal.emotionCategory)} />
                             <View>
                                 <Text style={{ ...styles.text.header2, fontWeight: '300' }}>I'm feeling
                                 </Text>

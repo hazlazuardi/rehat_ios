@@ -35,7 +35,7 @@ function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
     return (
         <TextInput
             multiline={true}
-            maxLength={!multiline ? 50 : 100_000_000}
+            maxLength={!multiline ? 40 : 100_000_000}
             // multiline={numberOfLines === 1 ? false : true}
             placeholder={placeholder}
             value={value || inputText}

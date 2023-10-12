@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { Image, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useJournal } from '../../context/Context';
 import { storage } from '../../../App';
-import { sizes, styles } from '../../data/theme';
+import { colors, sizes, styles } from '../../data/theme';
 import PrimaryButton from '../../components/PrimaryButton';
 import { trigger } from 'react-native-haptic-feedback';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
+import useFormattedDate from '../../helpers/useDateFormatter';
+import { formatDate, toAssetCase } from '../../helpers/helpers';
+import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 
 /**
  * A component for journaling and managing journals.
@@ -27,6 +30,8 @@ function Journaling({ navigation }) {
     const allJournals = strAllJournals ? JSON.parse(strAllJournals) : [];
     console.log('allJournalsFromStorage', allJournals);
 
+    const { date } = useFormattedDate()
+
     return (
         <BlurredEllipsesBackground>
             <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>
@@ -38,7 +43,7 @@ function Journaling({ navigation }) {
 
                             <View style={{
                                 borderRadius: sizes.radius.lg,
-                                backgroundColor: 'green',
+                                backgroundColor: colors.turqoise,
                                 padding: sizes.padding.md,
                                 gap: sizes.gap.md
                             }}>
@@ -55,8 +60,8 @@ function Journaling({ navigation }) {
                                     <Text style={styles.text.semi1}>Journaling</Text>
                                 </View>
                                 <View>
-                                    <Text>Another day, another story.</Text>
-                                    <Text>Share yours now!</Text>
+                                    <Text style={styles.text.merri.body2} >Another day, another story.</Text>
+                                    <Text style={styles.text.merri.body2}>Share yours now!</Text>
                                 </View>
                                 <Pressable
                                     onPress={() => {
@@ -65,34 +70,57 @@ function Journaling({ navigation }) {
                                     }}
                                 >
                                     <View style={{
-                                        backgroundColor: 'orange',
+                                        backgroundColor: colors.orange,
                                         borderRadius: sizes.radius.sm,
-                                        padding: sizes.padding.md,
+                                        paddingVertical: sizes.padding.md,
+                                        paddingHorizontal: sizes.padding.lg,
                                         alignItems: 'center',
-                                        justifyContent: 'center'
+                                        justifyContent: 'center',
+                                        alignSelf: 'flex-start'
                                     }} >
-                                        <Text>Check In</Text>
+                                        <Text style={styles.text.semi2} >Check In</Text>
                                     </View>
                                 </Pressable>
                             </View>
                         </View>
 
                         {/* My Journals */}
-                        <View>
+                        <View style={{ gap: sizes.gap.md }} >
+
+                            {/* Section Title */}
                             <Text style={{ ...styles.text.header2 }}>My Journals</Text>
-                            {allJournals.map((journal) => (
-                                <Pressable
-                                    key={journal.dateAdded + journal.emotions[0]}
-                                    onPress={() => navigation.navigate('Journal Detail', { journal })}
-                                >
-                                    <Text style={{ ...styles.text.header2, marginTop: 8 }} >
-                                        {journal.title || 'Untitled'}
-                                    </Text>
-                                    <Text style={{ marginTop: 8 }}>
-                                        {journal.emotions[0]}
-                                    </Text>
-                                </Pressable>
-                            ))}
+
+                            {/* List of My Journal */}
+                            {allJournals.map((journal) => {
+                                const formattedDate = formatDate(journal.dateAdded);
+                                return (
+                                    <Pressable
+                                        key={journal.dateAdded + journal.emotions[0]}
+                                        onPress={() => navigation.navigate('Journal Detail', { journal })}
+                                    >
+                                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                            <View style={{ flex: 1 }}>
+                                                <View style={{
+                                                    flex: 1,
+                                                    flexShrink: 1,
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'flex-start',
+                                                    // backgroundColor: 'red'
+                                                }}>
+                                                    <Text style={{ ...styles.text.header3, paddingRight: sizes.padding.md }} >
+                                                        {journal.title || 'Untitled'}
+                                                    </Text>
+                                                    <Text style={{ ...styles.text.captionTransparent }}>
+                                                        {formattedDate.dateString} at {formattedDate.timeString}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                            <EmotionCategoryButton variant={toAssetCase(journal.emotionCategory)} disabled width={80} />
+                                        </View>
+                                    </Pressable>
+                                );
+                            })}
                         </View>
 
 

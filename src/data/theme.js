@@ -1,7 +1,8 @@
 export const colors = {
     darkTurquoise: '#0E6E74',
+    turqoise: '#0E8388',
     green: '#298753',
-    orange: '#FE763A',
+    orange: '#FF6000',
     textArea: {
         backgroundColor: 'rgba(217,217,217,.08)',
         color: 'rgba(203, 228, 222, .45)'
@@ -118,6 +119,14 @@ export const styles = {
             fontSize: sizes.text.caption,
             color: 'white',
             fontFamily: 'Poppins'
+        },
+
+        captionTransparent: {
+            fontWeight: '500',
+            fontSize: sizes.text.caption,
+            color: 'white',
+            fontFamily: 'Poppins',
+            opacity: .5
         },
 
         listTitle: {

@@ -111,7 +111,7 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
  * @type {EmotionCategoryButton}
  */
 EmotionCategoryButton.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     isFillContainer: PropTypes.bool
 };
 

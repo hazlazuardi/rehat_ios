@@ -5,7 +5,7 @@ import { sizes, styles } from '../../data/theme';
 import { useJournal, useJournalingConfig } from '../../context/Context';
 import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
-import { convertToCamelCase } from '../../helpers/helpers';
+import { convertToCamelCase, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import Divider from '../../components/Divider';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
@@ -74,7 +74,7 @@ function JournalEmotions({ navigation }) {
 
                     {/* journalCategory */}
                     <View style={{ alignItems: 'center', gap: sizes.gap.md }}>
-                        <EmotionCategoryButton title={journal.emotionCategory} variant={journal.emotionCategory.toLowerCase().replace(' ', '_')} width={120} disabled />
+                        <EmotionCategoryButton title={journal.emotionCategory} variant={toAssetCase(journal.emotionCategory)} width={120} disabled />
                     </View>
 
                     {/* Heading */}
@@ -87,7 +87,7 @@ function JournalEmotions({ navigation }) {
                     <View style={{ gap: sizes.padding.md }}>
                         {/* Emotion Chips */}
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm }} >
-                            {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
+                            {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory)].map(emotion => {
                                 return (
                                     <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
                                 )
