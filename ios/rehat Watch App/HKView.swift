@@ -52,7 +52,6 @@ struct HKView: View {
   }
   
   func start() {
-    requestHealthKitAuthorization(healthStore: RehatHealthStore.store)
     startHealthKitQuery(quantityTypeIdentifier: .heartRateVariabilitySDNN, healthStore: RehatHealthStore.store, updateFunction: displayLatestSample)
   }
   

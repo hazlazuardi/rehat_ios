@@ -16,7 +16,9 @@ struct ContentView: View {
       PanicView()
       RecoveryView()
       EmergencyContactsView(rnConnector: rnConnector)
-    }
+    }.onAppear(perform: {
+      requestAuthorizations()
+    })
   }
 //  var body: some View {
 //          TabView(selection: $selectedTab) {
@@ -44,6 +46,11 @@ struct ContentView: View {
 //                  }
 //          }
 //      }
+}
+
+func requestAuthorizations() {
+  requestHealthKitAuthorization(healthStore: RehatHealthStore.store)
+  requestNotifAuthorization()
 }
 
 struct ContentView_Previews: PreviewProvider {
