@@ -9,7 +9,7 @@ import SwiftUI
 import HealthKit
 
 struct HKView: View {
-  private var healthStore = HKHealthStore()
+//  private var healthStore = HKHealthStore()
   let heartRateQuantity = HKUnit(from: "count/min")
   
   @State private var value = 0
@@ -52,8 +52,8 @@ struct HKView: View {
   }
   
   func start() {
-    requestHealthKitAuthorization(healthStore: self.healthStore)
-    startHealthKitQuery(quantityTypeIdentifier: .heartRateVariabilitySDNN, healthStore: self.healthStore, updateFunction: displayLatestSample)
+    requestHealthKitAuthorization(healthStore: RehatHealthStore.store)
+    startHealthKitQuery(quantityTypeIdentifier: .heartRateVariabilitySDNN, healthStore: RehatHealthStore.store, updateFunction: displayLatestSample)
   }
   
   private func displayLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {

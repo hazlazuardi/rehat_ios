@@ -8,10 +8,17 @@
 import Foundation
 import HealthKit
 
+// Singleton health store
+class RehatHealthStore {
+  static let store = HKHealthStore()
+}
+
 func requestHealthKitAuthorization(healthStore: HKHealthStore) {
   let healthKitTypes: Set = [
     HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!,
-    HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!
+    HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRateVariabilitySDNN)!,
+    HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.restingHeartRate)!,
+    HKQuantityType.workoutType(),
   ]
   
   healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { _, _ in }
@@ -23,7 +30,11 @@ func startHealthKitQuery(
   quantityTypeIdentifier: HKQuantityTypeIdentifier,
   healthStore: HKHealthStore,
   updateFunction: @escaping ([HKQuantitySample], HKQuantityTypeIdentifier) -> Void) {
-  let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+//  let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+  let startDate = Calendar.current.startOfDay(for: .now)
+  let endDate = Date()
+  let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+    
   let updateHandler: HKUpdateHandlerType = {
     query, samples, deletedObjects, queryAnchor, error in
     
@@ -35,7 +46,7 @@ func startHealthKitQuery(
   }
   
   // 4
-  let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: devicePredicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
+  let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: predicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
   
   query.updateHandler = updateHandler
   
@@ -65,4 +76,8 @@ func getLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier
   }
   
   return (latestSample, lastTimestamp)
+}
+
+func startWorkout(healthStore: HKHealthStore) {
+  
 }
