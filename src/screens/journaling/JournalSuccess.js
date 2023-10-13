@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pressable, SafeAreaView, Text } from 'react-native';
-import { sizes } from '../../data/theme';
+import { Image, Pressable, SafeAreaView, Text, View } from 'react-native';
+import { sizes, styles } from '../../data/theme';
 import { useJournal } from '../../context/Context';
+import assets from '../../data/assets';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
 /**
  * A component for displaying a success message after saving a journal entry.
@@ -23,22 +25,38 @@ function JournalSuccess({ navigation }) {
     }
 
     return (
-        <SafeAreaView>
-            <Text>Your daily journal has been saved</Text>
-            <Pressable
-                onPress={handlePress}
-                style={{
-                    backgroundColor: 'green',
-                    width: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: sizes.button.padding.sm,
-                    borderRadius: sizes.button.radius,
-                }}
-            >
-                <Text style={{ color: 'white', fontWeight: 'bold' }}>Done</Text>
-            </Pressable>
-        </SafeAreaView>
+        <BlurredEllipsesBackground>
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1, gap: sizes.gap.lg, alignItems: 'center', justifyContent: 'center', paddingHorizontal: sizes.padding.md }}>
+                    <View style={{
+                        flex: .24,
+                        paddingBottom: 16
+                    }}>
+                        <Image
+                            source={assets.icons.done}
+                            style={{
+                                flex: 1,
+                                aspectRatio: 1,
+                            }}
+                        />
+                    </View>
+                    <Text style={{ ...styles.text.header1, textAlign: 'center' }}>Your daily journal has been saved</Text>
+                    <Pressable
+                        onPress={handlePress}
+                        style={{
+                            backgroundColor: 'green',
+                            width: '100%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: sizes.button.padding.sm,
+                            borderRadius: sizes.button.radius,
+                        }}
+                    >
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Done</Text>
+                    </Pressable>
+                </View>
+            </SafeAreaView>
+        </BlurredEllipsesBackground>
     );
 }
 

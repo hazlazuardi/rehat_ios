@@ -11,12 +11,20 @@ struct ContentView: View {
   @StateObject var rnConnector = RNConnector()
   var body: some View {
     TabView {
+      NotifTestView()
+      HKView()
       PanicView()
       RecoveryView(rnConnector: rnConnector)
       EmergencyContactsView(rnConnector: rnConnector)
-//      EmergencyContactsView()
-    }
+    }.onAppear(perform: {
+      requestAuthorizations()
+    })
   }
+}
+
+func requestAuthorizations() {
+  requestHealthKitAuthorization(healthStore: RehatHealthStore.store)
+  requestNotifAuthorization()
 }
 
 struct ContentView_Previews: PreviewProvider {

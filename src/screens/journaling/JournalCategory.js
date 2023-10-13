@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { sizes } from '../../data/theme';
+import { sizes, styles } from '../../data/theme';
 import { useJournal } from '../../context/Context';
 import PrimaryButton from '../../components/PrimaryButton';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
@@ -21,22 +21,29 @@ function JournalCategory({ navigation }) {
     const { journal } = useJournal()
 
     return (
+        <BlurredEllipsesBackground>
             <SafeAreaView>
-                <View style={{ alignItems: 'center', paddingTop: sizes.padding.md, marginHorizontal: sizes.padding.md, gap: sizes.padding.md }}>
-                    <Text style={{ fontSize: sizes.text.header1, textAlign: 'center', color:'white' }}>Choose How You're Feeling Right Now</Text>
+                <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
+
+                    {/* Heading */}
+                    <Text style={{ ...styles.text.header1, textAlign: 'center' }}>Choose How You're Feeling Right Now</Text>
+
+                    {/* journalCategory */}
                     <View style={{ width: '100%', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
-                            <EmotionCategoryButton title="Unpleasant" />
-                            <EmotionCategoryButton title="Slightly Unpleasant" />
+                            <EmotionCategoryButton title="Unpleasant" width={120} variant='unpleasant' />
+                            <EmotionCategoryButton title="Slightly Unpleasant" width={120} variant='slightly_unpleasant' />
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', margin: sizes.padding.md }}>
-                            <EmotionCategoryButton title="Neutral" />
+                            <EmotionCategoryButton title="Neutral" width={120} variant='neutral' />
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
-                            <EmotionCategoryButton title="Pleasant" />
-                            <EmotionCategoryButton title="Very Pleasant" />
+                            <EmotionCategoryButton title="Pleasant" width={120} variant='pleasant' />
+                            <EmotionCategoryButton title="Very Pleasant" width={120} variant='very_pleasant' />
                         </View>
                     </View>
+
+                    {/* Done Button */}
                     <PrimaryButton
                         onPress={() => navigation.navigate('Journal Emotions')}
                         text={'Done'}
@@ -47,20 +54,9 @@ function JournalCategory({ navigation }) {
                     />
                 </View>
             </SafeAreaView>
+        </BlurredEllipsesBackground>
     );
 }
-
-const styles = StyleSheet.create({
-    background: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 1000
-        // Adjust other styles as needed
-    },
-});
 
 /**
  * Prop types for the JournalCategory component.
