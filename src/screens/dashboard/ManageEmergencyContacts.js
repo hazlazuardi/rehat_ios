@@ -26,7 +26,7 @@ function ManageEmergencyContacts() {
     if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
     if (error) return <Text>Error loading contacts: {error.message}</Text>;
 
-    console.log(searchResult)
+    // console.log(searchResult)
     const displayedContacts = (searchResult?.length > 0 ? searchResult : contacts || []).filter(
         (contact) => !(emergencyContacts || []).some((econ) => econ.recordID === contact.recordID)
     );
