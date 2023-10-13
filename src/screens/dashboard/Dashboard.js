@@ -1,6 +1,7 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
+import JournalSuccess from '../journaling/JournalSuccess';
 
 function Dashboard({ navigation }) {
     return (
