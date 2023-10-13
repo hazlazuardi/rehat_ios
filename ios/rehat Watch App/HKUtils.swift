@@ -34,6 +34,7 @@ func startHealthKitQuery(
   let startDate = Calendar.current.startOfDay(for: .now)
   let endDate = Date()
   let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+  print("Query started ending at \(endDate.formatted())")
     
   let updateHandler: HKUpdateHandlerType = {
     query, samples, deletedObjects, queryAnchor, error in
@@ -64,15 +65,17 @@ func getLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier
   dateFormatter.dateFormat = "HH:mm:ss" // Customize this format
   
   print("Getting latest samples")
-  for sample in samples {
+  if (!samples.isEmpty) {
     if type == .heartRate {
-      latestSample = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+      latestSample = samples.lazy.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) } .last!
+      print("Got HR sample: \(latestSample) bpm at ", terminator: "")
     } else if type == .heartRateVariabilitySDNN {
-      latestSample = sample.quantity.doubleValue(for: HKUnit.secondUnit(with: HKMetricPrefix.milli))
+      latestSample = samples.lazy.map { $0.quantity.doubleValue(for: HKUnit.secondUnit(with: HKMetricPrefix.milli)) } .last!
+      print("Got HRV sample: \(latestSample) ms at ", terminator: "")
     }
     
-    let timestamp = sample.startDate
-    lastTimestamp = dateFormatter.string(from: timestamp)
+    lastTimestamp = dateFormatter.string(from: samples.last!.startDate)
+    print("\(lastTimestamp)")
   }
   
   return (latestSample, lastTimestamp)
