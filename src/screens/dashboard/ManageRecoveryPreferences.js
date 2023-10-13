@@ -77,8 +77,8 @@ function ListItem({ title, subtitle, isActive, isDraggingEnabled }) {
             borderRadius: sizes.radius.sm
         }}>
             <View>
-                <Text style={{ ...styles.text.listTitle }}>{title}</Text>
-                {subtitle && (<Text style={styles.text.listSubtitle}>{subtitle}</Text>)}
+                <Text style={{ ...styles.text.semi1 }}>{title}</Text>
+                {subtitle && (<Text style={styles.text.semi2}>{subtitle}</Text>)}
             </View>
             <Text style={{ fontWeight: '300', fontSize: sizes.text.header1, color: 'white' }} >{isDraggingEnabled ? '=' : ' '}</Text>
         </View>

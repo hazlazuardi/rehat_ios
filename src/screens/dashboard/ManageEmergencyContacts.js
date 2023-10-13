@@ -11,7 +11,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import useContacts from '../../helpers/useContacts';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
 import PrimaryButton from '../../components/PrimaryButton';
-import { sizes } from '../../data/theme';
+import { sizes, styles } from '../../data/theme';
+import Contacts from 'react-native-contacts';
+
 
 
 function ManageEmergencyContacts() {
@@ -26,7 +28,7 @@ function ManageEmergencyContacts() {
     if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
     if (error) return <Text>Error loading contacts: {error.message}</Text>;
 
-    console.log(searchResult)
+    // console.log(searchResult)
     const displayedContacts = (searchResult?.length > 0 ? searchResult : contacts || []).filter(
         (contact) => !(emergencyContacts || []).some((econ) => econ.recordID === contact.recordID)
     );
@@ -59,14 +61,14 @@ function ManageEmergencyContacts() {
             contentContainerStyle={{ flexGrow: 1 }}
         >
             <ScrollView style={{ flex: 1, paddingTop: sizes.padding.lg * 2 }}>
-                <View style={styles.container}>
+                <View style={innerStyles.container}>
                     <Text>This is Manage E Con</Text>
-                    <View style={styles.contactList}>
+                    <View style={innerStyles.contactList}>
                         {emergencyContacts.map(econ => (
-                            <View key={econ.recordID} style={styles.contactItem}>
-                                <View>
-                                    <Text style={styles.contactName}>{econ.givenName} {econ.familyName}</Text>
-                                    <Text>{econ.phoneNumbers[0]?.number}</Text>
+                            <View key={econ.recordID} style={innerStyles.contactItem}>
+                                <View style={{ gap: sizes.gap.sm }}>
+                                    <Text style={innerStyles.contactName}>{econ.givenName} {econ.familyName}</Text>
+                                    <Text style={innerStyles.contactNumber} >{econ.phoneNumbers[0]?.number}</Text>
                                 </View>
                                 {editMode && (
                                     <Pressable style={{ backgroundColor: 'red' }} onPress={() => handleRemoveEmergencyContact(econ.recordID)}>
@@ -85,11 +87,11 @@ function ManageEmergencyContacts() {
                     />
                     <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
                     <ContactSearch handleSearch={handleSearch} />
-                    <View style={styles.contactList}>
+                    <View style={innerStyles.contactList}>
                         {displayedContacts?.map((contact) => (
-                            <View key={contact.recordID} style={styles.contactItem}>
+                            <View key={contact.recordID} style={innerStyles.contactItem}>
                                 <View>
-                                    <Text style={styles.contactName}>{contact.givenName} {contact.familyName}</Text>
+                                    <Text style={innerStyles.contactName}>{contact.givenName} {contact.familyName}</Text>
                                     <Text>{contact.phoneNumbers[0]?.number}</Text>
                                 </View>
                                 {editMode && (
@@ -108,7 +110,7 @@ function ManageEmergencyContacts() {
     );
 }
 
-const styles = {
+const innerStyles = {
     container: {
         paddingVertical: sizes.padding.lg,
         paddingHorizontal: sizes.padding.md,
@@ -128,7 +130,12 @@ const styles = {
         alignItem: 'center'
     },
     contactName: {
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
+        ...styles.text.semi1
+    },
+    contactNumber: {
+        ...styles.text.semi2,
+        color: 'rgba(255,255,255,.5)'
     },
     input: {
         minHeight: sizes.padding.lg,
@@ -147,7 +154,7 @@ function ContactSearch({ handleSearch }) {
 
     return (
         <TextInput
-            style={styles.input}
+            style={innerStyles.input}
             placeholder="Search by name, email, or phone number"
             value={searchString}
             onChangeText={setSearchString}

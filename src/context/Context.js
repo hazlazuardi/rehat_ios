@@ -7,26 +7,34 @@ import useEmergencyContacts from "../helpers/useEmergencyContacts";
 
 
 /**
- * Context for managing theme-related data.
- *
- * @type {React.Context}
+ * @type {React.Context} Context for managing theme-related data.
  */
 const ThemeContext = createContext(null);
 
 /**
- * Context for managing journal-related data.
- *
- * @type {React.Context}
+ * @type {React.Context} Context for managing journal-related data.
  */
 const JournalContext = createContext(null);
 
-const EmergencyContactsContext = createContext(null)
-
-const RecoveryReferencesContext = createContext(null)
+/**
+ * @type {React.Context} Context for managing journaling configuration data.
+ */
+const JournalingConfigContext = createContext(null);
 
 /**
- * A provider component that wraps the application and provides
- * context for managing theme and journal data.
+ * @type {React.Context} Context for managing emergency contacts data.
+ */
+const EmergencyContactsContext = createContext(null);
+
+/**
+ * @type {React.Context} Context for managing recovery references data.
+ */
+const RecoveryReferencesContext = createContext(null);
+
+
+/**
+ * Provider component that wraps the application and provides
+ * context for managing theme, journal, and other related data.
  *
  * @component
  * @param {object} props - The component's properties.
@@ -44,7 +52,7 @@ function StoreProvider({ children }) {
 	 */
 	const [journal, dispatchJournal] = useReducer(journalReducer, initialJournal);
 
-	const [journalingConfig, setJournalingConfig] = useState(initialJournalingConfig);
+	const [journalingConfig, dispatchJournalingConfig] = useReducer(journalingConfigReducer, initialJournalingConfig);
 
 	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
 
@@ -53,9 +61,10 @@ function StoreProvider({ children }) {
 
 	// Retrieve emergency contacts from the storage
 	useEffect(() => {
-		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' })
-		dispatchRecoveryReferences({ type: 'getRecoveryReferences' })
-	}, [])
+		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
+		dispatchRecoveryReferences({ type: 'getRecoveryReferences' });
+		dispatchJournalingConfig({ type: 'getJournalingConfig' });
+	}, []);
 
 	// Update ApplicationContext for the Watch App
 	// useEffect(() => {
@@ -75,8 +84,10 @@ function StoreProvider({ children }) {
 		<ThemeContext.Provider value={{}}>
 			<RecoveryReferencesContext.Provider value={{ recoveryReferences, dispatchRecoveryReferences }}>
 				<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
-					<JournalContext.Provider value={{ journal, dispatchJournal, journalingConfig, setJournalingConfig }}>
-						{children}
+					<JournalContext.Provider value={{ journal, dispatchJournal }}>
+						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
+							{children}
+						</JournalingConfigContext.Provider>
 					</JournalContext.Provider>
 				</EmergencyContactsContext.Provider>
 			</RecoveryReferencesContext.Provider>
@@ -104,6 +115,15 @@ export function useTheme() {
  */
 export function useJournal() {
 	return useContext(JournalContext);
+}
+
+/**
+ * Custom hook for accessing journaling configuration data and dispatching actions.
+ *
+ * @returns {object} Journaling configuration data and dispatch function from the context.
+ */
+export function useJournalingConfig() {
+	return useContext(JournalingConfigContext);
 }
 
 export function useEmergencyContact() {
@@ -190,6 +210,45 @@ const initialJournal = {
 	dateAdded: '',
 };
 
+/**
+ * Reducer function for managing journalingConfig-related actions.
+ *
+ * @param {object} state - The current state of the journalingConfig.
+ * @param {object} action - The action to perform on the journalingConfig state.
+ * @returns {object} The updated journalingConfig state.
+ */
+function journalingConfigReducer(state, action) {
+	switch (action.type) {
+		case 'getJournalingConfig': {
+			const strJournalConfig = storage.getString('journalingConfig');
+			if (strJournalConfig) {
+				const journalingConfig = JSON.parse(strJournalConfig);
+				return journalingConfig;
+			}
+			return { ...state };  // return the current state if there is no data in storage
+		}
+		case 'updateJournalingConfig': {
+			const updatedConfig = { ...state.journalThoughts };
+			updatedConfig[action.payload.type] = [...updatedConfig[action.payload.type], action.payload.newConfig];
+
+			// Save journalingConfig to storage
+			const newJournalingConfig = { ...state, ...action.payload };
+			const strJournalingConfig = JSON.stringify(newJournalingConfig);
+			storage.set('journalingConfig', strJournalingConfig);
+			return { ...state, journalThoughts: updatedConfig };
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+
+/**
+ * Initial state for journaling configuration data.
+ *
+ * @type {object}
+ */
 const initialJournalingConfig = {
 	journalEmotions: {
 		unpleasant: [
