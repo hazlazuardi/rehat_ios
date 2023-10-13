@@ -14,7 +14,7 @@ func requestNotifAuthorization() {
       
       if let error = error {
         // Handle the error here.
-        print("Error requesting notification permissions!")
+        print("Error requesting notification permissions: \(error.localizedDescription)")
       }
       
       // Enable or disable features based on the authorization.

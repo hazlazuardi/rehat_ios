@@ -41,6 +41,8 @@
 		EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9EC2AB17165004D33D9 /* MLUtils.swift */; };
 		EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */; };
 		EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */; };
+		EA9564E22AD80D94003D2F94 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9564E12AD80D94003D2F94 /* WorkoutView.swift */; };
+		EA9564E62AD82220003D2F94 /* WorkoutUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9564E52AD82220003D2F94 /* WorkoutUtils.swift */; };
 		EAD7C80B2ACB5722008721AB /* CSVUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7C80A2ACB5722008721AB /* CSVUtils.swift */; };
 		EAD7C80D2ACB7054008721AB /* dataset.csv in Resources */ = {isa = PBXBuildFile; fileRef = EAD7C80C2ACB7054008721AB /* dataset.csv */; };
 		EAD7C81B2AD4F53D008721AB /* NotifUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7C81A2AD4F53D008721AB /* NotifUtils.swift */; };
@@ -155,6 +157,8 @@
 		EA63C9EC2AB17165004D33D9 /* MLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLUtils.swift; sourceTree = "<group>"; };
 		EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PanicAttackClassifier.mlmodel; sourceTree = "<group>"; };
 		EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthUtils.swift; sourceTree = "<group>"; };
+		EA9564E12AD80D94003D2F94 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		EA9564E52AD82220003D2F94 /* WorkoutUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutUtils.swift; sourceTree = "<group>"; };
 		EAD7C80A2ACB5722008721AB /* CSVUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVUtils.swift; sourceTree = "<group>"; };
 		EAD7C80C2ACB7054008721AB /* dataset.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dataset.csv; sourceTree = "<group>"; };
 		EAD7C81A2AD4F53D008721AB /* NotifUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifUtils.swift; sourceTree = "<group>"; };
@@ -269,7 +273,9 @@
 				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
 				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
 				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
+				EA9564E52AD82220003D2F94 /* WorkoutUtils.swift */,
 				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
+				EA9564E12AD80D94003D2F94 /* WorkoutView.swift */,
 				EADDF11C2AD55CEC00987695 /* HKUtils.swift */,
 				288DAB2D2AB37B3E00892CE7 /* DetailView.swift */,
 				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
@@ -706,8 +712,10 @@
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */,
 				80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */,
+				EA9564E22AD80D94003D2F94 /* WorkoutView.swift in Sources */,
 				EADDF11B2AD5521100987695 /* EmergencyContactsView.swift in Sources */,
 				281E82C32ABAC49B00CEB553 /* HealthKit.swift in Sources */,
+				EA9564E62AD82220003D2F94 /* WorkoutUtils.swift in Sources */,
 				28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */,
 				805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */,
 				EAD7C81D2AD4FF91008721AB /* NotifTestView.swift in Sources */,
@@ -952,6 +960,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOL_FRAMEWORKS = "SwiftUI UIKit AppKit BackgroundTasks";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1008,6 +1017,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOL_FRAMEWORKS = "SwiftUI UIKit AppKit BackgroundTasks";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

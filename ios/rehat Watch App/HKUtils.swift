@@ -78,6 +78,3 @@ func getLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier
   return (latestSample, lastTimestamp)
 }
 
-func startWorkout(healthStore: HKHealthStore) {
-  
-}
