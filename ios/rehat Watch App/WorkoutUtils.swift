@@ -109,7 +109,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             let statistics = workoutBuilder.statistics(for: quantityType)
 
             // Update the published values.
-            updateForStatistics(statistics)
+//            updateForStatistics(statistics)
         }
     }
 }
