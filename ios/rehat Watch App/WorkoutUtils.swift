@@ -19,6 +19,7 @@ class WorkoutManager: NSObject, ObservableObject {
   @Published var restingHeartRate: Double = 0.0
   @Published var hrv: Double = 0.0
   @Published var workout: HKWorkout?
+  private var averageHeartRate: Double = 0.0
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -55,10 +56,11 @@ class WorkoutManager: NSObject, ObservableObject {
     }
   }
   
+  // Background processing
+  // Continuously scan for new HK readings and make classification
   func updateForStatistics(_ statistics: HKStatistics?) {
       guard let statistics = statistics else { return }
 
-      // TODO: get average heart rate over 6 minute intervals (Rubin et al. section 3)
       DispatchQueue.main.async {
         print("updating statistics for ", terminator: "")
         switch statistics.quantityType {
@@ -66,7 +68,15 @@ class WorkoutManager: NSObject, ObservableObject {
           let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
           self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
           print("HR: \(self.heartRate) BPM")
-          _ = predict(hr: self.heartRate, sdnn: 55.5)
+          startAverageQuery(
+            quantityTypeIdentifier: .heartRate,
+            healthStore: self.healthStore,
+            lastNSeconds: TimeInterval(600),
+            updateFunction: self.updateAverageHeartRate
+          )
+          // FIXME: use real sdnn data
+          // TODO: notify on predict, add time buffer since last notif
+          _ = predict(hr: self.averageHeartRate, sdnn: 55.5)
         case HKQuantityType.quantityType(forIdentifier: .restingHeartRate):
           let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
           self.restingHeartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
@@ -79,6 +89,11 @@ class WorkoutManager: NSObject, ObservableObject {
             return
         }
       }
+  }
+  
+  private func updateAverageHeartRate(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {
+    self.averageHeartRate = getAverageOfSamples(samples: samples, type: type)
+    print("Updated average HR: \(self.averageHeartRate)")
   }
   
   // MARK: - State Control
