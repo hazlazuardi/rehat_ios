@@ -20,6 +20,11 @@ class WorkoutManager: NSObject, ObservableObject {
   @Published var hrv: Double = 0.0
   @Published var workout: HKWorkout?
   private var averageHeartRate: Double = 0.0
+  private var dateOnLastNotifSent: Date = Calendar.current.startOfDay(for: .now)
+  private var dateOnLastPredict: Date = Calendar.current.startOfDay(for: .now)
+  // FIXME: Tweak these downtime intervals
+  private let NOTIF_DOWNTIME: Double = -3600
+  private let PREDICT_DOWNTIME: Double = -60
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -62,33 +67,61 @@ class WorkoutManager: NSObject, ObservableObject {
       guard let statistics = statistics else { return }
 
       DispatchQueue.main.async {
-        print("updating statistics for ", terminator: "")
+        self.runBackgroundTask()
+        
+//        print("updating statistics for ", terminator: "")
         switch statistics.quantityType {
         case HKQuantityType.quantityType(forIdentifier: .heartRate):
           let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
           self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
-          print("HR: \(self.heartRate) BPM")
-          startAverageQuery(
-            quantityTypeIdentifier: .heartRate,
-            healthStore: self.healthStore,
-            lastNSeconds: TimeInterval(600),
-            updateFunction: self.updateAverageHeartRate
-          )
-          // FIXME: use real sdnn data
-          // TODO: notify on predict, add time buffer since last notif
-          _ = predict(hr: self.averageHeartRate, sdnn: 55.5)
+//          print("HR: \(self.heartRate) BPM")
         case HKQuantityType.quantityType(forIdentifier: .restingHeartRate):
           let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
           self.restingHeartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
-          print("Resting HR: \(self.restingHeartRate) BPM")
+//          print("Resting HR: \(self.restingHeartRate) BPM")
         case HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN):
           let hrvUnit = HKUnit.secondUnit(with: .milli)
           self.hrv = statistics.mostRecentQuantity()?.doubleValue(for: hrvUnit) ?? 0
-          print("HRV: \(self.hrv) ms")
+//          print("HRV: \(self.hrv) ms")
         default:
-            return
+          return
         }
+        
       }
+  }
+  
+  private func runBackgroundTask() {
+    // skip if it's been too soon since last bg task
+    if (dateOnLastPredict.timeIntervalSinceNow > PREDICT_DOWNTIME) {
+      return
+    }
+    
+    // skip if it's been too soon since last notification
+    if (dateOnLastNotifSent.timeIntervalSinceNow > NOTIF_DOWNTIME) {
+      return
+    }
+    
+    let clock = ContinuousClock()
+    let runtime = clock.measure {
+      print("Running Background Task!")
+      startAverageQuery(
+        quantityTypeIdentifier: .heartRate,
+        healthStore: self.healthStore,
+        lastNSeconds: TimeInterval(600),
+        updateFunction: self.updateAverageHeartRate
+      )
+      
+      // FIXME: use real sdnn data
+      let label = predict(hr: self.averageHeartRate, sdnn: 55.5).label
+      self.dateOnLastPredict = Date()
+      
+      if ([1,2].contains(label)) {
+        sendNotification()
+        self.dateOnLastNotifSent = Date()
+      }
+    }
+    
+    print("Ran Background Task for \(runtime)")
   }
   
   private func updateAverageHeartRate(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {

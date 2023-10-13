@@ -22,6 +22,29 @@ func requestNotifAuthorization() {
   }
 }
 
+func sendNotification() {
+    let notifContent = UNMutableNotificationContent()
+    notifContent.title = "Hey there"
+    notifContent.body = "How are you feeling?"
+    
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.001, repeats: false)
+    
+    // Create the request
+    let uuidString = UUID().uuidString
+    let request = UNNotificationRequest(identifier: uuidString,
+                content: notifContent, trigger: trigger)
+
+    // Schedule the request with the system.
+    let notificationCenter = UNUserNotificationCenter.current()
+    notificationCenter.add(request) { (error) in
+       if error != nil {
+          // Handle any errors.
+       } else {
+         print("Successfully requested notification to notifCenter!")
+       }
+    }
+}
+
 func notifyOnPredict() {
   // FIXME: actually read HRs please
   let positiveLabels: [Int64] = [1, 2]
