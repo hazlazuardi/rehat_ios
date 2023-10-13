@@ -270,7 +270,7 @@ function recoveryReferencesReducer(state, action) {
 
 const initialRecoveryReferences = [
 	{ key: '1', label: 'Guided Breathing' },
-	{ key: '2', label: '5-4-3-2-1' },
+	{ key: '2', label: 'Grounding Technique' },
 	{ key: '3', label: 'Self-Affirmation' },
 	{ key: '4', label: 'Emergency Call' },
 ]

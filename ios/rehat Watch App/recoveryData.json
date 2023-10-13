@@ -3,6 +3,7 @@
     "name": "Muscle Relaxation",
     "slides": [
       {
+<<<<<<< Updated upstream
         "title": "",
         "subTitle": "Start by lying or sitting down. Relax your entire body. Take five deep, slow breaths."
       },
@@ -41,6 +42,42 @@
       {
         "title": "",
         "subTitle": "Close your eyes tightly. Pause, then release."
+=======
+        "title": "Start by lying or sitting down. Relax your entire body. Take five deep, slow breaths.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Lift your toes upward. Hold, then let go. ",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Curl your toes downward. Hold, then let go.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Clench your hands. Pause, then let go.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Tense your arms. Hold, then let go.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Contract your abdominal muscles. Pause, then let go.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Raise your shoulders to your ears. Pause, then let go.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Open your mouth wide. Hold, then let go.",
+        "subTitle": "SubTitle1"
+      },
+      {
+        "title": "Close your eyes tightly. Pause, then release.",
+        "subTitle": "SubTitle1"
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -73,7 +110,11 @@
       },
       {
         "title": "7. Embrace Calm Emotions:",
+<<<<<<< Updated upstream
         "subTitle": "As you immerse yourself in this peaceful place, focus on the emotions it evokes. Feel the calm, serenity, and relaxation that come from being in this beautiful location"
+=======
+        "subTitle": "As you immerse yourself in this peaceful place, focus on the emotions it evokes. Feel the calm, serenity, and relaxation that come from being in this beautiful location."
+>>>>>>> Stashed changes
       },
       {
         "title": "8. Stay Present:",
@@ -81,7 +122,11 @@
       },
       {
         "title": "9. Conclude the Exercise:",
+<<<<<<< Updated upstream
         "subTitle": "As your chosen time limit approaches, start to transition out of the visualization. Become aware of your physical surroundings and the sensation of your body. Gently wiggle your fingers and toes."
+=======
+        "subTitle": "Start to transition out of the visualization. Become aware of your physical surroundings and the sensation of your body. Gently wiggle your fingers and toes."
+>>>>>>> Stashed changes
       },
       {
         "title": "10. Open Your Eyes:",

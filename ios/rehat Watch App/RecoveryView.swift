@@ -51,23 +51,38 @@ struct RecoveryView: View {
     NavigationSplitView {
       List {
         ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
+//          Text(reference.label)
           if reference.label == "Self-Affirmation" {
             NavigationLink(destination: AffirmView()) {
               Text(reference.label)
+              
             }
           } else if reference.label == "Guided Breathing" {
             NavigationLink(destination: BreathView()) {
               Text(reference.label)
             }
           }
-          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
-            NavigationLink(destination: DetailView(therapy: therapy)) {
-              Text(therapy.name)
-                .font(.title3)
-                .fontWeight(.regular)
-                .foregroundColor(Color.primary)
+//          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
+//            NavigationLink(destination: DetailView(therapy: therapy)) {
+//              Text(therapy.name)
+//                .font(.title3)
+//                .fontWeight(.regular)
+//                .foregroundColor(Color.primary)
+//            }
+//          }
+          else if reference.label == "Grounding Technique" {
+            Section {
+              ForEach(recoveryDatas.therapies, id: \.id) { therapy in
+                NavigationLink(destination: DetailView(therapy: therapy)) {
+                  Text(therapy.name)
+                    .font(.title3)
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.primary)
+                }
+              }
+            } header : {
+              Text("Grounding Technique")
             }
-            .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
           }
         }
       }
