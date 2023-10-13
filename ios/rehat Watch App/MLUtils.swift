@@ -14,7 +14,7 @@ func getClassifier() -> PanicAttackClassifier {
   else {
     fatalError("Error when initializing classifier.")
   }
-  print("Got ML Model!")
+//  print("Got ML Model!")
   return classifier
 }
 
@@ -24,7 +24,7 @@ func predict(hr: Double, sdnn: Double) -> PanicAttackClassifierOutput {
   else {
     fatalError("Classifier done broke")
   }
-  print("Made Classification!")
+  print("Made Classification: \(classifierOutput.label)")
   return classifierOutput
 }
 
