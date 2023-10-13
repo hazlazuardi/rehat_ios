@@ -12,6 +12,7 @@ struct ContentView: View {
   var body: some View {
     TabView {
       NotifTestView()
+      WorkoutView()
       HKView()
       PanicView()
       RecoveryView(rnConnector: rnConnector)
