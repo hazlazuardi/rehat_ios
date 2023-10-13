@@ -51,11 +51,9 @@ struct RecoveryView: View {
     NavigationSplitView {
       List {
         ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
-//          Text(reference.label)
           if reference.label == "Self-Affirmation" {
             NavigationLink(destination: AffirmView()) {
               Text(reference.label)
-              
             }
           } else if reference.label == "Guided Breathing" {
             NavigationLink(destination: BreathView()) {
@@ -79,6 +77,7 @@ struct RecoveryView: View {
                     .fontWeight(.regular)
                     .foregroundColor(Color.primary)
                 }
+                .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
               }
             } header : {
               Text("Grounding Technique")
