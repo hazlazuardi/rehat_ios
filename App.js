@@ -11,6 +11,12 @@ import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
 import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
 import { View } from 'react-native';
+import Learn from './src/screens/Learn';
+import LearnDetail from './src/screens/LearnDetail';
+import CognitiveRestructuing from './src/screens/CognitiveRestructuring';
+import CognitiveDetail from './src/screens/CognitiveDetail';
+import CognitiveAnotherWay from './src/screens/CognitiveAnotherWay';
+import SuccessDetail from './src/screens/SuccessScreen';
 import { sendMessage, watchEvents } from 'react-native-watch-connectivity';
 import {
 	Alert,
@@ -81,9 +87,21 @@ function App() {
 
 							{/* Settings */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
-								<Stack.Screen name='Settings' component={Settings} options={{ ...nestedHeaderOptions, headerBackTitle: 'Dashboard' }} />
-								<Stack.Screen name='Manage Emergency Contact' component={ManageEmergencyContacts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }} />
-								<Stack.Screen name='Manage Recovery Preferences' component={ManageRecoveryPreferences} options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }} />
+								<Stack.Screen
+									name="Settings"
+									component={Settings}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Dashboard' }}
+								/>
+								<Stack.Screen
+									name="Manage Emergency Contact"
+									component={ManageEmergencyContacts}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }}
+								/>
+								<Stack.Screen
+									name="Manage Recovery Preferences"
+									component={ManageRecoveryPreferences}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }}
+								/>
 							</Stack.Group>
 
 							{/* Recovery Screens */}
