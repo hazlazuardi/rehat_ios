@@ -15,6 +15,7 @@ import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
   let healthStore = RehatHealthStore.store
+  @Published var isPanic: Bool = false
   @Published var heartRate: Double = 0.0
   @Published var restingHeartRate: Double = 0.0
   @Published var hrv: Double = 0.0
