@@ -262,7 +262,7 @@ function JournalThoughts({ navigation }) {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={{ ...styles.text.body2 }}>What you were doing</Text>
                             <Image
-                                source={assets.icons.place}
+                                source={assets.icons.activity}
                                 style={{
                                     width: sizes.icon.xs,
                                     aspectRatio: 1

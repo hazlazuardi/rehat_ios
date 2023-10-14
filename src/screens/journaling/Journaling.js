@@ -41,6 +41,7 @@ function Journaling({ navigation }) {
                         <View style={{ gap: sizes.gap.sm }}>
                             <Text style={{ ...styles.text.header1 }}>Journaling</Text>
 
+                            {/* Card */}
                             <View style={{
                                 borderRadius: sizes.radius.lg,
                                 backgroundColor: colors.turqoise,
@@ -50,7 +51,7 @@ function Journaling({ navigation }) {
                                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: sizes.gap.sm }} >
                                     <View style={{ width: 20, aspectRatio: 1 }}>
                                         <Image
-                                            source={assets.icons.journaling_head}
+                                            source={assets.icons.journaling}
                                             style={{
                                                 flex: 1,
                                                 aspectRatio: 1

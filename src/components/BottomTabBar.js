@@ -21,7 +21,8 @@ function BottomTabBar() {
 	return (
 		<Tab.Navigator
 			sceneContainerStyle={{
-				backgroundColor: 'transparent'
+				// backgroundColor: 'transparent'
+				backgroundColor: 'black'
 			}}
 
 			screenOptions={{

@@ -3,6 +3,7 @@ export const colors = {
     turqoise: '#0E8388',
     green: '#298753',
     orange: '#FF6000',
+    orangeTransparent: 'rgba(255, 96, 0, .5)',
     textArea: {
         backgroundColor: 'rgba(217,217,217,.08)',
         color: 'rgba(203, 228, 222, .45)'

@@ -4,6 +4,7 @@ import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
 import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
 import useEmergencyContacts from "../helpers/useEmergencyContacts";
+import { Appearance } from "react-native";
 
 
 /**
@@ -61,6 +62,7 @@ function StoreProvider({ children }) {
 
 	// Retrieve emergency contacts from the storage
 	useEffect(() => {
+		Appearance.setColorScheme('dark')
 		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
 		dispatchRecoveryReferences({ type: 'getRecoveryReferences' });
 		dispatchJournalingConfig({ type: 'getJournalingConfig' });
