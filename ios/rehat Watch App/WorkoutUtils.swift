@@ -103,6 +103,7 @@ class WorkoutManager: NSObject, ObservableObject {
       self.dateOnLastPredict = Date()
       
       if ([1,2].contains(label)) {
+        self.endWorkout()
         sendNotification()
         self.dateOnLastNotifSent = Date()
       }
