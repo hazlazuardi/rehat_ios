@@ -256,6 +256,31 @@ function JournalThoughts({ navigation }) {
                             <ChipInput type="locations" onEndEditing={handleAddJournalConfig} />
                         </View>
 
+                        <Divider color={'white'} />
+
+                        {/* whatActivity */}
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={{ ...styles.text.body2 }}>What you were doing</Text>
+                            <Image
+                                source={assets.icons.place}
+                                style={{
+                                    width: sizes.icon.xs,
+                                    aspectRatio: 1
+                                }}
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: sizes.padding.sm, flexWrap: 'wrap' }}>
+                            {journalingConfig.journalThoughts.activities.map((activity) => (
+                                <Chip
+                                    key={activity}
+                                    text={activity}
+                                    onPress={() => onPressChip(activity, 'whatActivity')}
+                                    isSelected={isChipSelected(activity, 'whatActivity')}
+                                />
+                            ))}
+                            <ChipInput type="activities" onEndEditing={handleAddJournalConfig} />
+                        </View>
+
                     </View>
 
                     {/* Done Button */}
