@@ -16,7 +16,11 @@ function Recovery({ navigation }) {
                 contentInsetAdjustmentBehavior='automatic'
             >
                 <SafeAreaView>
-                    <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
+                    <View style={{
+                        padding: sizes.padding.md,
+                        gap: sizes.gap.lg,
+                        paddingBottom: sizes.padding.lg * 2
+                    }}>
                         <Text style={{ ...styles.text.header2, color: colors.orange }}>Recovery</Text>
 
                         {/* Section Guided Breathing */}

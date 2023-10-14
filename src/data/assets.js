@@ -16,6 +16,12 @@ import neutral from '../assets/images/neutral_bg.png'
 import checklist_completed from '../assets/icons/checklist_completed_icon.png'
 import checklist_not_completed from '../assets/icons/checklist__not_completed_icon.png'
 
+import settings from '../assets/icons/settings_icon.png'
+import home from '../assets/icons/home_icon.png'
+import recovery from '../assets/icons/recovery_icon.png'
+import learn from '../assets/icons/learn_icon.png'
+import monitoring from '../assets/icons/monitoring_icon.png'
+
 
 export default {
     icons: {
@@ -28,8 +34,12 @@ export default {
         journaling: journaling,
         activity: activity,
         checklist_completed: checklist_completed,
-        checklist_not_completed: checklist_not_completed
-
+        checklist_not_completed: checklist_not_completed,
+        settings: settings,
+        home: home,
+        recovery: recovery,
+        learn: learn,
+        monitoring: monitoring
     },
 
     images: {

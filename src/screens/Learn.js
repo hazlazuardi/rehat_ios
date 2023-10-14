@@ -28,7 +28,7 @@ function Learn({ navigation }) {
     <BlurredEllipsesBackground>
       <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>
         <SafeAreaView>
-          <View style={{ gap: sizes.gap.lg, padding: sizes.padding.md }}>
+          <View style={{ gap: sizes.gap.lg, padding: sizes.padding.md, paddingBottom: sizes.padding.lg*2 }}>
             <Text style={styles.text.header2}>Insight Hub</Text>
             <View style={innerStyles.progressLearn}>
               <View style={innerStyles.progressText}>
