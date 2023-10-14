@@ -11,9 +11,8 @@ struct ContentView: View {
   @StateObject var rnConnector = RNConnector()
   @EnvironmentObject var workoutManager: WorkoutManager
   var body: some View {
+//    if workoutManager.isPanic
     TabView {
-      NotifTestView()
-      HKView()
       PanicView()
       RecoveryView(rnConnector: rnConnector)
       EmergencyContactsView(rnConnector: rnConnector)
