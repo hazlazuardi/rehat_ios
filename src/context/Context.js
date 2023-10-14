@@ -206,6 +206,7 @@ const initialJournal = {
 	photo: {},
 	withWho: '',
 	where: '',
+	whatActivity: '',
 	thoughts: '',
 	dateAdded: '',
 };
@@ -236,6 +237,12 @@ function journalingConfigReducer(state, action) {
 			const strJournalingConfig = JSON.stringify(newJournalingConfig);
 			storage.set('journalingConfig', strJournalingConfig);
 			return { ...state, journalThoughts: updatedConfig };
+		}
+		case 'clearJournalingConfig': {
+			// Clear journalingConfig from storage
+			storage.delete('journalingConfig');
+			// Return the initial state or some other default configuration
+			return { ...initialJournalingConfig };
 		}
 		default: {
 			throw Error(`Unknown action: ${action.type}`);
@@ -296,6 +303,9 @@ const initialJournalingConfig = {
 		],
 		locations: [
 			'School', 'Home', 'Restaurant', 'Work', 'Park', 'Transport', 'Shop'
+		],
+		activities: [
+			'Coding', 'Studying', 'Commuting', 'Chilling'
 		]
 	}
 }
