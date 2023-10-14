@@ -167,6 +167,28 @@ function JournalDetail({ route }) {
                             </View>
                         </View>
 
+
+
+                        <Divider color={'white'} />
+
+                        {/* whatActivity */}
+
+                        <View style={{ gap: sizes.gap.md }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={{ ...styles.text.body2 }}>What you were doing</Text>
+                                <Image
+                                    source={assets.icons.activity}
+                                    style={{
+                                        width: sizes.icon.xs * 1.1,
+                                        aspectRatio: 1
+                                    }}
+                                />
+                            </View>
+                            <View style={{ alignSelf: 'flex-start' }}>
+                                <Chip text={journal.whatActivity} />
+                            </View>
+                        </View>
+
                     </View>
                 </SafeAreaView>
             </ScrollView >

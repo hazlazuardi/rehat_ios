@@ -4,6 +4,7 @@ import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
 import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
 import useEmergencyContacts from "../helpers/useEmergencyContacts";
+import { Appearance } from "react-native";
 
 
 /**
@@ -30,6 +31,8 @@ const EmergencyContactsContext = createContext(null);
  * @type {React.Context} Context for managing recovery references data.
  */
 const RecoveryReferencesContext = createContext(null);
+
+const GoalsContext = createContext(null)
 
 
 /**
@@ -58,12 +61,15 @@ function StoreProvider({ children }) {
 
 	const [recoveryReferences, dispatchRecoveryReferences] = useReducer(recoveryReferencesReducer, initialRecoveryReferences)
 
+	const [goals, dispatchGoals] = useReducer(goalsReducer, initialGoals)
 
 	// Retrieve emergency contacts from the storage
 	useEffect(() => {
+		Appearance.setColorScheme('dark')
 		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
 		dispatchRecoveryReferences({ type: 'getRecoveryReferences' });
 		dispatchJournalingConfig({ type: 'getJournalingConfig' });
+		dispatchGoals({ type: 'getAllGoals' });
 	}, []);
 
 	// Update ApplicationContext for the Watch App
@@ -86,7 +92,9 @@ function StoreProvider({ children }) {
 				<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
 					<JournalContext.Provider value={{ journal, dispatchJournal }}>
 						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
-							{children}
+							<GoalsContext.Provider value={{ goals, dispatchGoals }}>
+								{children}
+							</GoalsContext.Provider>
 						</JournalingConfigContext.Provider>
 					</JournalContext.Provider>
 				</EmergencyContactsContext.Provider>
@@ -131,7 +139,11 @@ export function useEmergencyContact() {
 }
 
 export function useRecoveryReferences() {
-	return useContext(RecoveryReferencesContext)
+	return useContext(RecoveryReferencesContext);
+}
+
+export function useGoals() {
+	return useContext(GoalsContext);
 }
 
 /**
@@ -375,5 +387,53 @@ function contactReducer(state, action) {
 }
 
 const initialEmergencyContactConfig = []
+
+
+function goalsReducer(state, action) {
+	switch (action.type) {
+		case 'getAllGoals': {
+			const strAllGoals = storage.getString('goals');
+			if (strAllGoals) {
+				const allGoals = JSON.parse(strAllGoals);
+				return allGoals;
+			}
+			return [...state];
+		}
+		case 'addGoal': {
+			const updatedGoals = [
+				...state,
+				action.payload
+			]
+			storage.set('goals', JSON.stringify(updatedGoals));  // save to storage here
+			return [...updatedGoals];
+		}
+		case 'removeGoal': {
+			const updatedGoals = state.filter(goal => goal.id !== action.payload.id);
+			storage.set('goals', JSON.stringify(updatedGoals));  // consider saving to storage here too
+			return [...updatedGoals];
+		}
+		case 'toggleGoalCompletion': {
+			const updatedGoals = state.map(goal =>
+				goal.id === action.payload.id ? { ...goal, isCompleted: !goal.isCompleted } : goal
+			);
+			storage.set('goals', JSON.stringify(updatedGoals));  // consider saving to storage here too
+			return [...updatedGoals];
+		}
+		case 'clearAllGoals': {
+			storage.set('goals', JSON.stringify(initialGoals))
+			return initialGoals;
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+const initialGoals = [
+	// Example
+	// { id: 1, text: "Learn React Native", isCompleted: false }
+];
+
+
 
 export default StoreProvider;

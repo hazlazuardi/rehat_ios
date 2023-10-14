@@ -10,7 +10,7 @@ import {
 import {Pressable} from 'react-native';
 import {colors} from '../data/theme';
 import {sizes} from '../data/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles.json';
 

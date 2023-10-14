@@ -15,6 +15,7 @@ import EmotionCategoryButton from '../../components/journaling/EmotionCategoryBu
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 import { toAssetCase } from '../../helpers/helpers';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 /**
@@ -82,8 +83,23 @@ function JournalThoughts({ navigation }) {
         dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
     }
 
+    const isJournalComplete = () => {
+        const requiredFields = ['emotionCategory', 'emotions', 'withWho', 'where', 'whatActivity', 'thoughts', 'dateAdded'];
+        for (const field of requiredFields) {
+            if (field === 'emotions' && journal[field].length === 0) {
+                return false;
+            }
+            if (!journal[field]) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const insets = useSafeAreaInsets()
     // console.log('ctx journal', journal.emotionCategory.toLowerCase().replace(' ', '_'))
 
+    console.log('ctx journal', journal)
     // const { CameraIcon } = useIcons()
     return (
         // <SafeAreaView style={{ flex: 1 }}>
@@ -93,7 +109,7 @@ function JournalThoughts({ navigation }) {
                 keyboardOpeningTime={10}
                 contentContainerStyle={{ flexGrow: 1 }}
             >
-                <ScrollView style={{ flex: 1, paddingTop: sizes.padding.lg * 2 }}>
+                <View style={{ paddingTop: insets.top + sizes.padding.lg }} >
 
                     {/* Content */}
                     <View style={{ paddingVertical: sizes.padding.lg, paddingHorizontal: sizes.padding.md, flexDirection: 'column', gap: sizes.padding.md }}>
@@ -149,6 +165,7 @@ function JournalThoughts({ navigation }) {
                             }}
                             placeholder={'Title'}
                             onEndEditing={(titleValue) => handleWriteThoughts('title', titleValue)}
+                            value={journal.title}
                         />
                         <TextArea
                             multiline
@@ -158,6 +175,7 @@ function JournalThoughts({ navigation }) {
                             }}
                             placeholder={'Today, I met... then, I met a...'}
                             onEndEditing={(thoughtValue) => handleWriteThoughts('thoughts', thoughtValue)}
+                            value={journal.thoughts}
                         />
 
                         <Divider color={'white'} />
@@ -262,7 +280,7 @@ function JournalThoughts({ navigation }) {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={{ ...styles.text.body2 }}>What you were doing</Text>
                             <Image
-                                source={assets.icons.place}
+                                source={assets.icons.activity}
                                 style={{
                                     width: sizes.icon.xs,
                                     aspectRatio: 1
@@ -289,10 +307,10 @@ function JournalThoughts({ navigation }) {
                             onPress={() => navigation.navigate('Journal Success')}
                             text={'Done'}
                             color={'green'}
+                            disabled={!isJournalComplete()} // Add this line
                         />
                     </View>
-
-                </ScrollView>
+                </View>
             </KeyboardAwareScrollView>
         </BlurredEllipsesBackground >
     );

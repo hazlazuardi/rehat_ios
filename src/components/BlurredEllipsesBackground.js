@@ -10,7 +10,7 @@ function BlurredEllipsesBackground({ children }) {
       <View style={styles.ellipseBottomRight} />
       <BlurView
         style={styles.absolute}
-        blurType="thickMaterial"
+        // blurType="thickMaterial"
         blurAmount={50}
         reducedTransparencyFallbackColor="white"
       />

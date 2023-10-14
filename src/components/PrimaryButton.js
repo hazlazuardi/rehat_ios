@@ -38,6 +38,7 @@ function PrimaryButton({ variant, onPress, text, color, disabled }) {
                 alignItems: 'center',
                 padding: sizes.button.padding.sm,
                 borderRadius: sizes.button.radius,
+                opacity: disabled ? .35 : 1
             }}
         >
             <Text style={{

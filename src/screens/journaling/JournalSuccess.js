@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, Pressable, SafeAreaView, Text, View } from 'react-native';
-import { sizes, styles } from '../../data/theme';
+import { colors, sizes, styles } from '../../data/theme';
 import { useJournal } from '../../context/Context';
 import assets from '../../data/assets';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
+import PrimaryButton from '../../components/PrimaryButton';
 
 /**
  * A component for displaying a success message after saving a journal entry.
@@ -19,9 +20,15 @@ function JournalSuccess({ navigation }) {
     /**
      * Handles the press event when the user is done with the journal entry.
      */
-    function handlePress() {
+    function handlePress(action) {
         dispatchJournal({ type: 'saveJournal' });
-        navigation.navigate('Journaling');
+
+        if (action === 'done') {
+            navigation.navigate('Journaling');
+
+        } else {
+            navigation.navigate('Create a Goal', { nextPage: 'Recovery' })
+        }
     }
 
     return (
@@ -41,19 +48,16 @@ function JournalSuccess({ navigation }) {
                         />
                     </View>
                     <Text style={{ ...styles.text.header1, textAlign: 'center' }}>Your daily journal has been saved</Text>
-                    <Pressable
-                        onPress={handlePress}
-                        style={{
-                            backgroundColor: 'green',
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            padding: sizes.button.padding.sm,
-                            borderRadius: sizes.button.radius,
-                        }}
-                    >
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Done</Text>
-                    </Pressable>
+                    <PrimaryButton
+                        color={colors.green}
+                        text='Create a Goal'
+                        onPress={() => handlePress('addGoal')}
+                    />
+                    <PrimaryButton
+                        color={colors.textArea.backgroundColor}
+                        text='Done'
+                        onPress={() => handlePress('done')}
+                    />
                 </View>
             </SafeAreaView>
         </BlurredEllipsesBackground>
