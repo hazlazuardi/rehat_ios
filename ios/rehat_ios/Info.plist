@@ -38,7 +38,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Use camera to add photos</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Import photo from library</string>
 	<key>UILaunchStoryboardName</key>
@@ -55,5 +55,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>assets/fonts/Poppins-Regular.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+	</array>
 </dict>
 </plist>

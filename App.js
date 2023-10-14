@@ -11,6 +11,12 @@ import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
 import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
 import { View } from 'react-native';
+import Learn from './src/screens/Learn';
+import LearnDetail from './src/screens/LearnDetail';
+import CognitiveRestructuing from './src/screens/CognitiveRestructuring';
+import CognitiveDetail from './src/screens/CognitiveDetail';
+import CognitiveAnotherWay from './src/screens/CognitiveAnotherWay';
+import SuccessDetail from './src/screens/SuccessScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +54,19 @@ function App() {
 							<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
 							<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
 							<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
+						</Stack.Group>
+
+						{/* Learn Screens */}
+						<Stack.Group screenOptions={{ headerShown: true, }}>
+							<Stack.Screen name='Learn' component={Learn} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Learn Detail' component={LearnDetail} options={{ ...nestedHeaderOptions, headerBackTitle: 'Learn' }} />
+						</Stack.Group>
+						{/* Learn Screens */}
+						<Stack.Group screenOptions={{ headerShown: false, }}>
+							<Stack.Screen name='Cognitive Restructuring' component={CognitiveRestructuing} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Cognitive Detail' component={CognitiveDetail} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Cognitive Another Way' component={CognitiveAnotherWay} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
+							<Stack.Screen name='Success Screen' component={SuccessDetail} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
 						</Stack.Group>
 
 
