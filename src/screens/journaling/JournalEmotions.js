@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
-import { sizes } from '../../data/theme';
-import { useJournal } from '../../context/Context';
+import { sizes, styles } from '../../data/theme';
+import { useJournal, useJournalingConfig } from '../../context/Context';
 import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
-import { convertToCamelCase } from '../../helpers/helpers';
+import { convertToCamelCase, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import Divider from '../../components/Divider';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
 /**
  * A React Native component for selecting emotions.
@@ -25,7 +26,9 @@ function JournalEmotions({ navigation }) {
      * @property {object} journal - The journal state.
      * @property {Function} dispatchJournal - A function to dispatch journal-related actions.
      */
-    const { journal, dispatchJournal, journalingConfig } = useJournal();
+    const { journal, dispatchJournal } = useJournal();
+
+    const { journalingConfig } = useJournalingConfig()
 
     /**
      * Handles the press event of a chip.
@@ -65,31 +68,42 @@ function JournalEmotions({ navigation }) {
     console.log('isSelected', isChipSelected('Amazing'));
 
     return (
-        <SafeAreaView>
-            <View style={{ alignItems: 'center', paddingTop: sizes.padding.lg, marginHorizontal: sizes.padding.md, gap: sizes.padding.lg }}>
-                <EmotionCategoryButton title={journal.emotionCategory} />
-                <View style={{ gap: sizes.padding.md }}>
-                    <Text style={{ fontSize: sizes.text.header1, paddingHorizontal: sizes.padding.sm }}>What best describes this feeling?</Text>
-                    <Divider />
-                    {/* Emotion Chips */}
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm, paddingHorizontal: sizes.padding.sm }} >
-                        {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory.toLowerCase())].map(emotion => {
-                            return (
-                                <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
+        <BlurredEllipsesBackground>
+            <SafeAreaView>
+                <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
 
-                            )
-                        })}
+                    {/* journalCategory */}
+                    <View style={{ alignItems: 'center', gap: sizes.gap.md }}>
+                        <EmotionCategoryButton title={journal.emotionCategory} variant={toAssetCase(journal.emotionCategory)} width={120} disabled />
                     </View>
-                </View>
 
-                {/* Done Button */}
-                <PrimaryButton
-                    onPress={handlePrimaryButton}
-                    text={'Done'}
-                    color={'green'}
-                />
-            </View>
-        </SafeAreaView>
+                    {/* Heading */}
+                    <View style={{ gap: sizes.gap.md }}>
+                        <Text style={styles.text.header3}>What best describes this feeling?</Text>
+                        <Divider color={'white'} />
+                    </View>
+
+                    {/* journalEmotions */}
+                    <View style={{ gap: sizes.padding.md }}>
+                        {/* Emotion Chips */}
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm }} >
+                            {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory)].map(emotion => {
+                                return (
+                                    <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
+                                )
+                            })}
+                        </View>
+                    </View>
+
+                    {/* Done Button */}
+                    <PrimaryButton
+                        onPress={handlePrimaryButton}
+                        text={'Done'}
+                        color={'green'}
+                    />
+                </View>
+            </SafeAreaView>
+        </BlurredEllipsesBackground>
     );
 }
 

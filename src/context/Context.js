@@ -1,25 +1,40 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
 import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
+import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
+import useEmergencyContacts from "../helpers/useEmergencyContacts";
+
 
 /**
- * Context for managing theme-related data.
- *
- * @type {React.Context}
+ * @type {React.Context} Context for managing theme-related data.
  */
 const ThemeContext = createContext(null);
 
 /**
- * Context for managing journal-related data.
- *
- * @type {React.Context}
+ * @type {React.Context} Context for managing journal-related data.
  */
 const JournalContext = createContext(null);
 
 /**
- * A provider component that wraps the application and provides
- * context for managing theme and journal data.
+ * @type {React.Context} Context for managing journaling configuration data.
+ */
+const JournalingConfigContext = createContext(null);
+
+/**
+ * @type {React.Context} Context for managing emergency contacts data.
+ */
+const EmergencyContactsContext = createContext(null);
+
+/**
+ * @type {React.Context} Context for managing recovery references data.
+ */
+const RecoveryReferencesContext = createContext(null);
+
+
+/**
+ * Provider component that wraps the application and provides
+ * context for managing theme, journal, and other related data.
  *
  * @component
  * @param {object} props - The component's properties.
@@ -33,17 +48,49 @@ function StoreProvider({ children }) {
 	 *
 	 * @type {[object, Function]}
 	 * @property {object} journal - The current state of the journal.
-	 * @property {Function} dispatchJournal - A function to dispatch actions to modify the journal state.
+	 * @property {React.DispatchWithoutAction} dispatchJournal - A function to dispatch actions to modify the journal state.
 	 */
 	const [journal, dispatchJournal] = useReducer(journalReducer, initialJournal);
 
-	const [journalingConfig, setJournalingConfig] = useState(initialJournalingConfig);
+	const [journalingConfig, dispatchJournalingConfig] = useReducer(journalingConfigReducer, initialJournalingConfig);
+
+	const [emergencyContacts, dispatchEmergencyContacts] = useReducer(contactReducer, initialEmergencyContactConfig)
+
+	const [recoveryReferences, dispatchRecoveryReferences] = useReducer(recoveryReferencesReducer, initialRecoveryReferences)
+
+
+	// Retrieve emergency contacts from the storage
+	useEffect(() => {
+		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
+		dispatchRecoveryReferences({ type: 'getRecoveryReferences' });
+		dispatchJournalingConfig({ type: 'getJournalingConfig' });
+	}, []);
+
+	// Update ApplicationContext for the Watch App
+	// useEffect(() => {
+	// 	console.log(emergencyContacts)
+	// 	if (emergencyContacts.length !== 0) {
+	// 		updateApplicationContext({ 'emergencyContacts': [...emergencyContacts] })
+	// 	}
+	// 	const strRecoveryReferences = storage.getString('recoveryReferences');
+	// 	if (strRecoveryReferences) {
+	// 		const parsedRecoveryReferences = JSON.parse(strRecoveryReferences);
+	// 		updateApplicationContext({ 'recoveryReferences': [...parsedRecoveryReferences] })
+	// 	}
+	// 	console.log('updateContext')
+	// }, [emergencyContacts.length, recoveryReferences.length])
 
 	return (
 		<ThemeContext.Provider value={{}}>
-			<JournalContext.Provider value={{ journal, dispatchJournal, journalingConfig, setJournalingConfig }}>
-				{children}
-			</JournalContext.Provider>
+			<RecoveryReferencesContext.Provider value={{ recoveryReferences, dispatchRecoveryReferences }}>
+				<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
+					<JournalContext.Provider value={{ journal, dispatchJournal }}>
+						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
+							{children}
+						</JournalingConfigContext.Provider>
+					</JournalContext.Provider>
+				</EmergencyContactsContext.Provider>
+			</RecoveryReferencesContext.Provider>
 		</ThemeContext.Provider>
 	);
 }
@@ -68,6 +115,23 @@ export function useTheme() {
  */
 export function useJournal() {
 	return useContext(JournalContext);
+}
+
+/**
+ * Custom hook for accessing journaling configuration data and dispatching actions.
+ *
+ * @returns {object} Journaling configuration data and dispatch function from the context.
+ */
+export function useJournalingConfig() {
+	return useContext(JournalingConfigContext);
+}
+
+export function useEmergencyContact() {
+	return useContext(EmergencyContactsContext);
+}
+
+export function useRecoveryReferences() {
+	return useContext(RecoveryReferencesContext)
 }
 
 /**
@@ -142,10 +206,56 @@ const initialJournal = {
 	photo: {},
 	withWho: '',
 	where: '',
+	whatActivity: '',
 	thoughts: '',
 	dateAdded: '',
 };
 
+/**
+ * Reducer function for managing journalingConfig-related actions.
+ *
+ * @param {object} state - The current state of the journalingConfig.
+ * @param {object} action - The action to perform on the journalingConfig state.
+ * @returns {object} The updated journalingConfig state.
+ */
+function journalingConfigReducer(state, action) {
+	switch (action.type) {
+		case 'getJournalingConfig': {
+			const strJournalConfig = storage.getString('journalingConfig');
+			if (strJournalConfig) {
+				const journalingConfig = JSON.parse(strJournalConfig);
+				return journalingConfig;
+			}
+			return { ...state };  // return the current state if there is no data in storage
+		}
+		case 'updateJournalingConfig': {
+			const updatedConfig = { ...state.journalThoughts };
+			updatedConfig[action.payload.type] = [...updatedConfig[action.payload.type], action.payload.newConfig];
+
+			// Save journalingConfig to storage
+			const newJournalingConfig = { ...state, ...action.payload };
+			const strJournalingConfig = JSON.stringify(newJournalingConfig);
+			storage.set('journalingConfig', strJournalingConfig);
+			return { ...state, journalThoughts: updatedConfig };
+		}
+		case 'clearJournalingConfig': {
+			// Clear journalingConfig from storage
+			storage.delete('journalingConfig');
+			// Return the initial state or some other default configuration
+			return { ...initialJournalingConfig };
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+
+/**
+ * Initial state for journaling configuration data.
+ *
+ * @type {object}
+ */
 const initialJournalingConfig = {
 	journalEmotions: {
 		unpleasant: [
@@ -193,8 +303,77 @@ const initialJournalingConfig = {
 		],
 		locations: [
 			'School', 'Home', 'Restaurant', 'Work', 'Park', 'Transport', 'Shop'
+		],
+		activities: [
+			'Coding', 'Studying', 'Commuting', 'Chilling'
 		]
 	}
 }
+
+function recoveryReferencesReducer(state, action) {
+	switch (action.type) {
+		case 'getRecoveryReferences': {
+			const strRecoveryReferences = storage.getString('recoveryReferences');
+			if (strRecoveryReferences) {
+				const recoveryReferences = JSON.parse(strRecoveryReferences);
+				return recoveryReferences;
+			}
+			return [...state]; // return the current state if there is no data in storage
+		}
+		case 'sortRecoveryReferences': {
+			console.log('sorted', action.payload)
+			const strRecoveryReferences = JSON.stringify(action.payload);
+			storage.set('recoveryReferences', strRecoveryReferences);
+			console.log('saved', action.payload)
+			updateApplicationContext({ 'recoveryReferences': [...action.payload] })
+			return [
+				...action.payload
+			]
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+
+const initialRecoveryReferences = [
+	{ key: '1', label: 'Guided Breathing' },
+	{ key: '2', label: 'Grounding Technique' },
+	{ key: '3', label: 'Self-Affirmation' },
+	{ key: '4', label: 'Emergency Call' },
+]
+
+function contactReducer(state, action) {
+	switch (action.type) {
+		case 'getAllEmergencyContacts': {
+			const strEmergencyContacts = storage.getString('emergencyContacts');
+			if (strEmergencyContacts) {
+				const emergencyContacts = JSON.parse(strEmergencyContacts);
+				return emergencyContacts;
+			}
+			return [...state]; // return the current state if there is no data in storage
+		}
+		case 'saveEmergencyContacts': {
+			const strEmergencyContacts = JSON.stringify(state);
+			storage.set('emergencyContacts', strEmergencyContacts);
+			updateApplicationContext({ 'emergencyContacts': [...state] })
+			return [...state]; // return the current state as there is no change in state
+		}
+		case 'removeContact': {
+			const updatedContacts = state.filter(contact => contact.recordID !== action.payload.recordID);
+			return [...updatedContacts]; // return the updated state
+		}
+		case 'addContact': {
+			const updatedContacts = [...state, action.payload];
+			return [...updatedContacts]; // return the updated state
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+const initialEmergencyContactConfig = []
 
 export default StoreProvider;
