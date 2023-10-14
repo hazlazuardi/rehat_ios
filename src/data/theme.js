@@ -1,6 +1,7 @@
 export const colors = {
     darkTurquoise: '#0E6E74',
     white: '#FFFFFF',
+    whiteTransparent: 'rgba(255,255,255,.5)',
     turqoise: '#0E8388',
     green: '#298753',
     orange: '#FF6000',
