@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,43 +7,49 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Pressable} from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Pressable } from 'react-native';
+import { colors } from '../data/theme';
+import { sizes } from '../data/theme';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles.json';
+import { storage } from '../../App';
 
-function CognitiveAnotherWay({route, navigation}) {
-  const {previousData, previousInput, currentInput} = route.params;
+function CognitiveAnotherWay({ route, navigation }) {
+  const { previousData, previousInput, currentInput } = route.params;
   const [input, setInput] = useState('');
 
-  const storeData = async (key, value) => {
+  // const storeData = async (key, value) => {
+  const storeData = (key, value) => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(key, jsonValue);
+      // await AsyncStorage.setItem(key, jsonValue);
+      storage.set(key, jsonValue)
     } catch (error) {
       console.error('Error storing data:', error);
     }
   };
 
-  const handleNextPress = async () => {
+  // const handleNextPress = async () => {
+  const handleNextPress = () => {
     if (input !== '') {
       const dataToBeStored = {
         data: previousData,
         input: [
-          {firstInput: previousInput},
-          {secondInput: currentInput},
-          {thirdInput: input},
+          { firstInput: previousInput },
+          { secondInput: currentInput },
+          { thirdInput: input },
         ],
       };
       navigation.navigate('Success Screen');
 
       try {
-        await AsyncStorage.setItem(
-          'cognitiveData',
-          JSON.stringify(dataToBeStored),
-        );
+        // await AsyncStorage.setItem(
+        //   'cognitiveData',
+        //   JSON.stringify(dataToBeStored),
+
+        storage.set('cognitiveData', JSON.stringify(dataToBeStored))
+
         // ... further navigation or other logic goes here
       } catch (error) {
         console.error('Error storing data:', error);
@@ -71,7 +77,7 @@ function CognitiveAnotherWay({route, navigation}) {
         .map(dats => {
           return (
             <View style={styles.choice2}>
-              <Text style={{color: 'white'}}>{dats?.text}</Text>
+              <Text style={{ color: 'white' }}>{dats?.text}</Text>
             </View>
           );
         })}

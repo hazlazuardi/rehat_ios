@@ -7,30 +7,33 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
+import { colors } from '../data/theme';
+import { sizes } from '../data/theme';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles.json';
-import {Pressable} from 'react-native';
+import { Pressable } from 'react-native';
 import progress from '../../assets/img/progress.png';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storage } from '../../App';
 
-function Learn({navigation}) {
+function Learn({ navigation }) {
   const article = data.articles;
   const [progressState, setProgressState] = useState()
   const [readArticles, setReadArticles] = useState([]);
 
-  async function getReadingProgress() {
+  // async function getReadingProgress() {
+  function getReadingProgress() {
     // Get the current list of read articles
-    const readArticlesString = await AsyncStorage.getItem('readArticles');
+    // const readArticlesString = await AsyncStorage.getItem('readArticles');
+    const readArticlesString = storage.getString('readArticles');
     const readArticles = readArticlesString ? JSON.parse(readArticlesString) : [];
-  
+
     // Calculate the progress
     const totalArticles = article.length;
     const readCount = readArticles?.length;
     const unreadCount = totalArticles - readCount;
     const readPercentage = (readCount / totalArticles) * 100;
-  
+
     return {
       totalArticles,
       readCount,
@@ -39,31 +42,34 @@ function Learn({navigation}) {
     };
   }
 
-  async function displayProgress() {
-    const progress = await getReadingProgress();
+  // async function displayProgress() {
+  function displayProgress() {
+    // const progress = await getReadingProgress();
+    const progress = getReadingProgress();
     setProgressState(progress);
 
-    const readArticlesString = await AsyncStorage.getItem('readArticles');
+    // const readArticlesString = await AsyncStorage.getItem('readArticles');
+    const readArticlesString = storage.getString('readArticles')
     const readList = readArticlesString ? JSON.parse(readArticlesString) : [];
     setReadArticles(readList);
-}
-  
+  }
+
   // Invoke the function
-  useEffect(()=>{
+  useEffect(() => {
     displayProgress()
-  })
+  }, [])
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView>
         <Text style={styles.headingText}>Learn</Text>
         <View style={styles.progressLearn}>
           <View style={styles.progressText}>
-            <Image source={progress} style={{width: 30, height: 30}} />
+            <Image source={progress} style={{ width: 30, height: 30 }} />
             <Text style={styles.textProgressHeading}>Progress Of Learn</Text>
           </View>
           <Text style={styles.textProgress}>{progressState?.readCount}/{progressState?.totalArticles}</Text>
           <View style={styles.progressBarContainer}>
-            {article.map((arc,key) => {
+            {article.map((arc, key) => {
               return (
                 <View key={key} style={styles.progressBar}></View>
               );
@@ -72,11 +78,11 @@ function Learn({navigation}) {
         </View>
         <Text style={styles.headingText}>About Self Wellbeing</Text>
         <View style={styles.containerCards}>
-          {article.map((arc,key) => {
+          {article.map((arc, key) => {
             return (
               <Pressable
                 key={key}
-                onPress={() => navigation.navigate('Learn Detail', {arc})}>
+                onPress={() => navigation.navigate('Learn Detail', { arc })}>
                 <LearnCard article={arc} />
               </Pressable>
             );
@@ -131,15 +137,15 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   progressBar: {
-    height:20,
-    gap:50,
+    height: 20,
+    gap: 50,
     backgroundColor: 'red',
-    borderRadius:10
+    borderRadius: 10
   },
   progressBarContainer: {
-    justifyContent:'space-evenly',
-    flex:1,
-    flexDirection:'row'
+    justifyContent: 'space-evenly',
+    flex: 1,
+    flexDirection: 'row'
   },
 });
 

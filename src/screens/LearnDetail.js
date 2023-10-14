@@ -1,33 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, StyleSheet, View, ScrollView} from 'react-native';
-import {Pressable} from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, Text, StyleSheet, View, ScrollView } from 'react-native';
+import { Pressable } from 'react-native';
+import { colors } from '../data/theme';
+import { sizes } from '../data/theme';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles.json';
+import { storage } from '../../App';
 
-function LearnDetail({route, navigation}) {
-  const {arc} = route.params;
+function LearnDetail({ route, navigation }) {
+  const { arc } = route.params;
   const [number, setNumber] = useState(0);
   // Storing data
-  async function markArticleAsRead(articleId) {
+  // async function markArticleAsRead(articleId) {
+  function markArticleAsRead(articleId) {
     // Get the current list of read articles
-    const readArticlesString = await AsyncStorage.getItem('readArticles');
+    // const readArticlesString = await AsyncStorage.getItem('readArticles');
+    const readArticlesString = storage.getString('readArticles');
     const readArticles = readArticlesString ? JSON.parse(readArticlesString) : [];
-  
+
     // Add the article ID if not already present
     if (!readArticles.includes(articleId)) {
       readArticles.push(articleId);
-      await AsyncStorage.setItem('readArticles', JSON.stringify(readArticles));
+      // await AsyncStorage.setItem('readArticles', JSON.stringify(readArticles));
+      storage.set('readArticles', JSON.stringify(readArticles));
     }
   }
 
-  useEffect(()=>{
-    if(arc?.content?.sections[number]?.end){
-        markArticleAsRead(arc?.id)
+  useEffect(() => {
+    if (arc?.content?.sections[number]?.end) {
+      markArticleAsRead(arc?.id)
     }
-  },[number])
+  }, [number])
 
 
   return (

@@ -115,7 +115,43 @@ function App() {
 								<Stack.Screen name='Create a Goal' component={CreateGoal} options={{ ...nestedHeaderOptions, headerBackTitle: 'Details' }} />
 							</Stack.Group>
 
+							{/* Learn Screens */}
+							<Stack.Group screenOptions={{ headerShown: true }}>
+								<Stack.Screen
+									name="Learn"
+									component={Learn}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+								/>
+								<Stack.Screen
+									name="Learn Detail"
+									component={LearnDetail}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Learn' }}
+								/>
+							</Stack.Group>
 
+							{/* Thoughts Reframing Screens */}
+							<Stack.Group screenOptions={{ headerShown: false }}>
+								<Stack.Screen
+									name="Cognitive Restructuring"
+									component={CognitiveRestructuing}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+								/>
+								<Stack.Screen
+									name="Cognitive Detail"
+									component={CognitiveDetail}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+								/>
+								<Stack.Screen
+									name="Cognitive Another Way"
+									component={CognitiveAnotherWay}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+								/>
+								<Stack.Screen
+									name="Success Screen"
+									component={SuccessDetail}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+								/>
+							</Stack.Group>
 
 
 						</Stack.Navigator>
