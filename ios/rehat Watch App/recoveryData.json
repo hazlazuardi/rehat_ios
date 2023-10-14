@@ -3,85 +3,86 @@
     "name": "Muscle Relaxation",
     "slides": [
       {
-        "title": "Start by lying or sitting down. Relax your entire body. Take five deep, slow breaths.",
+        "title": "Lie or sit. Relax. Take five breaths.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Lift your toes upward. Hold, then let go. ",
+        "title": "Lift toes up. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Curl your toes downward. Hold, then let go.",
+        "title": "Curl toes down. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Clench your hands. Pause, then let go.",
+        "title": "Clench hands. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Tense your arms. Hold, then let go.",
+        "title": "Tense arms. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Contract your abdominal muscles. Pause, then let go.",
+        "title": "Tighten abs. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Raise your shoulders to your ears. Pause, then let go.",
+        "title": "Lift shoulders. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Open your mouth wide. Hold, then let go.",
+        "title": "Open mouth. Hold. Release.",
         "subTitle": "SubTitle1"
       },
       {
-        "title": "Close your eyes tightly. Pause, then release.",
+        "title": "Shut eyes tight. Hold. Release.",
         "subTitle": "SubTitle1"
       }
     ]
+
   },
   {
     "name": "Closed Eyes Visualization",
     "slides": [
       {
-        "title": "1. Find a Quiet Space:",
-        "subTitle": "Choose a quiet and comfortable space where you can sit or lie down. Make sure you won't be disturbed during the exercise."
+        "title": "Quiet Space",
+        "subTitle": "Find a peaceful, undisturbed spot to sit or lie down."
       },
       {
-        "title": "2. Close Your Eyes:",
-        "subTitle": "Gently close your eyes to block out external distractions."
+        "title": "Eyes Closed",
+        "subTitle": "Shut your eyes to minimize distractions."
       },
       {
-        "title": "3. Deep Breathing:",
-        "subTitle": "Take a few deep breaths to calm your body and mind. Inhale slowly through your nose, hold for a moment, and exhale slowly through your mouth. Repeat this a few times to relax."
+        "title": "Breathe Deeply",
+        "subTitle": "Inhale through your nose and exhale through your mouth a few times for relaxation."
       },
       {
-        "title": "4. Choose a Peaceful Image:",
-        "subTitle": "Imagine a peaceful and serene place. It could be a quiet forest, a tranquil beach, a meadow, or any location where you feel relaxed and content."
+        "title": "Visualize Peace",
+        "subTitle": "Picture a calming place like a forest, beach, or meadow."
       },
       {
-        "title": "5. Focus on Details:",
-        "subTitle": "Begin to visualize the details of this place. Imagine the colors, shapes, and features. Picture the scenery as vividly as you can."
+        "title": "Focus on Imagery",
+        "subTitle": "Envision the vibrant colors and unique features of your peaceful place."
       },
       {
-        "title": "6. Engage Your Senses:",
-        "subTitle": "Bring your senses into the visualization. Imagine the sounds, such as birds singing or waves crashing. Feel the warmth of the sun or a gentle breeze on your skin. Imagine the scent of nature or the ocean air."
+        "title": "Use Your Senses",
+        "subTitle": "Hear nature sounds, feel warmth or breezes, and smell the environment."
       },
       {
-        "title": "7. Embrace Calm Emotions:",
-        "subTitle": "As you immerse yourself in this peaceful place, focus on the emotions it evokes. Feel the calm, serenity, and relaxation that come from being in this beautiful location."
+        "title": "Feel Calmness",
+        "subTitle": "Let serenity from the scene wash over you."
       },
       {
-        "title": "8. Stay Present:",
-        "subTitle": "Keep your mind focused on this tranquil scene. If your thoughts start to wander, gently guide your attention back to the visualization."
+        "title": "Stay Centered",
+        "subTitle": "Maintain focus on your visualization. Redirect wandering thoughts."
       },
       {
-        "title": "9. Conclude the Exercise:",
-        "subTitle": "Start to transition out of the visualization. Become aware of your physical surroundings and the sensation of your body. Gently wiggle your fingers and toes."
+        "title": "Transition Out",
+        "subTitle": "Gradually become aware of your surroundings, moving fingers and toes."
       },
       {
-        "title": "10. Open Your Eyes:",
-        "subTitle": "When you're ready, open your eyes."
+        "title": "Eyes Open",
+        "subTitle": "Gently open your eyes when ready."
       }
     ]
   },
