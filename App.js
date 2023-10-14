@@ -26,6 +26,7 @@ import Settings from './src/screens/dashboard/Settings';
 import ManageEmergencyContacts from './src/screens/dashboard/ManageEmergencyContacts';
 import JournalDetail from './src/screens/journaling/JournalDetail';
 import { SafeAreaInsetsContext, SafeAreaProvider } from 'react-native-safe-area-context';
+import CreateGoal from './src/screens/goal/CreateGoal';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,7 +34,7 @@ const Stack = createNativeStackNavigator();
 const nestedHeaderOptions = {
 	headerTitle: '',
 	headerTransparent: true,
-	headerBlurEffect: 'systemThickMaterial',
+	headerBlurEffect: 'dark',
 };
 
 export const storage = new MMKV();
@@ -73,7 +74,7 @@ function App() {
 						<Stack.Navigator screenOptions={{
 							headerShown: false,
 							contentStyle: {
-								backgroundColor: 'black'
+								// backgroundColor: 'black'
 							}
 						}}>
 							<Stack.Screen name='Root' component={BottomTabBar} />
@@ -95,6 +96,8 @@ function App() {
 								<Stack.Screen name='Journal Detail' component={JournalDetail} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
 							</Stack.Group>
 
+
+							<Stack.Screen name='Create a Goal' component={CreateGoal} options={{ ...nestedHeaderOptions }} />
 
 
 						</Stack.Navigator>

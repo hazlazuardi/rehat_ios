@@ -15,6 +15,7 @@ import EmotionCategoryButton from '../../components/journaling/EmotionCategoryBu
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 import { toAssetCase } from '../../helpers/helpers';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 /**
@@ -82,6 +83,7 @@ function JournalThoughts({ navigation }) {
         dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
     }
 
+    const insets = useSafeAreaInsets()
     // console.log('ctx journal', journal.emotionCategory.toLowerCase().replace(' ', '_'))
 
     // const { CameraIcon } = useIcons()
@@ -93,7 +95,7 @@ function JournalThoughts({ navigation }) {
                 keyboardOpeningTime={10}
                 contentContainerStyle={{ flexGrow: 1 }}
             >
-                <ScrollView style={{ flex: 1, paddingTop: sizes.padding.lg * 2 }}>
+                <View style={{ paddingTop: insets.top + sizes.padding.lg }} >
 
                     {/* Content */}
                     <View style={{ paddingVertical: sizes.padding.lg, paddingHorizontal: sizes.padding.md, flexDirection: 'column', gap: sizes.padding.md }}>
@@ -291,8 +293,7 @@ function JournalThoughts({ navigation }) {
                             color={'green'}
                         />
                     </View>
-
-                </ScrollView>
+                </View>
             </KeyboardAwareScrollView>
         </BlurredEllipsesBackground >
     );
