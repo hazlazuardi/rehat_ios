@@ -26,8 +26,9 @@ func sendNotification() {
     let notifContent = UNMutableNotificationContent()
     notifContent.title = "Hey there"
     notifContent.body = "How are you feeling?"
+    notifContent.sound = .default
     
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.001, repeats: false)
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
     
     // Create the request
     let uuidString = UUID().uuidString
@@ -53,6 +54,7 @@ func notifyOnPredict() {
     let notifContent = UNMutableNotificationContent()
     notifContent.title = "Notif Title"
     notifContent.body = "Lorem ipsum dolor sit amet"
+    notifContent.sound = .default
     
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
     
