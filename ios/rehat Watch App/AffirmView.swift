@@ -72,6 +72,8 @@ struct AffirmView: View {
       if let affirmation = randomAffirmation {
         Text(affirmation.words)
           .padding()
+          .multilineTextAlignment(.center)
+          .minimumScaleFactor(0.5)
       } else {
         Text("Loading...")
           .padding()
@@ -80,7 +82,7 @@ struct AffirmView: View {
       Spacer()
       
       HStack {
-        Spacer()
+//        Spacer()
         Button(action: {
           randomAffirmation = affirmData.getRandomAffirmation()
         }) {
@@ -88,7 +90,7 @@ struct AffirmView: View {
             .font(.headline)
             .padding()
         }
-        Spacer()
+//        Spacer()
       }
     }
     .onAppear {

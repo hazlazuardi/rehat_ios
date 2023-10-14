@@ -42,7 +42,7 @@ struct BreathView: View {
 
     
   var body: some View {
-    ScrollView{
+    ScrollView {
       VStack {
         if timerState == .selection {
           ForEach(breathingOptions.indices, id: \.self) { index in
@@ -62,29 +62,87 @@ struct BreathView: View {
               .frame(height:30)
             }
           }
+          .navigationTitle("Breathing")
         } else {
-          Text("\(breathingStatus)")
+          GeometryReader { geometry in
+            ZStack {
+              Circle()
+                .fill(Color.blue)
+                .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
+                .scaleEffect(scaleFactor(breathingStatus: breathingStatus))
+                .animation(.easeInOut(duration: 1), value: breathingStatus)
+              
+              Text("\(breathingStatus)")
+//                .font(.title)
+                .foregroundColor(.white)
+            }
+            .position(x: geometry.size.width / 2, y: geometry.size.height / 1)
+          }
+          .frame(height: 50)
+          
           Text("\(Int(remainingTime + 1))")
-            .font(.title)
+//            .font(.title)
             .padding()
           
-          Button(action: {
-            stopTimer()
-          }) {
-            Text("Stop")
-              .font(.headline)
-              .padding()
-          }
+//          Spacer()
+          
+            .toolbar {
+              ToolbarItem(placement: .bottomBar) {
+                HStack {
+                  Button(action: {
+                    // Pause action here
+                  }) {
+                    Image(systemName: "pause.fill")
+//                      .font(.system(size: 20))
+                      .padding(10)
+//                      .background(Color.blue)
+                      .foregroundColor(.white)
+                      .clipShape(Circle())
+                  }
+                  
+                  Spacer()
+                  
+                  Button(action: {
+                    stopTimer()
+                  }) {
+                    Image(systemName: "stop.fill")
+//                      .font(.system(size: 20))
+                      .padding(10)
+//                      .background(Color.red)
+                      .foregroundColor(.white)
+                      .clipShape(Circle())
+                  }
+                }
+              }
+            }
+//          Button(action: {
+//            stopTimer()
+//          }) {
+//            Text("Stop")
+//              .font(.headline)
+//              .padding()
+//          }
         }
       }
     }
-    .navigationTitle("Breathing")
+//    .navigationTitle("Breathing")
     .onAppear {
       startTextTimer()
     }
     .onDisappear {
       textTimer?.invalidate()
     }
+  }
+  
+  private func scaleFactor(breathingStatus: String) -> CGFloat {
+      switch breathingStatus {
+      case "Breath In":
+          return 1.4
+      case "Breath Out":
+          return 1
+      default:
+          return 1.2
+      }
   }
     
   private func startTimer(with phase: BreathPhase) {
