@@ -15,6 +15,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+<<<<<<< HEAD
+		70B9EDFE93EB42B69EB477BA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */; };
+=======
 		1991520372054963947B0408 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83007CF62B6041BDB6A90E7C /* Poppins-Bold.ttf */; };
 		280A5F2C2AD46A6900F3D058 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280A5EEA2AD45C4400F3D058 /* WidgetKit.framework */; };
 		280A5F2D2AD46A6900F3D058 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280A5EEC2AD45C4400F3D058 /* SwiftUI.framework */; };
@@ -43,6 +46,7 @@
 		5D9CDD4A2AAEBD9300748DDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD492AAEBD9300748DDD /* Preview Assets.xcassets */; };
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		71BE8E3CF3524ADFAF684039 /* Merriweather-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B0D0C819E4748FA95C4DB1B /* Merriweather-Light.ttf */; };
+>>>>>>> 3703a30497df4b043de5e4ec15d84478342d7580
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		7D2EAA95D3C34CCC913C842C /* Merriweather-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72763AF1D5E244B289666459 /* Merriweather-BoldItalic.ttf */; };
 		7EC3C920BD964055ABB10577 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EECC1D68826242128F575A5D /* Poppins-Medium.ttf */; };
@@ -152,6 +156,9 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rehat_ios/main.m; sourceTree = "<group>"; };
 		194F921A2D374CA3A6B8C691 /* Merriweather-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-Italic.ttf"; path = "../src/assets/fonts/Merriweather-Italic.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios-rehat_iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+<<<<<<< HEAD
+		211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+=======
 		1A7634DC57DA4495813AA9E2 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		280A5EEA2AD45C4400F3D058 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		280A5EEC2AD45C4400F3D058 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -170,6 +177,7 @@
 		28EA34AF2AB778C700E344A3 /* AffirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffirmView.swift; sourceTree = "<group>"; };
 		2AD1935D6FA24DEFBFA20B7E /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../src/assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		39FB50BB052046DDB2FAD1F7 /* Poppins-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Black.ttf"; path = "../src/assets/fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
+>>>>>>> 3703a30497df4b043de5e4ec15d84478342d7580
 		3B4392A12AC88292D35C810B /* Pods-rehat_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios.debug.xcconfig"; path = "Target Support Files/Pods-rehat_ios/Pods-rehat_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		49ED9639987B45E5831B8AB5 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Thin.ttf"; path = "../src/assets/fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		4B0D0C819E4748FA95C4DB1B /* Merriweather-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-Light.ttf"; path = "../src/assets/fonts/Merriweather-Light.ttf"; sourceTree = "<group>"; };
@@ -272,6 +280,15 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0B99C0F7F1804854887D19AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* rehat_ios */ = {
@@ -406,7 +423,11 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+<<<<<<< HEAD
+				0B99C0F7F1804854887D19AD /* Resources */,
+=======
 				1817BFE6F2654A33B698E288 /* Resources */,
+>>>>>>> 3703a30497df4b043de5e4ec15d84478342d7580
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -526,8 +547,12 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+<<<<<<< HEAD
+				LastUpgradeCheck = 1320;
+=======
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1210;
+>>>>>>> 3703a30497df4b043de5e4ec15d84478342d7580
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -579,6 +604,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+<<<<<<< HEAD
+				70B9EDFE93EB42B69EB477BA /* Poppins-Regular.ttf in Resources */,
+=======
 				A3F379AE812F4DC5B6FA1B46 /* Merriweather-Black.ttf in Resources */,
 				C55FBC97279B4A0EA371B492 /* Merriweather-BlackItalic.ttf in Resources */,
 				4D29E315EA314084B8D62E51 /* Merriweather-Bold.ttf in Resources */,
@@ -626,6 +654,7 @@
 				5D9CDD472AAEBD9300748DDD /* Assets.xcassets in Resources */,
 				2864EA972AB31E3100217F34 /* recoveryData.json in Resources */,
 				28EA34AE2AB7782100E344A3 /* affirmWordsData.json in Resources */,
+>>>>>>> 3703a30497df4b043de5e4ec15d84478342d7580
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,6 +892,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-rehat_ios-rehat_iosTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = G3N5XUU85H;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -891,6 +921,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = G3N5XUU85H;

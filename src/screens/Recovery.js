@@ -9,6 +9,9 @@ function Recovery({ navigation }) {
             <Pressable onPress={() => navigation.navigate('Journaling')}>
                 <Text>Journaling</Text>
             </Pressable>
+            <Pressable onPress={() => navigation.navigate('Cognitive Restructuring')}>
+                <Text>Cognitive Restructuring</Text>
+            </Pressable>
         </SafeAreaView>
     );
 }
