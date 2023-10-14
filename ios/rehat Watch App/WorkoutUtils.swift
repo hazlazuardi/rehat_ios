@@ -68,25 +68,6 @@ class WorkoutManager: NSObject, ObservableObject {
 
       DispatchQueue.main.async {
         self.runBackgroundTask()
-        
-//        print("updating statistics for ", terminator: "")
-        switch statistics.quantityType {
-        case HKQuantityType.quantityType(forIdentifier: .heartRate):
-          let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
-          self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
-//          print("HR: \(self.heartRate) BPM")
-        case HKQuantityType.quantityType(forIdentifier: .restingHeartRate):
-          let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
-          self.restingHeartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
-//          print("Resting HR: \(self.restingHeartRate) BPM")
-        case HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN):
-          let hrvUnit = HKUnit.secondUnit(with: .milli)
-          self.hrv = statistics.mostRecentQuantity()?.doubleValue(for: hrvUnit) ?? 0
-//          print("HRV: \(self.hrv) ms")
-        default:
-          return
-        }
-        
       }
   }
   
@@ -111,8 +92,14 @@ class WorkoutManager: NSObject, ObservableObject {
         updateFunction: self.updateAverageHeartRate
       )
       
-      // FIXME: use real sdnn data
-      let label = predict(hr: self.averageHeartRate, sdnn: 55.5).label
+      startHealthKitQuery(
+        quantityTypeIdentifier: .heartRateVariabilitySDNN,
+        healthStore: self.healthStore,
+        updateFunction: self.updateHRV
+      )
+      
+      print("Running prediction on HR \(self.heartRate)bpm, HRV \(self.hrv)ms")
+      let label = predict(hr: self.averageHeartRate, sdnn: self.hrv).label
       self.dateOnLastPredict = Date()
       
       if ([1,2].contains(label)) {
@@ -127,6 +114,11 @@ class WorkoutManager: NSObject, ObservableObject {
   private func updateAverageHeartRate(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {
     self.averageHeartRate = getAverageOfSamples(samples: samples, type: type)
     print("Updated average HR: \(self.averageHeartRate)")
+  }
+  
+  private func updateHRV(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {
+    (self.hrv, _) = getLatestSample(samples: samples, type: type)
+    print("Got latest HRV: \(self.hrv)")
   }
   
   // MARK: - State Control
