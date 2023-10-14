@@ -10,54 +10,18 @@ import {
 import { colors } from '../data/theme';
 import { sizes } from '../data/theme';
 import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles.json';
+import data from '../data/articles';
 import { Pressable } from 'react-native';
 import progress from '../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storage } from '../../App';
+import useManageLearn from '../helpers/useManageLearn';
 
 function Learn({ navigation }) {
-  const article = data.articles;
-  const [progressState, setProgressState] = useState()
-  const [readArticles, setReadArticles] = useState([]);
+  const { articles, getProgress } = useManageLearn()
 
-  // async function getReadingProgress() {
-  function getReadingProgress() {
-    // Get the current list of read articles
-    // const readArticlesString = await AsyncStorage.getItem('readArticles');
-    const readArticlesString = storage.getString('readArticles');
-    const readArticles = readArticlesString ? JSON.parse(readArticlesString) : [];
 
-    // Calculate the progress
-    const totalArticles = article.length;
-    const readCount = readArticles?.length;
-    const unreadCount = totalArticles - readCount;
-    const readPercentage = (readCount / totalArticles) * 100;
 
-    return {
-      totalArticles,
-      readCount,
-      unreadCount,
-      readPercentage
-    };
-  }
-
-  // async function displayProgress() {
-  function displayProgress() {
-    // const progress = await getReadingProgress();
-    const progress = getReadingProgress();
-    setProgressState(progress);
-
-    // const readArticlesString = await AsyncStorage.getItem('readArticles');
-    const readArticlesString = storage.getString('readArticles')
-    const readList = readArticlesString ? JSON.parse(readArticlesString) : [];
-    setReadArticles(readList);
-  }
-
-  // Invoke the function
-  useEffect(() => {
-    displayProgress()
-  }, [])
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView>
@@ -67,9 +31,9 @@ function Learn({ navigation }) {
             <Image source={progress} style={{ width: 30, height: 30 }} />
             <Text style={styles.textProgressHeading}>Progress Of Learn</Text>
           </View>
-          <Text style={styles.textProgress}>{progressState?.readCount}/{progressState?.totalArticles}</Text>
+          <Text style={styles.textProgress}>{getProgress()}</Text>
           <View style={styles.progressBarContainer}>
-            {article.map((arc, key) => {
+            {articles.map((arc, key) => {
               return (
                 <View key={key} style={styles.progressBar}></View>
               );
@@ -78,7 +42,7 @@ function Learn({ navigation }) {
         </View>
         <Text style={styles.headingText}>About Self Wellbeing</Text>
         <View style={styles.containerCards}>
-          {article.map((arc, key) => {
+          {articles.map((arc, key) => {
             return (
               <Pressable
                 key={key}

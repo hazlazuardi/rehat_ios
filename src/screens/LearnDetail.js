@@ -5,34 +5,18 @@ import { colors } from '../data/theme';
 import { sizes } from '../data/theme';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles.json';
+import data from '../data/articles';
 import { storage } from '../../App';
+import useManageLearn from '../helpers/useManageLearn';
 
 function LearnDetail({ route, navigation }) {
-  const { arc } = route.params;
-  const [number, setNumber] = useState(0);
-  // Storing data
-  // async function markArticleAsRead(articleId) {
-  function markArticleAsRead(articleId) {
-    // Get the current list of read articles
-    // const readArticlesString = await AsyncStorage.getItem('readArticles');
-    const readArticlesString = storage.getString('readArticles');
-    const readArticles = readArticlesString ? JSON.parse(readArticlesString) : [];
 
-    // Add the article ID if not already present
-    if (!readArticles.includes(articleId)) {
-      readArticles.push(articleId);
-      // await AsyncStorage.setItem('readArticles', JSON.stringify(readArticles));
-      storage.set('readArticles', JSON.stringify(readArticles));
-    }
-  }
+  const { arc } = route.params
+  const [number, setNumber] = useState(0)
 
-  useEffect(() => {
-    if (arc?.content?.sections[number]?.end) {
-      markArticleAsRead(arc?.id)
-    }
-  }, [number])
+  const { addLearnedArticle } = useManageLearn()
 
+  console.log('arc det', arc)
 
   return (
     <View style={styles.container}>
@@ -49,6 +33,7 @@ function LearnDetail({ route, navigation }) {
             <Pressable
               onPress={() => {
                 navigation.goBack();
+                addLearnedArticle(arc)
                 setNumber(0)
               }}>
               <Text style={styles.descLearn}>Back To Learn</Text>
