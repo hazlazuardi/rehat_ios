@@ -15,6 +15,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		70B9EDFE93EB42B69EB477BA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */; };
 		1991520372054963947B0408 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83007CF62B6041BDB6A90E7C /* Poppins-Bold.ttf */; };
 		280A5F2C2AD46A6900F3D058 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280A5EEA2AD45C4400F3D058 /* WidgetKit.framework */; };
 		280A5F2D2AD46A6900F3D058 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280A5EEC2AD45C4400F3D058 /* SwiftUI.framework */; };
@@ -152,6 +153,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rehat_ios/main.m; sourceTree = "<group>"; };
 		194F921A2D374CA3A6B8C691 /* Merriweather-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-Italic.ttf"; path = "../src/assets/fonts/Merriweather-Italic.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios-rehat_iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		1A7634DC57DA4495813AA9E2 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		280A5EEA2AD45C4400F3D058 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		280A5EEC2AD45C4400F3D058 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -272,6 +274,15 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0B99C0F7F1804854887D19AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* rehat_ios */ = {
@@ -579,6 +590,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				70B9EDFE93EB42B69EB477BA /* Poppins-Regular.ttf in Resources */,
 				A3F379AE812F4DC5B6FA1B46 /* Merriweather-Black.ttf in Resources */,
 				C55FBC97279B4A0EA371B492 /* Merriweather-BlackItalic.ttf in Resources */,
 				4D29E315EA314084B8D62E51 /* Merriweather-Bold.ttf in Resources */,
@@ -863,6 +875,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-rehat_ios-rehat_iosTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = G3N5XUU85H;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -891,6 +904,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = G3N5XUU85H;
