@@ -9,22 +9,25 @@ import { sizes } from '../data/theme';
  * @component
  * @param {object} props - The component's properties.
  * @param {string} props.placeholder - The placeholder text for the input.
- * @param {number} props.numberOfLines - The number of lines to display in the input.
+ * @param {boolean} props.multiline - Whether the text input should be multiline.
  * @param {Function} props.onEndEditing - A callback function to be called when editing ends.
+ * @param {string} props.value - Initial value of the input.
+ * @param {object} props.textStyle - Styles for the text inside the input.
  * @returns {JSX.Element} The rendered TextArea component.
  */
-function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
+function TextArea(props) {
+
+    const { placeholder, onEndEditing, value, textStyle, multiline } = props
     const [inputText, setInputText] = useState('');
 
     /**
      * Handles the end of input editing.
      */
     const handleEndEditing = () => {
-        const trimmedText = inputText.trim();
-        onEndEditing(trimmedText); // Call the onEndEditing callback with the trimmed input text
-
-        // Clear the input field
-        // setInputText('');
+        if (onEndEditing) {
+            const trimmedText = inputText.trim();
+            onEndEditing(trimmedText); // Call the onEndEditing callback with the trimmed input text
+        }
     };
 
     const innerTextStyle = textStyle ? { ...textStyle } : {
@@ -34,12 +37,12 @@ function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
 
     return (
         <TextInput
+            {...props}
             multiline={true}
             maxLength={!multiline ? 40 : 100_000_000}
-            // multiline={numberOfLines === 1 ? false : true}
             placeholder={placeholder}
             value={value || inputText}
-            onChangeText={(text) => setInputText(text)}
+            onChangeText={props.onChangeText || setInputText}
             onEndEditing={handleEndEditing}
             scrollEnabled={false}
             style={{
@@ -49,7 +52,6 @@ function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
                 paddingHorizontal: sizes.padding.md,
                 paddingTop: sizes.padding.md,
                 paddingBottom: sizes.padding.md,
-                // paddingVertical: 0,
                 ...innerTextStyle,
             }}
         />
@@ -61,8 +63,10 @@ function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
  *
  * @typedef {object} TextAreaProps
  * @property {string} placeholder - The placeholder text for the input.
- * @property {number} numberOfLines - The number of lines to display in the input.
+ * @property {boolean} multiline - Whether the text input should be multiline.
  * @property {Function} onEndEditing - A callback function to be called when editing ends.
+ * @property {string} [value] - Initial value of the input.
+ * @property {object} [textStyle] - Styles for the text inside the input.
  */
 
 /**
@@ -72,7 +76,10 @@ function TextArea({ multiline, textStyle, placeholder, onEndEditing, value }) {
  */
 TextArea.propTypes = {
     placeholder: PropTypes.string.isRequired,
-    onEndEditing: PropTypes.func.isRequired,
+    multiline: PropTypes.bool.isRequired,
+    onEndEditing: PropTypes.func,
+    value: PropTypes.string,
+    textStyle: PropTypes.object
 };
 
 export default TextArea;

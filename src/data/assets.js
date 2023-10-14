@@ -13,6 +13,9 @@ import pleasant from '../assets/images/pleasant_bg.png'
 import very_pleasant from '../assets/images/very_pleasant_bg.png'
 import neutral from '../assets/images/neutral_bg.png'
 
+import checklist_completed from '../assets/icons/checklist_completed_icon.png'
+import checklist_not_completed from '../assets/icons/checklist__not_completed_icon.png'
+
 
 export default {
     icons: {
@@ -23,7 +26,9 @@ export default {
         done: done,
         journaling_head: journaling_head,
         journaling: journaling,
-        activity: activity
+        activity: activity,
+        checklist_completed: checklist_completed,
+        checklist_not_completed: checklist_not_completed
 
     },
 
