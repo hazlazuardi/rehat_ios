@@ -7,7 +7,7 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import { colors } from '../data/theme';
+import { colors, styles } from '../data/theme';
 import { sizes } from '../data/theme';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles';
@@ -16,54 +16,54 @@ import progress from '../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storage } from '../../App';
 import useManageLearn from '../helpers/useManageLearn';
+import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
 function Learn({ navigation }) {
-  const { articles, getProgress } = useManageLearn()
+  const { articles, getProgress, clearAllLearnedArticles } = useManageLearn()
 
+  // clearAllLearnedArticles()
 
 
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <ScrollView>
-        <Text style={styles.headingText}>Learn</Text>
-        <View style={styles.progressLearn}>
-          <View style={styles.progressText}>
-            <Image source={progress} style={{ width: 30, height: 30 }} />
-            <Text style={styles.textProgressHeading}>Progress Of Learn</Text>
+    <BlurredEllipsesBackground>
+      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>
+        <SafeAreaView>
+          <View style={{ gap: sizes.gap.lg, padding: sizes.padding.md }}>
+            <Text style={styles.text.header2}>Insight Hub</Text>
+            <View style={innerStyles.progressLearn}>
+              <View style={innerStyles.progressText}>
+                <Image source={progress} style={{ width: 30, height: 30 }} />
+                <Text style={innerStyles.textProgressHeading}>Progress Of Learn</Text>
+              </View>
+              <Text style={innerStyles.textProgress}>{getProgress()}</Text>
+              <View style={innerStyles.progressBarContainer}>
+                {articles.map((arc, key) => {
+                  return (
+                    <View key={key} style={innerStyles.progressBar}></View>
+                  );
+                })}
+              </View>
+            </View>
+            <Text style={styles.text.header3}>About Self Wellbeing</Text>
+            <View style={innerStyles.containerCards}>
+              {articles.map((arc, key) => {
+                return (
+                  <Pressable
+                    key={key}
+                    onPress={() => navigation.navigate('Learn Detail', { arc })}>
+                    <LearnCard article={arc} />
+                  </Pressable>
+                );
+              })}
+            </View>
           </View>
-          <Text style={styles.textProgress}>{getProgress()}</Text>
-          <View style={styles.progressBarContainer}>
-            {articles.map((arc, key) => {
-              return (
-                <View key={key} style={styles.progressBar}></View>
-              );
-            })}
-          </View>
-        </View>
-        <Text style={styles.headingText}>About Self Wellbeing</Text>
-        <View style={styles.containerCards}>
-          {articles.map((arc, key) => {
-            return (
-              <Pressable
-                key={key}
-                onPress={() => navigation.navigate('Learn Detail', { arc })}>
-                <LearnCard article={arc} />
-              </Pressable>
-            );
-          })}
-        </View>
+        </SafeAreaView>
       </ScrollView>
-    </SafeAreaView>
+    </BlurredEllipsesBackground>
   );
 }
 
-const styles = StyleSheet.create({
-  safeAreaContainer: {
-    flex: 1,
-    backgroundColor: '#0F1720',
-    marginTop: 30,
-    paddingHorizontal: sizes.padding.md, // This sets the background color for the entire screen
-  },
+const innerStyles = StyleSheet.create({
   progressText: {
     gap: 10,
     alignItems: 'center',
@@ -71,16 +71,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headingText: {
-    color: colors.white,
-    fontSize: sizes.text.header2,
-    marginTop: sizes.padding.lg,
-    marginHorizontal: sizes.padding.lg,
-    fontWeight: 700,
-    fontFamily: 'Poppins-Regular',
+    fontSize: sizes.text.header3,
+    // marginTop: sizes.padding.lg,
+    // marginHorizontal: sizes.padding.lg,
   },
   progressLearn: {
-    padding: sizes.padding.lg,
-    margin: sizes.padding.lg,
+    padding: sizes.padding.md,
     borderRadius: sizes.padding.md,
     backgroundColor: '#0E6E74',
   },
@@ -94,17 +90,18 @@ const styles = StyleSheet.create({
   },
   textProgress: {
     color: colors.white,
-    marginLeft: 3,
-    marginTop: 15,
+    // marginLeft: 3,
+    // marginTop: 15,
   },
   containerCards: {
-    marginBottom: 100,
+    // marginBottom: 100,
+    gap: sizes.gap.md
   },
   progressBar: {
     height: 20,
     gap: 50,
     backgroundColor: 'red',
-    borderRadius: 10
+    // borderRadius: 10
   },
   progressBarContainer: {
     justifyContent: 'space-evenly',
