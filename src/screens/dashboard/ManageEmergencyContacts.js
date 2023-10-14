@@ -11,8 +11,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import useContacts from '../../helpers/useContacts';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
 import PrimaryButton from '../../components/PrimaryButton';
-import { sizes, styles } from '../../data/theme';
+import { colors, sizes, styles } from '../../data/theme';
 import Contacts from 'react-native-contacts';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 
@@ -53,60 +55,65 @@ function ManageEmergencyContacts() {
         setEditMode(!editMode); // Toggle editMode state
     };
 
-
+    const insets = useSafeAreaInsets()
     return (
-        <KeyboardAwareScrollView
-            extraScrollHeight={64}
-            keyboardOpeningTime={10}
-            contentContainerStyle={{ flexGrow: 1 }}
-        >
-            <ScrollView style={{ flex: 1, paddingTop: sizes.padding.lg * 2 }}>
-                <View style={innerStyles.container}>
-                    <Text>This is Manage E Con</Text>
-                    <View style={innerStyles.contactList}>
-                        {emergencyContacts.map(econ => (
-                            <View key={econ.recordID} style={innerStyles.contactItem}>
-                                <View style={{ gap: sizes.gap.sm }}>
-                                    <Text style={innerStyles.contactName}>{econ.givenName} {econ.familyName}</Text>
-                                    <Text style={innerStyles.contactNumber} >{econ.phoneNumbers[0]?.number}</Text>
+        <BlurredEllipsesBackground>
+            <KeyboardAwareScrollView
+                extraScrollHeight={64}
+                keyboardOpeningTime={10}
+                contentContainerStyle={{ flexGrow: 1 }}
+            >
+                <View style={{ paddingTop: insets.top + sizes.padding.lg }} >
+                    <View style={{ paddingVertical: sizes.padding.lg, paddingHorizontal: sizes.padding.md, flexDirection: 'column', gap: sizes.padding.md }}>
+
+                        <Text style={styles.text.header2}>Emergency Contacts</Text>
+                        <View style={innerStyles.contactList}>
+                            {emergencyContacts.length === 0 ? (
+                                <Text style={styles.text.body3}>You haven't set up emergency contact yet.</Text>
+                            ) : emergencyContacts.map(econ => (
+                                <View key={econ.recordID} style={innerStyles.contactItem}>
+                                    <View style={{ gap: sizes.gap.sm }}>
+                                        <Text style={innerStyles.contactName}>{econ.givenName} {econ.familyName}</Text>
+                                        <Text style={innerStyles.contactNumber} >{econ.phoneNumbers[0]?.number}</Text>
+                                    </View>
+                                    {editMode && (
+                                        <Pressable style={{ backgroundColor: 'red' }} onPress={() => handleRemoveEmergencyContact(econ.recordID)}>
+                                            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
+                                                <Text>-</Text>
+                                            </View>
+                                        </Pressable>
+                                    )}
                                 </View>
-                                {editMode && (
-                                    <Pressable style={{ backgroundColor: 'red' }} onPress={() => handleRemoveEmergencyContact(econ.recordID)}>
-                                        <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
-                                            <Text>-</Text>
-                                        </View>
-                                    </Pressable>
-                                )}
-                            </View>
-                        ))}
-                    </View>
-                    <PrimaryButton
-                        text={editMode ? 'Save' : 'Edit'}
-                        color={editMode ? 'green' : 'grey'}
-                        onPress={handleButtonPress}
-                    />
-                    <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
-                    <ContactSearch handleSearch={handleSearch} />
-                    <View style={innerStyles.contactList}>
-                        {displayedContacts?.map((contact) => (
-                            <View key={contact.recordID} style={innerStyles.contactItem}>
-                                <View>
-                                    <Text style={innerStyles.contactName}>{contact.givenName} {contact.familyName}</Text>
-                                    <Text>{contact.phoneNumbers[0]?.number}</Text>
+                            ))}
+                        </View>
+                        <PrimaryButton
+                            text={editMode ? 'Save' : 'Edit'}
+                            color={editMode ? colors.green : colors.almostBlack}
+                            onPress={handleButtonPress}
+                        />
+                        <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
+                        <ContactSearch handleSearch={handleSearch} />
+                        <View style={innerStyles.contactList}>
+                            {displayedContacts?.map((contact) => (
+                                <View key={contact.recordID} style={innerStyles.contactItem}>
+                                    <View>
+                                        <Text style={innerStyles.contactName}>{contact.givenName} {contact.familyName}</Text>
+                                        <Text>{contact.phoneNumbers[0]?.number}</Text>
+                                    </View>
+                                    {editMode && (
+                                        <Pressable style={{ backgroundColor: 'green' }} onPress={() => handleAddEmergencyContact(contact)}>
+                                            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
+                                                <Text>+</Text>
+                                            </View>
+                                        </Pressable>
+                                    )}
                                 </View>
-                                {editMode && (
-                                    <Pressable style={{ backgroundColor: 'green' }} onPress={() => handleAddEmergencyContact(contact)}>
-                                        <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
-                                            <Text>+</Text>
-                                        </View>
-                                    </Pressable>
-                                )}
-                            </View>
-                        ))}
+                            ))}
+                        </View>
                     </View>
                 </View>
-            </ScrollView>
-        </KeyboardAwareScrollView>
+            </KeyboardAwareScrollView>
+        </BlurredEllipsesBackground>
     );
 }
 

@@ -71,48 +71,51 @@ function Dashboard({ navigation }) {
                             <View style={{ gap: sizes.gap.sm }}>
 
                                 {/* List of Goals */}
-                                {sortedGoals.slice(0, 2).map(goal => {
-                                    return (
-                                        <Pressable
-                                            key={goal.id}
-                                            style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                justifyContent: 'space-between',
-                                                borderRadius: sizes.radius.lg,
-                                                backgroundColor: colors.textArea.backgroundColor,
-                                                padding: sizes.padding.md
-                                            }}
-                                            onPress={() => toggleGoalCompletion(goal.id)}
-                                        >
-                                            <View>
-                                                <Text style={styles.text.semi2} >{goal.text}</Text>
-                                                <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).dateString}</Text>
-                                                <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).timeString}</Text>
-                                            </View>
-                                            <View style={{
-                                                padding: sizes.padding.md,
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                aspectRatio: 1,
-                                                width: 72
-                                            }} >
-                                                <View style={{
-                                                    width: 32,
-                                                    aspectRatio: 1,
-                                                }}>
-                                                    <Image
-                                                        source={goal.isCompleted ? assets.icons.checklist_completed : assets.icons.checklist_not_completed}
-                                                        style={{
-                                                            flex: 1,
-                                                            aspectRatio: 1
-                                                        }}
-                                                    />
+                                {sortedGoals.length === 0 ? (
+                                    <Text style={{ ...styles.text.body3, textAlign: 'center' }}>You don't have any goal yet.</Text>
+                                ) :
+                                    sortedGoals.slice(0, 2).map(goal => {
+                                        return (
+                                            <Pressable
+                                                key={goal.id}
+                                                style={{
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    borderRadius: sizes.radius.lg,
+                                                    backgroundColor: colors.whiteSoTransparent,
+                                                    padding: sizes.padding.md
+                                                }}
+                                                onPress={() => toggleGoalCompletion(goal.id)}
+                                            >
+                                                <View>
+                                                    <Text style={styles.text.semi2} >{goal.text}</Text>
+                                                    <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).dateString}</Text>
+                                                    <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).timeString}</Text>
                                                 </View>
-                                            </View>
-                                        </Pressable>
-                                    )
-                                })}
+                                                <View style={{
+                                                    padding: sizes.padding.md,
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    aspectRatio: 1,
+                                                    width: 72
+                                                }} >
+                                                    <View style={{
+                                                        width: 32,
+                                                        aspectRatio: 1,
+                                                    }}>
+                                                        <Image
+                                                            source={goal.isCompleted ? assets.icons.checklist_completed : assets.icons.checklist_not_completed}
+                                                            style={{
+                                                                flex: 1,
+                                                                aspectRatio: 1
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </View>
+                                            </Pressable>
+                                        )
+                                    })}
                             </View>
                         </View>
 
