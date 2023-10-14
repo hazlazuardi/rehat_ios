@@ -39,7 +39,7 @@ function CreateGoal({ navigation, route }) {
                             placeholder='Write a SMART goal'
                             multiline={false}
                             onChangeText={handleEditGoal}
-                            value={goal}
+                            // value={goal}
                         />
                     </View>
 

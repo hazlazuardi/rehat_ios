@@ -17,9 +17,8 @@ import { sizes } from '../data/theme';
  */
 function TextArea(props) {
 
-    const { placeholder, onEndEditing, value, textStyle, multiline } = props
-    const [inputText, setInputText] = useState('');
-
+    const { placeholder, onEndEditing, value: initialValue, textStyle, multiline } = props
+    const [inputText, setInputText] = useState(initialValue || '');
     /**
      * Handles the end of input editing.
      */
@@ -27,6 +26,13 @@ function TextArea(props) {
         if (onEndEditing) {
             const trimmedText = inputText.trim();
             onEndEditing(trimmedText); // Call the onEndEditing callback with the trimmed input text
+        }
+    };
+
+    const handleTextChange = (text) => {
+        setInputText(text);
+        if (props.onChangeText) {
+            props.onChangeText(text);
         }
     };
 
@@ -41,8 +47,8 @@ function TextArea(props) {
             multiline={true}
             maxLength={!multiline ? 40 : 100_000_000}
             placeholder={placeholder}
-            value={value || inputText}
-            onChangeText={props.onChangeText || setInputText}
+            value={inputText}
+            onChangeText={handleTextChange}
             onEndEditing={handleEndEditing}
             scrollEnabled={false}
             style={{
@@ -76,7 +82,7 @@ function TextArea(props) {
  */
 TextArea.propTypes = {
     placeholder: PropTypes.string.isRequired,
-    multiline: PropTypes.bool.isRequired,
+    multiline: PropTypes.bool,
     onEndEditing: PropTypes.func,
     value: PropTypes.string,
     textStyle: PropTypes.object

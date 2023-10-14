@@ -83,9 +83,23 @@ function JournalThoughts({ navigation }) {
         dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
     }
 
+    const isJournalComplete = () => {
+        const requiredFields = ['emotionCategory', 'emotions', 'withWho', 'where', 'whatActivity', 'thoughts', 'dateAdded'];
+        for (const field of requiredFields) {
+            if (field === 'emotions' && journal[field].length === 0) {
+                return false;
+            }
+            if (!journal[field]) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     const insets = useSafeAreaInsets()
     // console.log('ctx journal', journal.emotionCategory.toLowerCase().replace(' ', '_'))
 
+    console.log('ctx journal', journal)
     // const { CameraIcon } = useIcons()
     return (
         // <SafeAreaView style={{ flex: 1 }}>
@@ -151,6 +165,7 @@ function JournalThoughts({ navigation }) {
                             }}
                             placeholder={'Title'}
                             onEndEditing={(titleValue) => handleWriteThoughts('title', titleValue)}
+                            value={journal.title}
                         />
                         <TextArea
                             multiline
@@ -160,6 +175,7 @@ function JournalThoughts({ navigation }) {
                             }}
                             placeholder={'Today, I met... then, I met a...'}
                             onEndEditing={(thoughtValue) => handleWriteThoughts('thoughts', thoughtValue)}
+                            value={journal.thoughts}
                         />
 
                         <Divider color={'white'} />
@@ -291,6 +307,7 @@ function JournalThoughts({ navigation }) {
                             onPress={() => navigation.navigate('Journal Success')}
                             text={'Done'}
                             color={'green'}
+                            disabled={!isJournalComplete()} // Add this line
                         />
                     </View>
                 </View>
