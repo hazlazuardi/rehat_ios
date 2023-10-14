@@ -26,6 +26,8 @@ func requestHealthKitAuthorization(healthStore: HKHealthStore) {
 
 typealias HKUpdateHandlerType = (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void
 
+// Fetches HK data of specified type from health store
+// data provided starts from beginning of the day to the current timestamp.
 func startHealthKitQuery(
   quantityTypeIdentifier: HKQuantityTypeIdentifier,
   healthStore: HKHealthStore,
@@ -34,6 +36,7 @@ func startHealthKitQuery(
   let startDate = Calendar.current.startOfDay(for: .now)
   let endDate = Date()
   let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+  print("Query started ending at \(endDate.formatted())")
     
   let updateHandler: HKUpdateHandlerType = {
     query, samples, deletedObjects, queryAnchor, error in
@@ -51,7 +54,6 @@ func startHealthKitQuery(
   query.updateHandler = updateHandler
   
   // 5
-  
   healthStore.execute(query)
 }
 
@@ -64,17 +66,66 @@ func getLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier
   dateFormatter.dateFormat = "HH:mm:ss" // Customize this format
   
   print("Getting latest samples")
-  for sample in samples {
+  if (!samples.isEmpty) {
     if type == .heartRate {
-      latestSample = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+      latestSample = samples.lazy.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) } .last!
+      print("Got HR sample: \(latestSample) bpm at ", terminator: "")
     } else if type == .heartRateVariabilitySDNN {
-      latestSample = sample.quantity.doubleValue(for: HKUnit.secondUnit(with: HKMetricPrefix.milli))
+      latestSample = samples.lazy.map { $0.quantity.doubleValue(for: HKUnit.secondUnit(with: HKMetricPrefix.milli)) } .last!
+      print("Got HRV sample: \(latestSample) ms at ", terminator: "")
     }
     
-    let timestamp = sample.startDate
-    lastTimestamp = dateFormatter.string(from: timestamp)
+    lastTimestamp = dateFormatter.string(from: samples.last!.startDate)
+    print("\(lastTimestamp)")
   }
   
   return (latestSample, lastTimestamp)
 }
 
+// fetches average of samples over a given time interval
+// FIXME: some duplication, maybe join this with startHealthKitQuery.
+func startAverageQuery(
+  quantityTypeIdentifier: HKQuantityTypeIdentifier,
+  healthStore: HKHealthStore,
+  lastNSeconds: TimeInterval,
+  updateFunction: @escaping ([HKQuantitySample], HKQuantityTypeIdentifier) -> Void) {
+  let now = Date()
+  let start = Date(timeInterval: -(lastNSeconds), since: now)
+  let predicate = HKQuery.predicateForSamples(withStart: start, end: now)
+    
+  let updateHandler: HKUpdateHandlerType = {
+    query, samples, deletedObjects, queryAnchor, error in
+    
+    guard let samples = samples as? [HKQuantitySample] else {
+      return
+    }
+    
+    updateFunction(samples, quantityTypeIdentifier)
+  }
+  
+  // 4
+  let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: predicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
+  
+  query.updateHandler = updateHandler
+  
+  // 5
+  healthStore.execute(query)
+}
+
+func getAverageOfSamples(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Double {
+  var sampleValues: [Double] = []
+  var average = 0.0
+  
+  if (!samples.isEmpty) {
+    if type == .heartRate {
+      sampleValues = samples.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
+    } else if type == .heartRateVariabilitySDNN {
+      sampleValues = samples.map { $0.quantity.doubleValue(for: HKUnit.secondUnit(with: HKMetricPrefix.milli)) }
+    }
+    
+    let sum = sampleValues.reduce(0, +)
+    average = (sum / Double(samples.count))
+  }
+  
+  return average
+}
