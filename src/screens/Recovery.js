@@ -57,7 +57,7 @@ function Recovery({ navigation }) {
                                 description={"Challenge and reshape negative thought patterns"}
                                 iconColor={colors.orange}
                                 backgroundColor={colors.orangeTransparent}
-                                onPress={() => navigation.navigate("Journaling")} />
+                                onPress={() => navigation.navigate("Cognitive Restructuring")} />
                         </View>
 
                         {/* Section Grounding Techniques */}
@@ -69,7 +69,7 @@ function Recovery({ navigation }) {
                                 description={"Challenge and reshape negative thought patterns"}
                                 iconColor={colors.orange}
                                 backgroundColor={colors.orangeTransparent}
-                                onPress={() => navigation.navigate("Journaling")} />
+                                onPress={() => navigation.navigate("Grounding Journey")} />
                         </View>
 
                     </View>

@@ -31,9 +31,16 @@ import ManageRecoveryPreferences from './src/screens/dashboard/ManageRecoveryPre
 import Settings from './src/screens/dashboard/Settings';
 import ManageEmergencyContacts from './src/screens/dashboard/ManageEmergencyContacts';
 import JournalDetail from './src/screens/journaling/JournalDetail';
-import { SafeAreaInsetsContext, SafeAreaProvider } from 'react-native-safe-area-context';
+import {
+	SafeAreaInsetsContext,
+	SafeAreaProvider,
+} from 'react-native-safe-area-context';
 import CreateGoal from './src/screens/goal/CreateGoal';
-
+import GroundingJourney from './src/screens/grounding/GroundingJourney';
+import GroundingSteps from './src/screens/grounding/GroundingSteps';
+import OnboardingScreen from './src/screens/onboarding/Onboarding';
+import OnboardingDetailOne from './src/screens/onboarding/OnboardingDetailOne';
+import OnboardingDetailTwo from './src/screens/onboarding/OnboardingDetailTwo';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +67,8 @@ const MyTheme = {
 function App() {
 	const [messageFromWatch, setMessageFromWatch] = useState('Waiting...');
 	const [message, setMessage] = useState('');
+	const [isOnboard, setIsOnboard] = useState(false);
+	const [loading, setLoading] = useState(true);
 	// Listener when receive message
 	const messageListener = () =>
 		watchEvents.on('message', message => {
@@ -69,7 +78,17 @@ function App() {
 		messageListener();
 	}, []);
 
-	console.log(message);
+	useEffect(() => {
+		console.log('bocor')
+		let temp = storage.getString('isOnboarded');
+		if (temp) {
+			setIsOnboard(true);
+			setLoading(false);
+			return;
+		}
+		setLoading(false);
+	}, [isOnboard]);
+
 	return (
 		<SafeAreaProvider>
 			<StoreProvider>
@@ -77,42 +96,145 @@ function App() {
 				<GestureHandlerRootView style={{ flex: 1 }}>
 					<NavigationContainer theme={MyTheme}>
 						{/* <View style={{ flex: 1, backgroundColor: '#0F1720' }}> */}
-						<Stack.Navigator screenOptions={{
-							headerShown: false,
-							contentStyle: {
-								// backgroundColor: 'black'
+						<Stack.Navigator
+							screenOptions={{
+								headerShown: false,
+								contentStyle: {
+									// backgroundColor: 'black'
+								},
+							}}>
+							{!isOnboard && <Stack.Group screenOptions={{ headerShown: false }}>
+								<Stack.Screen
+									name="Onboarding"
+									component={OnboardingScreen}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: '',
+									}}
+								/>
+								<Stack.Screen
+									name="Onboarding Detail One"
+									component={OnboardingDetailOne}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: '',
+									}}
+								/>
+								<Stack.Screen
+									name="Onboarding Detail Two"
+									component={OnboardingDetailTwo}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: '',
+									}}
+								/>
+							</Stack.Group>
 							}
-						}}>
-							<Stack.Screen name='Root' component={BottomTabBar} />
+							<Stack.Screen name="Root" component={BottomTabBar} />
 
 							{/* Settings */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
 								<Stack.Screen
 									name="Settings"
 									component={Settings}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Dashboard' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Dashboard',
+									}}
 								/>
 								<Stack.Screen
 									name="Manage Emergency Contact"
 									component={ManageEmergencyContacts}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Settings',
+									}}
 								/>
 								<Stack.Screen
 									name="Manage Recovery Preferences"
 									component={ManageRecoveryPreferences}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Settings' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Settings',
+									}}
 								/>
 							</Stack.Group>
 
 							{/* Recovery Screens */}
-							<Stack.Group screenOptions={{ headerShown: true, }}>
-								<Stack.Screen name='Journaling' component={Journaling} options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }} />
-								<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
-								<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
-								<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
-								<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false, gestureEnabled: false }} />
-								<Stack.Screen name='Journal Detail' component={JournalDetail} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
-								<Stack.Screen name='Create a Goal' component={CreateGoal} options={{ ...nestedHeaderOptions, headerBackTitle: 'Details' }} />
+							<Stack.Group screenOptions={{ headerShown: true }}>
+								<Stack.Screen
+									name="Journaling"
+									component={Journaling}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
+								/>
+								<Stack.Screen
+									name="Journal Category"
+									component={JournalCategory}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Journaling',
+									}}
+								/>
+								<Stack.Screen
+									name="Journal Emotions"
+									component={JournalEmotions}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Category',
+									}}
+								/>
+								<Stack.Screen
+									name="Journal Thoughts"
+									component={JournalThoughts}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Emotions',
+									}}
+								/>
+								<Stack.Screen
+									name="Journal Success"
+									component={JournalSuccess}
+									options={{ ...nestedHeaderOptions, headerShown: false }}
+								/>
+								<Stack.Screen
+									name="Journal Detail"
+									component={JournalDetail}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Journaling',
+									}}
+								/>
+								<Stack.Screen
+									name="Create a Goal"
+									component={CreateGoal}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Details',
+									}}
+								/>
+							</Stack.Group>
+
+							{/* Grounding Technique */}
+							<Stack.Group screenOptions={{ headerShown: true }}>
+								<Stack.Screen
+									name="Grounding Journey"
+									component={GroundingJourney}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
+								/>
+								<Stack.Screen
+									name="Grounding Steps"
+									component={GroundingSteps}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Grounding Journey',
+									}}
+								/>
 							</Stack.Group>
 
 							{/* Learn Screens */}
@@ -120,7 +242,10 @@ function App() {
 								<Stack.Screen
 									name="Learn"
 									component={Learn}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
 								/>
 								<Stack.Screen
 									name="Learn Detail"
@@ -130,36 +255,46 @@ function App() {
 							</Stack.Group>
 
 							{/* Thoughts Reframing Screens */}
-							<Stack.Group screenOptions={{ headerShown: false }}>
+							<Stack.Group screenOptions={{ headerShown: true }}>
 								<Stack.Screen
 									name="Cognitive Restructuring"
 									component={CognitiveRestructuing}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
 								/>
 								<Stack.Screen
 									name="Cognitive Detail"
 									component={CognitiveDetail}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
 								/>
 								<Stack.Screen
 									name="Cognitive Another Way"
 									component={CognitiveAnotherWay}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
 								/>
 								<Stack.Screen
 									name="Success Screen"
 									component={SuccessDetail}
-									options={{ ...nestedHeaderOptions, headerBackTitle: 'Recovery' }}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+									}}
 								/>
 							</Stack.Group>
-
-
 						</Stack.Navigator>
 						{/* </View> */}
 					</NavigationContainer>
 				</GestureHandlerRootView>
 				{/* </BlurredEllipsesBackground> */}
-			</StoreProvider >
+			</StoreProvider>
 		</SafeAreaProvider>
 	);
 }

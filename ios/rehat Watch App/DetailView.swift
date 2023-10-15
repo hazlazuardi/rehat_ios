@@ -18,8 +18,9 @@ struct DetailView: View {
             VStack {
               Text(slide.title)
                 .font(.title3)
-                .foregroundStyle(.blue)
+//                .foregroundStyle(.orange)
                 .padding()
+                .fontWeight(.bold)
               
               Spacer()
               
@@ -27,6 +28,7 @@ struct DetailView: View {
               Text(slide.subTitle)
                 .font(.caption2)
                 .padding()
+                .foregroundColor(Color.white.opacity(0.5))
               
             }
           }

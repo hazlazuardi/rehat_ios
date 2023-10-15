@@ -8,6 +8,7 @@ import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles';
 import { storage } from '../../App';
 import useManageLearn from '../helpers/useManageLearn';
+import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
 function LearnDetail({ route, navigation }) {
 
@@ -19,7 +20,15 @@ function LearnDetail({ route, navigation }) {
   console.log('arc det', arc)
 
   return (
-    <View style={styles.container}>
+    <BlurredEllipsesBackground>
+    <ScrollView style={{
+        flex: 1,
+        // backgroundColor: colors.darkTurquoise
+    }}
+        contentInsetAdjustmentBehavior='automatic'
+    >
+        <SafeAreaView style={{ marginBottom:100}}>
+            <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg}}>
       <Text style={styles.headingLearn}>{arc?.title}</Text>
       {arc?.content?.sections[number] !== '' ? (
         arc?.content?.sections[number]?.end ? (
@@ -63,6 +72,9 @@ function LearnDetail({ route, navigation }) {
         <Text>tdk ada</Text>
       )}
     </View>
+    </SafeAreaView>
+  </ScrollView>
+</BlurredEllipsesBackground>
   );
 }
 const styles = StyleSheet.create({

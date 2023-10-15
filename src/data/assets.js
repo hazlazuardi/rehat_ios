@@ -16,6 +16,11 @@ import neutral from '../assets/images/neutral_bg.png'
 import checklist_completed from '../assets/icons/checklist_completed_icon.png'
 import checklist_not_completed from '../assets/icons/checklist__not_completed_icon.png'
 
+import hearing from '../assets/icons/hearing.png'
+import see from '../assets/icons/see.png'
+import smell from '../assets/icons/smell.png'
+import taste from '../assets/icons/taste.png'
+import touch from '../assets/icons/touch.png'
 import settings from '../assets/icons/settings_icon.png'
 import home from '../assets/icons/home_icon.png'
 import recovery from '../assets/icons/recovery_icon.png'
@@ -35,6 +40,12 @@ export default {
         activity: activity,
         checklist_completed: checklist_completed,
         checklist_not_completed: checklist_not_completed,
+        hearing:hearing,
+        see:see,
+        smell:smell,
+        taste:taste,
+        touch:touch,
+
         settings: settings,
         home: home,
         recovery: recovery,
