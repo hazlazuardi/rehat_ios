@@ -5,8 +5,16 @@ import { useGoals } from '../context/Context';
 function useManageGoals() {
     const { goals, dispatchGoals } = useGoals();
 
-    function addGoal(goalText) {
-        dispatchGoals({ type: 'addGoal', payload: { id: Date.now(), text: goalText, isCompleted: false } });
+    function addGoal(goal) {
+        console.log('goal', goal)
+        dispatchGoals({
+            type: 'addGoal',
+            payload: {
+                id: Date.now(),
+                isCompleted: false,
+                ...goal
+            }
+        });
     }
 
     function removeGoal(goalId) {

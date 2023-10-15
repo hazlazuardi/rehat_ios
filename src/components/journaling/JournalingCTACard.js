@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Image, Pressable, Text, View } from 'react-native'
 import { colors, sizes, styles } from '../../data/theme'
 import assets from '../../data/assets'
+import SecondaryButton from '../SecondaryButton'
 
 function JournalingCTACard({ title, description, buttonText, icon, onPress }) {
     return (
@@ -10,7 +11,8 @@ function JournalingCTACard({ title, description, buttonText, icon, onPress }) {
             borderRadius: sizes.radius.lg,
             backgroundColor: colors.turqoise,
             padding: sizes.padding.md,
-            gap: sizes.gap.md
+            gap: sizes.gap.md,
+            width: '100%'
         }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: sizes.gap.sm }} >
                 <View style={{ width: 20, aspectRatio: 1 }}>
@@ -27,21 +29,12 @@ function JournalingCTACard({ title, description, buttonText, icon, onPress }) {
             <View>
                 <Text style={styles.text.merri.body2} >{description}</Text>
             </View>
-            <Pressable
+            <SecondaryButton
+                text={buttonText}
+                color={colors.orange}
                 onPress={onPress}
-            >
-                <View style={{
-                    backgroundColor: colors.orange,
-                    borderRadius: sizes.radius.sm,
-                    paddingVertical: sizes.padding.md,
-                    paddingHorizontal: sizes.padding.lg,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    alignSelf: 'flex-start'
-                }} >
-                    <Text style={styles.text.semi2} >{buttonText}</Text>
-                </View>
-            </Pressable>
+                textColor={colors.white}
+            />
         </View>
     )
 }
