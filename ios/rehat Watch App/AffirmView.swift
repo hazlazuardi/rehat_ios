@@ -63,6 +63,7 @@ class ReadDataAffirm: ObservableObject {
     }
 }
 
+// TODO: show end component when user wants to quit
 struct AffirmView: View {
   @ObservedObject var affirmData = ReadDataAffirm()
   @State private var randomAffirmation: Affirm?

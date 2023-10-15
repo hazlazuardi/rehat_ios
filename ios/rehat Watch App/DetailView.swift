@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: show end component when user scrolls past chosen technique's end slide OR user wants to choose another technique
 struct DetailView: View {
   var therapy: Therapy
   
