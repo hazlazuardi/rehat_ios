@@ -15,7 +15,28 @@ function CreateGoal({ navigation, route }) {
 
     const { goalsConfig, dispatchGoalsConfig } = useGoalsConfig()
 
-    const onPressChip = (value, type) => {
+    const { addGoal, goals } = useManageGoals()
+
+    const [goal, setGoal] = useState({
+        period: "",
+        action: "",
+        duration: "",
+        method: "",
+        outcome: ""
+    })
+
+    const handleEditGoal = (field, value) => {
+        console.log(value)
+        setGoal(prev => {
+            return {
+                ...prev,
+                [field]: value
+            }
+        })
+    }
+
+    const onPressChip = (field, value) => {
+        
         // dispatchGoalsConfig({
         //     type: 'setJournal',
         //     payload: {
@@ -25,25 +46,15 @@ function CreateGoal({ navigation, route }) {
     };
 
     /**
- * Checks if a chip is selected based on the value and type.
- * @param {string} value - The value to check for selection.
- * @param {string} type - The type to determine the key.
- * @returns {boolean} True if the chip is selected; otherwise, false.
- */
-    const isChipSelected = (value, type) => {
-        // return goals[type]?.includes(value);
+     * Checks if a chip is selected based on the value and type.
+     * @param {string} value - The value to check for selection.
+     * @param {string} type - The type to determine the key.
+     * @returns {boolean} True if the chip is selected; otherwise, false.
+     */
+    const isChipSelected = (field, value) => {
+        return goal[field] === value;
     };
 
-
-
-    const { addGoal, goals } = useManageGoals()
-
-    const [goal, setGoal] = useState('')
-
-    const handleEditGoal = (text) => {
-        console.log(text)
-        setGoal(text)
-    }
 
     const handleSaveGoal = () => {
         addGoal(goal);

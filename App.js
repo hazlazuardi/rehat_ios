@@ -110,7 +110,7 @@ function App() {
 								<Stack.Screen name='Journal Category' component={JournalCategory} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
 								<Stack.Screen name='Journal Emotions' component={JournalEmotions} options={{ ...nestedHeaderOptions, headerBackTitle: 'Category' }} />
 								<Stack.Screen name='Journal Thoughts' component={JournalThoughts} options={{ ...nestedHeaderOptions, headerBackTitle: 'Emotions' }} />
-								<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false }} />
+								<Stack.Screen name='Journal Success' component={JournalSuccess} options={{ ...nestedHeaderOptions, headerShown: false, gestureEnabled: false }} />
 								<Stack.Screen name='Journal Detail' component={JournalDetail} options={{ ...nestedHeaderOptions, headerBackTitle: 'Journaling' }} />
 								<Stack.Screen name='Create a Goal' component={CreateGoal} options={{ ...nestedHeaderOptions, headerBackTitle: 'Details' }} />
 							</Stack.Group>

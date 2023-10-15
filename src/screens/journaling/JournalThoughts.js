@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Image, ImageBackground, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Image, ImageBackground, Keyboard, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useJournal, useJournalingConfig } from '../../context/Context';
 import Divider from '../../components/Divider';
 import { colors, sizes, styles } from '../../data/theme';
@@ -35,6 +35,8 @@ function JournalThoughts({ navigation }) {
             type: 'updateJournalingConfig',
             payload: { newConfig, type }
         });
+        Keyboard.dismiss()
+        setIsShouldReturn(false)
     };
 
     const handleWriteThoughts = (field, value) => {
@@ -101,12 +103,16 @@ function JournalThoughts({ navigation }) {
 
     console.log('ctx journal', journal)
     // const { CameraIcon } = useIcons()
+
+    const [isShouldReturn, setIsShouldReturn] = useState(false)
     return (
         // <SafeAreaView style={{ flex: 1 }}>
         <BlurredEllipsesBackground>
             <KeyboardAwareScrollView
                 extraScrollHeight={64}
                 keyboardOpeningTime={10}
+                enableResetScrollToCoords={false}
+                keyboardDismissMode={!isShouldReturn ? 'none' : 'interactive'}
                 contentContainerStyle={{ flexGrow: 1 }}
             >
                 <View style={{ paddingTop: insets.top + sizes.padding.lg }} >
@@ -246,7 +252,11 @@ function JournalThoughts({ navigation }) {
                                     isSelected={isChipSelected(person, 'withWho')}
                                 />
                             ))}
-                            <ChipInput type="people" onEndEditing={handleAddJournalConfig} />
+                            <ChipInput
+                                type="people"
+                                onEndEditing={handleAddJournalConfig}
+                                onFocus={() => setIsShouldReturn(true)}
+                            />
                         </View>
 
                         <Divider color={'white'} />

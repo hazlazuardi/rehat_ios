@@ -217,7 +217,7 @@ function journalReducer(state, action) {
 
 			return { ...initialJournal };
 		}
-		case 'eraseJournals': {
+		case 'eraseAllJournals': {
 			storage.delete('journals');
 			return { ...initialJournal };
 		}
