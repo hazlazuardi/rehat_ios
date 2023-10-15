@@ -4,6 +4,8 @@ struct Therapy: Identifiable, Decodable {
   var id: UUID?
   var name: String
   var slides: [Slide]
+  var icon: String
+  var color: String
   
   struct Slide: Decodable {
     var title: String
@@ -53,11 +55,29 @@ struct RecoveryView: View {
         ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
           if reference.label == "Self-Affirmation" {
             NavigationLink(destination: AffirmView()) {
-              Text(reference.label)
+              VStack(alignment: .leading) {
+                Image(systemName: "face.smiling.inverse")
+                  .foregroundColor(.teal)
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 5)
+                  .scaleEffect(1.5)
+                Text(reference.label)
+                  .padding(.bottom, 10)
+                  .font(.title3)
+              }
             }
           } else if reference.label == "Guided Breathing" {
             NavigationLink(destination: BreathView()) {
-              Text(reference.label)
+              VStack(alignment: .leading) {
+                Image(systemName: "lungs.fill")
+                  .foregroundColor(.blue)
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 5)
+                  .scaleEffect(1.5)
+                Text(reference.label)
+                  .padding(.bottom, 10)
+                  .font(.title3)
+              }
             }
           }
 //          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
@@ -72,18 +92,24 @@ struct RecoveryView: View {
             Section {
               ForEach(recoveryDatas.therapies, id: \.id) { therapy in
                 NavigationLink(destination: DetailView(therapy: therapy)) {
-                  Text(therapy.name)
-                    .font(.title3)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.primary)
+                  VStack(alignment: .leading) {
+                    Image(systemName: therapy.icon)
+                      .foregroundColor(colorFromString(therapy.color))
+                      .frame(width: 30, height: 30)
+                      .padding(.top, 7)
+                      .scaleEffect(1.5)
+                    Text(therapy.name)
+                      .padding(.bottom, 10)
+                      .font(.title3)
+                  }
                 }
-                .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
               }
             } header : {
               Text("Grounding Technique")
             }
           }
         }
+        .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       }
       .navigationTitle("Recovery")
       
@@ -92,11 +118,22 @@ struct RecoveryView: View {
       BreathView()
       
     }
+//    .containerBackground(.orange.gradient, for: .navigation)
   }
 }
 
+func colorFromString(_ name: String) -> Color {
+    switch name {
+    case "green":
+        return Color.green
+    case "blue":
+        return Color.blue
+    default:
+        return Color.black
+    }
+}
 
 #Preview {
   let rnConnector = RNConnector() // Create an instance of RNConnector
-  return RecoveryView(rnConnector: rnConnector) // Pass it to  RecoveryView
+  return RecoveryView(rnConnector: rnConnector) // Pass it to RecoveryView
 }

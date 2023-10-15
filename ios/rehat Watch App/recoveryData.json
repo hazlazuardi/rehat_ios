@@ -38,8 +38,9 @@
         "title": "Shut eyes tight. Hold. Release.",
         "subTitle": "SubTitle1"
       }
-    ]
-
+    ],
+    "icon": "figure.mixed.cardio",
+    "color": "green"
   },
   {
     "name": "Closed Eyes Visualization",
@@ -84,7 +85,9 @@
         "title": "Eyes Open",
         "subTitle": "Gently open your eyes when ready."
       }
-    ]
+    ],
+    "icon": "eye.slash",
+    "color": "green"
   },
   {
     "name": "5-4-3-2-1",
@@ -109,6 +112,9 @@
         "title": "Notice 1 thing that you can taste",
         "subTitle": "What's the flavor profile?"
       }
-    ]
+    ],
+    "icon": "ear.fill",
+    "color": "green"
   }
 ]
+
