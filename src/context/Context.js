@@ -482,15 +482,14 @@ function goalsReducer(state, action) {
 
 const initialGoals = [
 	// Example
-	// { id: 1, text: "Learn React Native", isCompleted: false }
-	{
-		id: 1,
-		period: "8 Months",
-		action: "Practice Journaling",
-		duration: "10 Minutes",
-		method: "Journaling",
-		outcome: "Reduce panic attack frequency"
-	}
+	// {
+	// 	id: 1,
+	// 	period: "8 Months",
+	// 	action: "Practice Journaling",
+	// 	duration: "10 Minutes",
+	// 	method: "Journaling",
+	// 	outcome: "Reduce panic attack frequency"
+	// }
 ];
 
 

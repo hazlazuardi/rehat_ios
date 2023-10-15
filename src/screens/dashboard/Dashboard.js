@@ -171,9 +171,9 @@ function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
                     alignItems: 'center',
                     gap: sizes.gap.sm
                 }}>
-                    <Chip text={`Doing ${goal.duration}`} variant='outlined' size='caption' color={colors.white} />
-                    <Chip text={`Of ${goal.method}`} variant='outlined' size='caption' color={colors.white} />
-                    <Chip text={`For ${goal.period}`} variant='outlined' size='caption' color={colors.white} />
+                    <Chip text={`Doing ${goal.duration}`} variant='outlined' font='caption' color={colors.white} />
+                    <Chip text={`Of ${goal.method}`} variant='outlined' font='caption' color={colors.white} />
+                    <Chip text={`For ${goal.period}`} variant='outlined' font='caption' color={colors.white} />
                 </View>
             </View>
 

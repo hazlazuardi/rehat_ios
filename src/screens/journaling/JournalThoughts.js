@@ -33,7 +33,7 @@ function JournalThoughts({ navigation }) {
     const [isShouldReturn, setIsShouldReturn] = useState(false)
 
     const handleAddJournalConfig = (newConfig, type) => {
-        if (value.length !== 0) {
+        if (newConfig.length !== 0) {
             dispatchJournalingConfig({
                 type: 'updateJournalingConfig',
                 payload: { newConfig, type }
@@ -256,13 +256,17 @@ function JournalThoughts({ navigation }) {
                                     text={person}
                                     onPress={() => onPressChip(person, 'withWho')}
                                     isSelected={isChipSelected(person, 'withWho')}
+                                    // size={'md'}
+                                    // font='body3'
                                 />
                             ))}
                             <ChipInput
                                 type="people"
                                 onEndEditing={handleAddJournalConfig}
                                 onFocus={() => setIsShouldReturn(true)}
-                            />
+                                // size={'md'}
+                                // font='body3'
+                        />
                         </View>
 
                         <Divider color={'white'} />

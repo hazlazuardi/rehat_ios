@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { Alert, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import PrimaryButton from '../../components/PrimaryButton'
 import { colors, sizes, styles } from '../../data/theme'
 import { useGoalsConfig, useJournal, useJournalingConfig } from '../../context/Context'
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground'
 import Divider from '../../components/Divider'
 import useManageGoals from '../../helpers/useManageGoals'
+import { trigger } from 'react-native-haptic-feedback'
 
 function Settings({ navigation }) {
 
@@ -15,6 +16,44 @@ function Settings({ navigation }) {
     const { dispatchJournal } = useJournal()
     const { dispatchGoalsConfig } = useGoalsConfig()
 
+    const handleAlert = (nextAction) => {
+        Alert.alert('Are you sure?', "You won't be able to redo this action.", [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            { text: 'OK', onPress: () => dangerousAction(nextAction) },
+        ]);
+    }
+
+    const dangerousAction = action => {
+        switch (action) {
+            case 'eraseAllGoals': {
+                clearAllGoals()
+                trigger('impactHeavy')
+                return
+            }
+            case 'clearGoalsConfig': {
+                dispatchGoalsConfig({ type: 'clearGoalsConfig' })
+                trigger('impactHeavy')
+                return
+            }
+            case 'clearJournalingConfig': {
+                dispatchJournalingConfig({ type: 'clearJournalingConfig' })
+                trigger('impactHeavy')
+                return
+            }
+            case 'eraseAllJournals': {
+                dispatchJournal({ type: 'eraseAllJournals' })
+                trigger('impactHeavy')
+                return
+            }
+            default: {
+                throw Error(`Unknown action: ${action}`);
+            }
+        }
+    }
 
 
     return (
@@ -65,22 +104,22 @@ function Settings({ navigation }) {
                             padding: sizes.padding.md,
                             borderRadius: sizes.radius.sm
                         }}>
-                            <Pressable onPress={() => dispatchJournalingConfig({ type: 'clearJournalingConfig' })} >
+                            <Pressable onPress={() => handleAlert('clearJournalingConfig')} >
                                 <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear Journaling Configurations</Text>
                             </Pressable>
 
                             <Divider color={colors.white} />
-                            <Pressable onPress={() => dispatchGoalsConfig({ type: 'clearGoalsConfig' })} >
+                            <Pressable onPress={() => handleAlert('clearGoalsConfig')} >
                                 <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear Goals Configurations</Text>
                             </Pressable>
 
                             <Divider color={colors.white} />
-                            <Pressable onPress={() => clearAllGoals()} >
+                            <Pressable onPress={() => handleAlert('eraseAllGoals')} >
                                 <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear All Goals</Text>
                             </Pressable>
 
                             <Divider color={colors.white} />
-                            <Pressable onPress={() => dispatchJournal({ type: 'eraseAllJournals' })} >
+                            <Pressable onPress={() => handleAlert('eraseAllJournals')} >
                                 <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear All Journals</Text>
                             </Pressable>
 

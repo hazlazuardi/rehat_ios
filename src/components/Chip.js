@@ -14,7 +14,7 @@ import { getContrastColor } from '../helpers/helpers';
  * @param {boolean} props.isSelected - Indicates whether the chip is selected or not.
  * @returns {JSX.Element} The rendered Chip component.
  */
-function Chip({ text, onPress, isSelected, size, variant, color }) {
+function Chip({ text, onPress, isSelected, font, size, variant, color }) {
     /**
      * Handles the press event of the chip.
      */
@@ -35,27 +35,19 @@ function Chip({ text, onPress, isSelected, size, variant, color }) {
         }
     }
 
-    const innerTextStyle = {
-        caption: styles.text.caption,
-        body3: styles.text.body3,
-
-    }
-
     return (
         <Pressable
             onPress={handlePress}
             style={{
-                backgroundColor: isSelected ? 'green' : (color || colors.darkGrey),
+                backgroundColor: isSelected ? colors.green : (color || colors.darkGrey),
                 borderRadius: sizes.button.radius,
-                paddingHorizontal: sizes.button.padding.sm,
-                paddingVertical: sizes.button.padding.sm / 2,
+                paddingHorizontal: size ? sizes.button.padding[size] : sizes.button.padding.sm,
+                paddingVertical: size ? sizes.button.padding[size] / 2 : sizes.button.padding.sm / 2,
                 ...innerStyle[variant]
             }}
         >
             <Text style={{
-                // ...styles.text.caption,
-                // ...innerTextStyle[size],
-                ...styles.text[size],
+                ...styles.text[font],
                 color: variant === 'outlined' ? color : color ? getContrastColor(color) : colors.white
             }}>{text}</Text>
         </Pressable>
