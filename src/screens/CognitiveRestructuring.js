@@ -13,7 +13,7 @@ import {sizes} from '../data/theme';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles.json';
+import data from '../data/articles';
 
 function CognitiveRestructuring({navigation}) {
   const initialData = [

@@ -11,6 +11,7 @@ import assets from '../../data/assets';
 import useFormattedDate from '../../helpers/useDateFormatter';
 import { formatDate, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
+import JournalingCTACard from '../../components/journaling/JournalingCTACard';
 
 /**
  * A component for journaling and managing journals.
@@ -42,47 +43,13 @@ function Journaling({ navigation }) {
                             <Text style={{ ...styles.text.header1 }}>Journaling</Text>
 
                             {/* Card */}
-                            <View style={{
-                                borderRadius: sizes.radius.lg,
-                                backgroundColor: colors.turqoise,
-                                padding: sizes.padding.md,
-                                gap: sizes.gap.md
-                            }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: sizes.gap.sm }} >
-                                    <View style={{ width: 20, aspectRatio: 1 }}>
-                                        <Image
-                                            source={assets.icons.journaling}
-                                            style={{
-                                                flex: 1,
-                                                aspectRatio: 1
-                                            }}
-                                        />
-                                    </View>
-                                    <Text style={styles.text.semi1}>Journaling</Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.text.merri.body2} >Another day, another story.</Text>
-                                    <Text style={styles.text.merri.body2}>Share yours now!</Text>
-                                </View>
-                                <Pressable
-                                    onPress={() => {
-                                        navigation.navigate("Journal Category")
-                                        trigger('rigid')
-                                    }}
-                                >
-                                    <View style={{
-                                        backgroundColor: colors.orange,
-                                        borderRadius: sizes.radius.sm,
-                                        paddingVertical: sizes.padding.md,
-                                        paddingHorizontal: sizes.padding.lg,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        alignSelf: 'flex-start'
-                                    }} >
-                                        <Text style={styles.text.semi2} >Check In</Text>
-                                    </View>
-                                </Pressable>
-                            </View>
+                            <JournalingCTACard
+                                title={'Journaling'}
+                                description={'Another day, another story. Share yours now!'}
+                                buttonText={'Check in'}
+                                icon={assets.icons.journaling}
+                                onPress={() => navigation.navigate('Journal Category')}
+                            />
                         </View>
 
                         {/* My Journals */}

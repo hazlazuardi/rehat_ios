@@ -45,7 +45,7 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Step 5: Acknowledge <Text style={{color: colors.orange}}>FIVE</Text>{' '}
+          Acknowledge <Text style={{color: colors.orange}}>FIVE</Text>{' '}
           things you can <Text style={{color: colors.orange}}>SEE</Text> around
           you.
         </Text>
@@ -64,7 +64,7 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Step 4: Recognise <Text style={{color: colors.orange}}>FOUR</Text>{' '}
+          Recognise <Text style={{color: colors.orange}}>FOUR</Text>{' '}
           things you can <Text style={{color: colors.orange}}>TOUCH</Text>{' '}
           around you.
         </Text>
@@ -83,7 +83,7 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Step 3: Listen for <Text style={{color: colors.orange}}>THREE</Text>{' '}
+          Listen for <Text style={{color: colors.orange}}>THREE</Text>{' '}
           things you can <Text style={{color: colors.orange}}>HEAR</Text>.
         </Text>
       ),
@@ -101,7 +101,7 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Step 2: Note <Text style={{color: colors.orange}}>TWO</Text> things
+        Note <Text style={{color: colors.orange}}>TWO</Text> things
           you can <Text style={{color: colors.orange}}>SMELL</Text>.
         </Text>
       ),
@@ -119,7 +119,7 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Step 1: Recognize <Text style={{color: colors.orange}}>ONE</Text>{' '}
+          Recognize <Text style={{color: colors.orange}}>ONE</Text>{' '}
           thing you can <Text style={{color: colors.orange}}>TASTE</Text>.
         </Text>
       ),
@@ -212,7 +212,7 @@ function GroundingSteps({navigation}) {
               </View>
               <View style={{padding: 20}}>
                 <TextInput
-                  placeholder="I Think..."
+                  placeholder="...."
                   placeholderTextColor="#F8F8F8"
                   editable
                   multiline
@@ -292,7 +292,7 @@ function GroundingSteps({navigation}) {
                   now. Always prioritize your well-being.
                 </Text>
               </View>
-              <Pressable onPress={() => navigation.goBack()}>
+              <Pressable onPress={() => navigation.popToTop()}>
                 <View
                   style={{
                     backgroundColor: colors.green,
@@ -314,5 +314,4 @@ function GroundingSteps({navigation}) {
     </BlurredEllipsesBackground>
   );
 }
-
 export default GroundingSteps;

@@ -8,17 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* rehat_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* rehat_iosTests.m */; };
-		0101264CA5FA45699056BB05 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 468338C13FDD48D5BFEA96C3 /* Poppins-Bold.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-rehat_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-rehat_ios.a */; };
-		101839E3CCB942839B99030C /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB58BB2A3590460D9B9BF982 /* Poppins-Italic.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1413C437AE2947D9AB477ECD /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49E2855C140543E3A0B558E7 /* Poppins-Light.ttf */; };
-		18087C304E594402A6595758 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0644FCBBFA74833BFE3E5B0 /* Poppins-SemiBold.ttf */; };
-		2320073A2E7D470BB58DD0CD /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7613B55A5314EF3A5548E34 /* Poppins-MediumItalic.ttf */; };
-		24A7676593144889908D1E52 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E884F68BED14465B43AC213 /* Poppins-BlackItalic.ttf */; };
-		27B9142310D74F43B32432F8 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 99961FED19F549ADA3EF38D2 /* OFL.txt */; };
 		280A5F2C2AD46A6900F3D058 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280A5EEA2AD45C4400F3D058 /* WidgetKit.framework */; };
 		280A5F2D2AD46A6900F3D058 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280A5EEC2AD45C4400F3D058 /* SwiftUI.framework */; };
 		280A5F302AD46A6900F3D058 /* rehat_Watch_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A5F2F2AD46A6900F3D058 /* rehat_Watch_Widget.swift */; };
@@ -35,35 +28,17 @@
 		28EA34AC2AB7623400E344A3 /* BreathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AB2AB7623400E344A3 /* BreathView.swift */; };
 		28EA34AE2AB7782100E344A3 /* affirmWordsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 28EA34AD2AB7782100E344A3 /* affirmWordsData.json */; };
 		28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AF2AB778C700E344A3 /* AffirmView.swift */; };
-		2B80043AA85C4CBB8FB7CCE4 /* Merriweather-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F88170B262B42529540DB13 /* Merriweather-Italic.ttf */; };
-		4B9D071B03CB49CDBCB845A8 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 872DA855DDE94917807BD02A /* Poppins-BoldItalic.ttf */; };
-		5660D58AC8B2405782A9AA58 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B4560EACFF04985863E6473 /* Poppins-Thin.ttf */; };
-		5CD5F9354F7446F6A6EBCA49 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBAFB54B4EC742DCA649BB9A /* Poppins-ExtraBoldItalic.ttf */; };
 		5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD422AAEBD9000748DDD /* rehatApp.swift */; };
 		5D9CDD452AAEBD9000748DDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9CDD442AAEBD9000748DDD /* ContentView.swift */; };
 		5D9CDD472AAEBD9300748DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD462AAEBD9300748DDD /* Assets.xcassets */; };
 		5D9CDD4A2AAEBD9300748DDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD492AAEBD9300748DDD /* Preview Assets.xcassets */; };
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5F98E51A50A44E6A87BF3824 /* Merriweather-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F012C3EA4B94C0A8E9DD3A2 /* Merriweather-LightItalic.ttf */; };
-		63E0FE211798435C83FFF140 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C5C61B515684F41BD96343B /* Poppins-ExtraLight.ttf */; };
-		67AA16695531479AB377DC91 /* Merriweather-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD5F0B243E124FFA8D36035A /* Merriweather-BlackItalic.ttf */; };
-		74373E59F17B41E9A6AAF585 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE59A7D62794191BBB3168E /* Poppins-ExtraLightItalic.ttf */; };
+		71BE8E3CF3524ADFAF684039 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
-		7A52538B454F416C929B2FCC /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEBF4DF284A443FEA6610358 /* Poppins-Black.ttf */; };
 		805FE2CB2ACC18A6001CDD55 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2CA2ACC18A6001CDD55 /* StorageManager.swift */; };
 		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
 		80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5C8BF2AC481540059AA10 /* PanicView.swift */; };
-		80E3023AD858448E8E5781BD /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CFD9307A8D54702A6D6642B /* Poppins-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		821C99BE7884463685682C40 /* Merriweather-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F47C5377759843F79427D385 /* Merriweather-Light.ttf */; };
-		8720AEB091E84DD290E4120C /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1443050A124E49E8AF34700E /* Poppins-SemiBoldItalic.ttf */; };
-		93FD73E2F9874EB6BCAB3878 /* Merriweather-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F404CEE2B9944ED9FCF352D /* Merriweather-Bold.ttf */; };
-		95D48371C6F744CDBA37E9CC /* Merriweather-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 828CFA8783174AEDB814D870 /* Merriweather-BoldItalic.ttf */; };
-		AA720D0AC3C142A6BFBF5293 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2539B803FF314FEE9A9C2AE3 /* Poppins-ThinItalic.ttf */; };
-		AD31228520E74298BD584FBF /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D63E4174EF034E2F9BC38141 /* Merriweather-Regular.ttf */; };
-		B955B1FC634649F983358535 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79550D79FBE74E949202648C /* Poppins-ExtraBold.ttf */; };
-		C7C1637A23E94F0A812AB5E2 /* Merriweather-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFC0E1FED43FDB9F48A0D /* Merriweather-Black.ttf */; };
-		E681CEE675534D04A028F2FE /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C533ECFF7248A2B69735C8 /* Poppins-LightItalic.ttf */; };
 		EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9EC2AB17165004D33D9 /* MLUtils.swift */; };
 		EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */; };
 		EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */; };
@@ -75,7 +50,6 @@
 		EAD7C81D2AD4FF91008721AB /* NotifTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7C81C2AD4FF91008721AB /* NotifTestView.swift */; };
 		EADDF11B2AD5521100987695 /* EmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */; };
 		EADDF11D2AD55CEC00987695 /* HKUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADDF11C2AD55CEC00987695 /* HKUtils.swift */; };
-		F2457DFB54BA46F5A43735AC /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A17CB07E20CE41FA9727ECB1 /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,7 +124,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rehat_ios/main.m; sourceTree = "<group>"; };
 		1443050A124E49E8AF34700E /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBoldItalic.ttf"; path = "../assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rehat_ios-rehat_iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2539B803FF314FEE9A9C2AE3 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		280A5EEA2AD45C4400F3D058 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		280A5EEC2AD45C4400F3D058 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		280A5F2B2AD46A6900F3D058 /* rehat Watch WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "rehat Watch WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,7 +291,6 @@
 				A0644FCBBFA74833BFE3E5B0 /* Poppins-SemiBold.ttf */,
 				1443050A124E49E8AF34700E /* Poppins-SemiBoldItalic.ttf */,
 				4B4560EACFF04985863E6473 /* Poppins-Thin.ttf */,
-				2539B803FF314FEE9A9C2AE3 /* Poppins-ThinItalic.ttf */,
 				99961FED19F549ADA3EF38D2 /* OFL.txt */,
 			);
 			name = Resources;
@@ -334,6 +307,14 @@
 				286B837A2AD511140056E1B0 /* rehatCircularComplication.swift */,
 			);
 			path = "rehat Watch Widget";
+			sourceTree = "<group>";
+		};
+		28D638E32ADB89020008E98A /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				211CC7C9EEB34E2DA1B432FA /* Poppins-Regular.ttf */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -409,6 +390,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				1817BFE6F2654A33B698E288 /* Resources */,
+				28D638E32ADB89020008E98A /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -581,33 +563,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				C7C1637A23E94F0A812AB5E2 /* Merriweather-Black.ttf in Resources */,
-				67AA16695531479AB377DC91 /* Merriweather-BlackItalic.ttf in Resources */,
-				93FD73E2F9874EB6BCAB3878 /* Merriweather-Bold.ttf in Resources */,
-				95D48371C6F744CDBA37E9CC /* Merriweather-BoldItalic.ttf in Resources */,
-				2B80043AA85C4CBB8FB7CCE4 /* Merriweather-Italic.ttf in Resources */,
-				821C99BE7884463685682C40 /* Merriweather-Light.ttf in Resources */,
-				5F98E51A50A44E6A87BF3824 /* Merriweather-LightItalic.ttf in Resources */,
-				AD31228520E74298BD584FBF /* Merriweather-Regular.ttf in Resources */,
-				7A52538B454F416C929B2FCC /* Poppins-Black.ttf in Resources */,
-				24A7676593144889908D1E52 /* Poppins-BlackItalic.ttf in Resources */,
-				0101264CA5FA45699056BB05 /* Poppins-Bold.ttf in Resources */,
-				4B9D071B03CB49CDBCB845A8 /* Poppins-BoldItalic.ttf in Resources */,
-				B955B1FC634649F983358535 /* Poppins-ExtraBold.ttf in Resources */,
-				5CD5F9354F7446F6A6EBCA49 /* Poppins-ExtraBoldItalic.ttf in Resources */,
-				63E0FE211798435C83FFF140 /* Poppins-ExtraLight.ttf in Resources */,
-				74373E59F17B41E9A6AAF585 /* Poppins-ExtraLightItalic.ttf in Resources */,
-				101839E3CCB942839B99030C /* Poppins-Italic.ttf in Resources */,
-				1413C437AE2947D9AB477ECD /* Poppins-Light.ttf in Resources */,
-				E681CEE675534D04A028F2FE /* Poppins-LightItalic.ttf in Resources */,
-				80E3023AD858448E8E5781BD /* Poppins-Medium.ttf in Resources */,
-				2320073A2E7D470BB58DD0CD /* Poppins-MediumItalic.ttf in Resources */,
-				F2457DFB54BA46F5A43735AC /* Poppins-Regular.ttf in Resources */,
-				18087C304E594402A6595758 /* Poppins-SemiBold.ttf in Resources */,
-				8720AEB091E84DD290E4120C /* Poppins-SemiBoldItalic.ttf in Resources */,
-				5660D58AC8B2405782A9AA58 /* Poppins-Thin.ttf in Resources */,
-				AA720D0AC3C142A6BFBF5293 /* Poppins-ThinItalic.ttf in Resources */,
-				27B9142310D74F43B32432F8 /* OFL.txt in Resources */,
+				71BE8E3CF3524ADFAF684039 /* BuildFile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

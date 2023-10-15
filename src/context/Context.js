@@ -34,6 +34,7 @@ const RecoveryReferencesContext = createContext(null);
 
 const GoalsContext = createContext(null)
 
+const LearnContext = createContext(null)
 
 /**
  * Provider component that wraps the application and provides
@@ -63,12 +64,15 @@ function StoreProvider({ children }) {
 
 	const [goals, dispatchGoals] = useReducer(goalsReducer, initialGoals)
 
+	const [learnedArticles, dispatchLearnedArticles] = useReducer(learnReducer, initialLearnedArticles)
+
 	// Retrieve emergency contacts from the storage
 	useEffect(() => {
 		Appearance.setColorScheme('dark')
 		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
 		dispatchRecoveryReferences({ type: 'getRecoveryReferences' });
 		dispatchJournalingConfig({ type: 'getJournalingConfig' });
+		dispatchLearnedArticles({ type: 'getAllLearnedArticles' });
 		dispatchGoals({ type: 'getAllGoals' });
 	}, []);
 
@@ -93,7 +97,9 @@ function StoreProvider({ children }) {
 					<JournalContext.Provider value={{ journal, dispatchJournal }}>
 						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
 							<GoalsContext.Provider value={{ goals, dispatchGoals }}>
-								{children}
+								<LearnContext.Provider value={{ learnedArticles, dispatchLearnedArticles }}>
+									{children}
+								</LearnContext.Provider>
 							</GoalsContext.Provider>
 						</JournalingConfigContext.Provider>
 					</JournalContext.Provider>
@@ -145,6 +151,11 @@ export function useRecoveryReferences() {
 export function useGoals() {
 	return useContext(GoalsContext);
 }
+
+export function useLearn() {
+	return useContext(LearnContext);
+}
+
 
 /**
  * Reducer function for managing journal-related actions.
@@ -433,6 +444,65 @@ const initialGoals = [
 	// Example
 	// { id: 1, text: "Learn React Native", isCompleted: false }
 ];
+
+function learnReducer(state, action) {
+	switch (action.type) {
+		case 'getAllLearnedArticles': {
+			const strAllLearnedArticles = storage.getString('learnedArticles');
+			if (strAllLearnedArticles) {
+				const allLearnedArticles = JSON.parse(strAllLearnedArticles);
+				return allLearnedArticles;
+			}
+			return [...state];
+		}
+		case 'addLearnedArticle': {
+			const updatedLearnedArticles = [
+				...state,
+				action.payload
+			]
+			storage.set('learnedArticles', JSON.stringify(updatedLearnedArticles));  // save to storage here
+			return [...updatedLearnedArticles];
+		}
+		case 'clearAllLearnedArticles': {
+			storage.set('learnedArticles', JSON.stringify(initialLearnedArticles))
+			return initialLearnedArticles;
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+const initialLearnedArticles = [
+	// Example
+	// {
+	//     "id": "1",
+	//     "title": "The Importance of Self Well-Being",
+	//     "desc": "Exploring the significance and benefits of prioritizing self well-being.",
+	//     "content": {
+	//       "sections": [
+	//         {
+	//           "header": "Understanding Self Well-Being",
+	//           "text": "Self well-being encompasses the holistic health of an individual, which includes physical, emotional, psychological, and social dimensions. Prioritizing self well-being ensures that individuals are functioning at their best capacity, both mentally and physically.",
+	//           "imageUrl": "https://yourwebsite.com/path/to/image1.jpg"
+	//         },
+	//         {
+	//           "header": "Mental and Emotional Benefits",
+	//           "text": "Cultivating mental and emotional well-being can lead to improved mood, reduced feelings of anxiety and stress, and heightened resilience against challenges. Activities such as meditation, journaling, and therapy can support these aspects of well-being.",
+	//           "imageUrl": "https://yourwebsite.com/path/to/image2.jpg"
+	//         },
+	//         {
+	//           "header": "Physical and Social Aspects",
+	//           "text": "Physical well-being is nurtured through regular exercise, a balanced diet, and adequate rest. Social well-being involves building strong relationships and fostering positive interactions with others. Both play crucial roles in an individual's overall sense of health and satisfaction.",
+	//           "imageUrl": "https://yourwebsite.com/path/to/image3.jpg",
+	//           "end":true
+	//         }
+	//       ]
+	//     }
+	//   },
+
+];
+
 
 
 

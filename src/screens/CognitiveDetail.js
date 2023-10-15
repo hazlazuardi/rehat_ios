@@ -12,7 +12,8 @@ import {colors} from '../data/theme';
 import {sizes} from '../data/theme';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles.json';
+import data from '../data/articles';
+import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
 function CognitiveDetail({route, navigation}) {
   const {data, inputText} = route.params;

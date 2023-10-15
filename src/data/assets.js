@@ -21,6 +21,11 @@ import see from '../assets/icons/see.png'
 import smell from '../assets/icons/smell.png'
 import taste from '../assets/icons/taste.png'
 import touch from '../assets/icons/touch.png'
+import settings from '../assets/icons/settings_icon.png'
+import home from '../assets/icons/home_icon.png'
+import recovery from '../assets/icons/recovery_icon.png'
+import learn from '../assets/icons/learn_icon.png'
+import monitoring from '../assets/icons/monitoring_icon.png'
 
 
 export default {
@@ -39,8 +44,13 @@ export default {
         see:see,
         smell:smell,
         taste:taste,
-        touch:touch
+        touch:touch,
 
+        settings: settings,
+        home: home,
+        recovery: recovery,
+        learn: learn,
+        monitoring: monitoring
     },
 
     images: {

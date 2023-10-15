@@ -20,7 +20,10 @@ function CreateGoal({ navigation, route }) {
 
     const handleSaveGoal = () => {
         addGoal(goal);
-        navigation.navigate(nextPage)
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'Root', params: {screen: 'Recovery'}}],
+          });
     }
 
     const { nextPage } = route.params

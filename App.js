@@ -87,8 +87,6 @@ function App() {
     }
     setLoading(false);
   }, [isOnboard]);
-
-
  
   return (
     <SafeAreaProvider>

@@ -1,6 +1,7 @@
 import { BlurView } from '@react-native-community/blur';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { sizes } from '../data/theme';
 
 function BlurredEllipsesBackground({ children }) {
   return (
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    backgroundColor: '#0F1720'
+    backgroundColor: '#0F1720',
   },
   absolute: {
     position: "absolute",

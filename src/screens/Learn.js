@@ -7,109 +7,63 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import { colors } from '../data/theme';
+import { colors, styles } from '../data/theme';
 import { sizes } from '../data/theme';
 import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles.json';
+import data from '../data/articles';
 import { Pressable } from 'react-native';
 import progress from '../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storage } from '../../App';
+import useManageLearn from '../helpers/useManageLearn';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
 function Learn({ navigation }) {
-  const article = data.articles;
-  const [progressState, setProgressState] = useState()
-  const [readArticles, setReadArticles] = useState([]);
+  const { articles, getProgress, clearAllLearnedArticles } = useManageLearn()
 
-  // async function getReadingProgress() {
-  function getReadingProgress() {
-    // Get the current list of read articles
-    // const readArticlesString = await AsyncStorage.getItem('readArticles');
-    const readArticlesString = storage.getString('readArticles');
-    const readArticles = readArticlesString ? JSON.parse(readArticlesString) : [];
+  // clearAllLearnedArticles()
 
-    // Calculate the progress
-    const totalArticles = article.length;
-    const readCount = readArticles?.length;
-    const unreadCount = totalArticles - readCount;
-    const readPercentage = (readCount / totalArticles) * 100;
 
-    return {
-      totalArticles,
-      readCount,
-      unreadCount,
-      readPercentage
-    };
-  }
-
-  // async function displayProgress() {
-  function displayProgress() {
-    // const progress = await getReadingProgress();
-    const progress = getReadingProgress();
-    setProgressState(progress);
-
-    // const readArticlesString = await AsyncStorage.getItem('readArticles');
-    const readArticlesString = storage.getString('readArticles')
-    const readList = readArticlesString ? JSON.parse(readArticlesString) : [];
-    setReadArticles(readList);
-  }
-
-  // Invoke the function
-  useEffect(() => {
-    displayProgress()
-  }, [])
   return (
     <BlurredEllipsesBackground>
-      <ScrollView
-        style={{
-          flex: 1,
-          // backgroundColor: colors.darkTurquoise
-        }}
-        contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
-          <View style={{gap: sizes.gap.lg}}>
-        <Text style={styles.headingText}>Learn</Text>
-        <View style={styles.progressLearn}>
-          <View style={styles.progressText}>
-            <Image source={progress} style={{ width: 30, height: 30 }} />
-            <Text style={styles.textProgressHeading}>Progress Of Learn</Text>
+      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>
+        <SafeAreaView>
+          <View style={{ gap: sizes.gap.lg, padding: sizes.padding.md, paddingBottom: sizes.padding.lg*2 }}>
+            <Text style={styles.text.header2}>Insight Hub</Text>
+            <View style={innerStyles.progressLearn}>
+              <View style={innerStyles.progressText}>
+                <Image source={progress} style={{ width: 30, height: 30 }} />
+                <Text style={innerStyles.textProgressHeading}>Progress Of Learn</Text>
+              </View>
+              <Text style={innerStyles.textProgress}>{getProgress()}</Text>
+              <View style={innerStyles.progressBarContainer}>
+                {articles.map((arc, key) => {
+                  return (
+                    <View key={key} style={innerStyles.progressBar}></View>
+                  );
+                })}
+              </View>
+            </View>
+            <Text style={styles.text.header3}>About Self Wellbeing</Text>
+            <View style={innerStyles.containerCards}>
+              {articles.map((arc, key) => {
+                return (
+                  <Pressable
+                    key={key}
+                    onPress={() => navigation.navigate('Learn Detail', { arc })}>
+                    <LearnCard article={arc} />
+                  </Pressable>
+                );
+              })}
+            </View>
           </View>
-          <Text style={styles.textProgress}>{progressState?.readCount}/{progressState?.totalArticles}</Text>
-          <View style={styles.progressBarContainer}>
-            {article.map((arc, key) => {
-              return (
-                <View key={key} style={styles.progressBar}></View>
-              );
-            })}
-          </View>
-        </View>
-        <Text style={styles.headingText}>About Self Wellbeing</Text>
-        <View style={styles.containerCards}>
-          {article.map((arc, key) => {
-            return (
-              <Pressable
-                key={key}
-                onPress={() => navigation.navigate('Learn Detail', { arc })}>
-                <LearnCard article={arc} />
-              </Pressable>
-            );
-          })}
-        </View>
-        </View>
         </SafeAreaView>
       </ScrollView>
     </BlurredEllipsesBackground>
   );
 }
 
-const styles = StyleSheet.create({
-  safeAreaContainer: {
-    flex: 1,
-    backgroundColor: '#0F1720',
-    marginTop: 30,
-    paddingHorizontal: sizes.padding.md, // This sets the background color for the entire screen
-  },
+const innerStyles = StyleSheet.create({
   progressText: {
     gap: 10,
     alignItems: 'center',
@@ -117,16 +71,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headingText: {
-    color: colors.white,
-    fontSize: sizes.text.header2,
-    marginTop: sizes.padding.lg,
-    marginHorizontal: sizes.padding.lg,
-    fontWeight: 700,
-    fontFamily: 'Poppins-Regular',
+    fontSize: sizes.text.header3,
+    // marginTop: sizes.padding.lg,
+    // marginHorizontal: sizes.padding.lg,
   },
   progressLearn: {
-    padding: sizes.padding.lg,
-    margin: sizes.padding.lg,
+    padding: sizes.padding.md,
     borderRadius: sizes.padding.md,
     backgroundColor: '#0E6E74',
   },
@@ -140,17 +90,18 @@ const styles = StyleSheet.create({
   },
   textProgress: {
     color: colors.white,
-    marginLeft: 3,
-    marginTop: 15,
+    // marginLeft: 3,
+    // marginTop: 15,
   },
   containerCards: {
-    marginBottom: 100,
+    // marginBottom: 100,
+    gap: sizes.gap.md
   },
   progressBar: {
     height: 20,
     gap: 50,
     backgroundColor: 'red',
-    borderRadius: 10
+    // borderRadius: 10
   },
   progressBarContainer: {
     justifyContent: 'space-evenly',
