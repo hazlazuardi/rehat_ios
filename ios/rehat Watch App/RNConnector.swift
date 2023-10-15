@@ -23,7 +23,12 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   var session: WCSession
   
   @Published var contacts: [Contact] = []
-  @Published var recoveryReferences: [RecoveryReference] = []
+  @Published var recoveryReferences: [RecoveryReference] = [
+      RecoveryReference(id: "1", label: "Guided Breathing"),
+      RecoveryReference(id: "2", label: "Self-Affirmation"),
+      RecoveryReference(id: "3", label: "Grounding Technique"),
+      RecoveryReference(id: "4", label: "Emergency Call")
+  ]
   
   override init() {
     self.session = WCSession.default
@@ -45,7 +50,10 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   }
   
   private func loadStoredRecoveryReferences() {
-    self.recoveryReferences = StorageManager.shared.retrieveRecoveryReferences()
+      let temp = StorageManager.shared.retrieveRecoveryReferences()
+      if !temp.isEmpty {
+          self.recoveryReferences = temp
+      }
   }
   
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {

@@ -4,6 +4,7 @@ import { storage } from "../../App";
 import { formatDate } from "../helpers/useDateFormatter";
 import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
 import useEmergencyContacts from "../helpers/useEmergencyContacts";
+import { Appearance } from "react-native";
 
 
 /**
@@ -31,6 +32,9 @@ const EmergencyContactsContext = createContext(null);
  */
 const RecoveryReferencesContext = createContext(null);
 
+const GoalsContext = createContext(null)
+
+const LearnContext = createContext(null)
 
 /**
  * Provider component that wraps the application and provides
@@ -58,12 +62,18 @@ function StoreProvider({ children }) {
 
 	const [recoveryReferences, dispatchRecoveryReferences] = useReducer(recoveryReferencesReducer, initialRecoveryReferences)
 
+	const [goals, dispatchGoals] = useReducer(goalsReducer, initialGoals)
+
+	const [learnedArticles, dispatchLearnedArticles] = useReducer(learnReducer, initialLearnedArticles)
 
 	// Retrieve emergency contacts from the storage
 	useEffect(() => {
+		Appearance.setColorScheme('dark')
 		dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
 		dispatchRecoveryReferences({ type: 'getRecoveryReferences' });
 		dispatchJournalingConfig({ type: 'getJournalingConfig' });
+		dispatchLearnedArticles({ type: 'getAllLearnedArticles' });
+		dispatchGoals({ type: 'getAllGoals' });
 	}, []);
 
 	// Update ApplicationContext for the Watch App
@@ -86,7 +96,11 @@ function StoreProvider({ children }) {
 				<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
 					<JournalContext.Provider value={{ journal, dispatchJournal }}>
 						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
-							{children}
+							<GoalsContext.Provider value={{ goals, dispatchGoals }}>
+								<LearnContext.Provider value={{ learnedArticles, dispatchLearnedArticles }}>
+									{children}
+								</LearnContext.Provider>
+							</GoalsContext.Provider>
 						</JournalingConfigContext.Provider>
 					</JournalContext.Provider>
 				</EmergencyContactsContext.Provider>
@@ -131,8 +145,17 @@ export function useEmergencyContact() {
 }
 
 export function useRecoveryReferences() {
-	return useContext(RecoveryReferencesContext)
+	return useContext(RecoveryReferencesContext);
 }
+
+export function useGoals() {
+	return useContext(GoalsContext);
+}
+
+export function useLearn() {
+	return useContext(LearnContext);
+}
+
 
 /**
  * Reducer function for managing journal-related actions.
@@ -206,6 +229,7 @@ const initialJournal = {
 	photo: {},
 	withWho: '',
 	where: '',
+	whatActivity: '',
 	thoughts: '',
 	dateAdded: '',
 };
@@ -236,6 +260,12 @@ function journalingConfigReducer(state, action) {
 			const strJournalingConfig = JSON.stringify(newJournalingConfig);
 			storage.set('journalingConfig', strJournalingConfig);
 			return { ...state, journalThoughts: updatedConfig };
+		}
+		case 'clearJournalingConfig': {
+			// Clear journalingConfig from storage
+			storage.delete('journalingConfig');
+			// Return the initial state or some other default configuration
+			return { ...initialJournalingConfig };
 		}
 		default: {
 			throw Error(`Unknown action: ${action.type}`);
@@ -296,6 +326,9 @@ const initialJournalingConfig = {
 		],
 		locations: [
 			'School', 'Home', 'Restaurant', 'Work', 'Park', 'Transport', 'Shop'
+		],
+		activities: [
+			'Coding', 'Studying', 'Commuting', 'Chilling'
 		]
 	}
 }
@@ -365,5 +398,112 @@ function contactReducer(state, action) {
 }
 
 const initialEmergencyContactConfig = []
+
+
+function goalsReducer(state, action) {
+	switch (action.type) {
+		case 'getAllGoals': {
+			const strAllGoals = storage.getString('goals');
+			if (strAllGoals) {
+				const allGoals = JSON.parse(strAllGoals);
+				return allGoals;
+			}
+			return [...state];
+		}
+		case 'addGoal': {
+			const updatedGoals = [
+				...state,
+				action.payload
+			]
+			storage.set('goals', JSON.stringify(updatedGoals));  // save to storage here
+			return [...updatedGoals];
+		}
+		case 'removeGoal': {
+			const updatedGoals = state.filter(goal => goal.id !== action.payload.id);
+			storage.set('goals', JSON.stringify(updatedGoals));  // consider saving to storage here too
+			return [...updatedGoals];
+		}
+		case 'toggleGoalCompletion': {
+			const updatedGoals = state.map(goal =>
+				goal.id === action.payload.id ? { ...goal, isCompleted: !goal.isCompleted } : goal
+			);
+			storage.set('goals', JSON.stringify(updatedGoals));  // consider saving to storage here too
+			return [...updatedGoals];
+		}
+		case 'clearAllGoals': {
+			storage.set('goals', JSON.stringify(initialGoals))
+			return initialGoals;
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+const initialGoals = [
+	// Example
+	// { id: 1, text: "Learn React Native", isCompleted: false }
+];
+
+function learnReducer(state, action) {
+	switch (action.type) {
+		case 'getAllLearnedArticles': {
+			const strAllLearnedArticles = storage.getString('learnedArticles');
+			if (strAllLearnedArticles) {
+				const allLearnedArticles = JSON.parse(strAllLearnedArticles);
+				return allLearnedArticles;
+			}
+			return [...state];
+		}
+		case 'addLearnedArticle': {
+			const updatedLearnedArticles = [
+				...state,
+				action.payload
+			]
+			storage.set('learnedArticles', JSON.stringify(updatedLearnedArticles));  // save to storage here
+			return [...updatedLearnedArticles];
+		}
+		case 'clearAllLearnedArticles': {
+			storage.set('learnedArticles', JSON.stringify(initialLearnedArticles))
+			return initialLearnedArticles;
+		}
+		default: {
+			throw Error(`Unknown action: ${action.type}`);
+		}
+	}
+}
+
+const initialLearnedArticles = [
+	// Example
+	// {
+	//     "id": "1",
+	//     "title": "The Importance of Self Well-Being",
+	//     "desc": "Exploring the significance and benefits of prioritizing self well-being.",
+	//     "content": {
+	//       "sections": [
+	//         {
+	//           "header": "Understanding Self Well-Being",
+	//           "text": "Self well-being encompasses the holistic health of an individual, which includes physical, emotional, psychological, and social dimensions. Prioritizing self well-being ensures that individuals are functioning at their best capacity, both mentally and physically.",
+	//           "imageUrl": "https://yourwebsite.com/path/to/image1.jpg"
+	//         },
+	//         {
+	//           "header": "Mental and Emotional Benefits",
+	//           "text": "Cultivating mental and emotional well-being can lead to improved mood, reduced feelings of anxiety and stress, and heightened resilience against challenges. Activities such as meditation, journaling, and therapy can support these aspects of well-being.",
+	//           "imageUrl": "https://yourwebsite.com/path/to/image2.jpg"
+	//         },
+	//         {
+	//           "header": "Physical and Social Aspects",
+	//           "text": "Physical well-being is nurtured through regular exercise, a balanced diet, and adequate rest. Social well-being involves building strong relationships and fostering positive interactions with others. Both play crucial roles in an individual's overall sense of health and satisfaction.",
+	//           "imageUrl": "https://yourwebsite.com/path/to/image3.jpg",
+	//           "end":true
+	//         }
+	//       ]
+	//     }
+	//   },
+
+];
+
+
+
 
 export default StoreProvider;

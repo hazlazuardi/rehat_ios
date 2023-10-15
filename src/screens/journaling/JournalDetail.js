@@ -8,6 +8,7 @@ import EmotionCategoryButton from '../../components/journaling/EmotionCategoryBu
 import useFormattedDate from '../../helpers/useDateFormatter'
 import assets from '../../data/assets'
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground'
+import { toAssetCase } from '../../helpers/helpers'
 
 
 function JournalDetail({ route }) {
@@ -48,7 +49,7 @@ function JournalDetail({ route }) {
                                     })}
                                 </View>
                             </View>
-                            <EmotionCategoryButton title={journal.emotionCategory} width={100} disabled />
+                            <EmotionCategoryButton title={journal.emotionCategory} width={100} disabled variant={toAssetCase(journal.emotionCategory)} />
                         </View>
 
                         <Divider color={'white'} />
@@ -74,6 +75,8 @@ function JournalDetail({ route }) {
                                 </View>
                             </View>
 
+                            <Divider color={'white'} />
+
                             {/* Thoughts */}
                             <View style={{
                                 padding: sizes.padding.md,
@@ -82,8 +85,8 @@ function JournalDetail({ route }) {
                             }}>
                                 <Text
                                     style={{
-                                        ...styles.text.semi2,
-                                        color: colors.textArea.color,
+                                        ...styles.text.body1,
+                                        // color: colors.textArea.color,
                                     }}>
                                     {journal.thoughts}
                                 </Text>
@@ -130,11 +133,11 @@ function JournalDetail({ route }) {
                         {/* withWho */}
                         <View style={{ gap: sizes.gap.md }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={{ ...styles.text.header2 }}>Who you were with</Text>
+                                <Text style={{ ...styles.text.body2 }}>Who you were with</Text>
                                 <Image
-                                    source={assets.icons.PersonGroupIcon}
+                                    source={assets.icons.person_group}
                                     style={{
-                                        width: sizes.icon.xs,
+                                        width: sizes.icon.xs * 1.1,
                                         aspectRatio: 1
                                     }}
                                 />
@@ -150,17 +153,39 @@ function JournalDetail({ route }) {
 
                         <View style={{ gap: sizes.gap.md }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={{ ...styles.text.header2 }}>Where you were</Text>
+                                <Text style={{ ...styles.text.body2 }}>Where you were</Text>
                                 <Image
-                                    source={assets.icons.PlaceIcon}
+                                    source={assets.icons.place}
                                     style={{
-                                        width: sizes.icon.xs,
+                                        width: sizes.icon.xs * 1.1,
                                         aspectRatio: 1
                                     }}
                                 />
                             </View>
                             <View style={{ alignSelf: 'flex-start' }}>
                                 <Chip text={journal.where} />
+                            </View>
+                        </View>
+
+
+
+                        <Divider color={'white'} />
+
+                        {/* whatActivity */}
+
+                        <View style={{ gap: sizes.gap.md }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={{ ...styles.text.body2 }}>What you were doing</Text>
+                                <Image
+                                    source={assets.icons.activity}
+                                    style={{
+                                        width: sizes.icon.xs * 1.1,
+                                        aspectRatio: 1
+                                    }}
+                                />
+                            </View>
+                            <View style={{ alignSelf: 'flex-start' }}>
+                                <Chip text={journal.whatActivity} />
                             </View>
                         </View>
 

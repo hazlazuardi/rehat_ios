@@ -87,7 +87,7 @@ function JournalEmotions({ navigation }) {
                     <View style={{ gap: sizes.padding.md }}>
                         {/* Emotion Chips */}
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm }} >
-                            {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory)].map(emotion => {
+                            {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory)]?.map(emotion => {
                                 return (
                                     <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
                                 )
@@ -100,6 +100,7 @@ function JournalEmotions({ navigation }) {
                         onPress={handlePrimaryButton}
                         text={'Done'}
                         color={'green'}
+                        disabled={journal.emotions?.length === 0}
                     />
                 </View>
             </SafeAreaView>

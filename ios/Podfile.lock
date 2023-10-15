@@ -499,7 +499,7 @@ PODS:
     - React-jsi (= 0.72.4)
     - React-logger (= 0.72.4)
     - React-perflogger (= 0.72.4)
-  - RNGestureHandler (2.13.1):
+  - RNGestureHandler (2.13.2):
     - React-Core
   - RNReactNativeHapticFeedback (2.2.0):
     - React-Core
@@ -795,7 +795,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 4941cc1b3cf08b792fbf666342c9fc95f1969035
   React-utils: b79f2411931f9d3ea5781404dcbb2fa8a837e13a
   ReactCommon: 4b2bdcb50a3543e1c2b2849ad44533686610826d
-  RNGestureHandler: 38aa38413896620338948fbb5c90579a7b1c3fde
+  RNGestureHandler: bb86e378287f7713baf3ca205423eb8109790022
   RNReactNativeHapticFeedback: ec56a5f81c3941206fd85625fa669ffc7b4545f9
   RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
@@ -806,4 +806,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 45403105002ca23b0a0cb57c460f08ccb7c9f1fa
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.13.0
