@@ -15,6 +15,7 @@ struct BreathView: View {
   }
     
   struct BreathPhase: Equatable {
+    let name: String
     let breathInDuration: TimeInterval
     let holdDuration: TimeInterval
     let breathOutDuration: TimeInterval
@@ -30,12 +31,12 @@ struct BreathView: View {
   @State private var currentAnimationDuration: Double = 1.0
 
   var breathingOptions: [BreathPhase] = [
-    BreathPhase(breathInDuration: 4, holdDuration: 0, breathOutDuration: 6, holdTwoDuration: 0),
-    BreathPhase(breathInDuration: 4, holdDuration: 2, breathOutDuration: 4, holdTwoDuration: 0),
-    BreathPhase(breathInDuration: 5, holdDuration: 0, breathOutDuration: 5, holdTwoDuration: 0),
-    BreathPhase(breathInDuration: 4, holdDuration: 4, breathOutDuration: 4, holdTwoDuration: 4),
-    BreathPhase(breathInDuration: 4, holdDuration: 0, breathOutDuration: 2, holdTwoDuration: 0),
-    BreathPhase(breathInDuration: 4, holdDuration: 7, breathOutDuration: 8, holdTwoDuration: 0),
+    BreathPhase(name: "Extended Exhale", breathInDuration: 4, holdDuration: 0, breathOutDuration: 6, holdTwoDuration: 0),
+    BreathPhase(name: "Equal Breathing", breathInDuration: 4, holdDuration: 2, breathOutDuration: 4, holdTwoDuration: 0),
+    BreathPhase(name: "Deep Belly", breathInDuration: 5, holdDuration: 0, breathOutDuration: 5, holdTwoDuration: 0),
+    BreathPhase(name: "Box Breathing", breathInDuration: 4, holdDuration: 4, breathOutDuration: 4, holdTwoDuration: 4),
+    BreathPhase(name: "Energizing Breath", breathInDuration: 4, holdDuration: 0, breathOutDuration: 2, holdTwoDuration: 0),
+    BreathPhase(name: "Relaxing Breath", breathInDuration: 4, holdDuration: 7, breathOutDuration: 8, holdTwoDuration: 0),
   ]
   
   private func formatDuration(_ duration: TimeInterval) -> String {
@@ -51,17 +52,24 @@ struct BreathView: View {
             Button(action: {
               startTimer(with: breathingOptions[index])
             }) {
-              Text([
-                formatDuration(breathingOptions[index].breathInDuration),
-                formatDuration(breathingOptions[index].holdDuration),
-                formatDuration(breathingOptions[index].breathOutDuration),
-                formatDuration(breathingOptions[index].holdTwoDuration)
-              ]
-                .filter { !$0.isEmpty }
-                .joined(separator: "-")
-              )
-              .font(.headline)
-              .frame(height:30)
+              VStack{
+                Text(breathingOptions[index].name)
+                  .font(.headline)
+//                  .frame(height:30)
+                Text(
+                  "(" +
+                  [
+                    formatDuration(breathingOptions[index].breathInDuration),
+                    formatDuration(breathingOptions[index].holdDuration),
+                    formatDuration(breathingOptions[index].breathOutDuration),
+                    formatDuration(breathingOptions[index].holdTwoDuration)
+                  ]
+                    .filter { !$0.isEmpty }
+                    .joined(separator: "-") 
+                  + ")"
+                )
+                .foregroundColor(Color.white.opacity(0.5))
+              }
             }
           }
           .navigationTitle("Breathing")
