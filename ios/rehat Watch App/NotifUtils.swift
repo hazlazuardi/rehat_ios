@@ -27,8 +27,20 @@ func sendNotification() {
     notifContent.title = "Hey there"
     notifContent.body = "How are you feeling?"
     notifContent.sound = .default
+    notifContent.categoryIdentifier = "actions"
+  
+  
+    let action = UNNotificationAction(
+      identifier: "seek_help",
+      title: "I need guidance",
+      options: [.foreground])
+    let category = UNNotificationCategory(
+      identifier: "actions",
+      actions: [action],
+      intentIdentifiers: [],
+      options: [])
     
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
     
     // Create the request
     let uuidString = UUID().uuidString
@@ -37,6 +49,7 @@ func sendNotification() {
 
     // Schedule the request with the system.
     let notificationCenter = UNUserNotificationCenter.current()
+    notificationCenter.setNotificationCategories([category])
     notificationCenter.add(request) { (error) in
        if error != nil {
           // Handle any errors.
