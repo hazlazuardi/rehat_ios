@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,22 +7,22 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Pressable} from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
+import { Pressable } from 'react-native';
+import { colors } from '../data/theme';
+import { sizes } from '../data/theme';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles';
 
-function CognitiveRestructuring({navigation}) {
+function CognitiveRestructuring({ navigation }) {
   const initialData = [
-    {id: 1, text: 'Emotional Reasoning', choosen: false},
-    {id: 2, text: 'All or Nothing Thinking', choosen: false},
-    {id: 3, text: 'Jumping to Conclusion', choosen: false},
-    {id: 4, text: 'Self Blaming', choosen: false},
-    {id: 5, text: 'Should or Must Statement', choosen: false},
-    {id: 6, text: 'Fortune Telling', choosen: false},
+    { id: 1, text: 'Emotional Reasoning', choosen: false },
+    { id: 2, text: 'All or Nothing Thinking', choosen: false },
+    { id: 3, text: 'Jumping to Conclusion', choosen: false },
+    { id: 4, text: 'Self Blaming', choosen: false },
+    { id: 5, text: 'Should or Must Statement', choosen: false },
+    { id: 6, text: 'Fortune Telling', choosen: false },
   ];
 
   const [data, setData] = useState(initialData);
@@ -36,7 +36,7 @@ function CognitiveRestructuring({navigation}) {
   const handleChoicePress = id => {
     const updatedData = data.map(item => {
       if (item.id === id) {
-        return {...item, choosen: !item.choosen};
+        return { ...item, choosen: !item.choosen };
       }
       return item;
     });
@@ -45,7 +45,7 @@ function CognitiveRestructuring({navigation}) {
 
   const handleNextPress = () => {
     if (isReadyToProceed()) {
-      navigation.navigate('Cognitive Detail', {data, inputText: input});
+      navigation.navigate('Cognitive Detail', { data, inputText: input });
     } else {
       alert(
         'Please ensure you have written in the text field and chosen at least one option.',
@@ -61,8 +61,8 @@ function CognitiveRestructuring({navigation}) {
           // backgroundColor: colors.darkTurquoise
         }}
         contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
-          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+        <SafeAreaView style={{ marginBottom: 100 }}>
+          <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View>
               <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
               <Text style={styles.descLearn}>
@@ -91,13 +91,14 @@ function CognitiveRestructuring({navigation}) {
               {data?.map(dats => {
                 return (
                   <Pressable
+                    key={dats.id}
                     onPress={() => {
                       handleChoicePress(dats.id);
                     }}>
                     <View style={dats.choosen ? styles.choice : styles.choice2}>
                       <Text
                         style={
-                          dats.choosen ? {color: 'black'} : {color: 'white'}
+                          dats.choosen ? { color: 'black' } : { color: 'white' }
                         }>
                         {dats?.text}
                       </Text>

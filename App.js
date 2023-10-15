@@ -197,7 +197,11 @@ function App() {
 								<Stack.Screen
 									name="Journal Success"
 									component={JournalSuccess}
-									options={{ ...nestedHeaderOptions, headerShown: false }}
+									options={{
+										...nestedHeaderOptions,
+										headerShown: false,
+										gestureEnabled: false
+									}}
 								/>
 								<Stack.Screen
 									name="Journal Detail"
@@ -207,15 +211,18 @@ function App() {
 										headerBackTitle: 'Journaling',
 									}}
 								/>
-								<Stack.Screen
-									name="Create a Goal"
-									component={CreateGoal}
-									options={{
-										...nestedHeaderOptions,
-										headerBackTitle: 'Details',
-									}}
-								/>
 							</Stack.Group>
+
+							<Stack.Screen
+								name="Create a Goal"
+								component={CreateGoal}
+								options={{
+									...nestedHeaderOptions,
+									headerBackTitle: 'Details',
+									gestureEnabled: false
+								}}
+							/>
+
 
 							{/* Grounding Technique */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
@@ -286,6 +293,7 @@ function App() {
 									options={{
 										...nestedHeaderOptions,
 										headerBackTitle: 'Recovery',
+										gestureEnabled: false
 									}}
 								/>
 							</Stack.Group>

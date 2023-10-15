@@ -13,6 +13,7 @@ import { useGoalsConfig } from '../../context/Context'
 import ChipInput from '../../components/ChipInput'
 
 function CreateGoal({ navigation, route }) {
+    const { nextPage } = route.params
 
     const { goalsConfig, dispatchGoalsConfig } = useGoalsConfig()
 
@@ -62,13 +63,6 @@ function CreateGoal({ navigation, route }) {
                 [field]: value
             }
         })
-
-        // dispatchGoalsConfig({
-        //     type: 'setJournal',
-        //     payload: {
-        //         [type]: value,
-        //     },
-        // });
     };
 
 
@@ -86,13 +80,9 @@ function CreateGoal({ navigation, route }) {
 
     const handleSaveGoal = () => {
         addGoal(goal);
-        navigation.reset({
-            index: 0,
-            routes: [{name: 'Root', params: {screen: 'Recovery'}}],
-          });
+        navigation.navigate(nextPage)
     }
 
-    const { nextPage } = route.params
 
     console.log('curr goal', goal)
 
