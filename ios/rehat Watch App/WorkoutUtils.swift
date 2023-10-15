@@ -8,11 +8,11 @@
 import Foundation
 import HealthKit
 
-// Singleton workout session
-//class WorkoutSession {
-//  static var instance: HKWorkoutSession?
-//}
-
+// Workout Management
+// ==================
+// Implemented as a workaround for running background tasks on WatchOS,
+// as I couldn't get the BackgroundTasks module working.
+// Adapted from: https://developer.apple.com/videos/play/wwdc2021/10009/
 class WorkoutManager: NSObject, ObservableObject {
   let healthStore = RehatHealthStore.store
   @Published var isPanic: Bool = false
