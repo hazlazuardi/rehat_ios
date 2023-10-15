@@ -27,15 +27,15 @@ func sendNotification() {
     notifContent.title = "Hey there"
     notifContent.body = "How are you feeling?"
     notifContent.sound = .default
-    notifContent.categoryIdentifier = "actions"
+    notifContent.categoryIdentifier = "NOTIF_ACTIONS"
   
   
     let action = UNNotificationAction(
-      identifier: "seek_help",
+      identifier: "SEEK_HELP",
       title: "I need guidance",
       options: [.foreground])
     let category = UNNotificationCategory(
-      identifier: "actions",
+      identifier: "NOTIF_ACTIONS",
       actions: [action],
       intentIdentifiers: [],
       options: [])
