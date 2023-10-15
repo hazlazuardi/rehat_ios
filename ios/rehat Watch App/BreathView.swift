@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WatchKit
 
 struct BreathView: View {
   enum TimerState: Equatable {
@@ -24,10 +25,9 @@ struct BreathView: View {
   @State private var remainingTime: TimeInterval = 0
   @State private var timer: Timer? = nil
   @State private var textTimer: Timer? = nil
-  @State private var breathingStatus = "Breath Out"
+  @State private var breathingStatus = ""
+  @State private var currentScaleFactor: CGFloat = 1.0
   @State private var currentAnimationDuration: Double = 1.0
-  @State private var previousScaleFactor: CGFloat = 1.0
-
 
   var breathingOptions: [BreathPhase] = [
     BreathPhase(breathInDuration: 4, holdDuration: 0, breathOutDuration: 6, holdTwoDuration: 0),
@@ -69,9 +69,9 @@ struct BreathView: View {
           GeometryReader { geometry in
             ZStack {
               Circle()
-                .fill(Color.blue)
+                .fill(Color.orange)
                 .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
-                .scaleEffect(scaleFactor(breathingStatus: breathingStatus))
+                .scaleEffect(currentScaleFactor)
                 .animation(.easeInOut(duration: currentAnimationDuration), value: breathingStatus)
               
               Text("\(breathingStatus)")
@@ -81,39 +81,36 @@ struct BreathView: View {
           }
           .frame(height: 50)
           
-          Text("\(Int(remainingTime + 1))")
-            .padding()
+          //          Text("\(Int(remainingTime + 1))")
+          //            .padding()
           
           
-            .toolbar {
-              ToolbarItem(placement: .bottomBar) {
-                HStack {
-                  Button(action: {
-                    // Pause action here
-                  }) {
-                    Image(systemName: "pause.fill")
-                      .padding(10)
-                      .foregroundColor(.white)
-                      .clipShape(Circle())
-                  }
-                  
-                  Spacer()
-                  
-                  Button(action: {
-                    stopTimer()
-                  }) {
-                    Image(systemName: "stop.fill")
-                      .padding(10)
-                      .foregroundColor(.white)
-                      .clipShape(Circle())
-                  }
-                }
+          .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+//                HStack {
+//                  Button(action: {
+//                    // Pause action here
+//                  }) {
+//                    Image(systemName: "pause.fill")
+//                      .padding(10)
+//                      .foregroundColor(.white)
+//                      .clipShape(Circle())
+//                  }
+//
+//                  Spacer()
+              Spacer()
+              Button(action: {
+                stopTimer()
+              }) {
+                Image(systemName: "stop.fill")
+                  .foregroundColor(.white)
               }
             }
+          }
         }
       }
     }
-    .navigationTitle("Breathing")
+//    .navigationTitle("Breathing")
     .onAppear {
       startTextTimer()
     }
@@ -122,26 +119,6 @@ struct BreathView: View {
     }
   }
   
-  private func scaleFactor(breathingStatus: String) -> CGFloat {
-      var currentScale: CGFloat
-
-    switch breathingStatus {
-    case "Breath In":
-      currentScale = 1.4
-    case "Breath Out":
-      currentScale = 1
-    case "Initial":
-      currentScale = 0.8
-    case "Hold":
-      currentScale = previousScaleFactor
-    default:
-      currentScale = 1.2
-    }
-
-    previousScaleFactor = currentScale
-    return currentScale
-  }
-    
   private func startTimer(with phase: BreathPhase) {
     timer?.invalidate()
     timer = nil
@@ -172,6 +149,7 @@ struct BreathView: View {
     timerState = .selection
     remainingTime = 0
     breathingStatus = ""
+    currentScaleFactor = 0.8
   }
     
   private func startTextTimer() {
@@ -212,6 +190,27 @@ struct BreathView: View {
       breathingStatus = "Hold"
       currentAnimationDuration = phase.holdTwoDuration
     }
+    
+    let previousStatus = breathingStatus
+    
+    switch breathingStatus {
+    case "Breath In":
+      currentScaleFactor = 1.4
+    case "Breath Out":
+      currentScaleFactor = 1
+    case "":
+      currentScaleFactor = 0.8
+    default:
+      break
+    }
+    
+    if previousStatus != breathingStatus {
+      playHapticFeedback()
+    }
+  }
+  
+  private func playHapticFeedback() {
+      WKInterfaceDevice.current().play(.click)
   }
 }
 
