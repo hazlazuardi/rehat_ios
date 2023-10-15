@@ -175,6 +175,7 @@ function CreateGoal({ navigation, route }) {
                                     multiline={false}
                                     onEndEditing={(action) => handleEditGoal('action', action)}
                                     onFocus={() => setIsShouldReturn(false)}
+                                    maxLength={50}
                                 />
                             </View>
 
@@ -231,6 +232,7 @@ function CreateGoal({ navigation, route }) {
                                     // onChangeText={handleEditGoal}
                                     onEndEditing={(outcome) => handleEditGoal('outcome', outcome)}
                                     onFocus={() => setIsShouldReturn(false)}
+                                    maxLength={50}
                                 />
                             </View>
 

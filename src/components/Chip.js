@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable, Text } from 'react-native';
-import { sizes } from '../data/theme';
+import { colors, sizes, styles } from '../data/theme';
+import { getContrastColor } from '../helpers/helpers';
 
 /**
  * A customizable chip component for React Native.
@@ -13,7 +14,7 @@ import { sizes } from '../data/theme';
  * @param {boolean} props.isSelected - Indicates whether the chip is selected or not.
  * @returns {JSX.Element} The rendered Chip component.
  */
-function Chip({ text, onPress, isSelected }) {
+function Chip({ text, onPress, isSelected, size, variant, color }) {
     /**
      * Handles the press event of the chip.
      */
@@ -23,16 +24,40 @@ function Chip({ text, onPress, isSelected }) {
         }
     }
 
+    const innerStyle = {
+        outlined: {
+            borderColor: color,
+            backgroundColor: 'transparent',
+            borderWidth: 1
+        },
+        filled: {
+            backgroundColor: color,
+        }
+    }
+
+    const innerTextStyle = {
+        caption: styles.text.caption,
+        body3: styles.text.body3,
+
+    }
+
     return (
         <Pressable
             onPress={handlePress}
             style={{
-                backgroundColor: isSelected ? 'green' : 'grey',
+                backgroundColor: isSelected ? 'green' : (color || colors.darkGrey),
                 borderRadius: sizes.button.radius,
-                padding: sizes.button.padding.sm,
+                paddingHorizontal: sizes.button.padding.sm,
+                paddingVertical: sizes.button.padding.sm / 2,
+                ...innerStyle[variant]
             }}
         >
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>{text}</Text>
+            <Text style={{
+                // ...styles.text.caption,
+                // ...innerTextStyle[size],
+                ...styles.text[size],
+                color: variant === 'outlined' ? color : color ? getContrastColor(color) : colors.white
+            }}>{text}</Text>
         </Pressable>
     );
 }
