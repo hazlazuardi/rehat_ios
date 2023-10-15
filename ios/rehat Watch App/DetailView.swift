@@ -32,7 +32,7 @@ struct DetailView: View {
           }
         }
       }
-      .containerBackground(.green.gradient, for: .navigation)
+      .containerBackground(.orange.gradient, for: .navigation)
       
       //      .tint(.teal)
       //      .containerBackground(.teal.gradient, for: .tabView)

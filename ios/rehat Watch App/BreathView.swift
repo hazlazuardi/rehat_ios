@@ -69,7 +69,7 @@ struct BreathView: View {
           GeometryReader { geometry in
             ZStack {
               Circle()
-                .fill(Color.orange)
+                .fill(Color.blue)
                 .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
                 .scaleEffect(currentScaleFactor)
                 .animation(.easeInOut(duration: currentAnimationDuration), value: breathingStatus)
@@ -110,6 +110,7 @@ struct BreathView: View {
         }
       }
     }
+    .containerBackground(.orange.gradient, for: .navigation)
 //    .navigationTitle("Breathing")
     .onAppear {
       startTextTimer()

@@ -57,6 +57,8 @@ struct RecoveryView: View {
             }
           } else if reference.label == "Guided Breathing" {
             NavigationLink(destination: BreathView()) {
+              Image(systemName: "lungs.fill")
+                .foregroundColor(.blue)
               Text(reference.label)
             }
           }
@@ -92,6 +94,7 @@ struct RecoveryView: View {
       BreathView()
       
     }
+    .containerBackground(.orange.gradient, for: .navigation)
   }
 }
 
