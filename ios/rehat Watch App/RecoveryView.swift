@@ -58,7 +58,8 @@ struct RecoveryView: View {
               VStack(alignment: .leading) {
                 Image(systemName: "face.smiling.inverse")
                   .foregroundColor(.teal)
-                  .frame(width: 40, height: 40)
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 5)
                   .scaleEffect(1.5)
                 Text(reference.label)
                   .padding(.bottom, 10)
@@ -70,7 +71,8 @@ struct RecoveryView: View {
               VStack(alignment: .leading) {
                 Image(systemName: "lungs.fill")
                   .foregroundColor(.blue)
-                  .frame(width: 40, height: 40)
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 5)
                   .scaleEffect(1.5)
                 Text(reference.label)
                   .padding(.bottom, 10)
@@ -93,7 +95,8 @@ struct RecoveryView: View {
                   VStack(alignment: .leading) {
                     Image(systemName: therapy.icon)
                       .foregroundColor(colorFromString(therapy.color))
-                      .frame(width: 40, height: 40)
+                      .frame(width: 30, height: 30)
+                      .padding(.top, 7)
                       .scaleEffect(1.5)
                     Text(therapy.name)
                       .padding(.bottom, 10)
