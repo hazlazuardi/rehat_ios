@@ -69,7 +69,7 @@ struct BreathView: View {
           GeometryReader { geometry in
             ZStack {
               Circle()
-                .fill(Color.blue)
+                .fill(Color.orange)
                 .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
                 .scaleEffect(currentScaleFactor)
                 .animation(.easeInOut(duration: currentAnimationDuration), value: breathingStatus)
@@ -103,14 +103,17 @@ struct BreathView: View {
                 stopTimer()
               }) {
                 Image(systemName: "stop.fill")
-                  .foregroundColor(.white)
+//                  .foregroundColor(.white)
+//                  .clipShape(Circle())
               }
+              .buttonStyle(BorderedButtonStyle(tint: Color.red.opacity(0.5)))
+              .clipShape(Circle())
             }
           }
         }
       }
     }
-    .containerBackground(.orange.gradient, for: .navigation)
+    .containerBackground(.blue.gradient, for: .navigation)
 //    .navigationTitle("Breathing")
     .onAppear {
       startTextTimer()
