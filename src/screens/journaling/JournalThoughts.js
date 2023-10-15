@@ -30,11 +30,15 @@ function JournalThoughts({ navigation }) {
     const { journalingConfig, dispatchJournalingConfig } = useJournalingConfig()
     const { dateString, timeString } = useFormattedDate(journal.dateAdded)
 
+    const [isShouldReturn, setIsShouldReturn] = useState(false)
+
     const handleAddJournalConfig = (newConfig, type) => {
-        dispatchJournalingConfig({
-            type: 'updateJournalingConfig',
-            payload: { newConfig, type }
-        });
+        if (value.length !== 0) {
+            dispatchJournalingConfig({
+                type: 'updateJournalingConfig',
+                payload: { newConfig, type }
+            });
+        }
         Keyboard.dismiss()
         setIsShouldReturn(false)
     };
@@ -104,7 +108,6 @@ function JournalThoughts({ navigation }) {
     console.log('ctx journal', journal)
     // const { CameraIcon } = useIcons()
 
-    const [isShouldReturn, setIsShouldReturn] = useState(false)
     return (
         // <SafeAreaView style={{ flex: 1 }}>
         <BlurredEllipsesBackground>
@@ -112,7 +115,8 @@ function JournalThoughts({ navigation }) {
                 extraScrollHeight={64}
                 keyboardOpeningTime={10}
                 enableResetScrollToCoords={false}
-                keyboardDismissMode={!isShouldReturn ? 'none' : 'interactive'}
+                keyboardDismissMode={isShouldReturn ? 'none' : 'interactive'}
+                keyboardShouldPersistTaps={isShouldReturn ? 'always' : 'never'}
                 contentContainerStyle={{ flexGrow: 1 }}
             >
                 <View style={{ paddingTop: insets.top + sizes.padding.lg }} >
@@ -172,6 +176,7 @@ function JournalThoughts({ navigation }) {
                             placeholder={'Title'}
                             onEndEditing={(titleValue) => handleWriteThoughts('title', titleValue)}
                             value={journal.title}
+                            onFocus={() => setIsShouldReturn(false)}
                         />
                         <TextArea
                             multiline
@@ -182,6 +187,7 @@ function JournalThoughts({ navigation }) {
                             placeholder={'Today, I met... then, I met a...'}
                             onEndEditing={(thoughtValue) => handleWriteThoughts('thoughts', thoughtValue)}
                             value={journal.thoughts}
+                            onFocus={() => setIsShouldReturn(false)}
                         />
 
                         <Divider color={'white'} />
@@ -281,7 +287,11 @@ function JournalThoughts({ navigation }) {
                                     isSelected={isChipSelected(location, 'where')}
                                 />
                             ))}
-                            <ChipInput type="locations" onEndEditing={handleAddJournalConfig} />
+                            <ChipInput
+                                type="locations"
+                                onEndEditing={handleAddJournalConfig}
+                                onFocus={() => setIsShouldReturn(true)}
+                            />
                         </View>
 
                         <Divider color={'white'} />
@@ -306,7 +316,11 @@ function JournalThoughts({ navigation }) {
                                     isSelected={isChipSelected(activity, 'whatActivity')}
                                 />
                             ))}
-                            <ChipInput type="activities" onEndEditing={handleAddJournalConfig} />
+                            <ChipInput
+                                type="activities"
+                                onEndEditing={handleAddJournalConfig}
+                                onFocus={() => setIsShouldReturn(true)}
+                            />
                         </View>
 
                     </View>

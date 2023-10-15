@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import PrimaryButton from '../../components/PrimaryButton'
 import { colors, sizes, styles } from '../../data/theme'
-import { useJournal, useJournalingConfig } from '../../context/Context'
+import { useGoalsConfig, useJournal, useJournalingConfig } from '../../context/Context'
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground'
 import Divider from '../../components/Divider'
 import useManageGoals from '../../helpers/useManageGoals'
@@ -13,6 +13,7 @@ function Settings({ navigation }) {
     const { dispatchJournalingConfig } = useJournalingConfig()
     const { clearAllGoals } = useManageGoals()
     const { dispatchJournal } = useJournal()
+    const { dispatchGoalsConfig } = useGoalsConfig()
 
 
 
@@ -66,6 +67,11 @@ function Settings({ navigation }) {
                         }}>
                             <Pressable onPress={() => dispatchJournalingConfig({ type: 'clearJournalingConfig' })} >
                                 <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear Journaling Configurations</Text>
+                            </Pressable>
+
+                            <Divider color={colors.white} />
+                            <Pressable onPress={() => dispatchGoalsConfig({ type: 'clearGoalsConfig' })} >
+                                <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear Goals Configurations</Text>
                             </Pressable>
 
                             <Divider color={colors.white} />

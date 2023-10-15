@@ -17,7 +17,7 @@ import { sizes } from '../data/theme';
  */
 function TextArea(props) {
 
-    const { placeholder, onEndEditing, value: initialValue, textStyle, multiline } = props
+    const { placeholder, onEndEditing, value: initialValue, textStyle, multiline, onFocus } = props
     const [inputText, setInputText] = useState(initialValue || '');
     /**
      * Handles the end of input editing.
@@ -44,6 +44,7 @@ function TextArea(props) {
     return (
         <TextInput
             {...props}
+            onFocus={onFocus}
             multiline={true}
             maxLength={!multiline ? 40 : 100_000_000}
             placeholder={placeholder}

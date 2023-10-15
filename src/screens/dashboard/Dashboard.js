@@ -15,7 +15,7 @@ function Dashboard({ navigation }) {
 
     const { goals, toggleGoalCompletion } = useManageGoals()
 
-    const sortedGoals = [...goals].sort((a, b) => {
+    const sortedGoals = goals?.sort((a, b) => {
         if (a.isCompleted === b.isCompleted) {
             return b.id - a.id; // Sort by date, with newer goals coming first
         }
@@ -96,7 +96,7 @@ function Dashboard({ navigation }) {
                                                 onPress={() => toggleGoalCompletion(goal.id)}
                                             >
                                                 <View>
-                                                    <Text style={styles.text.semi2} >{goal.text}</Text>
+                                                    <Text style={styles.text.semi2} >{goal.action}</Text>
                                                     <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).dateString}</Text>
                                                     <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).timeString}</Text>
                                                 </View>

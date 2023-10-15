@@ -510,6 +510,8 @@ function goalsConfigReducer(state, action) {
 		case 'addGoalsConfig': {
 			const updatedConfig = [...state[action.payload.type], action.payload.value];
 
+			console.log('upconfgol', updatedConfig)
+
 			// Save goalsConfig to storage
 			const newGoalsConfig = { ...state, [action.payload.type]: updatedConfig };
 			const strGoalsConfig = JSON.stringify(newGoalsConfig);
