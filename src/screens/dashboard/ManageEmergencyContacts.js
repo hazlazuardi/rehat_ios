@@ -6,6 +6,7 @@ import {
     TextInput,
     Pressable,
     ActivityIndicator,
+    SafeAreaView,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import useContacts from '../../helpers/useContacts';
@@ -22,18 +23,28 @@ function ManageEmergencyContacts() {
     const { emergencyContacts, getAllEmergencyContacts, dispatchEmergencyContacts } = useEmergencyContacts();
     const { contacts, error, loading, result: searchResult, setResult: setSearchResult, handleSearch } = useContacts();
     const [editMode, setEditMode] = useState(false);
+    const [searchString, setSearchString] = useState('');
+
 
     useEffect(() => {
         getAllEmergencyContacts(); // Get all emergency contacts when the component mounts
     }, []);
 
-    if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
-    if (error) return <Text>Error loading contacts: {error.message}</Text>;
+    // if (loading) return (
+    //     <BlurredEllipsesBackground>
+    //     </BlurredEllipsesBackground>
+
+    // );
+    // if (error) return <Text>Error loading contacts: {error.message}</Text>;
 
     // console.log(searchResult)
-    const displayedContacts = (searchResult?.length > 0 ? searchResult : contacts || []).filter(
-        (contact) => !(emergencyContacts || []).some((econ) => econ.recordID === contact.recordID)
-    );
+    const displayedContacts = !loading ? (
+        searchResult?.length > 0
+            ? searchResult
+            : searchString
+                ? [] // Show nothing when textInput is not empty, but no searchResult
+                : contacts || [] // Show all contacts when textInput is empty and no searchResult
+    ) : [];
 
     const handleAddEmergencyContact = (econ) => {
         dispatchEmergencyContacts({ type: 'addContact', payload: econ });
@@ -56,6 +67,9 @@ function ManageEmergencyContacts() {
     };
 
     const insets = useSafeAreaInsets()
+
+    console.log('load', loading)
+
     return (
         <BlurredEllipsesBackground>
             <KeyboardAwareScrollView
@@ -91,25 +105,47 @@ function ManageEmergencyContacts() {
                             color={editMode ? colors.green : colors.almostBlack}
                             onPress={handleButtonPress}
                         />
-                        <Text style={{ fontSize: sizes.text.header3 }} >My Contacts</Text>
-                        <ContactSearch handleSearch={handleSearch} />
-                        <View style={innerStyles.contactList}>
-                            {displayedContacts?.map((contact) => (
-                                <View key={contact.recordID} style={innerStyles.contactItem}>
-                                    <View>
-                                        <Text style={innerStyles.contactName}>{contact.givenName} {contact.familyName}</Text>
-                                        <Text>{contact.phoneNumbers[0]?.number}</Text>
+                        <Text style={styles.text.header3} >My Contacts</Text>
+                        <ContactSearch searchString={searchString} setSearchString={setSearchString} handleSearch={handleSearch} />
+
+                        {loading ? (
+                            <View style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingTop: sizes.padding.lg
+                            }}>
+                                <Text style={{ ...styles.text.body1 }}>Loading contacts from your device...</Text>
+                            </View>
+                        ) : (
+                            <View style={innerStyles.contactList}>
+                                {displayedContacts.length > 0 ? displayedContacts?.map((contact) => (
+                                    <View key={contact.recordID} style={innerStyles.contactItem}>
+                                        <View>
+                                            <Text style={innerStyles.contactName}>{contact.givenName} {contact.familyName}</Text>
+                                            <Text>{contact.phoneNumbers[0]?.number}</Text>
+                                        </View>
+                                        {editMode && (
+                                            <Pressable style={{ backgroundColor: 'green' }} onPress={() => handleAddEmergencyContact(contact)}>
+                                                <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
+                                                    <Text>+</Text>
+                                                </View>
+                                            </Pressable>
+                                        )}
                                     </View>
-                                    {editMode && (
-                                        <Pressable style={{ backgroundColor: 'green' }} onPress={() => handleAddEmergencyContact(contact)}>
-                                            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
-                                                <Text>+</Text>
-                                            </View>
-                                        </Pressable>
-                                    )}
-                                </View>
-                            ))}
-                        </View>
+                                )) :
+                                    <View style={{
+                                        flex: 1,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        paddingTop: sizes.padding.lg
+                                    }}>
+                                        <Text style={{ ...styles.text.body1 }}>No contact.</Text>
+                                    </View>
+
+                                }
+                            </View>
+                        )}
                     </View>
                 </View>
             </KeyboardAwareScrollView>
@@ -129,7 +165,7 @@ const innerStyles = {
     },
     contactItem: {
         padding: sizes.padding.md,
-        backgroundColor: 'grey',
+        backgroundColor: colors.darkGrey,
         borderColor: 'white',
         borderRadius: sizes.radius.sm,
         flexDirection: 'row',
@@ -146,7 +182,7 @@ const innerStyles = {
     },
     input: {
         minHeight: sizes.padding.lg,
-        backgroundColor: 'grey',
+        backgroundColor: colors.darkGrey,
         color: 'white',
         borderRadius: sizes.radius.sm,
         paddingHorizontal: sizes.padding.md,
@@ -156,8 +192,7 @@ const innerStyles = {
 
 };
 
-function ContactSearch({ handleSearch }) {
-    const [searchString, setSearchString] = useState('');
+function ContactSearch({ searchString, setSearchString, handleSearch }) {
 
     return (
         <TextInput
