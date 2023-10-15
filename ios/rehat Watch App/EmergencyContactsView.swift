@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EmergencyContactsView: View {
+    @EnvironmentObject var workoutManager: WorkoutManager
     @ObservedObject var rnConnector: RNConnector
 //  @ObservedObject var rnConnector = RNConnector()
   

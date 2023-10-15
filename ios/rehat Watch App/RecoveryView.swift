@@ -43,6 +43,7 @@ class ReadDataTherapy: ObservableObject {
 }
 
 struct RecoveryView: View {
+  @EnvironmentObject var workoutManager: WorkoutManager
   @ObservedObject var recoveryDatas = ReadDataTherapy()
   @ObservedObject var rnConnector: RNConnector
   @State private var isPresented: Bool = true
