@@ -65,6 +65,7 @@ class ReadDataAffirm: ObservableObject {
 
 #warning ("TODO: show end component when AppState is panic, and user wants to quit")
 struct AffirmView: View {
+  @EnvironmentObject var appState: AppState
   @ObservedObject var affirmData = ReadDataAffirm()
   @State private var randomAffirmation: Affirm?
   

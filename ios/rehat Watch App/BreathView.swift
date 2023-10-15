@@ -10,6 +10,7 @@ import WatchKit
 
 #warning ("TODO: show end component if AppState is panic, and breathing technique ends or user stops")
 struct BreathView: View {
+  @EnvironmentObject var appState: AppState
   enum TimerState: Equatable {
     case selection
     case running(phase: BreathPhase)
