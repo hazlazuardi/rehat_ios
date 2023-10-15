@@ -8,7 +8,7 @@
 import SwiftUI
 import WatchKit
 
-// TODO: show end component when breathing technique ends or user stops
+#warning ("TODO: show end component if AppState is panic, and breathing technique ends or user stops")
 struct BreathView: View {
   enum TimerState: Equatable {
     case selection
