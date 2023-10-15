@@ -9,8 +9,32 @@ import useManageGoals from '../../helpers/useManageGoals'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Chip from '../../components/Chip'
+import { useGoalsConfig } from '../../context/Context'
 
 function CreateGoal({ navigation, route }) {
+
+    const { goalsConfig, dispatchGoalsConfig } = useGoalsConfig()
+
+    const onPressChip = (value, type) => {
+        // dispatchGoalsConfig({
+        //     type: 'setJournal',
+        //     payload: {
+        //         [type]: value,
+        //     },
+        // });
+    };
+
+    /**
+ * Checks if a chip is selected based on the value and type.
+ * @param {string} value - The value to check for selection.
+ * @param {string} type - The type to determine the key.
+ * @returns {boolean} True if the chip is selected; otherwise, false.
+ */
+    const isChipSelected = (value, type) => {
+        // return goals[type]?.includes(value);
+    };
+
+
 
     const { addGoal, goals } = useManageGoals()
 
@@ -68,15 +92,21 @@ function CreateGoal({ navigation, route }) {
                                 />
                             </View> */}
 
-                            {/* Specific */}
+                            {/* Time Period */}
                             <View style={{ gap: sizes.gap.sm }}>
                                 <Text style={styles.text.semi2} >Time Period</Text>
-                                <TextArea
-                                    placeholder='6 months'
-                                    multiline={false}
-                                    onChangeText={handleEditGoal}
-                                // value={goal}
-                                />
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.gap.sm }}>
+                                    {goalsConfig.periods?.map(period => {
+                                        return (
+                                            <Chip
+                                                key={period}
+                                                text={period}
+                                            // onPress={() => onPressChip(location, 'where')}
+                                            // isSelected={isChipSelected(location, 'where')}
+                                            />
+                                        )
+                                    })}
+                                </View>
                             </View>
 
                             {/* Measureable */}
@@ -90,15 +120,21 @@ function CreateGoal({ navigation, route }) {
                                 />
                             </View>
 
-                            {/* Achievable */}
+                            {/* Durations */}
                             <View style={{ gap: sizes.gap.sm }}>
                                 <Text style={styles.text.semi2} >Duration / Frequency</Text>
-                                <TextArea
-                                    placeholder='10 minutes daily'
-                                    multiline={false}
-                                    onChangeText={handleEditGoal}
-                                // value={goal}
-                                />
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.gap.sm }}>
+                                    {goalsConfig.durations?.map(method => {
+                                        return (
+                                            <Chip
+                                                key={method}
+                                                text={method}
+                                            // onPress={() => onPressChip(location, 'where')}
+                                            // isSelected={isChipSelected(location, 'where')}
+                                            />
+                                        )
+                                    })}
+                                </View>
                             </View>
 
                             {/* Relevant */}
@@ -110,9 +146,17 @@ function CreateGoal({ navigation, route }) {
                                     onChangeText={handleEditGoal}
                                 // value={goal}
                                 /> */}
-                                <View style={{ flexDirection: 'row', gap: sizes.gap.sm }}>
-                                    <Chip text='Journal' />
-                                    <Chip text='Journal' />
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.gap.sm }}>
+                                    {goalsConfig.methods?.map(method => {
+                                        return (
+                                            <Chip
+                                                key={method}
+                                                text={method}
+                                            // onPress={() => onPressChip(location, 'where')}
+                                            // isSelected={isChipSelected(location, 'where')}
+                                            />
+                                        )
+                                    })}
                                 </View>
                             </View>
 
