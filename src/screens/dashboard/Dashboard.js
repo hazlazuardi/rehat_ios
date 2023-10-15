@@ -86,8 +86,8 @@ function Dashboard({ navigation }) {
 
                         <ScrollView
                             horizontal={true}
-                            snapToAlignment='center'
-                            snapToInterval={Dimensions.get('screen').width - 32}
+                            snapToAlignment='start'
+                            snapToInterval={Dimensions.get('screen').width - 64+16}
                             decelerationRate={0.8}
                             contentContainerStyle={{
                                 columnGap: sizes.gap.md,
@@ -194,7 +194,10 @@ function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
                             ...styles.text.caption,
                             fontStyle: 'italic',
                         }}
-                    >*Method Unavailable</Text>}
+                    >
+                        *Method Unavailable
+                    </Text>
+                }
                 <Pressable onPress={() => toggleGoalCompletion(goal.id)}>
                     <View style={{
                         width: 48,
