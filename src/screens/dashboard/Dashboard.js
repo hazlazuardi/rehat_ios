@@ -9,6 +9,7 @@ import assets from '../../data/assets';
 import { formatDate } from '../../helpers/helpers';
 import CircularIcon from '../../components/CircularIcon';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
+import CreateGoal from '../goal/CreateGoal';
 
 function Dashboard({ navigation }) {
 
@@ -20,7 +21,6 @@ function Dashboard({ navigation }) {
         }
         return a.isCompleted ? 1 : -1; // Place uncompleted goals before completed ones
     });
-
 
     return (
         <BlurredEllipsesBackground>
@@ -35,6 +35,13 @@ function Dashboard({ navigation }) {
                         paddingBottom: sizes.padding.lg * 2
                     }}
                     >
+                        <PrimaryButton
+                            color={colors.green}
+                            text='Create a Goal'
+                            onPress={() => navigation.navigate('Create a Goal', { nextPage: 'Recovery' })
+                            }
+                        />
+
                         {/* Top Header */}
                         <View style={{
                             width: '100%',

@@ -10,7 +10,8 @@ function JournalingCTACard({ title, description, buttonText, icon, onPress }) {
             borderRadius: sizes.radius.lg,
             backgroundColor: colors.turqoise,
             padding: sizes.padding.md,
-            gap: sizes.gap.md
+            gap: sizes.gap.md,
+            width: '100%'
         }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: sizes.gap.sm }} >
                 <View style={{ width: 20, aspectRatio: 1 }}>
