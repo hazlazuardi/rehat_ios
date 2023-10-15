@@ -134,7 +134,7 @@ function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
 
     return (
         <View key={goal.id} style={{
-            // gap: sizes.gap.md,
+            gap: sizes.gap.md,
             backgroundColor: colors.orange,
             padding: sizes.padding.md,
             borderRadius: sizes.radius.lg,
@@ -147,11 +147,23 @@ function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
                 <Text style={styles.text.semi2}>Mindset Goals</Text>
                 <View>
                     <Text style={styles.text.caption}>To:</Text>
-                    <Text style={styles.text.merri.body2}>{goal.outcome}</Text>
+                    <Text style={{
+                        ...styles.text.merri.body2,
+                        fontStyle: 'italic'
+                    }}>
+                        {goal.outcome}
+                    </Text>
                 </View>
                 <View>
                     <Text style={styles.text.caption}>I will:</Text>
-                    <Text style={styles.text.merri.body2}>{goal.action}</Text>
+                    <Text style={
+                        {
+                            ...styles.text.merri.body2,
+                            fontStyle: 'italic'
+                        }}
+                    >
+                        {goal.action}
+                    </Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -201,68 +213,6 @@ function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
         </View >
     )
 
-    // return (
-    //     <View style={{
-    //         gap: sizes.gap.md,
-    //         backgroundColor: colors.orange,
-    //         padding: sizes.padding.md,
-    //         width: '100%',
-    //         borderRadius: sizes.radius.lg
-    //     }}>
-    //         <Text style={styles.text.semi2}>Mindset Goals</Text>
-    //         <Text style={styles.text.merri.body2}>Craft positive thoughts. Set goals to reshape your thinking.</Text>
-
-    //         <View style={{ gap: sizes.gap.sm }}>
-
-    //             {/* List of Goals */}
-    //             {sortedGoals.length === 0 ? (
-    //                 <Text style={{ ...styles.text.body3, textAlign: 'center' }}>You don't have any goal yet.</Text>
-    //             ) :
-    //                 sortedGoals.slice(0, 2).map(goal => {
-    //                     return (
-    //                         <Pressable
-    //                             key={goal.id}
-    //                             style={{
-    //                                 flexDirection: 'row',
-    //                                 alignItems: 'center',
-    //                                 justifyContent: 'space-between',
-    //                                 borderRadius: sizes.radius.lg,
-    //                                 backgroundColor: colors.whiteSoTransparent,
-    //                                 padding: sizes.padding.md
-    //                             }}
-    //                             onPress={() => toggleGoalCompletion(goal.id)}
-    //                         >
-    //                             <View>
-    //                                 <Text style={styles.text.semi2} >{goal.action}</Text>
-    //                                 <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).dateString}</Text>
-    //                                 <Text style={{ ...styles.text.caption, opacity: .5 }} >{formatDate(goal.id).timeString}</Text>
-    //                             </View>
-    //                             <View style={{
-    //                                 padding: sizes.padding.md,
-    //                                 alignItems: 'center',
-    //                                 justifyContent: 'center',
-    //                                 aspectRatio: 1,
-    //                                 width: 72
-    //                             }} >
-    //                                 <View style={{
-    //                                     width: 32,
-    //                                     aspectRatio: 1,
-    //                                 }}>
-    //                                     <Image
-    //                                         source={goal.isCompleted ? assets.icons.checklist_completed : assets.icons.checklist_not_completed}
-    //                                         style={{
-    //                                             flex: 1,
-    //                                             aspectRatio: 1
-    //                                         }}
-    //                                     />
-    //                                 </View>
-    //                             </View>
-    //                         </Pressable>
-    //                     )
-    //                 })}
-    //         </View>
-    //     </View>
-    // )
 }
 
 export default Dashboard;
