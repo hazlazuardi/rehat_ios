@@ -15,6 +15,7 @@ import { Pressable } from 'react-native';
 import progress from '../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storage } from '../../App';
+import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
 function Learn({ navigation }) {
   const article = data.articles;
@@ -59,8 +60,15 @@ function Learn({ navigation }) {
     displayProgress()
   }, [])
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <ScrollView>
+    <BlurredEllipsesBackground>
+      <ScrollView
+        style={{
+          flex: 1,
+          // backgroundColor: colors.darkTurquoise
+        }}
+        contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={{marginBottom: 100}}>
+          <View style={{gap: sizes.gap.lg}}>
         <Text style={styles.headingText}>Learn</Text>
         <View style={styles.progressLearn}>
           <View style={styles.progressText}>
@@ -88,8 +96,10 @@ function Learn({ navigation }) {
             );
           })}
         </View>
+        </View>
+        </SafeAreaView>
       </ScrollView>
-    </SafeAreaView>
+    </BlurredEllipsesBackground>
   );
 }
 

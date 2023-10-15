@@ -39,54 +39,65 @@ function CognitiveDetail({route, navigation}) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
-      </View>
-
-      <View style={styles.prevText}>
-        <Text style={styles.descLearn}>"{inputText}"</Text>
-      </View>
-      {data
-        ?.filter(d => d.choosen === true)
-        .map(dats => {
-          return (
-            <View style={styles.choice2}>
-              <Text style={{color: 'white'}}>{dats?.text}</Text>
+    <BlurredEllipsesBackground>
+      <ScrollView
+        style={{
+          flex: 1,
+          // backgroundColor: colors.darkTurquoise
+        }}
+        contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={{marginBottom: 100}}>
+          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+            <View>
+              <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
             </View>
-          );
-        })}
-      <View>
-        <Text style={styles.challenge}>
-          How can you challenge your thought?
-        </Text>
-      </View>
-      <View>
-        <TextInput
-          placeholder="Even though ..."
-          placeholderTextColor="#F8F8F8"
-          editable
-          multiline
-          numberOfLines={4}
-          maxLength={40}
-          onChangeText={text => setInput(text)}
-          value={input}
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.containerButton}>
-        <Pressable onPress={handleBackPress}>
-          <View style={styles.buttonBack}>
-            <Text style={styles.buttonNextBack}>Back</Text>
+
+            <View style={styles.prevText}>
+              <Text style={styles.descLearn}>"{inputText}"</Text>
+            </View>
+            {data
+              ?.filter(d => d.choosen === true)
+              .map(dats => {
+                return (
+                  <View style={styles.choice2}>
+                    <Text style={{color: 'white'}}>{dats?.text}</Text>
+                  </View>
+                );
+              })}
+            <View>
+              <Text style={styles.challenge}>
+                How can you challenge your thought?
+              </Text>
+            </View>
+            <View>
+              <TextInput
+                placeholder="Even though ..."
+                placeholderTextColor="#F8F8F8"
+                editable
+                multiline
+                numberOfLines={4}
+                maxLength={40}
+                onChangeText={text => setInput(text)}
+                value={input}
+                style={styles.textInput}
+              />
+            </View>
+            <View style={styles.containerButton}>
+              <Pressable onPress={handleBackPress}>
+                <View style={styles.buttonBack}>
+                  <Text style={styles.buttonNextBack}>Back</Text>
+                </View>
+              </Pressable>
+              <Pressable onPress={handleNextPress}>
+                <View style={styles.buttonNext}>
+                  <Text style={styles.buttonNextText}>Next</Text>
+                </View>
+              </Pressable>
+            </View>
           </View>
-        </Pressable>
-        <Pressable onPress={handleNextPress}>
-          <View style={styles.buttonNext}>
-            <Text style={styles.buttonNextText}>Next</Text>
-          </View>
-        </Pressable>
-      </View>
-    </ScrollView>
+        </SafeAreaView>
+      </ScrollView>
+    </BlurredEllipsesBackground>
   );
 }
 const styles = StyleSheet.create({

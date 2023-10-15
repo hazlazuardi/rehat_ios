@@ -10,6 +10,7 @@ import {
 import {Pressable} from 'react-native';
 import {colors} from '../data/theme';
 import {sizes} from '../data/theme';
+import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles.json';
@@ -35,7 +36,7 @@ function CognitiveRestructuring({navigation}) {
   const handleChoicePress = id => {
     const updatedData = data.map(item => {
       if (item.id === id) {
-        return {...item, choosen: !item.choosen}; 
+        return {...item, choosen: !item.choosen};
       }
       return item;
     });
@@ -44,62 +45,76 @@ function CognitiveRestructuring({navigation}) {
 
   const handleNextPress = () => {
     if (isReadyToProceed()) {
-        navigation.navigate('Cognitive Detail', {data, inputText: input})
+      navigation.navigate('Cognitive Detail', {data, inputText: input});
     } else {
-      alert('Please ensure you have written in the text field and chosen at least one option.');
+      alert(
+        'Please ensure you have written in the text field and chosen at least one option.',
+      );
     }
   };
-  
 
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
-        <Text style={styles.descLearn}>
-          What unhelpful thought do you have?
-        </Text>
-      </View>
-      <View>
-        <TextInput
-        placeholder='I Think...'
-        placeholderTextColor="#F8F8F8" 
-          editable
-          multiline
-          numberOfLines={4}
-          maxLength={40}
-          onChangeText={text => setInput(text)}
-          value={input}
-          style={styles.textInput}
-        />
-      </View>
-      <View>
-        <Text style={styles.descLearn2}>
-          Does your thought have any of these relation?
-        </Text>
-      </View>
-      <View style={styles.containerChoice}>
-        {data?.map(dats => {
-          return (
-            <Pressable
-              onPress={() => {
-                handleChoicePress(dats.id);
-              }}>
-              <View style={dats.choosen ? styles.choice : styles.choice2}>
-                <Text
-                  style={dats.choosen ? {color: 'black'} : {color: 'white'}}>
-                  {dats?.text}
-                </Text>
+    <BlurredEllipsesBackground>
+      <ScrollView
+        style={{
+          flex: 1,
+          // backgroundColor: colors.darkTurquoise
+        }}
+        contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={{marginBottom: 100}}>
+          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+            <View>
+              <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
+              <Text style={styles.descLearn}>
+                What unhelpful thought do you have?
+              </Text>
+            </View>
+            <View>
+              <TextInput
+                placeholder="I Think..."
+                placeholderTextColor="#F8F8F8"
+                editable
+                multiline
+                numberOfLines={4}
+                maxLength={40}
+                onChangeText={text => setInput(text)}
+                value={input}
+                style={styles.textInput}
+              />
+            </View>
+            <View>
+              <Text style={styles.descLearn2}>
+                Does your thought have any of these relation?
+              </Text>
+            </View>
+            <View style={styles.containerChoice}>
+              {data?.map(dats => {
+                return (
+                  <Pressable
+                    onPress={() => {
+                      handleChoicePress(dats.id);
+                    }}>
+                    <View style={dats.choosen ? styles.choice : styles.choice2}>
+                      <Text
+                        style={
+                          dats.choosen ? {color: 'black'} : {color: 'white'}
+                        }>
+                        {dats?.text}
+                      </Text>
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </View>
+            <Pressable onPress={handleNextPress}>
+              <View style={styles.buttonNext}>
+                <Text style={styles.buttonNextText}>Next</Text>
               </View>
             </Pressable>
-          );
-        })}
-      </View>
-      <Pressable onPress={handleNextPress}>
-        <View style={styles.buttonNext}>
-          <Text style={styles.buttonNextText}>Next</Text>
-        </View>
-      </Pressable>
-    </ScrollView>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+    </BlurredEllipsesBackground>
   );
 }
 const styles = StyleSheet.create({
@@ -115,11 +130,10 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 20,
     textAlign: 'center',
-    marginBottom: 200,
   },
   buttonNextText: {
     textAlign: 'center',
-    color:'white'
+    color: 'white',
   },
   textInput: {
     color: 'white',

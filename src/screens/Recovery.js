@@ -15,8 +15,8 @@ function Recovery({ navigation }) {
             }}
                 contentInsetAdjustmentBehavior='automatic'
             >
-                <SafeAreaView>
-                    <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
+                <SafeAreaView style={{ marginBottom:100}}>
+                    <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg}}>
                         <Text style={{ ...styles.text.header2, color: colors.orange }}>Recovery</Text>
 
                         {/* Section Guided Breathing */}
@@ -53,7 +53,7 @@ function Recovery({ navigation }) {
                                 description={"Challenge and reshape negative thought patterns"}
                                 iconColor={colors.orange}
                                 backgroundColor={colors.orangeTransparent}
-                                onPress={() => navigation.navigate("Journaling")} />
+                                onPress={() => navigation.navigate("Cognitive Restructuring")} />
                         </View>
 
                         {/* Section Grounding Techniques */}
@@ -65,7 +65,7 @@ function Recovery({ navigation }) {
                                 description={"Challenge and reshape negative thought patterns"}
                                 iconColor={colors.orange}
                                 backgroundColor={colors.orangeTransparent}
-                                onPress={() => navigation.navigate("Journaling")} />
+                                onPress={() => navigation.navigate("Grounding Journey")} />
                         </View>
 
                     </View>
