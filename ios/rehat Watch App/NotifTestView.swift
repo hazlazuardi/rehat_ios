@@ -11,7 +11,7 @@ struct NotifTestView: View {
     var body: some View {
       VStack {
         Button {
-          notifyOnPredict()
+          sendNotification()
         } label: {
           Text("Test Notification")
         }
