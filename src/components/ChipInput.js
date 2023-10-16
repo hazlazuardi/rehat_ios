@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput } from 'react-native';
 import PropTypes from 'prop-types';
-import { sizes } from '../data/theme';
+import { sizes, styles } from '../data/theme';
 
 /**
  * A customizable input component with the appearance of the Chip component
@@ -12,7 +12,7 @@ import { sizes } from '../data/theme';
  * @param {Function} props.onEndEditing - A callback function to be executed when the input ends editing.
  * @returns {JSX.Element} The rendered ChipInput component.
  */
-function ChipInput({ type, onEndEditing }) {
+function ChipInput({ type, onEndEditing, onFocus, onBlur, font, size, variant, color }) {
     const [inputText, setInputText] = useState('');
 
     /**
@@ -30,8 +30,23 @@ function ChipInput({ type, onEndEditing }) {
         setInputText(text)
     }
 
+
+    const innerStyle = {
+        outlined: {
+            borderColor: color,
+            backgroundColor: 'transparent',
+            borderWidth: 1
+        },
+        filled: {
+            backgroundColor: color,
+        }
+    }
+
     return (
         <TextInput
+            // {...props}
+            onFocus={onFocus}
+            onBlur={onBlur}
             placeholder="     +     "
             // placeholderTextColor="white"
             value={inputText}
@@ -44,8 +59,11 @@ function ChipInput({ type, onEndEditing }) {
                 borderRadius: sizes.button.radius,
                 borderColor: 'grey',
                 borderWidth: 1,
-                padding: sizes.button.padding.sm,
-                width: 'auto'
+                paddingHorizontal: size ? sizes.button.padding[size] : sizes.button.padding.sm,
+                paddingVertical: size ? sizes.button.padding[size] / 2 : sizes.button.padding.sm / 2,
+                width: 'auto',
+                ...innerStyle[variant],
+                ...styles.text[font],
             }}
         />
     );

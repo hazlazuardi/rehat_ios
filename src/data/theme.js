@@ -2,10 +2,14 @@ export const colors = {
     darkTurquoise: '#0E6E74',
     white: '#FFFFFF',
     whiteTransparent: 'rgba(255,255,255,.5)',
+    whiteSoTransparent: 'rgba(255,255,255,.2)',
     turqoise: '#0E8388',
     green: '#298753',
     orange: '#FF6000',
     orangeTransparent: 'rgba(255, 96, 0, .5)',
+    darkGrey: '#454545',
+    almostBlack: '#2C3333',
+    red: 'red',
     textArea: {
         backgroundColor: 'rgba(217,217,217,.08)',
         color: 'rgba(203, 228, 222, .45)'

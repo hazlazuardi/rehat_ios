@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable, Text } from 'react-native';
-import { sizes } from '../data/theme';
+import { colors, sizes, styles } from '../data/theme';
+import { getContrastColor } from '../helpers/helpers';
 
 /**
  * A customizable chip component for React Native.
@@ -13,7 +14,7 @@ import { sizes } from '../data/theme';
  * @param {boolean} props.isSelected - Indicates whether the chip is selected or not.
  * @returns {JSX.Element} The rendered Chip component.
  */
-function Chip({ text, onPress, isSelected }) {
+function Chip({ text, onPress, isSelected, font, size, variant, color }) {
     /**
      * Handles the press event of the chip.
      */
@@ -23,16 +24,32 @@ function Chip({ text, onPress, isSelected }) {
         }
     }
 
+    const innerStyle = {
+        outlined: {
+            borderColor: color,
+            backgroundColor: 'transparent',
+            borderWidth: 1
+        },
+        filled: {
+            backgroundColor: color,
+        }
+    }
+
     return (
         <Pressable
             onPress={handlePress}
             style={{
-                backgroundColor: isSelected ? 'green' : 'grey',
+                backgroundColor: isSelected ? colors.green : (color || colors.darkGrey),
                 borderRadius: sizes.button.radius,
-                padding: sizes.button.padding.sm,
+                paddingHorizontal: size ? sizes.button.padding[size] : sizes.button.padding.sm,
+                paddingVertical: size ? sizes.button.padding[size] / 2 : sizes.button.padding.sm / 2,
+                ...innerStyle[variant]
             }}
         >
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>{text}</Text>
+            <Text style={{
+                ...styles.text[font],
+                color: variant === 'outlined' ? color : color ? getContrastColor(color) : colors.white
+            }}>{text}</Text>
         </Pressable>
     );
 }
