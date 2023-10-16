@@ -46,7 +46,6 @@
 		5D9CDD472AAEBD9300748DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD462AAEBD9300748DDD /* Assets.xcassets */; };
 		5D9CDD4A2AAEBD9300748DDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D9CDD492AAEBD9300748DDD /* Preview Assets.xcassets */; };
 		5D9CDD4D2AAEBD9300748DDD /* rehat Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5D9CDD402AAEBD9000748DDD /* rehat Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		71BE8E3CF3524ADFAF684039 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		6FC501281DCA4CB8AC233400 /* Merriweather-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B86CAF5CF5B45A9B0EE0CAD /* Merriweather-LightItalic.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-rehat_ios-rehat_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-rehat_ios-rehat_iosTests.a */; };
 		78297D1F218C4CB58F6BF619 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D32A7FB20B040F3A4EA2150 /* Poppins-Italic.ttf */; };
@@ -55,7 +54,6 @@
 		80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE77EA2ABE2B9A00217E1B /* HKView.swift */; };
 		80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5C8BF2AC481540059AA10 /* PanicView.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		EA5165FB2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5165FA2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift */; };
 		8212F778A20A4E57AA092753 /* Merriweather-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C428B05B6BBE40AFBEF2BFA4 /* Merriweather-Light.ttf */; };
 		86CB79D3FDF04A909D2F432F /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B462564C1B74C1C885DC31A /* Poppins-LightItalic.ttf */; };
 		9B716C7541E64B59A895D42C /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885E31EE101941B088722204 /* Poppins-BoldItalic.ttf */; };
@@ -66,6 +64,7 @@
 		C885DF9DE2E7478D91A59B5B /* Merriweather-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21A04B12796E4873A8EA683B /* Merriweather-BoldItalic.ttf */; };
 		D21D72A766484660BE615674 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3815F10018D5401CB1EEA3A2 /* Poppins-Light.ttf */; };
 		D24BAE5DDF5B4943982592BF /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 533C20E731194AE4A476FB20 /* Poppins-ExtraBold.ttf */; };
+		EA5165FB2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5165FA2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift */; };
 		EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9EC2AB17165004D33D9 /* MLUtils.swift */; };
 		EA63C9F32AB18035004D33D9 /* PanicAttackClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */; };
 		EA6E4E552AB98D6200F8BBAC /* HealthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */; };
@@ -199,7 +198,6 @@
 		80AE77EC2ABE2C1C00217E1B /* rehat Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "rehat Watch App.entitlements"; sourceTree = "<group>"; };
 		80B5C8BF2AC481540059AA10 /* PanicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicView.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rehat_ios/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		EA5165FA2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicRecoveryPipelineView.swift; sourceTree = "<group>"; };
 		885E31EE101941B088722204 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../src/assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rehat_ios-rehat_iosTests.release.xcconfig"; path = "Target Support Files/Pods-rehat_ios-rehat_iosTests/Pods-rehat_ios-rehat_iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B462564C1B74C1C885DC31A /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../src/assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -211,6 +209,7 @@
 		BBA4B80001D846C8AF421F23 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		C428B05B6BBE40AFBEF2BFA4 /* Merriweather-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-Light.ttf"; path = "../src/assets/fonts/Merriweather-Light.ttf"; sourceTree = "<group>"; };
 		C51D298228724D2E9E4F51F6 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		EA5165FA2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicRecoveryPipelineView.swift; sourceTree = "<group>"; };
 		EA63C9EC2AB17165004D33D9 /* MLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLUtils.swift; sourceTree = "<group>"; };
 		EA63C9F22AB18035004D33D9 /* PanicAttackClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PanicAttackClassifier.mlmodel; sourceTree = "<group>"; };
 		EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthUtils.swift; sourceTree = "<group>"; };
