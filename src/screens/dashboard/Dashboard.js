@@ -24,7 +24,7 @@ function Dashboard({ navigation }) {
         return a.isCompleted ? 1 : -1; // Place uncompleted goals before completed ones
     });
 
-    console.log('sgol', sortedGoals)
+    // console.log('sgol', sortedGoals)
 
     const handleGoToGoalMethod = (method) => {
         if (['Journaling', 'Cognitive Restructuring'].includes(method)) {
@@ -87,11 +87,11 @@ function Dashboard({ navigation }) {
                         <ScrollView
                             horizontal={true}
                             snapToAlignment='start'
-                            snapToInterval={Dimensions.get('screen').width - 64+16}
-                            decelerationRate={0.8}
+                            snapToInterval={Dimensions.get('screen').width - 64 + 16}
+                            decelerationRate='fast'
                             contentContainerStyle={{
                                 columnGap: sizes.gap.md,
-                                paddingHorizontal: sizes.padding.md,
+                                paddingHorizontal: goals.length > 1 ? sizes.padding.md : sizes.padding.lg,
                                 // width: 'auto'
                             }}
                             showsHorizontalScrollIndicator={false}

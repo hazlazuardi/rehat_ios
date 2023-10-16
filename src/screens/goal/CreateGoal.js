@@ -231,12 +231,24 @@ function CreateGoal({ navigation, route }) {
 
                         </View>
 
+
+                        {/* TODO: Create Cancel Button so that the user can cancel not create a goal */}
+
                         {/* Button */}
                         <PrimaryButton
                             disabled={!isGoalComplete()}
                             color={colors.green}
                             text='Done'
-                            onPress={handleSaveGoal} />
+                            onPress={handleSaveGoal}
+                        />
+                        {/* Button */}
+                        <PrimaryButton
+                            // disabled={!isGoalComplete()}
+                            color={colors.darkGrey}
+                            text='Cancel'
+                            onPress={() => navigation.navigate("Journaling")}
+                        />
+
                     </View>
                 </View>
             </KeyboardAwareScrollView>

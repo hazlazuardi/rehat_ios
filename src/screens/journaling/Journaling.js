@@ -13,6 +13,9 @@ import { formatDate, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
 
+
+// TODO: Sort Journaling List based on dateAdded
+
 /**
  * A component for journaling and managing journals.
  *
