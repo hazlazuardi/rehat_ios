@@ -12,6 +12,10 @@ import useFormattedDate from '../../helpers/useDateFormatter';
 import { formatDate, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
+import useManageJournaling from '../../helpers/useManageJournaling';
+
+
+// TODO: Sort Journaling List based on dateAdded
 
 /**
  * A component for journaling and managing journals.
@@ -21,17 +25,17 @@ import JournalingCTACard from '../../components/journaling/JournalingCTACard';
  * @returns {JSX.Element} The rendered Journaling component.
  */
 function Journaling({ navigation }) {
-    const { dispatchJournal } = useJournal();
+
+    const {
+        journals,
+        getAllJournals
+    } = useManageJournaling()
 
     useEffect(() => {
-        dispatchJournal({ type: 'getAllJournals' });
+        getAllJournals()
     }, []);
 
-    const strAllJournals = storage.getString('journals');
-    const allJournals = strAllJournals ? JSON.parse(strAllJournals) : [];
-    console.log('allJournalsFromStorage', allJournals);
-
-    const { date } = useFormattedDate()
+    // console.log('journals', [...journals])
 
     return (
         <BlurredEllipsesBackground>
@@ -59,7 +63,7 @@ function Journaling({ navigation }) {
                             <Text style={{ ...styles.text.header2 }}>My Journals</Text>
 
                             {/* List of My Journal */}
-                            {allJournals.map((journal) => {
+                            {journals.map((journal) => {
                                 const formattedDate = formatDate(journal.dateAdded);
                                 return (
                                     <Pressable

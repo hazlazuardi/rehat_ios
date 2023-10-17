@@ -4,6 +4,7 @@ import { ImageBackground, Pressable, Text, View } from 'react-native';
 import { sizes, styles } from '../../data/theme';
 import { useJournal } from '../../context/Context';
 import assets from '../../data/assets';
+import useManageJournaling from '../../helpers/useManageJournaling';
 
 
 /**
@@ -15,10 +16,16 @@ import assets from '../../data/assets';
  * @returns {JSX.Element} The rendered EmotionCategoryButton component.
  */
 function EmotionCategoryButton({ title, isFillContainer, width, disabled, variant }) {
-    const { journal, dispatchJournal } = useJournal();
-    const isSelected = journal.emotionCategory === title;
+    // const { journal, dispatchJournal } = useJournalContext();
 
-    console.log('jecat dalem: ', journal.emotionCategory)
+    const {
+        currentJournal,
+        setCurrentJournal
+    } = useManageJournaling()
+
+    const isSelected = currentJournal.emotionCategory === title;
+
+    // console.log('jecat dalem: ', currentJournal.emotionCategory)
 
     /**
      * Handles the press event of an emotion category button.
@@ -26,7 +33,10 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
      * @param {string} title - The title of the emotion category.
      */
     const handleEmotionCategoryPress = (title) => {
-        if (!disabled) dispatchJournal({ type: 'setJournal', payload: { emotionCategory: title } });
+        if (!disabled) {
+            // console.log('pressed')
+            setCurrentJournal('emotionCategory', title)
+        }
     };
 
     const innerStyles =
@@ -43,9 +53,6 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
 
     if (disabled) {
         return (
-            // <View style={{ ...innerStyles }}>
-            //     <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{title}</Text>
-            // </View>
             <ImageBackground source={assets.images[variant]}
                 width={width}
                 height={width}
@@ -63,36 +70,24 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
     }
 
     return (
-        <>
-            {/* <Pressable
-                onPress={() => { handleEmotionCategoryPress(title) }}
+        <Pressable onPress={() => { handleEmotionCategoryPress(title) }}>
+            <ImageBackground source={assets.images[variant]}
+                width={width}
+                height={width}
                 style={{
-                    ...innerStyles
+                    opacity: isSelected ? 1 : .5
                 }}
             >
-                <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{title}</Text>
-            </Pressable> */}
-
-            <Pressable onPress={() => { handleEmotionCategoryPress(title) }}>
-                <ImageBackground source={assets.images[variant]}
-                    width={width}
-                    height={width}
-                    style={{
-                        opacity: isSelected ? 1 : .5
-                    }}
-                >
-                    <View style={{
-                        width: width,
-                        height: width,
-                    }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: sizes.padding.md }}>
-                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>{title}</Text>
-                        </View>
+                <View style={{
+                    width: width,
+                    height: width,
+                }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: sizes.padding.md }}>
+                        <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>{title}</Text>
                     </View>
-                </ImageBackground>
-            </Pressable>
-
-        </>
+                </View>
+            </ImageBackground>
+        </Pressable>
     );
 }
 

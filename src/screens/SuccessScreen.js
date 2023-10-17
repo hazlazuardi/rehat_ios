@@ -26,17 +26,14 @@ function SuccessDetail({navigation}) {
       <Pressable
         style={styles.buttonDone}
         onPress={() => {
-          navigation.popToTop();
+            navigation.popToTop()
         }}>
         <Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
       </Pressable>
       <Pressable
         style={styles.buttonGoal}
         onPress={() => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Create a Goal', params: {nextPage: 'Recovery'}}],
-          });
+          navigation.navigate('Create a Goal', { nextPage: 'Thoughts Reframing' })
         }}>
         <Text style={{color: colors.green, textAlign: 'center'}}>
           Create A Goal

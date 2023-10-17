@@ -12,8 +12,8 @@ import { sizes, styles } from '../data/theme';
  * @param {Function} props.onEndEditing - A callback function to be executed when the input ends editing.
  * @returns {JSX.Element} The rendered ChipInput component.
  */
-function ChipInput({ type, onEndEditing, onFocus, onBlur, font, size, variant, color }) {
-    const [inputText, setInputText] = useState('');
+function ChipInput({ type, onEndEditing, onFocus, onBlur, font, size, variant, color, value }) {
+    const [inputText, setInputText] = useState(value || '');
 
     /**
      * Handles the end of input editing.
@@ -49,7 +49,7 @@ function ChipInput({ type, onEndEditing, onFocus, onBlur, font, size, variant, c
             onBlur={onBlur}
             placeholder="     +     "
             // placeholderTextColor="white"
-            value={inputText}
+            value={value || inputText}
             onChangeText={handleChange}
             onSubmitEditing={handleEndEditing}
             style={{

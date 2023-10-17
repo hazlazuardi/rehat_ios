@@ -31,7 +31,6 @@ function CreateGoal({ navigation, route }) {
 
     const handleAddGoalsConfig = (value, type) => {
 
-        console.log('value', value)
         if (value.length !== 0) {
             dispatchGoalsConfig({
                 type: 'addGoalsConfig',
@@ -43,11 +42,10 @@ function CreateGoal({ navigation, route }) {
         setIsShouldReturn(false)
     };
 
-    console.log('isshud', isShouldReturn)
 
 
     const handleEditGoal = (field, value) => {
-        console.log(value)
+        // console.log(value)
         setGoal(prev => {
             return {
                 ...prev,
@@ -84,7 +82,6 @@ function CreateGoal({ navigation, route }) {
     }
 
 
-    console.log('curr goal', goal)
 
     const insets = useSafeAreaInsets()
 
@@ -92,7 +89,6 @@ function CreateGoal({ navigation, route }) {
         const requiredFields = ['period', 'duration', 'method', 'outcome', 'action'];
         for (const field of requiredFields) {
             if (!goal[field]) {
-                console.log('false', goal[field])
                 return false;
             }
         }
@@ -231,12 +227,24 @@ function CreateGoal({ navigation, route }) {
 
                         </View>
 
+
+                        {/* TODO: Create Cancel Button so that the user can cancel not create a goal */}
+
                         {/* Button */}
                         <PrimaryButton
                             disabled={!isGoalComplete()}
                             color={colors.green}
                             text='Done'
-                            onPress={handleSaveGoal} />
+                            onPress={handleSaveGoal}
+                        />
+                        {/* Button */}
+                        <PrimaryButton
+                            // disabled={!isGoalComplete()}
+                            color={colors.darkGrey}
+                            text='Cancel'
+                            onPress={() => navigation.navigate("Journaling")}
+                        />
+
                     </View>
                 </View>
             </KeyboardAwareScrollView>

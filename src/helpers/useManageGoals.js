@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useGoals } from '../context/Context';
+import { useGoals, useGoalsConfig } from '../context/Context';
+import { trigger } from 'react-native-haptic-feedback';
 
 function useManageGoals() {
     const { goals, dispatchGoals } = useGoals();
+    const { dispatchGoalsConfig } = useGoalsConfig()
+
 
     function addGoal(goal) {
-        console.log('goal', goal)
+        // console.log('goal', goal)
         dispatchGoals({
             type: 'addGoal',
             payload: {
@@ -27,9 +30,22 @@ function useManageGoals() {
 
     function clearAllGoals() {
         dispatchGoals({ type: 'clearAllGoals' });
+        trigger('impactHeavy')
     }
 
-    return { goals, addGoal, removeGoal, toggleGoalCompletion, clearAllGoals };
+    function clearAllGoalConfigs() {
+        dispatchGoalsConfig({ type: 'clearGoalsConfig' })
+        trigger('impactHeavy')
+    }
+
+    return {
+        goals,
+        addGoal,
+        removeGoal,
+        toggleGoalCompletion,
+        clearAllGoals,
+        clearAllGoalConfigs
+    };
 }
 
 useManageGoals.propTypes = {}

@@ -6,6 +6,7 @@ import { useJournal } from '../../context/Context';
 import PrimaryButton from '../../components/PrimaryButton';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
+import useManageJournaling from '../../helpers/useManageJournaling';
 
 
 /**
@@ -18,7 +19,11 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
  */
 function JournalCategory({ navigation }) {
 
-    const { journal } = useJournal()
+    // const { journal } = useJournalContext()
+
+    const {
+        currentJournal,
+    } = useManageJournaling()
 
     return (
         <BlurredEllipsesBackground>
@@ -48,7 +53,7 @@ function JournalCategory({ navigation }) {
                         onPress={() => navigation.navigate('Journal Emotions')}
                         text={'Done'}
                         color={'green'}
-                        disabled={journal.emotionCategory === ''}
+                        disabled={currentJournal.emotionCategory === ''}
 
 
                     />

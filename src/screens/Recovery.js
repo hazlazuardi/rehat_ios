@@ -3,6 +3,7 @@ import { Image, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-na
 import { colors, sizes, styles } from '../data/theme';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 import assets from '../data/assets';
+import { styles as styleses } from '../data/theme';
 
 function Recovery({ navigation }) {
 
@@ -57,7 +58,7 @@ function Recovery({ navigation }) {
                                 description={"Challenge and reshape negative thought patterns"}
                                 iconColor={colors.orange}
                                 backgroundColor={colors.orangeTransparent}
-                                onPress={() => navigation.navigate("Cognitive Restructuring")} />
+                                onPress={() => navigation.navigate("Thoughts Reframing")} />
                         </View>
 
                         {/* Section Grounding Techniques */}
