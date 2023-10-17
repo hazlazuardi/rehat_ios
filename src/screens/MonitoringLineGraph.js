@@ -26,7 +26,7 @@ function Monitoring() {
                 value: weekData[dayNumber].value,
             }));
 
-            console.log('points', points)
+            // console.log('points', points)
 
             return (
                 <View key={weekNumber} style={{ width: weekIntervalWidth, marginHorizontal: sizes.padding.md, marginBottom: sizes.gap.md }}>

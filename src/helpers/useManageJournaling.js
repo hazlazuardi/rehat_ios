@@ -48,7 +48,7 @@ function useManageJournaling() {
     }
 
     function addJournalingConfig(newConfig, type) {
-        console.log('addConfig')
+        // console.log('addConfig')
         dispatchJournalingConfig({
             type: 'updateJournalingConfig',
             payload: { newConfig, type }

@@ -79,7 +79,7 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		console.log('bocor')
+		// console.log('bocor')
 		let temp = storage.getString('isOnboarded');
 		if (temp) {
 			setIsOnboard(true);

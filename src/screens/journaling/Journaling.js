@@ -35,7 +35,7 @@ function Journaling({ navigation }) {
         getAllJournals()
     }, []);
 
-    console.log('journals', [...journals])
+    // console.log('journals', [...journals])
 
     return (
         <BlurredEllipsesBackground>
