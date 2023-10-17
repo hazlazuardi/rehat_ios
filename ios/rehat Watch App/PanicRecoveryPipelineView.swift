@@ -23,7 +23,7 @@ struct PanicRecoveryPipelineView: View {
         
         if otherTechniquesAreShown {
           // TODO: don't use recovery view here
-          RecoveryView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
+          RecoveryPanicView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
         } else {
           // TODO: show user's first preference
           if rnConnector.recoveryReferences.isEmpty {
