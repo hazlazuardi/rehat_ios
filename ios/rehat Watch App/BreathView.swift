@@ -48,58 +48,98 @@ struct BreathView: View {
   }
     
   var body: some View {
-    ScrollView {
-      VStack {
-        if timerState == .selection {
-          ForEach(breathingOptions.indices, id: \.self) { index in
-            Button(action: {
-              startTimer(with: breathingOptions[index])
-            }) {
-              VStack{
-                Text(breathingOptions[index].name)
-                  .font(.headline)
-                Text(
-                  "(" +
-                  [
+    NavigationStack{
+      ScrollView {
+        VStack {
+          if timerState == .selection {
+            ForEach(breathingOptions.indices, id: \.self) { index in
+              Button(action: {
+                startTimer(with: breathingOptions[index])
+              }) {
+                VStack{
+                  Text(breathingOptions[index].name)
+                    .font(.headline)
+                  //                  .frame(height:30)
+                  let formattedDurations = [
                     formatDuration(breathingOptions[index].breathInDuration),
                     formatDuration(breathingOptions[index].holdDuration),
                     formatDuration(breathingOptions[index].breathOutDuration),
                     formatDuration(breathingOptions[index].holdTwoDuration)
-                  ]
-                    .filter { !$0.isEmpty }
-                    .joined(separator: "-") 
-                  + ")"
-                )
-                .foregroundColor(Color.white.opacity(0.5))
+                  ].filter { !$0.isEmpty }
+                    .joined(separator: "-")
+                  
+                  let finalText = "(\(formattedDurations))"
+                  
+                  Text(finalText)
+                    .foregroundColor(Color.white.opacity(0.5))
+                }
               }
             }
-          }
-          .navigationTitle("Breathing")
-        } else {
-          GeometryReader { geometry in
-            ZStack {
-              Circle()
-                .fill(Color.orange)
-                .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
-                .scaleEffect(currentScaleFactor)
-                .animation(.easeInOut(duration: currentAnimationDuration), value: breathingStatus)
-              
-              Text("\(breathingStatus)")
-                .foregroundColor(.white)
-            }
-            .position(x: geometry.size.width / 2, y: geometry.size.height / 0.8)
-          }
-          .frame(height: 50)
-          .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-              Spacer()
-              Button(action: {
-                stopTimer()
-              }) {
-                Image(systemName: "stop.fill")
+            .navigationTitle("Breathing")
+          } else {
+            GeometryReader { geometry in
+              ZStack {
+                Circle()
+                  .fill(Color.orange.opacity(0.2))
+                  .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
+                  .scaleEffect(currentScaleFactor+0.2)
+                  .animation(
+                    Animation.easeInOut(duration: currentAnimationDuration)
+                      .delay(1),
+                    value: breathingStatus
+                  )
+                Circle()
+                  .fill(Color.orange.opacity(0.5))
+                  .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
+                  .scaleEffect(currentScaleFactor+0.1)
+                  .animation(
+                    Animation.easeInOut(duration: currentAnimationDuration)
+                      .delay(0.5),
+                    value: breathingStatus
+                  )
+                Circle()
+                  .fill(Color.orange.opacity(0.75))
+                  .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5)
+                  .scaleEffect(currentScaleFactor)
+                  .animation(.easeInOut(duration: currentAnimationDuration), value: breathingStatus)
+                
+                Text("\(breathingStatus)")
+                  .foregroundColor(.white)
+//                  .scaleEffect(currentScaleFactor)
+//                  .animation(.easeInOut(duration: 1), value: breathingStatus)
               }
-              .buttonStyle(BorderedButtonStyle(tint: Color.red.opacity(0.5)))
-              .clipShape(Circle())
+              .position(x: geometry.size.width / 2, y: geometry.size.height / 0.8)
+            }
+            .frame(height: 50)
+            
+            //          Text("\(Int(remainingTime + 1))")
+            //            .padding()
+            
+            
+            .toolbar {
+              ToolbarItemGroup(placement: .bottomBar) {
+                //                HStack {
+                //                  Button(action: {
+                //                    // Pause action here
+                //                  }) {
+                //                    Image(systemName: "pause.fill")
+                //                      .padding(10)
+                //                      .foregroundColor(.white)
+                //                      .clipShape(Circle())
+                //                  }
+                //
+                //                  Spacer()
+                Spacer()
+                Button(action: {
+                  stopTimer()
+                }) {
+                  Image(systemName: "stop.fill")
+                  //                  .foregroundColor(.white)
+                  //                  .clipShape(Circle())
+                }
+                .buttonStyle(BorderedButtonStyle(tint: Color.red.opacity(0.5)))
+                .clipShape(Circle())
+              }
             }
           }
         }
@@ -162,6 +202,9 @@ struct BreathView: View {
       return
     }
     
+    let previousStatus = breathingStatus
+
+    
     let totalTime = phase.breathInDuration + phase.holdDuration + phase.breathOutDuration + phase.holdTwoDuration
     
     var remainingBackTime = remainingTime
@@ -190,8 +233,6 @@ struct BreathView: View {
       currentAnimationDuration = phase.holdTwoDuration
     }
     
-    let previousStatus = breathingStatus
-    
     switch breathingStatus {
     case "Breath In":
       currentScaleFactor = 1.4
@@ -209,7 +250,8 @@ struct BreathView: View {
   }
   
   private func playHapticFeedback() {
-      WKInterfaceDevice.current().play(.click)
+    print("Playing haptic feedback.")
+    WKInterfaceDevice.current().play(.click)
   }
 }
 
