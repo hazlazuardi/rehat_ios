@@ -5,10 +5,6 @@ import { sizes } from '../data/theme';
 import { groupAndSumDataByWeekAndDay } from '../helpers/helpers';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
-const initData = Array.from({ length: 4 * 7 }, (_, index) => ({
-    date: new Date(1970, 0, 1 + index).toISOString(),
-    value: Math.random()
-}));
 
 const weekIntervalWidth = Dimensions.get('screen').width - 32;
 
