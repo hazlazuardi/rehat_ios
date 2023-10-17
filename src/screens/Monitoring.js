@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef } from 'react';
 import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { generateDummyDataForPreviousWeeks } from '../data/dummyPanicAttackHistory';
+import { generateDummyDataForPreviousWeeks, getMonday, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
 import PrimaryButton from '../components/PrimaryButton';
 import { colors, sizes, styles } from '../data/theme';
 import { formatDate } from '../helpers/helpers'
@@ -9,11 +9,15 @@ import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 const weekIntervalWidth = Dimensions.get('screen').width - 32;
 
 const currentWeekData = generateDummyDataForPreviousWeeks(4);
+
+const initialState = initializeCurrentWeek(currentWeekData);
+
+// Modify this so instead of Date.now(), it's the date from Avatar's app
 const currentEpochTime = () => Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Round down to the nearest day
 
 function Monitoring(props) {
     const scrollViewRef = useRef(null);
-    const [data, dispatch] = useReducer(dataReducer, currentWeekData);
+    const [data, dispatch] = useReducer(dataReducer, initializeCurrentWeek(initialState));
 
     const handleNewData = () => {
         const epochTime = currentEpochTime();
@@ -30,9 +34,19 @@ function Monitoring(props) {
         dispatch({ type: 'clearAllHistory' });
     };
 
+    useEffect(() => {
+        const today = new Date();
+        const standardTimestamp = Math.floor(today.getTime() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
+        const weekStartTimestamp = getMonday(standardTimestamp).getTime();
+
+        // Check if the current week exists in the data and if it has 7 days
+        if (data[weekStartTimestamp] && Object.keys(data[weekStartTimestamp]).length !== 7) {
+            dispatch({ type: 'INITIALIZE_CURRENT_WEEK' });
+        }
+    }, [data]);
 
     useEffect(() => {
-        const currentWeekEpoch = Math.floor((currentEpochTime() - new Date(1970, 0, 1).getTime()) / (7 * 24 * 3600 * 1000)) * 7 * 24 * 3600 * 1000;
+        const currentWeekEpoch = getMonday(currentEpochTime()).getTime();
         const weekIndices = Object.keys(data).map(Number);
         const currentWeekIndex = weekIndices.indexOf(currentWeekEpoch);
         if (currentWeekIndex !== -1) {
@@ -94,8 +108,6 @@ Monitoring.propTypes = {}
 
 function BarGraph({ groupedData }) {
     return groupedData.map((weekData, weekIndex) => {
-
-        console.log('weekData', weekData)
         return (
             <View key={weekIndex}
                 style={{
@@ -148,64 +160,78 @@ function BarGraph({ groupedData }) {
 };
 
 
+
+// TODO: add a case to store each entry from Avatar
 function dataReducer(state, action) {
     switch (action.type) {
+        case 'INITIALIZE_CURRENT_WEEK': {
+            const today = new Date();
+            const standardTimestamp = Math.floor(today.getTime() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
+            const weekStartTimestamp = getMonday(standardTimestamp).getTime();
+            const newState = { ...state };
+
+            // Initialize all days of the current week with a value of 0
+            for (let i = 0; i < 7; i++) {
+                const dayTimestamp = weekStartTimestamp + i * 24 * 3600 * 1000;
+                if (!newState[weekStartTimestamp][dayTimestamp]) {
+                    newState[weekStartTimestamp][dayTimestamp] = { date: dayTimestamp, value: 0 };
+                }
+            }
+
+            return newState;
+        }
         case 'ADD_DATA': {
             const { date, value } = action.payload;
             const standardTimestamp = Math.floor(date / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
-
-            // Adjust the epoch time to set Monday as the first day of the week
             const dayOfWeek = new Date(standardTimestamp).getDay();
-
-            // Adjust for Sunday or other days
-            const adjustment = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            const adjustment = (dayOfWeek + 6) % 7;
             const weekStartTimestamp = standardTimestamp - adjustment * 24 * 3600 * 1000;
-
-            // Clone the current state
             const newState = { ...state };
 
-            // Ensure the week object exists
             if (!newState[weekStartTimestamp]) {
                 newState[weekStartTimestamp] = {};
-                // Initialize all days of the week with a value of 0
-                for (let i = 0; i < 7; i++) {
-                    const dayTimestamp = weekStartTimestamp + i * 24 * 3600 * 1000;
+            }
+
+            // Initialize all days of the week with a value of 0, if they don't already exist
+            for (let i = 0; i < 7; i++) {
+                const dayTimestamp = weekStartTimestamp + i * 24 * 3600 * 1000;
+                if (!newState[weekStartTimestamp][dayTimestamp]) {
                     newState[weekStartTimestamp][dayTimestamp] = { date: dayTimestamp, value: 0 };
                 }
             }
 
             // Update the value for the specific day
-            // initialize with date and value
-            if (!newState[weekStartTimestamp][standardTimestamp]) newState[weekStartTimestamp][standardTimestamp] = { date: standardTimestamp, value: 0 };
+            if (!newState[weekStartTimestamp][standardTimestamp]) {
+                newState[weekStartTimestamp][standardTimestamp] = { date: standardTimestamp, value: 0 };
+            }
             newState[weekStartTimestamp][standardTimestamp].value += value;
 
             return newState;
         }
 
         case 'clearTodayHistory': {
-            const { date, value } = action.payload;
+            const { date } = action.payload;
             const standardTimestamp = Math.floor(date / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
-            // Calculate the epoch time of the Monday of the week
-            const weekNumber = Math.floor((standardTimestamp - new Date(1970, 0, 1)) / (7 * 24 * 3600 * 1000)) * 7 * 24 * 3600 * 1000;
+            const weekStartTimestamp = getMonday(standardTimestamp).getTime();
 
             // Clone the current state
             const newState = { ...state };
 
-            // Ensure the week and day objects exist
-            if (!newState[weekNumber]) newState[weekNumber] = {};
+            // If the week or day doesn't exist, don't create a new one
+            if (!newState[weekStartTimestamp] || !newState[weekStartTimestamp][standardTimestamp]) {
+                return state;
+            }
 
-            // initialize with date and value
-            if (!newState[weekNumber][standardTimestamp]) newState[weekNumber][standardTimestamp] = { date: standardTimestamp, value: 0 };
-
-            // Update the value for the specific day
-            newState[weekNumber][standardTimestamp].value = 0;
+            // Set the value for the specific day to 0
+            newState[weekStartTimestamp][standardTimestamp].value = 0;
 
             return newState;
-
         }
+
         case 'clearAllHistory': {
             return {}
         }
+
         default:
             return state;
     }

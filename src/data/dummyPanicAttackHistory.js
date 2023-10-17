@@ -97,7 +97,7 @@ export function generateDummyDataForPreviousWeeks(numWeeks) {
         const currentDayEpoch = Math.floor(epoch / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Round down to the nearest day
 
         // Get the epoch for the start of the current week
-        const weekStartEpoch = Math.floor((currentDayEpoch - new Date(1970, 0, 5).getTime()) / (7 * 24 * 3600 * 1000)) * 7 * 24 * 3600 * 1000;
+        const weekStartEpoch = getMonday(currentDayEpoch).getTime();
 
         // Ensure the week and day objects exist in the dummy data
         if (!dummyData[weekStartEpoch]) dummyData[weekStartEpoch] = {};
@@ -131,3 +131,30 @@ const result = {
 1694613600000
 
 1694613600000
+
+export function getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day === 0 ? -6 : 1);  // adjust when day is Sunday
+    return new Date(d.setDate(diff));
+}
+
+export function initializeCurrentWeek(data) {
+    const today = new Date();
+    const standardTimestamp = Math.floor(today.getTime() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
+    const dayOfWeek = today.getDay();
+    const adjustment = (dayOfWeek + 6) % 7;
+    const weekStartTimestamp = standardTimestamp - adjustment * 24 * 3600 * 1000;
+
+    const newData = { ...data };
+
+    if (!newData[weekStartTimestamp]) {
+        newData[weekStartTimestamp] = {};
+        for (let i = 0; i < 7; i++) {
+            const dayTimestamp = weekStartTimestamp + i * 24 * 3600 * 1000;
+            newData[weekStartTimestamp][dayTimestamp] = { date: dayTimestamp, value: 0 };
+        }
+    }
+
+    return newData;
+}
