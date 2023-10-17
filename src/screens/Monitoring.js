@@ -3,13 +3,14 @@ import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { generateDummyDataForPreviousWeeks, getMonday, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
 import PrimaryButton from '../components/PrimaryButton';
 import { colors, sizes, styles } from '../data/theme';
-import { formatDate, getStandardTimestamp, initializeWeek } from '../helpers/helpers'
+import { formatDate, getStandardTimestamp, getWeekStart, groupDataByWeek, initializeWeek } from '../helpers/helpers'
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 import BarChart from '../components/monitoring/BarChart';
 import { useMonitoring } from '../context/MonitoringProvider';
 import usePanicHistory, { weekIntervalWidth } from '../helpers/usePanicHistory';
 import { useJournal } from '../context/Context';
 import useManageJournaling from '../helpers/useManageJournaling';
+import EmotionTriggerAnalysis from '../components/monitoring/EmotionTriggerAnalysis';
 
 
 function Monitoring(props) {
@@ -19,11 +20,31 @@ function Monitoring(props) {
         handleNewData,
         handleClearData,
         handleClearAllData,
-        scrollViewRef,
+        scrollViewRef: scrollRefPanicAttackHistory,
     } = usePanicHistory()
 
 
-    const {} = useManageJournaling()
+    const {
+        journals
+    } = useManageJournaling()
+
+    // Group data by week
+    const groupedData = journals.reduce((acc, entry) => {
+        const weekStart = getWeekStart(entry.dateAdded);
+        if (!acc[weekStart]) {
+            acc[weekStart] = [];
+        }
+        acc[weekStart].push(entry);
+        return acc;
+    }, {});
+    const weeksData = Object.values(groupedData);
+
+    weeksData.forEach((weekData, index) => {
+        console.log(`week ${index + 1}`, weekData);
+    });
+
+    // console.log('journals', journals)
+    // console.log('weeksData', weeksData)
 
     return (
         <BlurredEllipsesBackground >
@@ -51,7 +72,7 @@ function Monitoring(props) {
                             <Text style={styles.text.header3}>Panic Attack History</Text>
 
                             <ScrollView
-                                ref={scrollViewRef}
+                                ref={scrollRefPanicAttackHistory}
                                 horizontal
                                 snapToAlignment='center'
                                 snapToInterval={weekIntervalWidth}
@@ -85,6 +106,30 @@ function Monitoring(props) {
                             gap: sizes.gap.md
                         }} >
                             <Text style={styles.text.header3}>Emotions and Their Triggers</Text>
+
+
+                            <ScrollView
+                                // ref={scrollViewRef}
+                                horizontal
+                                snapToAlignment='center'
+                                snapToInterval={weekIntervalWidth * 7}
+                                decelerationRate={'fast'}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                {weeksData.map((weekData, index) => (
+                                    <View
+                                        key={index}
+                                        style={{
+                                            width: weekIntervalWidth,
+                                            backgroundColor: 'red',
+                                            borderColor: 'blue',
+                                            borderWidth: 1
+                                        }}>
+                                        <EmotionTriggerAnalysis weekData={weekData} />
+                                    </View>
+                                ))}
+                            </ScrollView>
+
                         </View>
 
                     </View>

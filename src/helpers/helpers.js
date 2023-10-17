@@ -67,3 +67,83 @@ export function calculateInitialScrollOffset(groupedData, weekIntervalWidth) {
     }
     return 0; // Default to 0 if today is not found in the data
 }
+
+export function getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day === 0 ? -6 : 1);  // adjust when day is Sunday
+    return new Date(d.setDate(diff));
+}
+
+export function getMondayOfCurrentWeek() {
+    const now = new Date();
+    const day = now.getDay();
+    const diff = now.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
+    const monday = new Date(now.setDate(diff));
+    monday.setHours(0, 0, 0, 0); // reset time to midnight
+    return monday;
+}
+
+
+export function groupDataByWeek(data) {
+    const weeksData = {};
+
+    data.forEach(entry => {
+        const date = new Date(entry.dateAdded);
+        const weekStart = getMonday(date).getTime();  // Assuming getMonday gets the start of the week
+
+        if (!weeksData[weekStart]) {
+            weeksData[weekStart] = [];
+        }
+
+        weeksData[weekStart].push(entry);
+    });
+
+    return Object.values(weeksData);  // Convert object to array of week arrays
+}
+
+// Helper function to get the start of the week for a given timestamp
+export const getWeekStart = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.getDay();
+    const weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - day);
+    return weekStart.getTime();
+};
+
+export function getTopThree(items) {
+    // Sort the items by count in descending order and get the top three
+    return Object.entries(items)
+        .sort(([, countA], [, countB]) => countB - countA)
+        .slice(0, 3)
+        .map(([item]) => item);
+}
+
+export function analyzeEmotionTriggers(weekData) {
+    const emotionAnalysis = {};
+
+    weekData.forEach((entry) => {
+        const { emotionCategory, where, withWho, whatActivity } = entry;
+
+        if (!emotionAnalysis[emotionCategory]) {
+            emotionAnalysis[emotionCategory] = {
+                where: {},
+                withWho: {},
+                whatActivity: {},
+            };
+        }
+
+        // Increment the count for each category
+        emotionAnalysis[emotionCategory].where[where] = (emotionAnalysis[emotionCategory].where[where] || 0) + 1;
+        emotionAnalysis[emotionCategory].withWho[withWho] = (emotionAnalysis[emotionCategory].withWho[withWho] || 0) + 1;
+        emotionAnalysis[emotionCategory].whatActivity[whatActivity] = (emotionAnalysis[emotionCategory].whatActivity[whatActivity] || 0) + 1;
+    });
+
+    // Get the top three for each category
+    for (const emotionCategory in emotionAnalysis) {
+        emotionAnalysis[emotionCategory].where = getTopThree(emotionAnalysis[emotionCategory].where);
+        emotionAnalysis[emotionCategory].withWho = getTopThree(emotionAnalysis[emotionCategory].withWho);
+        emotionAnalysis[emotionCategory].whatActivity = getTopThree(emotionAnalysis[emotionCategory].whatActivity);
+    }
+
+    return emotionAnalysis;
+}

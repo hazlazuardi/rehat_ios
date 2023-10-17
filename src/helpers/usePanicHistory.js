@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { getStandardTimestamp, useMonitoring } from '../context/MonitoringProvider';
-import { getMonday } from '../data/dummyPanicAttackHistory';
 import { Dimensions } from 'react-native';
+import { getMonday } from './helpers';
 
 
 

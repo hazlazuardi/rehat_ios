@@ -35,6 +35,8 @@ function Journaling({ navigation }) {
         getAllJournals()
     }, []);
 
+    console.log('journals', [...journals])
+
     return (
         <BlurredEllipsesBackground>
             <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>

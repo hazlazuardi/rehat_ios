@@ -1,3 +1,5 @@
+import { getMonday } from "../helpers/helpers";
+
 export const initData = Array.from({ length: 1 * 7 }, (_, index) => ({
     date: new Date(2023, 9, 17 + index).toISOString(),
     value: Math.floor(Math.random() * 10)
@@ -72,14 +74,6 @@ export function calculateDayNumber(date) {
 // }
 
 
-export function getMondayOfCurrentWeek() {
-    const now = new Date();
-    const day = now.getDay();
-    const diff = now.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
-    const monday = new Date(now.setDate(diff));
-    monday.setHours(0, 0, 0, 0); // reset time to midnight
-    return monday;
-}
 
 export function generateDummyDataForPreviousWeeks(numWeeks) {
     // Get the current date and time
@@ -132,12 +126,6 @@ const result = {
 
 1694613600000
 
-export function getMonday(d) {
-    d = new Date(d);
-    var day = d.getDay(),
-        diff = d.getDate() - day + (day === 0 ? -6 : 1);  // adjust when day is Sunday
-    return new Date(d.setDate(diff));
-}
 
 export function initializeCurrentWeek(data) {
     const today = new Date();

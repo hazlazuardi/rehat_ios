@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useCallback, useContext, useState } from 'react';
+import React, { useReducer, createContext, useCallback, useContext, useState, useEffect } from 'react';
 import { storage } from '../../App';
 
 
@@ -18,6 +18,11 @@ function JournalingProvider({ children }) {
         journalingConfig,
         dispatchJournalingConfig,
     }
+
+    useEffect(() => {
+        dispatchJournals({ type: 'getAllJournals' })
+    }, [])
+
 
     return (
         <JournalingContext.Provider value={{ ...value }}>
