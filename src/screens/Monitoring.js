@@ -8,6 +8,7 @@ import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 import BarChart from '../components/monitoring/BarChart';
 import { useMonitoring } from '../context/MonitoringProvider';
 import usePanicHistory, { weekIntervalWidth } from '../helpers/usePanicHistory';
+import { useJournal } from '../context/Context';
 
 
 function Monitoring(props) {
@@ -20,6 +21,8 @@ function Monitoring(props) {
         scrollViewRef,
     } = usePanicHistory()
 
+
+    const { journal } = useJournal()
 
 
     return (
@@ -38,32 +41,52 @@ function Monitoring(props) {
                         <Text style={{ ...styles.text.header2, color: colors.orange }}>Monitoring</Text>
 
 
-                        <ScrollView
-                            ref={scrollViewRef}
-                            horizontal
-                            snapToAlignment='center'
-                            snapToInterval={weekIntervalWidth}
-                            decelerationRate={'fast'}
-                            showsHorizontalScrollIndicator={false}
-                        >
-                            <BarChart groupedData={Object.values(data)} />
-                        </ScrollView>
 
-                        <PrimaryButton
-                            color='green'
-                            text='Generate'
-                            onPress={handleNewData}
-                        />
-                        <PrimaryButton
-                            color='red'
-                            text='Clear'
-                            onPress={handleClearData}
-                        />
-                        <PrimaryButton
-                            color='red'
-                            text='Clear All'
-                            onPress={handleClearAllData}
-                        />
+
+                        {/* Panic Attack History */}
+                        <View style={{
+                            gap: sizes.gap.md,
+                            // backgroundColor: 'red'
+                        }} >
+                            <Text style={styles.text.header3}>Panic Attack History</Text>
+
+                            <ScrollView
+                                ref={scrollViewRef}
+                                horizontal
+                                snapToAlignment='center'
+                                snapToInterval={weekIntervalWidth}
+                                decelerationRate={'fast'}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                <BarChart groupedData={Object.values(data)} />
+                            </ScrollView>
+
+                            {/* Debugging Purpose */}
+                            {/* <PrimaryButton
+                                color='green'
+                                text='Generate'
+                                onPress={handleNewData}
+                            />
+                            <PrimaryButton
+                                color='red'
+                                text='Clear'
+                                onPress={handleClearData}
+                            />
+                            <PrimaryButton
+                                color='red'
+                                text='Clear All'
+                                onPress={handleClearAllData}
+                            /> */}
+                        </View>
+
+
+                        {/* Journaling Analysis */}
+                        <View style={{
+                            gap: sizes.gap.md
+                        }} >
+                            <Text style={styles.text.header3}>Emotions and Their Triggers</Text>
+                        </View>
+
                     </View>
                 </SafeAreaView>
             </ScrollView>

@@ -16,6 +16,7 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
 import assets from '../../data/assets';
 import { toAssetCase } from '../../helpers/helpers';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import useManageJournaling from '../../helpers/useManageJournaling';
 
 
 /**
@@ -27,6 +28,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
  */
 function JournalThoughts({ navigation }) {
 	const { journal, dispatchJournal } = useJournal();
+	const { addJournalingConfig, setCurrentJournal } = useManageJournaling()
 	const { journalingConfig, dispatchJournalingConfig } = useJournalingConfig()
 	const { dateString, timeString } = useFormattedDate(journal.dateAdded)
 
@@ -34,17 +36,14 @@ function JournalThoughts({ navigation }) {
 
 	const handleAddJournalConfig = (newConfig, type) => {
 		if (newConfig.length !== 0) {
-			dispatchJournalingConfig({
-				type: 'updateJournalingConfig',
-				payload: { newConfig, type }
-			});
+			addJournalingConfig(newConfig, type)
 		}
 		Keyboard.dismiss()
 		setIsShouldReturn(false)
 	};
 
 	const handleWriteThoughts = (field, value) => {
-		dispatchJournal({ type: 'setJournal', payload: { [field]: value } });
+		setCurrentJournal(field, value)
 	}
 
 	/**
@@ -53,12 +52,7 @@ function JournalThoughts({ navigation }) {
 	 * @param {string} type - The type of chip (e.g., 'withWho' or 'where').
 	 */
 	const onPressChip = (value, type) => {
-		dispatchJournal({
-			type: 'setJournal',
-			payload: {
-				[type]: value,
-			},
-		});
+		setCurrentJournal(type, value)
 	};
 
 	/**
@@ -76,17 +70,22 @@ function JournalThoughts({ navigation }) {
 			.then((result) => {
 				if (typeof result.assets[0] === 'object') {
 					console.log('photo', result.assets[0])
-					dispatchJournal({
-						type: 'setJournal',
-						payload: { photo: result.assets[0] }
-					})
+					// dispatchJournal({
+					// 	type: 'setJournal',
+					// 	payload: { photo: result.assets[0] }
+					// })
+					setCurrentJournal('photo', result.assets[0])
 				}
 			})
 			.catch((e) => console.log(e));
 	}
 
 	const onPressRemovePhoto = () => {
-		dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
+		// dispatchJournal({
+		// 	type: 'setJournal',
+		// 	payload: { photo: {} }
+		// })
+		setCurrentJournal('photo', {})
 	}
 
 	const isJournalComplete = () => {

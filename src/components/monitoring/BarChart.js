@@ -16,7 +16,7 @@ function BarChart({ groupedData }) {
                     width: weekIntervalWidth,
                     flexDirection: 'row',
                     alignItems: 'flex-end',
-                    height: 150
+                    height: 200
                 }}>
                 {Object.entries(weekData).map(([dayEpoch, dayData], dayIndex) => (
                     <View key={dayIndex}>
