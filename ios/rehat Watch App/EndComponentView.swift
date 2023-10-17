@@ -28,12 +28,12 @@ struct EndComponentView: View {
   @Binding var otherTechniquesAreShown: Bool
     var body: some View {
       VStack {
-        Button {
-          // TODO: append another instance to methodsUsed?
-          selection = 1
-        } label: {
-          Text("Restart Recovery")
-        }
+//        Button {
+//          // TODO: append another instance to methodsUsed?
+//          selection = 1
+//        } label: {
+//          Text("Restart Recovery")
+//        }
         Button {
           // TODO: add method to methodsUsed
           otherTechniquesAreShown = true
