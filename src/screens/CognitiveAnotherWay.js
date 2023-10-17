@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,50 +7,66 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import { Pressable } from 'react-native';
-import { colors } from '../data/theme';
-import { sizes } from '../data/theme';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Pressable} from 'react-native';
+import {colors} from '../data/theme';
+import {sizes} from '../data/theme';
 import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles';
-import { storage } from '../../App';
+import {storage} from '../../App';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
+import {styles as styleses} from '../data/theme';
 
-function CognitiveAnotherWay({ route, navigation }) {
-  const { previousData, previousInput, currentInput } = route.params;
+function CognitiveAnotherWay({route, navigation}) {
+  const [isShouldReturn, setIsShouldReturn] = useState(false);
+  const {
+    previousData,
+    previousInput,
+    currentInput,
+    title,
+    isPreview,
+    TRData,
+    TRFI,
+    TRSI,
+    TRTI,
+  } = route.params;
   const [input, setInput] = useState('');
 
-  // const storeData = async (key, value) => {
-  const storeData = (key, value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      // await AsyncStorage.setItem(key, jsonValue);
-      storage.set(key, jsonValue)
-    } catch (error) {
-      console.error('Error storing data:', error);
-    }
-  };
+  console.log('trfdata');
+  const filteredData = previousData
+    ?.filter(d => d.choosen === true)
+    .map(dats => ({
+      id: dats.id,
+      text: dats.text,
+    }));
+  const currentTime = new Date().toISOString();
 
-  // const handleNextPress = async () => {
   const handleNextPress = () => {
     if (input !== '') {
-      const dataToBeStored = {
-        data: previousData,
-        input: [
-          { firstInput: previousInput },
-          { secondInput: currentInput },
-          { thirdInput: input },
-        ],
+      // Transform the data into the desired structure
+      const transformedDataArray = filteredData.map(d => d.text);
+
+      const newEntry = {
+        data: [...transformedDataArray],
+        time: currentTime,
+        title: title,
+        input: {
+          firstInput: previousInput,
+          secondInput: currentInput,
+          thirdInput: input,
+        },
       };
-      navigation.navigate('Success Screen');
+
+      let existingData = [];
+      const storedData = storage.getString('cognitiveData'); // Fetch existing data
+      if (storedData) {
+        existingData = JSON.parse(storedData);
+      }
+
+      existingData.push(newEntry); // Add new data to the existing data
 
       try {
-        // await AsyncStorage.setItem(
-        //   'cognitiveData',
-        //   JSON.stringify(dataToBeStored),
-
-        storage.set('cognitiveData', JSON.stringify(dataToBeStored))
-
-        // ... further navigation or other logic goes here
+        storage.set('cognitiveData', JSON.stringify(existingData)); // Store updated data
+        navigation.navigate('Success Screen');
       } catch (error) {
         console.error('Error storing data:', error);
       }
@@ -64,63 +80,116 @@ function CognitiveAnotherWay({ route, navigation }) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
-      </View>
-
-      <View style={styles.prevText}>
-        <Text style={styles.descLearn}>"{previousInput}"</Text>
-      </View>
-      {previousData
-        ?.filter(d => d.choosen === true)
-        .map(dats => {
-          return (
-            <View key={dats?.text} style={styles.choice2}>
-              <Text style={{ color: 'white' }}>{dats?.text}</Text>
+    <BlurredEllipsesBackground>
+      <KeyboardAwareScrollView
+        extraScrollHeight={64}
+        keyboardOpeningTime={10}
+        enableResetScrollToCoords={false}
+        keyboardDismissMode={isShouldReturn ? 'none' : 'interactive'}
+        keyboardShouldPersistTaps={isShouldReturn ? 'always' : 'never'}
+        contentContainerStyle={{flexGrow: 1}}
+        contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={{marginBottom: 100}}>
+          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+            <View>
+              <Text style={{...styleses.text.header1}}>
+                Cognitive Restructuring
+              </Text>
             </View>
-          );
-        })}
-      <View style={styles.prevText}>
-        <Text style={styles.descLearn}>"{currentInput}"</Text>
-      </View>
-      <View>
-        <Text style={styles.challenge}>
-          What is another way of thinking about this?
-        </Text>
-      </View>
-      <View>
-        <TextInput
-          placeholder="A better way to look at it would be..."
-          placeholderTextColor="#F8F8F8"
-          editable
-          multiline
-          numberOfLines={4}
-          maxLength={40}
-          onChangeText={text => setInput(text)}
-          value={input}
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.containerButton}>
-        <Pressable onPress={handleBackPress}>
-          <View style={styles.buttonBack}>
-            <Text style={styles.buttonNextBack}>Back</Text>
+            {isPreview && (
+              <Text style={{color: 'white'}}>
+                What unhelpful thought do you have?
+              </Text>
+            )}
+            <View style={isPreview ? styles.prevTextprev : styles.prevText}>
+              {!isPreview && (
+                <Text style={styles.descLearn}>"{previousInput}"</Text>
+              )}
+              {isPreview && <Text style={styles.descLearn}>"{TRFI}"</Text>}
+            </View>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+              {!isPreview &&
+                previousData
+                  ?.filter(d => d.choosen === true)
+                  .map(dats => {
+                    return (
+                      <View key={dats?.text} style={styles.choice2}>
+                        <Text style={{color: 'white'}}>{dats?.text}</Text>
+                      </View>
+                    );
+                  })}
+              {isPreview &&
+                TRData?.map((dats, index) => {
+                  return (
+                    <View key={index} style={styles.choice2}>
+                      <Text style={{color: 'white'}}>{dats}</Text>
+                    </View>
+                  );
+                })}
+            </View>
+            {isPreview && (
+              <View>
+                <Text style={{color: 'white'}}>
+                  How can you challenge your thought?
+                </Text>
+              </View>
+            )}
+            <View style={isPreview ? styles.prevTextprev : styles.prevText}>
+              {!isPreview && (
+                <Text style={styles.descLearn}>"{currentInput}"</Text>
+              )}
+              {isPreview && <Text style={styles.descLearn}>"{TRSI}"</Text>}
+            </View>
+            {isPreview && (
+              <View>
+                <Text style={{color: 'white'}}>
+                  What is another way of thinking about this?
+                </Text>
+              </View>
+            )}
+            {isPreview && (
+              <View style={isPreview ? styles.prevTextprev : styles.prevText}>
+                <Text style={styles.descLearn}>"{TRTI}"</Text>
+              </View>
+            )}
+            <View>
+              {!isPreview && (
+                <TextInput
+                  placeholder="A better way to look at it would be..."
+                  placeholderTextColor="#F8F8F8"
+                  editable
+                  multiline
+                  numberOfLines={4}
+                  maxLength={40}
+                  onChangeText={text => setInput(text)}
+                  value={input}
+                  style={styles.textInput}
+                />
+              )}
+            </View>
+            {!isPreview && (
+              <View style={styles.containerButton}>
+                <Pressable onPress={handleBackPress}>
+                  <View style={styles.buttonBack}>
+                    <Text style={styles.buttonNextBack}>Back</Text>
+                  </View>
+                </Pressable>
+                <Pressable onPress={handleNextPress}>
+                  <View style={styles.buttonNext}>
+                    <Text style={styles.buttonNextText}>Next</Text>
+                  </View>
+                </Pressable>
+              </View>
+            )}
           </View>
-        </Pressable>
-        <Pressable onPress={handleNextPress}>
-          <View style={styles.buttonNext}>
-            <Text style={styles.buttonNextText}>Next</Text>
-          </View>
-        </Pressable>
-      </View>
-    </ScrollView>
+        </SafeAreaView>
+      </KeyboardAwareScrollView>
+    </BlurredEllipsesBackground>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F1720',
     paddingTop: 100,
     paddingHorizontal: 24, // This sets the background color for the entire screen
   },
@@ -143,6 +212,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20,
     marginBottom: 20,
+    fontStyle: 'italic',
+    backgroundColor: 'rgba(254, 118, 58, 0.39)',
+  },
+  prevTextprev: {
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 0,
+    marginBottom: 0,
     fontStyle: 'italic',
     backgroundColor: 'rgba(254, 118, 58, 0.39)',
   },

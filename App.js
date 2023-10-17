@@ -41,6 +41,7 @@ import GroundingSteps from './src/screens/grounding/GroundingSteps';
 import OnboardingScreen from './src/screens/onboarding/Onboarding';
 import OnboardingDetailOne from './src/screens/onboarding/OnboardingDetailOne';
 import OnboardingDetailTwo from './src/screens/onboarding/OnboardingDetailTwo';
+import ThoughtsReframingMain from './src/screens/thoughts/ThoughtsReframingMain';
 
 const Stack = createNativeStackNavigator();
 
@@ -212,17 +213,6 @@ function App() {
 								/>
 							</Stack.Group>
 
-							<Stack.Screen
-								name="Create a Goal"
-								component={CreateGoal}
-								options={{
-									...nestedHeaderOptions,
-									headerBackTitle: 'Details',
-									gestureEnabled: false
-								}}
-							/>
-
-
 							{/* Grounding Technique */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
 								<Stack.Screen
@@ -260,8 +250,17 @@ function App() {
 								/>
 							</Stack.Group>
 
-							{/* Thoughts Reframing Screens */}
+              {/* Thoughts Reframing Screens */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
+              <Stack.Screen
+									name="Thoughts Reframing"
+									component={ThoughtsReframingMain}
+									options={{
+										...nestedHeaderOptions,
+										headerBackTitle: 'Recovery',
+                    
+									}}
+								/>
 								<Stack.Screen
 									name="Cognitive Restructuring"
 									component={CognitiveRestructuing}
@@ -296,6 +295,18 @@ function App() {
 									}}
 								/>
 							</Stack.Group>
+
+              <Stack.Screen
+								name="Create a Goal"
+								component={CreateGoal}
+								options={{
+									...nestedHeaderOptions,
+									headerBackTitle: 'Details',
+									gestureEnabled: false
+								}}
+							/>
+
+							
 						</Stack.Navigator>
 						{/* </View> */}
 					</NavigationContainer>
