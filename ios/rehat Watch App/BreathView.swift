@@ -8,7 +8,6 @@
 import SwiftUI
 import WatchKit
 
-#warning ("TODO: show end component if AppState is panic, and breathing technique ends or user stops")
 struct BreathView: View {
   @EnvironmentObject var appState: AppState
   enum TimerState: Equatable {
@@ -24,6 +23,8 @@ struct BreathView: View {
     let holdTwoDuration: TimeInterval
   }
     
+  @State public var autoStart: Bool = false // by default, don't automatically start breathing exercise
+  @State public var firstPreferenceIndex: Int = 0 // placeholder
   @State private var timerState: TimerState = .selection
   @State private var remainingTime: TimeInterval = 0
   @State private var timer: Timer? = nil
@@ -57,7 +58,6 @@ struct BreathView: View {
               VStack{
                 Text(breathingOptions[index].name)
                   .font(.headline)
-//                  .frame(height:30)
                 Text(
                   "(" +
                   [
@@ -90,31 +90,13 @@ struct BreathView: View {
             .position(x: geometry.size.width / 2, y: geometry.size.height / 0.8)
           }
           .frame(height: 50)
-          
-          //          Text("\(Int(remainingTime + 1))")
-          //            .padding()
-          
-          
           .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-//                HStack {
-//                  Button(action: {
-//                    // Pause action here
-//                  }) {
-//                    Image(systemName: "pause.fill")
-//                      .padding(10)
-//                      .foregroundColor(.white)
-//                      .clipShape(Circle())
-//                  }
-//
-//                  Spacer()
               Spacer()
               Button(action: {
                 stopTimer()
               }) {
                 Image(systemName: "stop.fill")
-//                  .foregroundColor(.white)
-//                  .clipShape(Circle())
               }
               .buttonStyle(BorderedButtonStyle(tint: Color.red.opacity(0.5)))
               .clipShape(Circle())
@@ -124,9 +106,12 @@ struct BreathView: View {
       }
     }
     .containerBackground(.blue.gradient, for: .navigation)
-//    .navigationTitle("Breathing")
     .onAppear {
       startTextTimer()
+      if self.autoStart {
+        let breathePhase = breathingOptions[self.firstPreferenceIndex]
+        startTimer(with: breathePhase)
+      }
     }
     .onDisappear {
       textTimer?.invalidate()
