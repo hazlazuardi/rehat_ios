@@ -6,6 +6,7 @@ import { useJournal } from '../../context/Context';
 import assets from '../../data/assets';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import PrimaryButton from '../../components/PrimaryButton';
+import useManageJournaling from '../../helpers/useManageJournaling';
 
 /**
  * A component for displaying a success message after saving a journal entry.
@@ -15,13 +16,19 @@ import PrimaryButton from '../../components/PrimaryButton';
  * @returns {JSX.Element} The rendered JournalSuccess component.
  */
 function JournalSuccess({ navigation }) {
-	const { dispatchJournal } = useJournal();
+	// const { dispatchJournal } = useJournalContext();
+
+	const {
+		currentJournal,
+		saveCurrentJournal
+	} = useManageJournaling()
 
 	/**
 	 * Handles the press event when the user is done with the journal entry.
 	 */
 	function handlePress(action) {
-		dispatchJournal({ type: 'saveJournal' });
+		// dispatchJournal({ type: 'saveJournal' });
+		saveCurrentJournal(currentJournal)
 
 		if (action === 'done') {
 			navigation.navigate('Journaling');

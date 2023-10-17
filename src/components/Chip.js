@@ -12,6 +12,10 @@ import { getContrastColor } from '../helpers/helpers';
  * @param {string} props.text - The text content displayed on the chip.
  * @param {Function} [props.onPress] - A callback function to be executed when the chip is pressed (optional).
  * @param {boolean} props.isSelected - Indicates whether the chip is selected or not.
+ * @param {string} [props.font] - The font style for the chip text (optional).
+ * @param {string} [props.size] - The size variant for the chip (optional).
+ * @param {string} [props.variant] - The style variant for the chip (optional).
+ * @param {string} [props.color] - The color of the chip (optional).
  * @returns {JSX.Element} The rendered Chip component.
  */
 function Chip({ text, onPress, isSelected, font, size, variant, color }) {
@@ -61,6 +65,10 @@ function Chip({ text, onPress, isSelected, font, size, variant, color }) {
  * @property {string} text - The text content displayed on the chip.
  * @property {Function} [onPress] - A callback function to be executed when the chip is pressed (optional).
  * @property {boolean} isSelected - Indicates whether the chip is selected or not.
+ * @property {string} [font] - The font style for the chip text (optional).
+ * @property {string} [size] - The size variant for the chip (optional).
+ * @property {string} [variant] - The style variant for the chip (optional).
+ * @property {string} [color] - The color of the chip (optional).
  */
 
 /**
@@ -81,6 +89,10 @@ Chip.propTypes = {
     text: PropTypes.string.isRequired,
     onPress: PropTypes.func,
     isSelected: PropTypes.bool,
+    font: PropTypes.string,
+    size: PropTypes.string,
+    variant: PropTypes.string,
+    color: PropTypes.string,
 };
 
 export default Chip;

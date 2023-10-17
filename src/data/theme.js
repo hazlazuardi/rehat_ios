@@ -13,6 +13,13 @@ export const colors = {
     textArea: {
         backgroundColor: 'rgba(217,217,217,.08)',
         color: 'rgba(203, 228, 222, .45)'
+    },
+    emotion: {
+        very_pleasant: '#EE9E2C',
+        pleasant: '#70E353',
+        neutral: '#91A3AF',
+        unpleasant: '#53B7FF',
+        slightly_unpleasant: '#18787E'
     }
 }
 
@@ -23,6 +30,7 @@ export const sizes = {
         lg: 20
     },
     gap: {
+        xs: 4,
         sm: 8,
         md: 16,
         lg: 24,

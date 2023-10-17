@@ -17,7 +17,7 @@ function JournalDetail({ route }) {
 
     const { dateString, timeString } = useFormattedDate(journal.dateAdded)
 
-    console.log('detail journal: ', journal)
+    // console.log('detail journal: ', journal)
 
     return (
         <BlurredEllipsesBackground>

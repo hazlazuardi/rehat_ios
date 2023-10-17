@@ -16,6 +16,7 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
 import assets from '../../data/assets';
 import { toAssetCase } from '../../helpers/helpers';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import useManageJournaling from '../../helpers/useManageJournaling';
 
 
 /**
@@ -26,76 +27,59 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
  * @returns {JSX.Element} The rendered JournalThoughts component.
  */
 function JournalThoughts({ navigation }) {
-	const { journal, dispatchJournal } = useJournal();
-	const { journalingConfig, dispatchJournalingConfig } = useJournalingConfig()
-	const { dateString, timeString } = useFormattedDate(journal.dateAdded)
+	const {
+		currentJournal,
+		journalingConfig,
+		addJournalingConfig,
+		setCurrentJournal,
+	} = useManageJournaling()
+
+	const { dateString, timeString } = useFormattedDate(currentJournal.dateAdded)
 
 	const [isShouldReturn, setIsShouldReturn] = useState(false)
 
 	const handleAddJournalConfig = (newConfig, type) => {
 		if (newConfig.length !== 0) {
-			dispatchJournalingConfig({
-				type: 'updateJournalingConfig',
-				payload: { newConfig, type }
-			});
+			addJournalingConfig(newConfig, type)
 		}
 		Keyboard.dismiss()
 		setIsShouldReturn(false)
 	};
 
 	const handleWriteThoughts = (field, value) => {
-		dispatchJournal({ type: 'setJournal', payload: { [field]: value } });
+		setCurrentJournal(field, value)
 	}
 
-	/**
-	 * Handles the press event of a chip.
-	 * @param {string} value - The value associated with the chip.
-	 * @param {string} type - The type of chip (e.g., 'withWho' or 'where').
-	 */
 	const onPressChip = (value, type) => {
-		dispatchJournal({
-			type: 'setJournal',
-			payload: {
-				[type]: value,
-			},
-		});
+		setCurrentJournal(type, value)
 	};
 
-	/**
-	 * Checks if a chip is selected based on the value and type.
-	 * @param {string} value - The value to check for selection.
-	 * @param {string} type - The type to determine the key.
-	 * @returns {boolean} True if the chip is selected; otherwise, false.
-	 */
 	const isChipSelected = (value, type) => {
-		return journal[type]?.includes(value);
+		return currentJournal[type]?.includes(value);
 	};
 
 	const onPressAddPhoto = async () => {
 		await launchImageLibrary()
 			.then((result) => {
 				if (typeof result.assets[0] === 'object') {
-					console.log('photo', result.assets[0])
-					dispatchJournal({
-						type: 'setJournal',
-						payload: { photo: result.assets[0] }
-					})
+					// console.log('photo', result.assets[0])
+					setCurrentJournal('photo', result.assets[0])
 				}
 			})
 			.catch((e) => console.log(e));
 	}
 
 	const onPressRemovePhoto = () => {
-		dispatchJournal({ type: 'setJournal', payload: { photo: {} } })
+		setCurrentJournal('photo', {})
 	}
 
 	const isJournalComplete = () => {
 		const requiredFields = ['emotionCategory', 'emotions', 'withWho', 'where', 'whatActivity', 'thoughts', 'dateAdded'];
 		for (const field of requiredFields) {
-			if (field === 'emotions' && journal[field].length === 0) {
+			if (field === 'emotions' && currentJournal[field].length === 0) {
 				return false;
 			}
-			if (!journal[field]) {
+			if (!currentJournal[field]) {
 				return false;
 			}
 		}
@@ -103,10 +87,12 @@ function JournalThoughts({ navigation }) {
 	};
 
 	const insets = useSafeAreaInsets()
-	// console.log('ctx journal', journal.emotionCategory.toLowerCase().replace(' ', '_'))
+	// console.log('ctx journal', currentJournal.emotionCategory.toLowerCase().replace(' ', '_'))
 
-	console.log('ctx journal', journal)
+	// console.log('ctx journal', currentJournal)
 	// const { CameraIcon } = useIcons()
+
+	// console.log('jconf', journalingConfig)
 
 	return (
 		// <SafeAreaView style={{ flex: 1 }}>
@@ -126,12 +112,12 @@ function JournalThoughts({ navigation }) {
 
 						{/* journalCategory */}
 						<View style={{ flexDirection: 'row', gap: sizes.padding.md, alignItems: 'center', maxWidth: '100%' }} >
-							<EmotionCategoryButton disabled title={journal.emotionCategory} width={120} variant={toAssetCase(journal.emotionCategory)} />
+							<EmotionCategoryButton disabled title={currentJournal.emotionCategory} width={120} variant={toAssetCase(currentJournal.emotionCategory)} />
 							<View>
 								<Text style={{ ...styles.text.header2, fontWeight: '300' }}>I'm feeling
 								</Text>
 								<Text style={{ ...styles.text.header2, }} >
-									{journal.emotionCategory}
+									{currentJournal.emotionCategory}
 								</Text>
 							</View>
 
@@ -139,7 +125,7 @@ function JournalThoughts({ navigation }) {
 
 						{/* journalEmotions */}
 						<View style={{ flexDirection: 'row', gap: sizes.padding.sm, flexWrap: 'wrap' }}>
-							{journal.emotions?.map((emotion) => (
+							{currentJournal.emotions?.map((emotion) => (
 								<Chip key={emotion} text={emotion} />
 							))}
 						</View>
@@ -175,7 +161,7 @@ function JournalThoughts({ navigation }) {
 							}}
 							placeholder={'Title'}
 							onEndEditing={(titleValue) => handleWriteThoughts('title', titleValue)}
-							value={journal.title}
+							value={currentJournal.title}
 							onFocus={() => setIsShouldReturn(false)}
 						/>
 						<TextArea
@@ -186,14 +172,14 @@ function JournalThoughts({ navigation }) {
 							}}
 							placeholder={'Today, I met... then, I met a...'}
 							onEndEditing={(thoughtValue) => handleWriteThoughts('thoughts', thoughtValue)}
-							value={journal.thoughts}
+							value={currentJournal.thoughts}
 							onFocus={() => setIsShouldReturn(false)}
 						/>
 
 						<Divider color={'white'} />
 
 						{/* Photo */}
-						{Object.keys(journal.photo).length === 0 ? (
+						{Object.keys(currentJournal.photo).length === 0 ? (
 							<Pressable onPress={onPressAddPhoto}>
 								<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 									<Text style={{ ...styles.text.body2 }}>Add a photo</Text>
@@ -210,10 +196,10 @@ function JournalThoughts({ navigation }) {
 						) :
 							<>
 								<ImageBackground
-									source={{ uri: journal.photo?.uri }}
+									source={{ uri: currentJournal.photo?.uri }}
 									style={{
 										alignItems: 'center',
-										aspectRatio: journal.photo.width / journal.photo.height,
+										aspectRatio: currentJournal.photo.width / currentJournal.photo.height,
 										borderRadius: sizes.radius.md,
 										// borderWidth: 4,
 										display: 'flex',
