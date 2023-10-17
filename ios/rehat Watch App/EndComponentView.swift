@@ -24,9 +24,23 @@ enum RecoveryMethodNames: String {
 // Takes the chosen method as a string
 struct EndComponentView: View {
   @EnvironmentObject var appState: AppState
+  @Binding var selection: Int
+  @Binding var otherTechniquesAreShown: Bool
     var body: some View {
       VStack {
         Button {
+          selection = 1
+        } label: {
+          Text("Restart Recovery")
+        }
+        Button {
+          otherTechniquesAreShown = true
+          selection = 2
+        } label: {
+          Text("Try Something Else")
+        }
+        Button {
+          otherTechniquesAreShown = false
           appState.setPanicFalse()
           // TODO: wrap up panic pipeline.
         } label: {
@@ -36,6 +50,6 @@ struct EndComponentView: View {
     }
 }
 
-#Preview {
-  return EndComponentView()
-}
+//#Preview {
+//  return EndComponentView(otherTechniquesAreShown: false)
+//}
