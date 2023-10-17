@@ -87,6 +87,8 @@ function App() {
     }
     setLoading(false);
   }, [isOnboard]);
+
+  console.log(storage.getString('emergencyContacts'))
  
   return (
     <SafeAreaProvider>

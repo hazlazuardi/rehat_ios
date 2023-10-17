@@ -42,7 +42,7 @@ function CircularIcon({ containerColor, icon, iconWidth, iconContainerWidth }) {
 
 CircularIcon.propTypes = {
     containerColor: PropTypes.string.isRequired,
-    icon: PropTypes.object.isRequired,
+    icon: PropTypes.number.isRequired,
     iconWidth: PropTypes.number.isRequired,
     iconContainerWidth: PropTypes.number.isRequired
 }
