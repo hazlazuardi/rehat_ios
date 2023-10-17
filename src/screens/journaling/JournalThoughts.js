@@ -62,11 +62,7 @@ function JournalThoughts({ navigation }) {
 		await launchImageLibrary()
 			.then((result) => {
 				if (typeof result.assets[0] === 'object') {
-					console.log('photo', result.assets[0])
-					// dispatchJournal({
-					// 	type: 'setJournal',
-					// 	payload: { photo: result.assets[0] }
-					// })
+					// console.log('photo', result.assets[0])
 					setCurrentJournal('photo', result.assets[0])
 				}
 			})
@@ -74,10 +70,6 @@ function JournalThoughts({ navigation }) {
 	}
 
 	const onPressRemovePhoto = () => {
-		// dispatchJournal({
-		// 	type: 'setJournal',
-		// 	payload: { photo: {} }
-		// })
 		setCurrentJournal('photo', {})
 	}
 
@@ -100,7 +92,7 @@ function JournalThoughts({ navigation }) {
 	// console.log('ctx journal', currentJournal)
 	// const { CameraIcon } = useIcons()
 
-	console.log('jconf', journalingConfig)
+	// console.log('jconf', journalingConfig)
 
 	return (
 		// <SafeAreaView style={{ flex: 1 }}>

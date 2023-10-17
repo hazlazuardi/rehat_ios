@@ -1,64 +1,93 @@
-// EmotionTriggerAnalysis.js
 import React from 'react';
 import { View, Text } from 'react-native';
-import { analyzeEmotionTriggers } from '../../helpers/helpers';
-import { sizes } from '../../data/theme';
+import { analyzeEmotionTriggers, toAssetCase } from '../../helpers/helpers';
+import { colors, sizes, styles } from '../../data/theme';
 import { weekIntervalWidth } from '../../helpers/usePanicHistory';
+import Chip from '../Chip';
 
 function EmotionTriggerAnalysis({ weekData }) {
 
-    console.log('weekData', weekData)
-
-    // Function to calculate top 3 most common values in an array
-    const getTopThree = (arr) => {
-        const frequency = {};
-        arr.forEach(value => { frequency[value] = (frequency[value] || 0) + 1; });
-        return Object.entries(frequency)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 3)
-            .map(item => item[0]);
-    };
-
     const weekAnalysis = analyzeEmotionTriggers(weekData);
-
-    console.log('anal', weekAnalysis)
 
     return (
         <View style={{
             // flexDirection: 'row',
-            gap: sizes.gap.sm,
+            gap: sizes.gap.lg,
         }}>
-            {Object.entries(weekAnalysis).map(([emotionCategory, analysis]) => (
-                <View key={emotionCategory} >
-                    <Text>{emotionCategory} x{analysis.count}</Text>
+            {emotionOrder.map(emotionCategory => {
+                const analysis = weekAnalysis[emotionCategory];
+                if (analysis) {
+                    return (
+                        <View key={emotionCategory}
+                            style={{
+                                gap: sizes.gap.sm
+                            }} >
+                            {/* Emotion Title */}
+                            <Text
+                                style={{
+                                    ...styles.text.semi2,
+                                    color: colors.emotion[toAssetCase(emotionCategory)]
+                                }}
+                            >{emotionCategory} ({analysis.count})</Text>
 
-                    <Text>Top Locations</Text>
-                    {analysis.where?.map((location, index) => (
-                        <Text key={`${location}-${index}`}>{location}</Text>
-                    ))}
+                            {/* Bar */}
+                            <View style={{
+                                width: (analysis.count / 14) * weekIntervalWidth,
+                                height: 64,
+                                backgroundColor: colors.emotion[toAssetCase(emotionCategory)],
+                                borderTopRightRadius: sizes.radius.lg,
+                                borderBottomEndRadius: sizes.radius.lg
+                            }} />
+
+                            {/* Triggers */}
+                            <View style={{
+                                gap: sizes.gap.xs,
+                                flexDirection: 'row'
+                            }}>
+                                {analysis.where?.map((location, index) => (
+                                    <View key={`${location}-${index}`}
+                                        style={{
+                                            alignSelf: 'flex-start'
+                                        }}>
+                                        <Chip text={location} />
+                                    </View>
+                                ))}
 
 
-                    <Text>Top People</Text>
-                    {analysis.withWho?.map((person, index) => (
-                        <Text key={`${person}-${index}`}>{person}</Text>
-                    ))}
+                                {analysis.withWho?.map((person, index) => (
+                                    <View key={`${person}-${index}`}
+                                        style={{
+                                            alignSelf: 'flex-start'
+                                        }}>
+                                        <Chip text={person} />
+                                    </View>
+                                ))}
 
-                    <Text>Top Activity</Text>
-                    {analysis.whatActivity?.map((activity, index) => (
-                        <Text key={`${activity}-${index}`}>{activity}</Text>
-                    ))}
+                                {analysis.whatActivity?.map((activity, index) => (
+                                    <View key={`${activity}-${index}`}
+                                        style={{
+                                            alignSelf: 'flex-start'
+                                        }}>
+                                        <Chip text={activity} />
+                                    </View>
+                                ))}
+                            </View>
 
-                </View>
-
-            ))}
-            {/* {Object.entries(emotionCategoryCounts).map(([category, count], index) => (
-                <Text key={index}>{category}: {count}</Text>
-            ))}
-            <Text>Top 3 Locations: {topWhere.join(', ')}</Text>
-            <Text>Top 3 Companions: {topWithWho.join(', ')}</Text>
-            <Text>Top 3 Activities: {topActivity.join(', ')}</Text> */}
+                        </View>
+                    )
+                }
+                return null
+            })}
         </View>
     );
 }
 
 export default EmotionTriggerAnalysis;
+
+const emotionOrder = [ // Define the order of emotion categories
+    'Very Pleasant',
+    'Pleasant',
+    'Neutral',
+    'Slightly Unpleasant',
+    'Unpleasant'
+];

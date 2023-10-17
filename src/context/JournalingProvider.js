@@ -97,14 +97,14 @@ function journalingConfigReducer(state, action) {
                 const journalingConfig = JSON.parse(strJournalConfig);
                 return journalingConfig;
             }
-            console.log('afterGetRed', state)
+            // console.log('afterGetRed', state)
             return { ...state };  // return the current state if there is no data in storage
         }
         case 'updateJournalingConfig': {
             const updatedConfig = { ...state.journalThoughts };
             updatedConfig[action.payload.type] = [...updatedConfig[action.payload.type], action.payload.newConfig];
 
-            console.log('updatedConfig', updatedConfig)
+            // console.log('updatedConfig', updatedConfig)
 
             // Save journalingConfig to storage
             const newJournalingConfig = { ...state, ...action.payload };
@@ -137,7 +137,7 @@ function journalReducer(state, action) {
             if (strJournals) {
                 // Parse
                 const journals = JSON.parse(strJournals);
-                console.log('from storage', journals);
+                // console.log('from storage', journals);
                 // Put in the state
                 return [...journals]
             }
@@ -156,14 +156,14 @@ function journalReducer(state, action) {
 
             if (strJournals) {
                 journals = JSON.parse(strJournals);
-                console.log('from storage', journals);
+                // console.log('from storage', journals);
             }
 
             journals.push(newJournalData);
 
             const newJournals = JSON.stringify(journals);
             storage.set('journals', newJournals);
-            console.log('saved journals', newJournals);
+            // console.log('saved journals', newJournals);
 
             return [...state, newJournalData];
         }

@@ -25,7 +25,7 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
 
     const isSelected = currentJournal.emotionCategory === title;
 
-    console.log('jecat dalem: ', currentJournal.emotionCategory)
+    // console.log('jecat dalem: ', currentJournal.emotionCategory)
 
     /**
      * Handles the press event of an emotion category button.
@@ -34,8 +34,7 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
      */
     const handleEmotionCategoryPress = (title) => {
         if (!disabled) {
-            console.log('pressed')
-            // dispatchJournal({ type: 'setJournal', payload: { emotionCategory: title } });
+            // console.log('pressed')
             setCurrentJournal('emotionCategory', title)
         }
     };
@@ -54,9 +53,6 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
 
     if (disabled) {
         return (
-            // <View style={{ ...innerStyles }}>
-            //     <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{title}</Text>
-            // </View>
             <ImageBackground source={assets.images[variant]}
                 width={width}
                 height={width}
@@ -74,36 +70,24 @@ function EmotionCategoryButton({ title, isFillContainer, width, disabled, varian
     }
 
     return (
-        <>
-            {/* <Pressable
-                onPress={() => { handleEmotionCategoryPress(title) }}
+        <Pressable onPress={() => { handleEmotionCategoryPress(title) }}>
+            <ImageBackground source={assets.images[variant]}
+                width={width}
+                height={width}
                 style={{
-                    ...innerStyles
+                    opacity: isSelected ? 1 : .5
                 }}
             >
-                <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{title}</Text>
-            </Pressable> */}
-
-            <Pressable onPress={() => { handleEmotionCategoryPress(title) }}>
-                <ImageBackground source={assets.images[variant]}
-                    width={width}
-                    height={width}
-                    style={{
-                        opacity: isSelected ? 1 : .5
-                    }}
-                >
-                    <View style={{
-                        width: width,
-                        height: width,
-                    }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: sizes.padding.md }}>
-                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>{title}</Text>
-                        </View>
+                <View style={{
+                    width: width,
+                    height: width,
+                }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: sizes.padding.md }}>
+                        <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>{title}</Text>
                     </View>
-                </ImageBackground>
-            </Pressable>
-
-        </>
+                </View>
+            </ImageBackground>
+        </Pressable>
     );
 }
 

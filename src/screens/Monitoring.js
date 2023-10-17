@@ -39,18 +39,13 @@ function Monitoring(props) {
     }, {});
     const weeksData = Object.values(groupedData);
 
-    weeksData.forEach((weekData, index) => {
-        console.log(`week ${index + 1}`, weekData);
-    });
-
-    // console.log('journals', journals)
-    // console.log('weeksData', weeksData)
-
+    const scrollRefEmotions = useRef(null);
     return (
         <BlurredEllipsesBackground >
             <ScrollView
                 style={{ flex: 1 }}
                 contentInsetAdjustmentBehavior='automatic'
+                showsVerticalScrollIndicator={false}
             >
                 <SafeAreaView>
 
@@ -62,11 +57,10 @@ function Monitoring(props) {
                         <Text style={{ ...styles.text.header2, color: colors.orange }}>Monitoring</Text>
 
 
-
-
                         {/* Panic Attack History */}
                         <View style={{
                             gap: sizes.gap.md,
+                            paddingBottom: sizes.padding.md
                             // backgroundColor: 'red'
                         }} >
                             <Text style={styles.text.header3}>Panic Attack History</Text>
@@ -109,10 +103,10 @@ function Monitoring(props) {
 
 
                             <ScrollView
-                                // ref={scrollViewRef}
+                                ref={scrollRefEmotions}
                                 horizontal
                                 snapToAlignment='center'
-                                snapToInterval={weekIntervalWidth * 7}
+                                snapToInterval={weekIntervalWidth}
                                 decelerationRate={'fast'}
                                 showsHorizontalScrollIndicator={false}
                             >
@@ -121,9 +115,9 @@ function Monitoring(props) {
                                         key={index}
                                         style={{
                                             width: weekIntervalWidth,
-                                            backgroundColor: 'red',
-                                            borderColor: 'blue',
-                                            borderWidth: 1
+                                            // backgroundColor: 'red',
+                                            // borderColor: 'blue',
+                                            // borderWidth: 1
                                         }}>
                                         <EmotionTriggerAnalysis weekData={weekData} />
                                     </View>

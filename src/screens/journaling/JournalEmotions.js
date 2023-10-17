@@ -29,18 +29,8 @@ function JournalEmotions({ navigation }) {
 
     function onPressChip(emotion) {
         if (currentJournal.emotions?.includes(emotion)) {
-            // dispatchJournal({
-            //     type: 'setJournal',
-            //     payload: {
-            //         emotions: [...journal.emotions.filter(selectedEmotion => selectedEmotion !== emotion)],
-            //     },
-            // });
             setCurrentJournal('emotions', [...currentJournal.emotions.filter(selectedEmotion => selectedEmotion !== emotion)])
         } else {
-            // dispatchJournal({
-            //     type: 'setJournal',
-            //     payload: { emotions: [...journal.emotions, emotion] },
-            // });
             setCurrentJournal('emotions', [...currentJournal.emotions, emotion])
         }
     }
@@ -53,7 +43,7 @@ function JournalEmotions({ navigation }) {
         navigation.navigate('Journal Thoughts')
     }
 
-    console.log('isSelected', isChipSelected('Amazing'));
+    // console.log('isSelected', isChipSelected('Amazing'));
 
     return (
         <BlurredEllipsesBackground>

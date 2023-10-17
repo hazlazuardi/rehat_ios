@@ -1,12 +1,9 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
 import { storage } from "../../App";
-import { formatDate } from "../helpers/useDateFormatter";
 import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
-import useEmergencyContacts from "../helpers/useEmergencyContacts";
 import { Appearance } from "react-native";
 import { MonitoringProvider } from "./MonitoringProvider";
-import useManageJournaling from "../helpers/useManageJournaling";
 import CurrentJournalProvider from "./CurrentJournalProvider";
 import JournalingProvider from "./JournalingProvider";
 
@@ -104,10 +101,10 @@ function recoveryReferencesReducer(state, action) {
 			return [...state]; // return the current state if there is no data in storage
 		}
 		case 'sortRecoveryReferences': {
-			console.log('sorted', action.payload)
+			// console.log('sorted', action.payload)
 			const strRecoveryReferences = JSON.stringify(action.payload);
 			storage.set('recoveryReferences', strRecoveryReferences);
-			console.log('saved', action.payload)
+			// console.log('saved', action.payload)
 			updateApplicationContext({ 'recoveryReferences': [...action.payload] })
 			return [
 				...action.payload
@@ -188,14 +185,14 @@ function goalsReducer(state, action) {
 
 			if (strGoals) {
 				goals = JSON.parse(strGoals);
-				console.log('from storage', goals);
+				// console.log('from storage', goals);
 			}
 
 			goals.push(newGoalsData);
 
 			const newGoals = JSON.stringify(goals);
 			storage.set('goals', newGoals);
-			console.log('saved goals', newGoals);
+			// console.log('saved goals', newGoals);
 
 			return { ...initialGoals };
 		}
