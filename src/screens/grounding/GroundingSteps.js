@@ -9,29 +9,58 @@ import {
   TextInput,
   Modal,
   TouchableHighlight,
+  Keyboard,
 } from 'react-native';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 import {colors, sizes, styles} from '../../data/theme';
+import useFormattedDate from '../../helpers/useDateFormatter';
 import checklist from '../../../assets/img/checklist1.png';
+import ChipInput from '../../components/ChipInput';
+import {useJournal, useJournalingConfig} from '../../context/Context';
 
 function GroundingSteps({navigation}) {
   const [input, setInput] = useState();
   const [state, setState] = useState(0);
   const [finished, setFinished] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const {journal, dispatchJournal} = useJournal();
+  const {journalingConfig, dispatchJournalingConfig} = useJournalingConfig();
+  const {dateString, timeString} = useFormattedDate(journal.dateAdded);
+  const [isShouldReturn, setIsShouldReturn] = useState(false);
+  const requiredChipsCount = 5 - state;
+
+  // State to store the values of the ChipInputs
+  const [chipValues, setChipValues] = useState({});
+
+  // Handler to update the chipValues state
+  const handleChipEndEditing = (value, type) => {
+    setChipValues(prevValues => ({
+      ...prevValues,
+      [type]: value,
+    }));
+  };
 
   const handleNextPress = () => {
-    if (!input || input.trim() === '') {
-      alert('Write something into the textbox!');
+    const requiredChips = ['1', '2', '3', '4', '5'].slice(0, 6 - (state + 1)); // Adjust the number of chips based on the state
+    const allChipsFilled = requiredChips.every(
+      chip => chipValues[chip] && chipValues[chip].trim() !== '',
+    );
+
+    if (!allChipsFilled) {
+      alert('Please input values for all chips before proceeding!');
       return;
     }
+
     if (state === 4) {
       setFinished(true);
       return;
     }
     setState(state + 1);
     setInput('');
+
+    // Reset chip values for the next set
+    setChipValues({});
   };
 
   const data = [
@@ -45,9 +74,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Acknowledge <Text style={{color: colors.orange}}>FIVE</Text>{' '}
-          things you can <Text style={{color: colors.orange}}>SEE</Text> around
-          you.
+          Acknowledge <Text style={{color: colors.orange}}>FIVE</Text> things
+          you can <Text style={{color: colors.orange}}>SEE</Text> around you.
         </Text>
       ),
       learnText:
@@ -64,9 +92,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Recognise <Text style={{color: colors.orange}}>FOUR</Text>{' '}
-          things you can <Text style={{color: colors.orange}}>TOUCH</Text>{' '}
-          around you.
+          Recognise <Text style={{color: colors.orange}}>FOUR</Text> things you
+          can <Text style={{color: colors.orange}}>TOUCH</Text> around you.
         </Text>
       ),
       learnText:
@@ -83,8 +110,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Listen for <Text style={{color: colors.orange}}>THREE</Text>{' '}
-          things you can <Text style={{color: colors.orange}}>HEAR</Text>.
+          Listen for <Text style={{color: colors.orange}}>THREE</Text> things
+          you can <Text style={{color: colors.orange}}>HEAR</Text>.
         </Text>
       ),
       learnText:
@@ -101,8 +128,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-        Note <Text style={{color: colors.orange}}>TWO</Text> things
-          you can <Text style={{color: colors.orange}}>SMELL</Text>.
+          Note <Text style={{color: colors.orange}}>TWO</Text> things you can{' '}
+          <Text style={{color: colors.orange}}>SMELL</Text>.
         </Text>
       ),
       learnText:
@@ -119,8 +146,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Recognize <Text style={{color: colors.orange}}>ONE</Text>{' '}
-          thing you can <Text style={{color: colors.orange}}>TASTE</Text>.
+          Recognize <Text style={{color: colors.orange}}>ONE</Text> thing you
+          can <Text style={{color: colors.orange}}>TASTE</Text>.
         </Text>
       ),
       learnText:
@@ -210,26 +237,26 @@ function GroundingSteps({navigation}) {
                 }}>
                 <Image source={data[state]?.icon} />
               </View>
-              <View style={{padding: 20}}>
-                <TextInput
-                  placeholder="...."
-                  placeholderTextColor="#F8F8F8"
-                  editable
-                  multiline
-                  numberOfLines={4}
-                  maxLength={40}
-                  onChangeText={text => setInput(text)}
-                  value={input}
-                  style={{
-                    color: 'white',
-                    marginTop: 20,
-                    borderRadius: 10,
-                    height: 200,
-                    padding: 20,
-                    paddingTop: 25,
-                    backgroundColor: 'rgba(217, 217, 217, 0.08)',
-                  }}
-                />
+              <View
+                style={{
+                  padding: 20,
+                  flexDirection: 'row',
+                  gap: 10,
+                  flexWrap: 'wrap',
+                }}>
+                {Array.from({length: requiredChipsCount}, (_, i) =>
+                  (i + 1).toString(),
+                ).map(type => (
+                  <ChipInput
+                    value={chipValues[type]}
+                    key={type}
+                    type={type}
+                    onEndEditing={(value, type) =>
+                      handleChipEndEditing(value, type)
+                    }
+                    onFocus={() => setIsShouldReturn(true)}
+                  />
+                ))}
               </View>
               <View style={{padding: 24}}>
                 <Pressable onPress={handleNextPress}>

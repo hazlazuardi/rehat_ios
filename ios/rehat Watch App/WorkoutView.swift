@@ -17,6 +17,15 @@ struct WorkoutView: View {
           Text("Start Workout")
         }
         Button {
+          workoutManager.togglePause()
+        } label: {
+          if workoutManager.running {
+            Text("Pause Workout")
+          } else {
+            Text("Resume Workout")
+          }
+        }
+        Button {
           workoutManager.endWorkout()
         } label: {
           Text("End Workout")
