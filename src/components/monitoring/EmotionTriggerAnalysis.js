@@ -2,6 +2,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { analyzeEmotionTriggers } from '../../helpers/helpers';
+import { sizes } from '../../data/theme';
+import { weekIntervalWidth } from '../../helpers/usePanicHistory';
 
 function EmotionTriggerAnalysis({ weekData }) {
 
@@ -22,21 +24,29 @@ function EmotionTriggerAnalysis({ weekData }) {
     console.log('anal', weekAnalysis)
 
     return (
-        <View>
-            <Text>Emotion Category Counts:</Text>
+        <View style={{
+            // flexDirection: 'row',
+            gap: sizes.gap.sm,
+        }}>
             {Object.entries(weekAnalysis).map(([emotionCategory, analysis]) => (
-                <View key={emotionCategory}>
-                    <Text>{emotionCategory}</Text>
+                <View key={emotionCategory} >
+                    <Text>{emotionCategory} x{analysis.count}</Text>
+
                     <Text>Top Locations</Text>
                     {analysis.where?.map((location, index) => (
-                        <Text key={`${location}-${index}`}>{location}</Text>))}
+                        <Text key={`${location}-${index}`}>{location}</Text>
+                    ))}
+
+
                     <Text>Top People</Text>
                     {analysis.withWho?.map((person, index) => (
-                        <Text key={`${person}-${index}`}>{person}</Text>))}
+                        <Text key={`${person}-${index}`}>{person}</Text>
+                    ))}
 
                     <Text>Top Activity</Text>
                     {analysis.whatActivity?.map((activity, index) => (
-                        <Text key={`${activity}-${index}`}>{activity}</Text>))}
+                        <Text key={`${activity}-${index}`}>{activity}</Text>
+                    ))}
 
                 </View>
 

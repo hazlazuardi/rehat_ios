@@ -124,19 +124,32 @@ export function analyzeEmotionTriggers(weekData) {
     weekData.forEach((entry) => {
         const { emotionCategory, where, withWho, whatActivity } = entry;
 
+        // Initialize the category analysis object if necessary
         if (!emotionAnalysis[emotionCategory]) {
             emotionAnalysis[emotionCategory] = {
+                count: 0,  // Initialize count for each emotionCategory
                 where: {},
                 withWho: {},
                 whatActivity: {},
             };
         }
 
+        // Increment the count for the emotionCategory
+        emotionAnalysis[emotionCategory].count += 1;
+
         // Increment the count for each category
         emotionAnalysis[emotionCategory].where[where] = (emotionAnalysis[emotionCategory].where[where] || 0) + 1;
         emotionAnalysis[emotionCategory].withWho[withWho] = (emotionAnalysis[emotionCategory].withWho[withWho] || 0) + 1;
         emotionAnalysis[emotionCategory].whatActivity[whatActivity] = (emotionAnalysis[emotionCategory].whatActivity[whatActivity] || 0) + 1;
     });
+
+    // Function to calculate top 3 most common values in an object
+    const getTopThree = (obj) => {
+        return Object.entries(obj)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3)
+            .map(item => item[0]);
+    };
 
     // Get the top three for each category
     for (const emotionCategory in emotionAnalysis) {
