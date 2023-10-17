@@ -59,7 +59,7 @@ struct RecoveryView: View {
             NavigationLink(destination: AffirmView()) {
               VStack(alignment: .leading) {
                 Image(systemName: "face.smiling.inverse")
-                  .foregroundColor(.teal)
+                  .foregroundColor(.purple)
                   .frame(width: 30, height: 30)
                   .padding(.top, 5)
                   .scaleEffect(1.5)
@@ -118,13 +118,12 @@ struct RecoveryView: View {
         .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       }
       .navigationTitle("Recovery")
-      
+//      .containerBackground(.orange.gradient, for: .navigation)
     } detail: {
       
       BreathView()
       
     }
-//    .containerBackground(.orange.gradient, for: .navigation)
   }
 }
 
