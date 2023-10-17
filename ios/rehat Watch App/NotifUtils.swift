@@ -26,35 +26,21 @@ func sendNotification() {
     let notifContent = UNMutableNotificationContent()
     notifContent.title = "Hey there"
     notifContent.body = "How are you feeling?"
+    notifContent.sound = .default
+    notifContent.categoryIdentifier = "NOTIF_ACTIONS"
+  
+  
+    let action = UNNotificationAction(
+      identifier: "SEEK_HELP",
+      title: "I need guidance",
+      options: [.foreground])
+    let category = UNNotificationCategory(
+      identifier: "NOTIF_ACTIONS",
+      actions: [action],
+      intentIdentifiers: [],
+      options: [])
     
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.001, repeats: false)
-    
-    // Create the request
-    let uuidString = UUID().uuidString
-    let request = UNNotificationRequest(identifier: uuidString,
-                content: notifContent, trigger: trigger)
-
-    // Schedule the request with the system.
-    let notificationCenter = UNUserNotificationCenter.current()
-    notificationCenter.add(request) { (error) in
-       if error != nil {
-          // Handle any errors.
-       } else {
-         print("Successfully requested notification to notifCenter!")
-       }
-    }
-}
-
-func notifyOnPredict() {
-  // FIXME: actually read HRs please
-  let positiveLabels: [Int64] = [1, 2]
-  let classifierOutput = predict(hr: 88.8, sdnn: 55.5)
-  if positiveLabels.contains(classifierOutput.label) {
-    let notifContent = UNMutableNotificationContent()
-    notifContent.title = "Notif Title"
-    notifContent.body = "Lorem ipsum dolor sit amet"
-    
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
     
     // Create the request
     let uuidString = UUID().uuidString
@@ -63,6 +49,7 @@ func notifyOnPredict() {
 
     // Schedule the request with the system.
     let notificationCenter = UNUserNotificationCenter.current()
+    notificationCenter.setNotificationCategories([category])
     notificationCenter.add(request) { (error) in
        if error != nil {
           // Handle any errors.
@@ -70,5 +57,4 @@ func notifyOnPredict() {
          print("Successfully requested notification to notifCenter!")
        }
     }
-  }
 }

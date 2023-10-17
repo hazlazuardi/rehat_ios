@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,16 +7,16 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Pressable} from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
+import { Pressable } from 'react-native';
+import { colors } from '../data/theme';
+import { sizes } from '../data/theme';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../components/learn/LearnCard';
 import data from '../data/articles';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 
-function CognitiveDetail({route, navigation}) {
-  const {data, inputText} = route.params;
+function CognitiveDetail({ route, navigation }) {
+  const { data, inputText } = route.params;
   const [input, setInput] = useState('');
 
   const isInputChanged = () => {
@@ -47,8 +47,8 @@ function CognitiveDetail({route, navigation}) {
           // backgroundColor: colors.darkTurquoise
         }}
         contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
-          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+        <SafeAreaView style={{ marginBottom: 100 }}>
+          <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View>
               <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
             </View>
@@ -60,8 +60,8 @@ function CognitiveDetail({route, navigation}) {
               ?.filter(d => d.choosen === true)
               .map(dats => {
                 return (
-                  <View style={styles.choice2}>
-                    <Text style={{color: 'white'}}>{dats?.text}</Text>
+                  <View key={dats?.text} style={styles.choice2}>
+                    <Text style={{ color: 'white' }}>{dats?.text}</Text>
                   </View>
                 );
               })}

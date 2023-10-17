@@ -93,6 +93,8 @@ struct AffirmView: View {
 //        Spacer()
       }
     }
+    .navigationTitle("Affirmation")
+    .containerBackground(.teal.gradient, for: .navigation)
     .onAppear {
       // Load an initial random affirmation
       randomAffirmation = affirmData.getRandomAffirmation()

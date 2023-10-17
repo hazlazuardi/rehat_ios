@@ -76,7 +76,7 @@ function CognitiveAnotherWay({ route, navigation }) {
         ?.filter(d => d.choosen === true)
         .map(dats => {
           return (
-            <View style={styles.choice2}>
+            <View key={dats?.text} style={styles.choice2}>
               <Text style={{ color: 'white' }}>{dats?.text}</Text>
             </View>
           );

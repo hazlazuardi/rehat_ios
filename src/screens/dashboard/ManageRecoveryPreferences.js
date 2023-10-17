@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Pressable, ScrollView, Text, View } from 'react-native'
-import { sizes, styles } from '../../data/theme'
+// import { SafeAreaView } from 'react-native-safe-area-context'
+import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { colors, sizes, styles } from '../../data/theme'
 import Divider from '../../components/Divider'
 import PrimaryButton from '../../components/PrimaryButton'
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { useRecoveryReferences } from '../../context/Context'
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground'
 
 function ManageRecoveryPreferences(props) {
 
@@ -43,20 +44,32 @@ function ManageRecoveryPreferences(props) {
     }
 
     return (
-        // <ScrollView >
-        <SafeAreaView style={{ gap: sizes.gap.lg, flex: 1, paddingTop: sizes.padding.lg * 2, paddingHorizontal: sizes.padding.md }}>
-            <Text style={{ ...styles.text.header2 }}>Recovery References</Text>
-            <DraggableFlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.key}
-                onDragEnd={handleDragEnd}
-                drag={isDraggingEnabled}
-                scrollEnabled={false}
-            />
-            <PrimaryButton text={isDraggingEnabled ? 'Save' : 'Edit'} color='grey' onPress={handlePrimaryButton} />
-        </SafeAreaView>
-        // </ScrollView>
+        <BlurredEllipsesBackground>
+            <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>
+                <SafeAreaView>
+                    <View style={{
+                        flex: 1,
+                        gap: sizes.gap.lg,
+                        // alignItems: 'center',
+                        // justifyContent: 'center',
+                        paddingHorizontal: sizes.padding.md,
+                        paddingBottom: sizes.padding.lg * 2,
+                        paddingTop: sizes.padding.lg
+                    }}
+                    >
+                        <DraggableFlatList
+                            data={data}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.key}
+                            onDragEnd={handleDragEnd}
+                            drag={isDraggingEnabled}
+                            scrollEnabled={false}
+                        />
+                        <PrimaryButton text={isDraggingEnabled ? 'Save' : 'Edit'} color={colors.almostBlack} onPress={handlePrimaryButton} />
+                    </View>
+                </SafeAreaView>
+            </ScrollView>
+        </BlurredEllipsesBackground>
     )
 }
 
@@ -73,7 +86,7 @@ function ListItem({ title, subtitle, isActive, isDraggingEnabled }) {
             justifyContent: 'space-between',
             paddingVertical: sizes.padding.sm,
             paddingHorizontal: sizes.padding.md,
-            backgroundColor: isActive ? 'rgba(50,50,50,0.5)' : 'grey',
+            backgroundColor: isActive ? colors.whiteSoTransparent : colors.darkGrey,
             borderRadius: sizes.radius.sm
         }}>
             <View>

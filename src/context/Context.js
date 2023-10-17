@@ -34,6 +34,9 @@ const RecoveryReferencesContext = createContext(null);
 
 const GoalsContext = createContext(null)
 
+const GoalsConfigContext = createContext(null)
+
+
 const LearnContext = createContext(null)
 
 /**
@@ -64,6 +67,8 @@ function StoreProvider({ children }) {
 
 	const [goals, dispatchGoals] = useReducer(goalsReducer, initialGoals)
 
+	const [goalsConfig, dispatchGoalsConfig] = useReducer(goalsConfigReducer, initialGoalsConfig)
+
 	const [learnedArticles, dispatchLearnedArticles] = useReducer(learnReducer, initialLearnedArticles)
 
 	// Retrieve emergency contacts from the storage
@@ -74,6 +79,7 @@ function StoreProvider({ children }) {
 		dispatchJournalingConfig({ type: 'getJournalingConfig' });
 		dispatchLearnedArticles({ type: 'getAllLearnedArticles' });
 		dispatchGoals({ type: 'getAllGoals' });
+		dispatchGoalsConfig({ type: 'getGoalsConfig' });
 	}, []);
 
 	// Update ApplicationContext for the Watch App
@@ -97,9 +103,11 @@ function StoreProvider({ children }) {
 					<JournalContext.Provider value={{ journal, dispatchJournal }}>
 						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
 							<GoalsContext.Provider value={{ goals, dispatchGoals }}>
-								<LearnContext.Provider value={{ learnedArticles, dispatchLearnedArticles }}>
-									{children}
-								</LearnContext.Provider>
+								<GoalsConfigContext.Provider value={{ goalsConfig, dispatchGoalsConfig }}>
+									<LearnContext.Provider value={{ learnedArticles, dispatchLearnedArticles }}>
+										{children}
+									</LearnContext.Provider>
+								</GoalsConfigContext.Provider>
 							</GoalsContext.Provider>
 						</JournalingConfigContext.Provider>
 					</JournalContext.Provider>
@@ -150,6 +158,9 @@ export function useRecoveryReferences() {
 
 export function useGoals() {
 	return useContext(GoalsContext);
+}
+export function useGoalsConfig() {
+	return useContext(GoalsConfigContext);
 }
 
 export function useLearn() {
@@ -206,7 +217,7 @@ function journalReducer(state, action) {
 
 			return { ...initialJournal };
 		}
-		case 'eraseJournals': {
+		case 'eraseAllJournals': {
 			storage.delete('journals');
 			return { ...initialJournal };
 		}
@@ -410,6 +421,35 @@ function goalsReducer(state, action) {
 			}
 			return [...state];
 		}
+		case 'setGoal': {
+			return {
+				...state,
+				...action.payload
+			}
+		}
+		case 'saveJournal': {
+			const strGoals = storage.getString('goals');
+
+			const newGoalsData = {
+				...state,
+				id: state.dateAdded
+			};
+
+			let goals = [];
+
+			if (strGoals) {
+				goals = JSON.parse(strGoals);
+				console.log('from storage', goals);
+			}
+
+			goals.push(newGoalsData);
+
+			const newGoals = JSON.stringify(goals);
+			storage.set('goals', newGoals);
+			console.log('saved goals', newGoals);
+
+			return { ...initialGoals };
+		}
 		case 'addGoal': {
 			const updatedGoals = [
 				...state,
@@ -442,8 +482,90 @@ function goalsReducer(state, action) {
 
 const initialGoals = [
 	// Example
-	// { id: 1, text: "Learn React Native", isCompleted: false }
+	// {
+	// 	id: 1,
+	// 	period: "8 Months",
+	// 	action: "Practice Journaling",
+	// 	duration: "10 Minutes",
+	// 	method: "Journaling",
+	// 	outcome: "Reduce panic attack frequency"
+	// }
 ];
+
+
+
+function goalsConfigReducer(state, action) {
+	switch (action.type) {
+
+		case 'getGoalsConfig': {
+			const strGoalsConfig = storage.getString('goalsConfig');
+			if (strGoalsConfig) {
+				const goalsConfig = JSON.parse(strGoalsConfig);
+				return goalsConfig;
+			}
+			return { ...state };  // return the current state if there is no data in storage
+		}
+
+		case 'addGoalsConfig': {
+			const updatedConfig = [...state[action.payload.type], action.payload.value];
+
+			console.log('upconfgol', updatedConfig)
+
+			// Save goalsConfig to storage
+			const newGoalsConfig = { ...state, [action.payload.type]: updatedConfig };
+			const strGoalsConfig = JSON.stringify(newGoalsConfig);
+			storage.set('goalsConfig', strGoalsConfig);
+			return newGoalsConfig;
+		}
+
+		case 'removeGoalsConfig': {
+			const updatedConfig = [...state[action.payload.type]];
+			const index = updatedConfig.indexOf(action.payload.value);
+			if (index > -1) {
+				updatedConfig.splice(index, 1);
+			}
+
+			// Save goalsConfig to storage
+			const newGoalsConfig = { ...state, [action.payload.type]: updatedConfig };
+			const strGoalsConfig = JSON.stringify(newGoalsConfig);
+			storage.set('goalsConfig', strGoalsConfig);
+			return newGoalsConfig;
+		}
+
+		case 'clearGoalsConfig': {
+			// Clear goalsConfig from storage
+			storage.delete('goalsConfig');
+			// Return the initial state or some other default configuration
+			return { ...initialGoalsConfig };
+		}
+
+		default:
+			return state;
+	}
+}
+
+
+
+const initialGoalsConfig = {
+	periods: [
+		"8 Months",
+		"1 Week"
+	],
+	durations: [
+		"10 Minutes",
+		"2x a Day",
+
+	],
+	methods: [
+		"Journaling",
+		"Thoughts Reframing",
+		"Guided Breathing",
+		"5-4-3-2-1",
+		"Connecting with My Body",
+		"Muscle Relaxation",
+	],
+}
+
 
 function learnReducer(state, action) {
 	switch (action.type) {
