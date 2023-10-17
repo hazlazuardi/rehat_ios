@@ -26,6 +26,9 @@ import home from '../assets/icons/home_icon.png'
 import recovery from '../assets/icons/recovery_icon.png'
 import learn from '../assets/icons/learn_icon.png'
 import monitoring from '../assets/icons/monitoring_icon.png'
+import kutip from '../assets/images/kutip.png'
+import kutipakhir from '../assets/images/kutipakhir.png'
+import call from '../assets/images/Call.png'
 
 
 export default {
@@ -58,6 +61,9 @@ export default {
         unpleasant: unpleasant,
         neutral: neutral,
         pleasant: pleasant,
-        very_pleasant: very_pleasant
+        very_pleasant: very_pleasant,
+        kutip: kutip,
+        kutipakhir:kutipakhir,
+        call:call
     }
 }
