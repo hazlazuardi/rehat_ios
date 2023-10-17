@@ -5,6 +5,7 @@ import { formatDate } from "../helpers/useDateFormatter";
 import { updateApplicationContext, watchEvents, sendMessage } from 'react-native-watch-connectivity';
 import useEmergencyContacts from "../helpers/useEmergencyContacts";
 import { Appearance } from "react-native";
+import { MonitoringProvider } from "./MonitoringProvider";
 
 
 /**
@@ -98,21 +99,23 @@ function StoreProvider({ children }) {
 
 	return (
 		<ThemeContext.Provider value={{}}>
-			<RecoveryReferencesContext.Provider value={{ recoveryReferences, dispatchRecoveryReferences }}>
-				<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
-					<JournalContext.Provider value={{ journal, dispatchJournal }}>
-						<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
-							<GoalsContext.Provider value={{ goals, dispatchGoals }}>
-								<GoalsConfigContext.Provider value={{ goalsConfig, dispatchGoalsConfig }}>
-									<LearnContext.Provider value={{ learnedArticles, dispatchLearnedArticles }}>
-										{children}
-									</LearnContext.Provider>
-								</GoalsConfigContext.Provider>
-							</GoalsContext.Provider>
-						</JournalingConfigContext.Provider>
-					</JournalContext.Provider>
-				</EmergencyContactsContext.Provider>
-			</RecoveryReferencesContext.Provider>
+			<MonitoringProvider>
+				<RecoveryReferencesContext.Provider value={{ recoveryReferences, dispatchRecoveryReferences }}>
+					<EmergencyContactsContext.Provider value={{ emergencyContacts, dispatchEmergencyContacts }}>
+						<JournalContext.Provider value={{ journal, dispatchJournal }}>
+							<JournalingConfigContext.Provider value={{ journalingConfig, dispatchJournalingConfig }}>
+								<GoalsContext.Provider value={{ goals, dispatchGoals }}>
+									<GoalsConfigContext.Provider value={{ goalsConfig, dispatchGoalsConfig }}>
+										<LearnContext.Provider value={{ learnedArticles, dispatchLearnedArticles }}>
+											{children}
+										</LearnContext.Provider>
+									</GoalsConfigContext.Provider>
+								</GoalsContext.Provider>
+							</JournalingConfigContext.Provider>
+						</JournalContext.Provider>
+					</EmergencyContactsContext.Provider>
+				</RecoveryReferencesContext.Provider>
+			</MonitoringProvider>
 		</ThemeContext.Provider>
 	);
 }
