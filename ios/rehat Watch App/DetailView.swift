@@ -10,6 +10,7 @@ import SwiftUI
 #warning ("TODO: end component if AppState is panic AND (when user scrolls past chosen technique's end slide OR user wants to choose another technique)")
 struct DetailView: View {
   @EnvironmentObject var appState: AppState
+  @EnvironmentObject var workoutManager: WorkoutManager
   var therapy: Therapy
   
   var body: some View {
@@ -34,6 +35,11 @@ struct DetailView: View {
               
             }
           }
+        }
+      }
+      .onAppear {
+        if appState.isPanic {
+          workoutManager.methodsUsed.append(therapy.name)
         }
       }
       .containerBackground(.green.gradient, for: .navigation)

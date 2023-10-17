@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EmergencyContactsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var appState: AppState
     @ObservedObject var rnConnector: RNConnector
 //  @ObservedObject var rnConnector = RNConnector()
   
@@ -37,6 +38,10 @@ struct EmergencyContactsView: View {
         .buttonStyle(PlainButtonStyle()) // This will remove the default button appearance
       }
       .navigationTitle("Emergency Contacts")
+    }.onAppear {
+      if appState.isPanic {
+        workoutManager.methodsUsed.append(RecoveryMethodNames.call.rawValue)
+      }
     }
   }
 }

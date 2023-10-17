@@ -9,6 +9,7 @@ import SwiftUI
 import WatchKit
 
 struct BreathView: View {
+  @EnvironmentObject var workoutManager: WorkoutManager
   @EnvironmentObject var appState: AppState
   enum TimerState: Equatable {
     case selection
@@ -147,6 +148,9 @@ struct BreathView: View {
     }
     .containerBackground(.blue.gradient, for: .navigation)
     .onAppear {
+      if appState.isPanic {
+        workoutManager.methodsUsed.append(RecoveryMethodNames.breathing.rawValue)
+      }
       startTextTimer()
       if self.autoStart {
         let breathePhase = breathingOptions[self.firstPreferenceIndex]
