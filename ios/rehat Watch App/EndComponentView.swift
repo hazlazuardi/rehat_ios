@@ -23,13 +23,19 @@ enum RecoveryMethodNames: String {
 //    or end the recovery session.
 // Takes the chosen method as a string
 struct EndComponentView: View {
-  @State var chosenMethod: RecoveryMethodNames
-  @ObservedObject var therapyList = ReadDataTherapy()
+  @EnvironmentObject var appState: AppState
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+      VStack {
+        Button {
+          appState.setPanicFalse()
+          // TODO: wrap up panic pipeline.
+        } label: {
+          Text("I'm Fine Now")
+        }
+      }
     }
 }
 
 #Preview {
-  return EndComponentView(chosenMethod: RecoveryMethodNames.breathing)
+  return EndComponentView()
 }

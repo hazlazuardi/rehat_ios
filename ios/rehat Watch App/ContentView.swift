@@ -11,17 +11,18 @@ struct ContentView: View {
   @StateObject var rnConnector = RNConnector()
   @EnvironmentObject var workoutManager: WorkoutManager
   @EnvironmentObject var appState: AppState
+  @State var selection = 1
   var body: some View {
     if appState.isPanic {
       // handle flow on panic button pressed
       PanicRecoveryPipelineView(rnConnector: rnConnector)
     } else {
       TabView {
-        NotifTestView()
-        PanicView()
+        PanicView().tag(1)
         RecoveryView(rnConnector: rnConnector)
         EmergencyContactsView(rnConnector: rnConnector)
       }.onAppear(perform: {
+        self.selection = 1
         requestAuthorizations()
         if (!workoutManager.isPanic && !workoutManager.running) {
           workoutManager.startWorkout()
