@@ -57,7 +57,7 @@ struct RecoveryView: View {
             NavigationLink(destination: AffirmView()) {
               VStack(alignment: .leading) {
                 Image(systemName: "face.smiling.inverse")
-                  .foregroundColor(.teal)
+                  .foregroundColor(.purple)
                   .frame(width: 30, height: 30)
                   .padding(.top, 5)
                   .scaleEffect(1.5)
@@ -80,14 +80,6 @@ struct RecoveryView: View {
               }
             }
           }
-//          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
-//            NavigationLink(destination: DetailView(therapy: therapy)) {
-//              Text(therapy.name)
-//                .font(.title3)
-//                .fontWeight(.regular)
-//                .foregroundColor(Color.primary)
-//            }
-//          }
           else if reference.label == "Grounding Technique" {
             Section {
               ForEach(recoveryDatas.therapies, id: \.id) { therapy in
@@ -112,13 +104,12 @@ struct RecoveryView: View {
         .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       }
       .navigationTitle("Recovery")
-      
+//      .containerBackground(.orange.gradient, for: .navigation)
     } detail: {
       
       BreathView()
       
     }
-//    .containerBackground(.orange.gradient, for: .navigation)
   }
 }
 
