@@ -45,25 +45,9 @@ struct rehat_Watch_WidgetEntryView : View {
   var entry: Provider.Entry
 
   var body: some View {
-    //        VStack {
-    //            HStack {
-    //                Text("Time:")
-    //                Text(entry.date, style: .time)
-    //            }
-    //
-    //            Text("Emoji:")
-    //            Text(entry.emoji)
-    //        }
-//    ZStack {
-//      AccessoryWidgetBackground()
-//      Image("AppIcon")
-//        .font(.title.bold())
-//        .widgetAccentable()
-//    }
     switch family {
     case .accessoryCorner:
       rehatCornerComplication()
-//      Text("kontol")
     case .accessoryCircular:
       rehatCircularComplication()
     default:
@@ -80,7 +64,6 @@ struct rehat_Watch_Widget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(watchOS 10.0, *) {
                 rehat_Watch_WidgetEntryView(entry: entry)
-//              RehatComplicationView()
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
                 rehat_Watch_WidgetEntryView(entry: entry)
@@ -98,5 +81,4 @@ struct rehat_Watch_Widget: Widget {
     rehat_Watch_Widget()
 } timeline: {
     SimpleEntry(date: .now, emoji: "😀")
-//    SimpleEntry(date: .now, emoji: "🤩")
 }

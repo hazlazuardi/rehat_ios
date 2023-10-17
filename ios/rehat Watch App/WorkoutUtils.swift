@@ -15,17 +15,24 @@ import HealthKit
 // Adapted from: https://developer.apple.com/videos/play/wwdc2021/10009/
 class WorkoutManager: NSObject, ObservableObject {
   let healthStore = RehatHealthStore.store
-  @Published var isPanic: Bool = false
+  
+  // biofeedback data
   @Published var heartRate: Double = 0.0
   @Published var restingHeartRate: Double = 0.0
   @Published var hrv: Double = 0.0
   @Published var workout: HKWorkout?
   private var averageHeartRate: Double = 0.0
+  
+  // prediction notif downtime settings
   private var dateOnLastNotifSent: Date = Calendar.current.startOfDay(for: .now)
   private var dateOnLastPredict: Date = Calendar.current.startOfDay(for: .now)
   // FIXME: Tweak these downtime intervals
   private let NOTIF_DOWNTIME: Double = -3600
   private let PREDICT_DOWNTIME: Double = -60
+  
+  // panic state tracking
+  @Published var isPanic: Bool = false
+  private var treatmentStart: Date = Calendar.current.startOfDay(for: .now)
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -203,4 +210,8 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             updateForStatistics(statistics)
         }
     }
+}
+
+func setPanic(appState: AppState) {
+  appState.setPanicTrue()
 }

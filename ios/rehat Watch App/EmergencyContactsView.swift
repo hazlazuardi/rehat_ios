@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EmergencyContactsView: View {
+    @EnvironmentObject var workoutManager: WorkoutManager
     @ObservedObject var rnConnector: RNConnector
 //  @ObservedObject var rnConnector = RNConnector()
   
@@ -27,15 +28,16 @@ struct EmergencyContactsView: View {
         }) {
           VStack(alignment: .leading) {
             Text(contact.name)
-              .font(.headline)
-              .fontWeight(.bold)
-            //                      Text(contact.phoneNum)
-            //                          .font(.subheadline)
+              .font(.title3)
+            Text(contact.phoneNum)
+              .font(.caption2)
+              .foregroundColor(Color.white.opacity(0.5))
           }
         }
         .buttonStyle(PlainButtonStyle()) // This will remove the default button appearance
       }
       .navigationTitle("Emergency Contacts")
+      .containerBackground(.green.gradient, for: .navigation)
     }
   }
 }

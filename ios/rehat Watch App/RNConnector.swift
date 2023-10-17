@@ -23,6 +23,8 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   var session: WCSession
   
   @Published var contacts: [Contact] = []
+  
+  // TODO: check id for preference
   @Published var recoveryReferences: [RecoveryReference] = [
       RecoveryReference(id: "1", label: "Guided Breathing"),
       RecoveryReference(id: "2", label: "Self-Affirmation"),

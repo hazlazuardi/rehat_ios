@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct PanicView: View {
+  @EnvironmentObject var appState: AppState
+  
   var body: some View {
-    NavigationView {
-      VStack {
-        NavigationLink(destination: BreathView()) {
-          Text("PANIC")
-            .font(.largeTitle)
-            .foregroundColor(.white)
-            .padding()
-            .background(Circle().fill(Color.red))
-        }
+    VStack {
+      // TODO: calm design???
+      Button {
+        appState.setPanicTrue()
+      } label: {
+        Text("I Need Some Help")
       }
     }
   }

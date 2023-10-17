@@ -45,9 +45,11 @@ class ReadDataTherapy: ObservableObject {
 }
 
 struct RecoveryView: View {
+  @EnvironmentObject var workoutManager: WorkoutManager
   @ObservedObject var recoveryDatas = ReadDataTherapy()
   @ObservedObject var rnConnector: RNConnector
-  @State private var isPresented: Bool = true
+  @State private var isPresented: Bool = false
+  @State public var emergencyContactsShown: Bool = false
   
   var body: some View {
     NavigationSplitView {
@@ -57,7 +59,7 @@ struct RecoveryView: View {
             NavigationLink(destination: AffirmView()) {
               VStack(alignment: .leading) {
                 Image(systemName: "face.smiling.inverse")
-                  .foregroundColor(.teal)
+                  .foregroundColor(.purple)
                   .frame(width: 30, height: 30)
                   .padding(.top, 5)
                   .scaleEffect(1.5)
@@ -79,16 +81,7 @@ struct RecoveryView: View {
                   .font(.title3)
               }
             }
-          }
-//          else if let therapy = recoveryDatas.therapies.first(where: { $0.name == reference.label }) {
-//            NavigationLink(destination: DetailView(therapy: therapy)) {
-//              Text(therapy.name)
-//                .font(.title3)
-//                .fontWeight(.regular)
-//                .foregroundColor(Color.primary)
-//            }
-//          }
-          else if reference.label == "Grounding Technique" {
+          } else if reference.label == "Grounding Technique" {
             Section {
               ForEach(recoveryDatas.therapies, id: \.id) { therapy in
                 NavigationLink(destination: DetailView(therapy: therapy)) {
@@ -107,18 +100,30 @@ struct RecoveryView: View {
             } header : {
               Text("Grounding Technique")
             }
+          } else if reference.label == "Emergency Call" {
+            NavigationLink(destination: EmergencyContactsView(rnConnector: rnConnector)) {
+              VStack(alignment: .leading) {
+                Image(systemName: "phone")
+                  .foregroundColor(.orange) // placeholder
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 5)
+                  .scaleEffect(1.5)
+                Text(reference.label)
+                  .padding(.bottom, 10)
+                  .font(.title3)
+              }
+            }
           }
         }
         .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       }
       .navigationTitle("Recovery")
-      
+//      .containerBackground(.orange.gradient, for: .navigation)
     } detail: {
       
       BreathView()
       
     }
-//    .containerBackground(.orange.gradient, for: .navigation)
   }
 }
 

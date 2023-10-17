@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+#warning ("TODO: end component if AppState is panic AND (when user scrolls past chosen technique's end slide OR user wants to choose another technique)")
 struct DetailView: View {
+  @EnvironmentObject var appState: AppState
   var therapy: Therapy
   
   var body: some View {

@@ -63,7 +63,9 @@ class ReadDataAffirm: ObservableObject {
     }
 }
 
+#warning ("TODO: show end component when AppState is panic, and user wants to quit")
 struct AffirmView: View {
+  @EnvironmentObject var appState: AppState
   @ObservedObject var affirmData = ReadDataAffirm()
   @State private var randomAffirmation: Affirm?
   
@@ -94,7 +96,7 @@ struct AffirmView: View {
       }
     }
     .navigationTitle("Affirmation")
-    .containerBackground(.teal.gradient, for: .navigation)
+    .containerBackground(.purple.gradient, for: .navigation)
     .onAppear {
       // Load an initial random affirmation
       randomAffirmation = affirmData.getRandomAffirmation()
