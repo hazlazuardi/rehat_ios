@@ -30,6 +30,7 @@
 		286B83822AD532440056E1B0 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808E22662AD0CB32005806E7 /* RecoveryView.swift */; };
 		288DAB2E2AB37B3E00892CE7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DAB2D2AB37B3E00892CE7 /* DetailView.swift */; };
 		28D1E1BF2ACD434C00207881 /* RNConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FE2C22ACBDC68001CDD55 /* RNConnector.swift */; };
+		28DDB6772ADF0841006B5072 /* RecoveryPanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDB6762ADF0841006B5072 /* RecoveryPanicView.swift */; };
 		28EA34AC2AB7623400E344A3 /* BreathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AB2AB7623400E344A3 /* BreathView.swift */; };
 		28EA34AE2AB7782100E344A3 /* affirmWordsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 28EA34AD2AB7782100E344A3 /* affirmWordsData.json */; };
 		28EA34B02AB778C700E344A3 /* AffirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA34AF2AB778C700E344A3 /* AffirmView.swift */; };
@@ -166,6 +167,7 @@
 		2864EA962AB31E3100217F34 /* recoveryData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recoveryData.json; sourceTree = "<group>"; };
 		286B837A2AD511140056E1B0 /* rehatCircularComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rehatCircularComplication.swift; sourceTree = "<group>"; };
 		288DAB2D2AB37B3E00892CE7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		28DDB6762ADF0841006B5072 /* RecoveryPanicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPanicView.swift; sourceTree = "<group>"; };
 		28EA34AB2AB7623400E344A3 /* BreathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathView.swift; sourceTree = "<group>"; };
 		28EA34AD2AB7782100E344A3 /* affirmWordsData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = affirmWordsData.json; sourceTree = "<group>"; };
 		28EA34AF2AB778C700E344A3 /* AffirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffirmView.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				28EA34AB2AB7623400E344A3 /* BreathView.swift */,
 				28EA34AF2AB778C700E344A3 /* AffirmView.swift */,
 				808E22662AD0CB32005806E7 /* RecoveryView.swift */,
+				28DDB6762ADF0841006B5072 /* RecoveryPanicView.swift */,
 				28EA34AD2AB7782100E344A3 /* affirmWordsData.json */,
 				2864EA962AB31E3100217F34 /* recoveryData.json */,
 				5D9CDD462AAEBD9300748DDD /* Assets.xcassets */,
@@ -845,6 +848,7 @@
 				80B5C8C02AC481540059AA10 /* PanicView.swift in Sources */,
 				5D9CDD432AAEBD9000748DDD /* rehatApp.swift in Sources */,
 				EA63C9ED2AB17165004D33D9 /* MLUtils.swift in Sources */,
+				28DDB6772ADF0841006B5072 /* RecoveryPanicView.swift in Sources */,
 				80AE77EB2ABE2B9A00217E1B /* HKView.swift in Sources */,
 				EA9564E22AD80D94003D2F94 /* WorkoutView.swift in Sources */,
 				EADDF11B2AD5521100987695 /* EmergencyContactsView.swift in Sources */,
