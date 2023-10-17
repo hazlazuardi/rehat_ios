@@ -9,6 +9,7 @@ import BarChart from '../components/monitoring/BarChart';
 import { useMonitoring } from '../context/MonitoringProvider';
 import usePanicHistory, { weekIntervalWidth } from '../helpers/usePanicHistory';
 import { useJournal } from '../context/Context';
+import useManageJournaling from '../helpers/useManageJournaling';
 
 
 function Monitoring(props) {
@@ -22,8 +23,7 @@ function Monitoring(props) {
     } = usePanicHistory()
 
 
-    const { journal } = useJournal()
-
+    const {} = useManageJournaling()
 
     return (
         <BlurredEllipsesBackground >
