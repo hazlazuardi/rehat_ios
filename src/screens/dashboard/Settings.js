@@ -8,13 +8,19 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
 import Divider from '../../components/Divider'
 import useManageGoals from '../../helpers/useManageGoals'
 import { trigger } from 'react-native-haptic-feedback'
+import useManageJournaling from '../../helpers/useManageJournaling'
 
 function Settings({ navigation }) {
+    const {
+        eraseAllJournals,
+        clearAllJournalingConfigs
+    } = useManageJournaling()
 
-    const { dispatchJournalingConfig } = useJournalingConfig()
-    const { clearAllGoals } = useManageGoals()
-    const { dispatchJournal } = useJournal()
-    const { dispatchGoalsConfig } = useGoalsConfig()
+    const {
+        clearAllGoals,
+        clearAllGoalConfigs
+    } = useManageGoals()
+
 
     const handleAlert = (nextAction) => {
         Alert.alert('Are you sure?', "You won't be able to redo this action.", [
@@ -31,22 +37,18 @@ function Settings({ navigation }) {
         switch (action) {
             case 'eraseAllGoals': {
                 clearAllGoals()
-                trigger('impactHeavy')
                 return
             }
             case 'clearGoalsConfig': {
-                dispatchGoalsConfig({ type: 'clearGoalsConfig' })
-                trigger('impactHeavy')
+                clearAllGoalConfigs()
                 return
             }
             case 'clearJournalingConfig': {
-                dispatchJournalingConfig({ type: 'clearJournalingConfig' })
-                trigger('impactHeavy')
+                clearAllJournalingConfigs()
                 return
             }
             case 'eraseAllJournals': {
-                dispatchJournal({ type: 'eraseAllJournals' })
-                trigger('impactHeavy')
+                eraseAllJournals()
                 return
             }
             default: {

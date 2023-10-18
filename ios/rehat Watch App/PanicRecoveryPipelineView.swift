@@ -22,8 +22,8 @@ struct PanicRecoveryPipelineView: View {
         ).tag(0)
         
         if otherTechniquesAreShown {
-          // TODO: don't use recovery view here..???
-          RecoveryView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
+          // TODO: don't use recovery view here
+          RecoveryPanicView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
         } else {
           if rnConnector.recoveryReferences.isEmpty {
             Text("Loading...")

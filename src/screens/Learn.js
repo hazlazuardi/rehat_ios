@@ -22,8 +22,6 @@ function Learn({ navigation }) {
   const { articles, getProgress, clearAllLearnedArticles } = useManageLearn()
 
   // clearAllLearnedArticles()
-
-
   return (
     <BlurredEllipsesBackground>
       <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior='automatic'>

@@ -97,7 +97,7 @@ struct AffirmView: View {
       }
     }
     .navigationTitle("Affirmation")
-    .containerBackground(.teal.gradient, for: .navigation)
+    .containerBackground(.purple.gradient, for: .navigation)
     .onAppear {
       if appState.isPanic {
         workoutManager.methodsUsed.append(RecoveryMethodNames.affirmation.rawValue)

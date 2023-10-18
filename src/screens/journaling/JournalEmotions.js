@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { sizes, styles } from '../../data/theme';
-import { useJournal, useJournalingConfig } from '../../context/Context';
+// import { useJournal, useJournalingConfig } from '../../context/Context';
 import Chip from '../../components/Chip';
 import PrimaryButton from '../../components/PrimaryButton';
 import { convertToCamelCase, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import Divider from '../../components/Divider';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
+import useManageJournaling from '../../helpers/useManageJournaling';
 
 /**
  * A React Native component for selecting emotions.
@@ -19,53 +20,30 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
  * @returns {JSX.Element} The rendered JournalEmotions component.
  */
 function JournalEmotions({ navigation }) {
-    /**
-     * Custom hook to access journal data and dispatch actions.
-     *
-     * @type {object}
-     * @property {object} journal - The journal state.
-     * @property {Function} dispatchJournal - A function to dispatch journal-related actions.
-     */
-    const { journal, dispatchJournal } = useJournal();
 
-    const { journalingConfig } = useJournalingConfig()
+    const {
+        currentJournal,
+        journalingConfig,
+        setCurrentJournal
+    } = useManageJournaling()
 
-    /**
-     * Handles the press event of a chip.
-     *
-     * @param {string} emotion - The emotion associated with the chip.
-     */
     function onPressChip(emotion) {
-        if (journal.emotions.includes(emotion)) {
-            dispatchJournal({
-                type: 'setJournal',
-                payload: {
-                    emotions: [...journal.emotions.filter(selectedEmotion => selectedEmotion !== emotion)],
-                },
-            });
+        if (currentJournal.emotions?.includes(emotion)) {
+            setCurrentJournal('emotions', [...currentJournal.emotions.filter(selectedEmotion => selectedEmotion !== emotion)])
         } else {
-            dispatchJournal({
-                type: 'setJournal',
-                payload: { emotions: [...journal.emotions, emotion] },
-            });
+            setCurrentJournal('emotions', [...currentJournal.emotions, emotion])
         }
     }
-
-    /**
-     * Checks if a chip is selected based on the emotion.
-     *
-     * @param {string} emotion - The emotion to check for selection.
-     * @returns {boolean} True if the chip is selected; otherwise, false.
-     */
-    const isChipSelected = (emotion) => journal.emotions.includes(emotion);
+    const isChipSelected = (emotion) => currentJournal.emotions?.includes(emotion);
 
 
     const handlePrimaryButton = () => {
-        dispatchJournal({ type: 'setJournal', payload: { dateAdded: Date.now() } })
+        // dispatchJournal({ type: 'setJournal', payload: { dateAdded: Date.now() } })
+        setCurrentJournal('dateAdded', Date.now())
         navigation.navigate('Journal Thoughts')
     }
 
-    console.log('isSelected', isChipSelected('Amazing'));
+    // console.log('isSelected', isChipSelected('Amazing'));
 
     return (
         <BlurredEllipsesBackground>
@@ -74,7 +52,7 @@ function JournalEmotions({ navigation }) {
 
                     {/* journalCategory */}
                     <View style={{ alignItems: 'center', gap: sizes.gap.md }}>
-                        <EmotionCategoryButton title={journal.emotionCategory} variant={toAssetCase(journal.emotionCategory)} width={120} disabled />
+                        <EmotionCategoryButton title={currentJournal.emotionCategory} variant={toAssetCase(currentJournal.emotionCategory)} width={120} disabled />
                     </View>
 
                     {/* Heading */}
@@ -87,7 +65,7 @@ function JournalEmotions({ navigation }) {
                     <View style={{ gap: sizes.padding.md }}>
                         {/* Emotion Chips */}
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: sizes.padding.sm }} >
-                            {journalingConfig.journalEmotions[convertToCamelCase(journal.emotionCategory)]?.map(emotion => {
+                            {journalingConfig.journalEmotions[convertToCamelCase(currentJournal.emotionCategory)]?.map(emotion => {
                                 return (
                                     <Chip key={emotion} text={emotion} onPress={() => onPressChip(emotion)} isSelected={isChipSelected(emotion)} />
                                 )
@@ -100,7 +78,7 @@ function JournalEmotions({ navigation }) {
                         onPress={handlePrimaryButton}
                         text={'Done'}
                         color={'green'}
-                        disabled={journal.emotions?.length === 0}
+                        disabled={currentJournal.emotions?.length === 0}
                     />
                 </View>
             </SafeAreaView>
@@ -108,25 +86,8 @@ function JournalEmotions({ navigation }) {
     );
 }
 
-/**
- * Prop types for the JournalEmotions component.
- *
- * @typedef {object} EmotionsProps
- * @property {object} navigation - The navigation object from React Navigation.
- */
-
-/**
- * Default props for the JournalEmotions component.
- *
- * @type {EmotionsProps}
- */
 JournalEmotions.defaultProps = {};
 
-/**
- * Prop types for the JournalEmotions component.
- *
- * @type {EmotionsProps}
- */
 JournalEmotions.propTypes = {
     navigation: PropTypes.object.isRequired,
 };

@@ -33,6 +33,8 @@ struct BreathView: View {
   @State private var breathingStatus = ""
   @State private var currentScaleFactor: CGFloat = 1.0
   @State private var currentAnimationDuration: Double = 1.0
+  @State private var doneBreathing: Bool = false
+  @State public var lastPickedBreathingOption: BreathPhase?
 
   var breathingOptions: [BreathPhase] = [
     BreathPhase(name: "Extended Exhale", breathInDuration: 4, holdDuration: 0, breathOutDuration: 6, holdTwoDuration: 0),
@@ -50,34 +52,37 @@ struct BreathView: View {
     
   var body: some View {
     NavigationStack{
-      ScrollView {
-        VStack {
-          if timerState == .selection {
-            ForEach(breathingOptions.indices, id: \.self) { index in
-              Button(action: {
-                startTimer(with: breathingOptions[index])
-              }) {
-                VStack{
-                  Text(breathingOptions[index].name)
-                    .font(.headline)
-                  //                  .frame(height:30)
-                  let formattedDurations = [
-                    formatDuration(breathingOptions[index].breathInDuration),
-                    formatDuration(breathingOptions[index].holdDuration),
-                    formatDuration(breathingOptions[index].breathOutDuration),
-                    formatDuration(breathingOptions[index].holdTwoDuration)
-                  ].filter { !$0.isEmpty }
-                    .joined(separator: "-")
-                  
-                  let finalText = "(\(formattedDurations))"
-                  
-                  Text(finalText)
-                    .foregroundColor(Color.white.opacity(0.5))
+//      ScrollView {
+//        VStack {
+          if timerState == .selection && doneBreathing == false {
+            ScrollView {
+              ForEach(breathingOptions.indices, id: \.self) { index in
+                Button(action: {
+                  self.lastPickedBreathingOption = breathingOptions[index]
+                  startTimer(with: breathingOptions[index])
+                }) {
+                  VStack{
+                    Text(breathingOptions[index].name)
+                      .font(.headline)
+                    //                  .frame(height:30)
+                    let formattedDurations = [
+                      formatDuration(breathingOptions[index].breathInDuration),
+                      formatDuration(breathingOptions[index].holdDuration),
+                      formatDuration(breathingOptions[index].breathOutDuration),
+                      formatDuration(breathingOptions[index].holdTwoDuration)
+                    ].filter { !$0.isEmpty }
+                      .joined(separator: "-")
+                    
+                    let finalText = "(\(formattedDurations))"
+                    
+                    Text(finalText)
+                      .foregroundColor(Color.white.opacity(0.5))
+                  }
                 }
               }
             }
             .navigationTitle("Breathing")
-          } else {
+          } else if doneBreathing == false {
             GeometryReader { geometry in
               ZStack {
                 Circle()
@@ -109,7 +114,9 @@ struct BreathView: View {
 //                  .scaleEffect(currentScaleFactor)
 //                  .animation(.easeInOut(duration: 1), value: breathingStatus)
               }
-              .position(x: geometry.size.width / 2, y: geometry.size.height / 0.8)
+              .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+//              .position(x: geometry.size.width / 2, y: autoStart ? geometry.size.height / 0.65 : geometry.size.height / 0.8)
+//              .position(y: autoStart ? geometry.size.height / 0.8 : geometry.size.height / 1)
             }
             .frame(height: 50)
             
@@ -119,17 +126,6 @@ struct BreathView: View {
             
             .toolbar {
               ToolbarItemGroup(placement: .bottomBar) {
-                //                HStack {
-                //                  Button(action: {
-                //                    // Pause action here
-                //                  }) {
-                //                    Image(systemName: "pause.fill")
-                //                      .padding(10)
-                //                      .foregroundColor(.white)
-                //                      .clipShape(Circle())
-                //                  }
-                //
-                //                  Spacer()
                 Spacer()
                 Button(action: {
                   stopTimer()
@@ -142,16 +138,26 @@ struct BreathView: View {
                 .clipShape(Circle())
               }
             }
+            .containerBackground(.blue.gradient, for: .navigation)
+          } else if doneBreathing == true {
+            Button {
+              doneBreathing = false
+              let lastOption = self.lastPickedBreathingOption ?? breathingOptions[self.firstPreferenceIndex]
+              startTimer(with: lastOption)
+            } label: {
+              Text("Retry")
+            }
           }
-        }
-      }
+//        }
+//      }
     }
     .containerBackground(.blue.gradient, for: .navigation)
     .onAppear {
       if appState.isPanic {
         workoutManager.methodsUsed.append(RecoveryMethodNames.breathing.rawValue)
       }
-      startTextTimer()
+//      startTextTimer()
+      print(autoStart)
       if self.autoStart {
         let breathePhase = breathingOptions[self.firstPreferenceIndex]
         startTimer(with: breathePhase)
@@ -159,6 +165,18 @@ struct BreathView: View {
     }
     .onDisappear {
       textTimer?.invalidate()
+      print(autoStart)
+      if autoStart {
+        timer?.invalidate()
+        timer = nil
+        
+//        timerState = .selection
+        remainingTime = 0
+        breathingStatus = ""
+        currentScaleFactor = 0.8
+        
+        // TODO: Find alternative way to stopTimer when Try Something Else or I'm Fine Now
+      }
     }
   }
   
@@ -189,10 +207,12 @@ struct BreathView: View {
     timer?.invalidate()
     timer = nil
     
-    timerState = .selection
+//    timerState = .selection
     remainingTime = 0
     breathingStatus = ""
     currentScaleFactor = 0.8
+    
+    doneBreathing = true
   }
     
   private func startTextTimer() {

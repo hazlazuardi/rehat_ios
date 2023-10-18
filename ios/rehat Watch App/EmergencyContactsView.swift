@@ -29,10 +29,10 @@ struct EmergencyContactsView: View {
         }) {
           VStack(alignment: .leading) {
             Text(contact.name)
-              .font(.headline)
-              .fontWeight(.bold)
-            //                      Text(contact.phoneNum)
-            //                          .font(.subheadline)
+              .font(.title3)
+            Text(contact.phoneNum)
+              .font(.caption2)
+              .foregroundColor(Color.white.opacity(0.5))
           }
         }
         .buttonStyle(PlainButtonStyle()) // This will remove the default button appearance
@@ -42,6 +42,7 @@ struct EmergencyContactsView: View {
       if appState.isPanic {
         workoutManager.methodsUsed.append(RecoveryMethodNames.call.rawValue)
       }
+      .containerBackground(.green.gradient, for: .navigation)
     }
   }
 }
