@@ -19,6 +19,11 @@ struct RecoveryReference: Identifiable, Decodable, Encodable {
   var label: String
 }
 
+struct MethodScoringData: Identifiable, Decodable, Encodable {
+  var id: String
+  var panicDurations: [Int]
+}
+
 class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   var session: WCSession
   

@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import WatchConnectivity
 
 // Workout Management
 // ==================
@@ -14,6 +15,8 @@ import HealthKit
 // as I couldn't get the BackgroundTasks module working.
 // Adapted from: https://developer.apple.com/videos/play/wwdc2021/10009/
 class WorkoutManager: NSObject, ObservableObject {
+  
+  
   let healthStore = RehatHealthStore.store
   
   // biofeedback data
@@ -191,10 +194,13 @@ class WorkoutManager: NSObject, ObservableObject {
     self.isPanic = false
     
     let duration = self.getTrackedDuration()
-    print("Session lasted \(duration)s")
       
     // TODO: save tracked data
-    print("Methods used: \(Set(self.methodsUsed))")
+    let recoverySessionData = [
+      "Timestamp": self.treatmentEnd
+    ]
+    
+    transferRecoverySessionData(data: recoverySessionData)
     
     // clean up
     self.methodsUsed = []
@@ -217,6 +223,22 @@ class WorkoutManager: NSObject, ObservableObject {
     if self.heartRate < (self.restingHeartRate * 0.1 + self.restingHeartRate) {
       self.endTracking()
     }
+  }
+  
+  func transferRecoverySessionData(data: [String:Any]) {
+    print("Transferring data: \(data)")
+    WCSession.default.transferUserInfo(data)
+  }
+  
+  // MARK: Recovery Method Scoring
+  func updateMethodScores() {
+    let duration = self.getTrackedDuration()
+    
+    var scoringData: [MethodScoringData] = StorageManager.shared.retrieveMethodScoringData()
+    
+//    for method in self.methodsUsed {
+//      scoringData[method].
+//    }
   }
 }
 
