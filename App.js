@@ -11,12 +11,12 @@ import JournalEmotions from './src/screens/journaling/JournalEmotions';
 import JournalThoughts from './src/screens/journaling/JournalThoughts';
 import BlurredEllipsesBackground from './src/components/BlurredEllipsesBackground';
 import { View } from 'react-native';
-import Learn from './src/screens/Learn';
-import LearnDetail from './src/screens/LearnDetail';
-import CognitiveRestructuing from './src/screens/CognitiveRestructuring';
-import CognitiveDetail from './src/screens/CognitiveDetail';
-import CognitiveAnotherWay from './src/screens/CognitiveAnotherWay';
-import SuccessDetail from './src/screens/SuccessScreen';
+import Learn from './src/screens/learn/Learn';
+import LearnDetail from './src/screens/learn/LearnDetail';
+import CognitiveRestructuing from './src/screens/thoughts/CognitiveRestructuring';
+import CognitiveDetail from './src/screens/thoughts/CognitiveDetail';
+import CognitiveAnotherWay from './src/screens/thoughts/CognitiveAnotherWay';
+import SuccessDetail from './src/screens/thoughts/SuccessScreen';
 import { sendMessage, watchEvents } from 'react-native-watch-connectivity';
 import {
 	Alert,
