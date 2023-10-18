@@ -6238,6 +6238,11 @@ react-native-screens@^3.25.0, "react-native-screens@>= 3.0.0":
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-splash-screen@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz"
+  integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
+
 react-native-watch-connectivity@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/react-native-watch-connectivity/-/react-native-watch-connectivity-1.1.0.tgz"
@@ -6245,7 +6250,7 @@ react-native-watch-connectivity@^1.1.0:
   dependencies:
     lodash.sortby "^4.7.0"
 
-react-native@*, react-native@>=0.40, react-native@>=0.42.0, react-native@>=0.48.4, react-native@>=0.60.0, react-native@>=0.64, react-native@>=0.64.0, react-native@>=0.69, react-native@>=0.71.0, react-native@0.72.4:
+react-native@*, react-native@>=0.40, react-native@>=0.42.0, react-native@>=0.48.4, react-native@>=0.57.0, react-native@>=0.60.0, react-native@>=0.64, react-native@>=0.64.0, react-native@>=0.69, react-native@>=0.71.0, react-native@0.72.4:
   version "0.72.4"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.4.tgz"
   integrity sha512-+vrObi0wZR+NeqL09KihAAdVlQ9IdplwznJWtYrjnQ4UbCW6rkzZJebRsugwUneSOKNFaHFEo1uKU89HsgtYBg==
