@@ -24,7 +24,7 @@ struct ContentView: View {
       }.onAppear(perform: {
         self.selection = 1
         requestAuthorizations()
-        if (!workoutManager.isPanic && !workoutManager.running) {
+        if (!workoutManager.running) {
           workoutManager.startWorkout()
         }
       })
