@@ -73,31 +73,6 @@ function findTodayWeekIndex(weeksData) {
     });
 }
 
-// const scrollToToday = (weeksData) => {
-//     const todayTimestamp = (new Date()).setHours(0, 0, 0, 0);
-//     let weekIndex = -1;
-//     let dayPositionWithinWeek = -1;
-
-//     Object.keys(weeksData).some((weekTimestamp, index) => {
-//         const daysData = weeksData[weekTimestamp];
-//         const daysTimestamps = Object.keys(daysData);
-
-//         dayPositionWithinWeek = daysTimestamps.findIndex(dayTimestamp => Number(dayTimestamp) === todayTimestamp);
-
-//         if (dayPositionWithinWeek !== -1) {
-//             weekIndex = index;
-//             return true;  // Exit the .some() loop early since we found the week
-//         }
-
-//         return false;
-//     });
-
-//     if (weekIndex !== -1 && dayPositionWithinWeek !== -1) {
-//         const position = (weekIndex * weekIntervalWidth) + (dayPositionWithinWeek * dayIntervalWidth);
-//         scrollRefEmotions.current.scrollTo({ x: position, animated: true });
-//     }
-// };
-
 
 
 // Initial State
@@ -117,7 +92,7 @@ export const MonitoringProvider = ({ children }) => {
             if (!processedTimestamps.has(timestamp)) {
                 console.log('received user info', info['Timestamp']);
                 console.log('parsed', formatDate(timestamp).timeString);
-                handleNewData(timestamp);
+                dispatch({ type: 'ADD_DATA', payload: { date: timestamp, value: 1 } })
                 processedTimestamps.add(timestamp);  // Mark this timestamp as processed
             }
         });
