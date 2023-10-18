@@ -21,6 +21,8 @@ function Monitoring(props) {
         handleClearData,
         handleClearAllData,
         scrollViewRef: scrollRefPanicAttackHistory,
+        scrollToWeek,
+        handleMonthButtonClick
     } = usePanicHistory()
 
 
@@ -92,6 +94,17 @@ function Monitoring(props) {
                                 text='Clear All'
                                 onPress={handleClearAllData}
                             /> */}
+                            <PrimaryButton
+                                color={colors.darkGrey}
+                                text='Scroll to Today'
+                                onPress={() => scrollToWeek(getMonday(currentEpochTime()).getTime())}
+                            />
+                            <PrimaryButton
+                                color={colors.darkGrey}
+                                text='Scroll to November 2023'
+                                onPress={() => handleMonthButtonClick(2023, 10)}
+                            />
+
                         </View>
 
 

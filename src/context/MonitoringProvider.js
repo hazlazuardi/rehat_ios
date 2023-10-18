@@ -2,6 +2,8 @@ import React, { useReducer, createContext, useCallback, useContext } from 'react
 import { generateDummyDataForPreviousWeeks, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
 import { watchEvents } from 'react-native-watch-connectivity';
 import { formatDate, getMonday } from '../helpers/helpers';
+import { trigger } from 'react-native-haptic-feedback';
+import { weekIntervalWidth } from '../helpers/usePanicHistory';
 
 
 const MonitoringContext = createContext(null)
@@ -53,6 +55,50 @@ export function initializeWeeks(numPrevWeeks, numNextWeeks) {
     return dummyData;
 }
 
+function findStartOfMonthIndex(weeksData) {
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    return weeksData.findIndex(weekData => {
+        const weekStartDate = new Date(weekData[0].dateAdded);
+        return weekStartDate >= firstDayOfMonth;
+    });
+}
+
+function findTodayWeekIndex(weeksData) {
+    const now = new Date();
+    return weeksData.findIndex(weekData => {
+        const weekStartDate = new Date(weekData[0].date);
+        const weekEndDate = new Date(weekData[weekData.length - 1].date);
+        return weekStartDate <= now && weekEndDate >= now;
+    });
+}
+
+// const scrollToToday = (weeksData) => {
+//     const todayTimestamp = (new Date()).setHours(0, 0, 0, 0);
+//     let weekIndex = -1;
+//     let dayPositionWithinWeek = -1;
+
+//     Object.keys(weeksData).some((weekTimestamp, index) => {
+//         const daysData = weeksData[weekTimestamp];
+//         const daysTimestamps = Object.keys(daysData);
+
+//         dayPositionWithinWeek = daysTimestamps.findIndex(dayTimestamp => Number(dayTimestamp) === todayTimestamp);
+
+//         if (dayPositionWithinWeek !== -1) {
+//             weekIndex = index;
+//             return true;  // Exit the .some() loop early since we found the week
+//         }
+
+//         return false;
+//     });
+
+//     if (weekIndex !== -1 && dayPositionWithinWeek !== -1) {
+//         const position = (weekIndex * weekIntervalWidth) + (dayPositionWithinWeek * dayIntervalWidth);
+//         scrollRefEmotions.current.scrollTo({ x: position, animated: true });
+//     }
+// };
+
+
 
 // Initial State
 const currentWeekData = generateDummyDataForPreviousWeeks(4);
@@ -77,30 +123,9 @@ export const MonitoringProvider = ({ children }) => {
         });
     });
 
-    const handleInitializeCurrentWeek = useCallback((weekStartTimestamp) => {
-        dispatch({ type: 'INITIALIZE_CURRENT_WEEK', payload: weekStartTimestamp });
-    }, []);
-
-    const handleNewData = useCallback((timestamp) => {
-        // const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
-        dispatch({ type: 'ADD_DATA', payload: { date: timestamp, value: 1 } });
-    }, []);
-
-    const handleClearData = useCallback(() => {
-        const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
-        dispatch({ type: 'clearTodayHistory', payload: { date: epochTime, value: 1 } });
-    }, []);
-
-    const handleClearAllData = useCallback(() => {
-        dispatch({ type: 'clearAllHistory' });
-    }, []);
-
     const value = {
         data,
-        handleInitializeCurrentWeek,
-        handleNewData,
-        handleClearData,
-        handleClearAllData,
+        dispatch
     };
 
     return (
@@ -182,3 +207,5 @@ function monitoringReducer(state, action) {
 export function useMonitoring() {
     return useContext(MonitoringContext)
 }
+
+

@@ -1,3 +1,5 @@
+import { getStandardTimestamp } from "../context/MonitoringProvider";
+
 export function convertToCamelCase(inputString) {
     return inputString
         .toLowerCase()
@@ -76,12 +78,33 @@ export function calculateInitialScrollOffset(groupedData, weekIntervalWidth) {
     return 0; // Default to 0 if today is not found in the data
 }
 
+
+
+// Actually used
+
 export function getMonday(d) {
     d = new Date(d);
     var day = d.getDay(),
         diff = d.getDate() - day + (day === 0 ? -6 : 1);  // adjust when day is Sunday
     return new Date(d.setDate(diff));
 }
+
+
+export const getFirstWeekOfMonth = (year, month) => {
+    console.log('helpgotomonth', { year, month })
+    const firstDayOfMonth = new Date(year, month, 1);  // Note: months are 0-indexed
+    const firstDayOfWeek = getMonday(getStandardTimestamp(firstDayOfMonth)).getTime();
+    console.log('gotoFW', firstDayOfWeek)
+    return firstDayOfWeek
+};
+
+
+
+
+
+
+
+
 
 export function getMondayOfCurrentWeek() {
     const now = new Date();

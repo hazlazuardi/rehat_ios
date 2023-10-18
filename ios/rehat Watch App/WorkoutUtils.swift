@@ -38,6 +38,11 @@ class WorkoutManager: NSObject, ObservableObject {
   @Published var methodsUsed: [String] = []
   private var treatmentStart: Date = Calendar.current.startOfDay(for: .now)
   private var treatmentEnd: Double = Calendar.current.startOfDay(for: .now).timeIntervalSince1970
+  private var recoveryDuration: Int = 0
+  
+  // recovery method suggestions
+  private var methodScoringData: [MethodScoringData] = []
+  @Published var recommendedMethod: String = ""
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -194,14 +199,25 @@ class WorkoutManager: NSObject, ObservableObject {
     self.isPanic = false
     self.treatmentEnd = Date().timeIntervalSince1970
     
-    let duration = self.getTrackedDuration()
+    self.recoveryDuration = self.getTrackedDuration()
+    self.treatmentEnd = Date().timeIntervalSince1970
       
-    // TODO: save tracked data
+    // Send data to iOS for self-monitoring
     let recoverySessionData = [
-      "Timestamp": self.treatmentEnd
+      "timestamp": self.treatmentEnd
     ]
-    
     transferRecoverySessionData(data: recoverySessionData)
+    
+    // Save recovery durations for each method to calculate effectiveness
+    self.methodScoringData = StorageManager.shared.retrieveMethodScoringData()
+    for method in self.methodsUsed {
+      self.updateMethodScoringData(id: method, newData: [self.recoveryDuration])
+    }
+    StorageManager.shared.saveMethodScoringData(self.methodScoringData)
+    
+    // update recommended recovery method
+    self.updateRecommendedMethod()
+    self.transferRecommendedMethod()
     
     // clean up
     self.methodsUsed = []
@@ -231,15 +247,43 @@ class WorkoutManager: NSObject, ObservableObject {
     WCSession.default.transferUserInfo(data)
   }
   
+  func transferRecommendedMethod() {
+    print("Transferring recommended recovery method: \(self.recommendedMethod)")
+    do {
+      try WCSession.default.updateApplicationContext(["recommendedMethod" : self.recommendedMethod])
+    }
+    catch {
+      print("error sending application context: \(error)")
+    }
+  }
+  
   // MARK: Recovery Method Scoring
-  func updateMethodScores() {
-    let duration = self.getTrackedDuration()
-    
-    var scoringData: [MethodScoringData] = StorageManager.shared.retrieveMethodScoringData()
-    
-//    for method in self.methodsUsed {
-//      scoringData[method].
-//    }
+  func updateMethodScoringData(id: String, newData: [Int]) {
+    if let index = self.methodScoringData.firstIndex(where: { $0.id == id }) {
+      self.methodScoringData[index].panicDurations += [self.recoveryDuration]
+    } else {
+      self.methodScoringData.append(
+        MethodScoringData(
+          id: id,
+          panicDurations: [self.recoveryDuration]
+        )
+      )
+    }
+  }
+  
+  func updateRecommendedMethod() {
+    if let best = self.methodScoringData.min(by: {
+        mean(of: $0.panicDurations) < mean(of: $1.panicDurations)
+      }) {
+      print("Updated best method to \(best.id)")
+      self.recommendedMethod = best.id
+    } else {
+      return
+    }
+  }
+  
+  private func mean(of ints: [Int]) -> Double {
+    return Double(ints.reduce(0, +)) / Double(ints.count)
   }
 }
 

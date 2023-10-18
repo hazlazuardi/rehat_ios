@@ -29,12 +29,13 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   
   @Published var contacts: [Contact] = []
   
-  // TODO: check id for preference
   @Published var recoveryReferences: [RecoveryReference] = [
       RecoveryReference(id: "1", label: "Guided Breathing"),
       RecoveryReference(id: "2", label: "Self-Affirmation"),
-      RecoveryReference(id: "3", label: "Grounding Technique"),
-      RecoveryReference(id: "4", label: "Emergency Call")
+      RecoveryReference(id: "3", label: "Muscle Relaxation"),
+      RecoveryReference(id: "4", label: "Closed Eyes Visualization"),
+      RecoveryReference(id: "5", label: "5-4-3-2-1"),
+      RecoveryReference(id: "6", label: "Emergency Call")
   ]
   
   override init() {
