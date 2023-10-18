@@ -123,7 +123,7 @@ function ThoughtsReframingMain({navigation}) {
                       </View>
                       <View>
                         <Text style={{...styles.text.body1, fontSize: 10}}>
-                          {formattedDate.dateString} at{' '}
+                          {formattedDate.dayString} at{' '}
                           {formattedDate.timeString}
                         </Text>
                       </View>

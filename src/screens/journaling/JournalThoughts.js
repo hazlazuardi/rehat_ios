@@ -34,7 +34,7 @@ function JournalThoughts({ navigation }) {
 		setCurrentJournal,
 	} = useManageJournaling()
 
-	const { dateString, timeString } = useFormattedDate(currentJournal.dateAdded)
+	const { dayString, timeString } = useFormattedDate(currentJournal.dateAdded)
 
 	const [isShouldReturn, setIsShouldReturn] = useState(false)
 
@@ -135,7 +135,7 @@ function JournalThoughts({ navigation }) {
 						{/* dateAdded */}
 						<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 							<View style={{ gap: sizes.padding.sm }}>
-								<Text style={styles.text.body2Transparent}>{dateString}</Text>
+								<Text style={styles.text.body2Transparent}>{dayString}</Text>
 								<Text style={styles.text.body2Transparent}>at {timeString}</Text>
 							</View>
 						</View>

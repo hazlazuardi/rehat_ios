@@ -197,6 +197,7 @@ class WorkoutManager: NSObject, ObservableObject {
     // either by user input or hr prediction
     print("Stopped tracking")
     self.isPanic = false
+    self.treatmentEnd = Date().timeIntervalSince1970
     
     self.recoveryDuration = self.getTrackedDuration()
     self.treatmentEnd = Date().timeIntervalSince1970

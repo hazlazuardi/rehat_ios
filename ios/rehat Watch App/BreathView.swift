@@ -275,7 +275,7 @@ struct BreathView: View {
   
   private func playHapticFeedback() {
     print("Playing haptic feedback.")
-    WKInterfaceDevice.current().play(.click)
+    WKInterfaceDevice.current().play(.success)
   }
 }
 
