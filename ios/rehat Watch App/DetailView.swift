@@ -14,10 +14,8 @@ struct DetailView: View {
   var therapy: Therapy
   
   var body: some View {
-    //    VStack {
     TabView {
       ForEach(therapy.slides, id: \.title) { slide in
-        //          ScrollView {
         VStack (alignment: HorizontalAlignment.center, spacing: 0){
           Text(slide.title)
             .font(.title3)
@@ -47,24 +45,15 @@ struct DetailView: View {
             Spacer()
           }
         }
-        //          }
       }
-      .onAppear {
-        if appState.isPanic {
-          workoutManager.methodsUsed.append(therapy.name)
-        }
+    }
+    .onAppear {
+      if appState.isPanic {
+        workoutManager.methodsUsed.append(therapy.name)
       }
-      .containerBackground(.green.gradient, for: .navigation)
-      
-      //      .tint(.teal)
-      //      .containerBackground(.teal.gradient, for: .tabView)
-      .navigationTitle(therapy.name)
-      .tabViewStyle(.verticalPage)
-      
     }
     .containerBackground(.green.gradient, for: .navigation)
     .navigationTitle(therapy.name)
     .tabViewStyle(.verticalPage)
-    //    }
   }
 }
