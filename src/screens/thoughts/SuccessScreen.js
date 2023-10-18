@@ -7,8 +7,9 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import checklist from '../../assets/img/checklist1.png';
-import {colors} from '../data/theme';
+import checklist from '../../../assets/img/checklist1.png';
+import {colors} from '../../data/theme';
+import { styles as styleses } from '../../data/theme';
 
 function SuccessDetail({navigation}) {
   return (
@@ -26,7 +27,7 @@ function SuccessDetail({navigation}) {
       <Pressable
         style={styles.buttonDone}
         onPress={() => {
-            navigation.popToTop()
+            navigation.navigate('Thoughts Reframing')
         }}>
         <Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
       </Pressable>

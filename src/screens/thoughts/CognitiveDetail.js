@@ -8,12 +8,13 @@ import {
   TextInput,
 } from 'react-native';
 import {Pressable} from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
+import {colors} from '../../data/theme';
+import {sizes} from '../../data/theme';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles';
-import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
+import LearnCard from '../../components/learn/LearnCard';
+import data from '../../data/articles';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
+import { styles as styleses } from '../../data/theme';
 
 function CognitiveDetail({route, navigation}) {
   const [isShouldReturn, setIsShouldReturn] = useState(false);
@@ -54,7 +55,7 @@ function CognitiveDetail({route, navigation}) {
         <SafeAreaView style={{marginBottom: 100}}>
           <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
             <View>
-              <Text style={styles.headingLearn}>Cognitive Restructuring</Text>
+            <Text style={{...styleses.text.header1}}>Cognitive Restructuring</Text>
             </View>
 
             <View style={styles.prevText}>
@@ -84,7 +85,7 @@ function CognitiveDetail({route, navigation}) {
                 editable
                 multiline
                 numberOfLines={4}
-                maxLength={40}
+                maxLength={100}
                 onChangeText={text => setInput(text)}
                 value={input}
                 style={styles.textInput}
@@ -120,12 +121,12 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-around',
     marginVertical: 30,
-    marginBottom: 200,
+    marginBottom: 0,
   },
   prevText: {
     padding: 10,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 0,
     fontStyle: 'italic',
     backgroundColor: 'rgba(254, 118, 58, 0.39)',
   },
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 20,
     borderRadius: 10,
-    height: 400,
+    height: 200,
     padding: 20,
     paddingTop: 25,
     backgroundColor: 'rgba(217, 217, 217, 0.08)',
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: sizes.text.bodyLg,
     width: '100%',
     fontFamily: 'Poppins-regular',
-    marginTop: 20,
+    marginTop: 0,
   },
   headingLearn: {
     color: colors.white,

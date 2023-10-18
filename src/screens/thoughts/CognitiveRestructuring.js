@@ -8,14 +8,14 @@ import {
   TextInput,
 } from 'react-native';
 import {Pressable} from 'react-native';
-import {colors} from '../data/theme';
-import {sizes} from '../data/theme';
+import {colors} from '../../data/theme';
+import {sizes} from '../../data/theme';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles';
-import { styles as styleses } from '../data/theme';
+import LearnCard from '../../components/learn/LearnCard';
+import data from '../../data/articles';
+import { styles as styleses } from '../../data/theme';
 
 function CognitiveRestructuring({navigation}) {
   const [isShouldReturn, setIsShouldReturn] = useState(false)
@@ -95,7 +95,7 @@ function CognitiveRestructuring({navigation}) {
                 editable
                 multiline
                 numberOfLines={4}
-                maxLength={40}
+                maxLength={100}
                 onChangeText={text => setInput(text)}
                 value={input}
                 style={styles.textInput}
@@ -156,10 +156,11 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   textInput: {
+    flexWrap:'wrap',
     color: 'white',
-    marginTop: 20,
+    marginTop: 0,
     borderRadius: 10,
-    height: 400,
+    height: 200,
     padding: 20,
     paddingTop: 25,
     backgroundColor: 'rgba(217, 217, 217, 0.08)',
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-regular',
   },
   descLearn2: {
-    marginTop: sizes.padding.md,
+    marginTop: 0,
     color: '#D9D9D9',
     fontSize: sizes.text.header3,
     width: '100%',
@@ -210,6 +211,7 @@ const styles = StyleSheet.create({
   },
   containerChoice: {
     marginVertical: 15,
+    marginTop:0,
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',

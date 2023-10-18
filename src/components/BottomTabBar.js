@@ -1,8 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../screens/dashboard/Dashboard";
-import Learn from "../screens/Learn";
-import Monitoring from "../screens/Monitoring";
+import Learn from "../screens/learn/Learn";
+import Monitoring from "../screens/monitoring/Monitoring";
 import Recovery from "../screens/Recovery";
 import { BlurView } from "@react-native-community/blur";
 import { Image, StyleSheet, Text, View } from "react-native";

@@ -19,6 +19,7 @@ import useFormattedDate from '../../helpers/useDateFormatter';
 import {formatDate, toAssetCase} from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
+import EmptyState from '../../components/EmptyState';
 
 /**
  * A component for journaling and managing journals.
@@ -28,12 +29,8 @@ import JournalingCTACard from '../../components/journaling/JournalingCTACard';
  * @returns {JSX.Element} The rendered Journaling component.
  */
 function ThoughtsReframingMain({navigation}) {
-  const {dispatchJournal} = useJournal();
   const [cognitiveData, setCognitiveData] = useState([]);
 
-  useEffect(() => {
-    dispatchJournal({type: 'getAllJournals'});
-  }, []);
 
   const strAllJournals = storage.getString('journals');
   const allJournals = strAllJournals ? JSON.parse(strAllJournals) : [];
@@ -131,17 +128,17 @@ function ThoughtsReframingMain({navigation}) {
                   </Pressable>
                 );
               })}
+              {cognitiveData.length === 0 && (
+                <EmptyState
+                  createOrAdd={'created'}
+                  subject={'Thoughts Reframing'}
+                  onPressTo={'Cognitive Restructuring'}
+                  navigation={navigation}
+                />
+              )}
             </View>
 
-            {/* For Debugging Only */}
-            {/* <PrimaryButton
-                            color='red'
-                            text='Clear all journal'
-                            onPress={() => {
-                                dispatchJournal({ type: 'eraseJournals' })
-                                trigger('impactHeavy')
-                            }}
-                        /> */}
+            
           </View>
         </SafeAreaView>
       </ScrollView>

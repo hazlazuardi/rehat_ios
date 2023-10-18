@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, View, ScrollView } from 'react-native';
 import { Pressable } from 'react-native';
-import { colors } from '../data/theme';
-import { sizes } from '../data/theme';
+import { colors } from '../../data/theme';
+import { sizes } from '../../data/theme';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles';
-import { storage } from '../../App';
-import useManageLearn from '../helpers/useManageLearn';
-import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
+import LearnCard from '../../components/learn/LearnCard';
+import data from '../../data/articles';
+import { storage } from '../../../App';
+import useManageLearn from '../../helpers/useManageLearn';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
 function LearnDetail({ route, navigation }) {
 
