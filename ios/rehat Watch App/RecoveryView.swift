@@ -98,15 +98,34 @@ struct RecoveryView: View {
     }
   }
   
+  // conditionally render star icon if function is recommended
+  func recommendIfBest(icon: some View, methodName: String) -> some View {
+    return
+      HStack {
+        icon
+        if methodName == workoutManager.bestMethod {
+          Spacer()
+          Image(systemName: "star.fill")
+            .resizable()
+            .foregroundColor(.yellow)
+            .frame(width: 10, height: 10)
+            .padding(.top, 5)
+            .scaleEffect(1.5)
+        }
+      }
+  }
+  
   func showAffirmRow() -> some View {
     return
       NavigationLink(destination: AffirmView()) {
         VStack(alignment: .leading) {
-          Image(systemName: "face.smiling.inverse")
-            .foregroundColor(.purple)
-            .frame(width: 30, height: 30)
-            .padding(.top, 5)
-            .scaleEffect(1.5)
+          recommendIfBest(
+            icon: Image(systemName: "face.smiling.inverse")
+                  .foregroundColor(.purple)
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 5)
+                  .scaleEffect(1.5),
+            methodName: RecoveryMethodNames.affirmation.rawValue)
           Text(RecoveryMethodNames.affirmation.rawValue)
             .padding(.bottom, 10)
             .font(.title3)
@@ -120,18 +139,20 @@ struct RecoveryView: View {
         ForEach(recoveryDatas.therapies, id: \.id) { therapy in
           NavigationLink(destination: DetailView(therapy: therapy)) {
             VStack(alignment: .leading) {
-              Image(systemName: therapy.icon)
-                .foregroundColor(colorFromString(therapy.color))
-                .frame(width: 30, height: 30)
-                .padding(.top, 7)
-                .scaleEffect(1.5)
+              recommendIfBest(
+                icon: Image(systemName: therapy.icon)
+                      .foregroundColor(colorFromString(therapy.color))
+                      .frame(width: 30, height: 30)
+                      .padding(.top, 7)
+                      .scaleEffect(1.5),
+                methodName: therapy.name)
               Text(therapy.name)
                 .padding(.bottom, 10)
                 .font(.title3)
             }
           }
         }
-      }
+      }.navigationTitle("Grounding Techniques")
   }
   
   func showGroundingTechniqueRow(methodName: String) -> some View {
@@ -139,11 +160,13 @@ struct RecoveryView: View {
     return
       NavigationLink(destination: DetailView(therapy: therapy)) {
         VStack(alignment: .leading) {
-          Image(systemName: therapy.icon)
-            .foregroundColor(colorFromString(therapy.color))
-            .frame(width: 30, height: 30)
-            .padding(.top, 7)
-            .scaleEffect(1.5)
+          recommendIfBest(
+            icon: Image(systemName: therapy.icon)
+                  .foregroundColor(colorFromString(therapy.color))
+                  .frame(width: 30, height: 30)
+                  .padding(.top, 7)
+                  .scaleEffect(1.5),
+            methodName: therapy.name)
           Text(therapy.name)
             .padding(.bottom, 10)
             .font(.title3)
@@ -155,11 +178,13 @@ struct RecoveryView: View {
     return
       NavigationLink(destination: EmergencyContactsView(rnConnector: rnConnector)) {
         VStack(alignment: .leading) {
-          Image(systemName: "phone")
-            .foregroundColor(.orange) // placeholder
-            .frame(width: 30, height: 30)
-            .padding(.top, 5)
-            .scaleEffect(1.5)
+          recommendIfBest(
+            icon: Image(systemName: "phone")
+                    .foregroundColor(.orange)
+                    .frame(width: 30, height: 30)
+                    .padding(.top, 5)
+                    .scaleEffect(1.5),
+            methodName: RecoveryMethodNames.call.rawValue)
           Text(RecoveryMethodNames.call.rawValue)
             .padding(.bottom, 10)
             .font(.title3)
@@ -171,11 +196,13 @@ struct RecoveryView: View {
     return
       NavigationLink(destination: BreathView()) {
         VStack(alignment: .leading) {
-          Image(systemName: "lungs.fill")
-            .foregroundColor(.blue)
-            .frame(width: 30, height: 30)
-            .padding(.top, 5)
-            .scaleEffect(1.5)
+          recommendIfBest(
+            icon: Image(systemName: "lungs.fill")
+                    .foregroundColor(.blue)
+                    .frame(width: 30, height: 30)
+                    .padding(.top, 5)
+                    .scaleEffect(1.5),
+            methodName: RecoveryMethodNames.breathing.rawValue)
           Text(RecoveryMethodNames.breathing.rawValue)
             .padding(.bottom, 10)
             .font(.title3)

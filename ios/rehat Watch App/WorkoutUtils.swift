@@ -42,7 +42,7 @@ class WorkoutManager: NSObject, ObservableObject {
   
   // recovery method suggestions
   private var methodScoringData: [MethodScoringData] = []
-  @Published var bestMethod: String = RecoveryMethodNames.breathing.rawValue // default
+  @Published var bestMethod: String = ""
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
