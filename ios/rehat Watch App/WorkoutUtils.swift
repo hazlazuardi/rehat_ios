@@ -37,7 +37,12 @@ class WorkoutManager: NSObject, ObservableObject {
   private var isPanic: Bool = false
   @Published var methodsUsed: [String] = []
   private var treatmentStart: Date = Calendar.current.startOfDay(for: .now)
-  private var treatmentEnd: Date = Calendar.current.startOfDay(for: .now)
+  private var treatmentEnd: Double = Calendar.current.startOfDay(for: .now).timeIntervalSince1970
+  private var recoveryDuration: Int = 0
+  
+  // recovery method suggestions
+  private var methodScoringData: [MethodScoringData] = []
+  @Published var bestMethod: String = RecoveryMethodNames.breathing.rawValue // default
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -193,14 +198,24 @@ class WorkoutManager: NSObject, ObservableObject {
     print("Stopped tracking")
     self.isPanic = false
     
-    let duration = self.getTrackedDuration()
+    self.recoveryDuration = self.getTrackedDuration()
+    self.treatmentEnd = Date().timeIntervalSince1970
       
-    // TODO: save tracked data
+    // Send data to iOS for self-monitoring
     let recoverySessionData = [
       "Timestamp": self.treatmentEnd
     ]
-    
     transferRecoverySessionData(data: recoverySessionData)
+    
+    // Save recovery durations for each method to calculate effectiveness
+    self.methodScoringData = StorageManager.shared.retrieveMethodScoringData()
+    for method in self.methodsUsed {
+      self.updateMethodScoringData(id: method, newData: [self.recoveryDuration])
+    }
+    StorageManager.shared.saveMethodScoringData(self.methodScoringData)
+    
+    // update recommended recovery method
+    self.updateBestMethod()
     
     // clean up
     self.methodsUsed = []
@@ -234,11 +249,41 @@ class WorkoutManager: NSObject, ObservableObject {
   func updateMethodScores() {
     let duration = self.getTrackedDuration()
     
-    var scoringData: [MethodScoringData] = StorageManager.shared.retrieveMethodScoringData()
+//    for index in scoringData.indices {
+//      scoringData[index]
+//    }
     
 //    for method in self.methodsUsed {
 //      scoringData[method].
 //    }
+  }
+  
+  func updateMethodScoringData(id: String, newData: [Int]) {
+    if let index = self.methodScoringData.firstIndex(where: { $0.id == id }) {
+      self.methodScoringData[index].panicDurations += [self.recoveryDuration]
+    } else {
+      self.methodScoringData.append(
+        MethodScoringData(
+          id: id,
+          panicDurations: [self.recoveryDuration]
+        )
+      )
+    }
+  }
+  
+  func updateBestMethod() {
+    if let best = self.methodScoringData.min(by: {
+        mean(of: $0.panicDurations) < mean(of: $1.panicDurations)
+      }) {
+      print("Updated best method to \(best.id)")
+      self.bestMethod = best.id
+    } else {
+      return
+    }
+  }
+  
+  private func mean(of ints: [Int]) -> Double {
+    return Double(ints.reduce(0, +)) / Double(ints.count)
   }
 }
 
