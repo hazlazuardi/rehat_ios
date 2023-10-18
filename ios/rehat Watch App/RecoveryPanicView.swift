@@ -16,7 +16,8 @@ struct Therapy: Identifiable, Decodable {
   
   struct Slide: Decodable {
     var title: String
-    var subTitle: String
+    var subTitle: String?
+    var image: String?
   }
 }
 
