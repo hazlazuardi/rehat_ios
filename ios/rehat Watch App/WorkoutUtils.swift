@@ -42,7 +42,7 @@ class WorkoutManager: NSObject, ObservableObject {
   
   // recovery method suggestions
   private var methodScoringData: [MethodScoringData] = []
-  @Published var bestMethod: String = ""
+  @Published var recommendedMethod: String = ""
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -203,7 +203,7 @@ class WorkoutManager: NSObject, ObservableObject {
       
     // Send data to iOS for self-monitoring
     let recoverySessionData = [
-      "Timestamp": self.treatmentEnd
+      "timestamp": self.treatmentEnd
     ]
     transferRecoverySessionData(data: recoverySessionData)
     
@@ -215,7 +215,8 @@ class WorkoutManager: NSObject, ObservableObject {
     StorageManager.shared.saveMethodScoringData(self.methodScoringData)
     
     // update recommended recovery method
-    self.updateBestMethod()
+    self.updateRecommendedMethod()
+    self.transferRecommendedMethod()
     
     // clean up
     self.methodsUsed = []
@@ -245,19 +246,17 @@ class WorkoutManager: NSObject, ObservableObject {
     WCSession.default.transferUserInfo(data)
   }
   
-  // MARK: Recovery Method Scoring
-  func updateMethodScores() {
-    let duration = self.getTrackedDuration()
-    
-//    for index in scoringData.indices {
-//      scoringData[index]
-//    }
-    
-//    for method in self.methodsUsed {
-//      scoringData[method].
-//    }
+  func transferRecommendedMethod() {
+    print("Transferring recommended recovery method: \(self.recommendedMethod)")
+    do {
+      try WCSession.default.updateApplicationContext(["recommendedMethod" : self.recommendedMethod])
+    }
+    catch {
+      print("error sending application context: \(error)")
+    }
   }
   
+  // MARK: Recovery Method Scoring
   func updateMethodScoringData(id: String, newData: [Int]) {
     if let index = self.methodScoringData.firstIndex(where: { $0.id == id }) {
       self.methodScoringData[index].panicDurations += [self.recoveryDuration]
@@ -271,12 +270,12 @@ class WorkoutManager: NSObject, ObservableObject {
     }
   }
   
-  func updateBestMethod() {
+  func updateRecommendedMethod() {
     if let best = self.methodScoringData.min(by: {
         mean(of: $0.panicDurations) < mean(of: $1.panicDurations)
       }) {
       print("Updated best method to \(best.id)")
-      self.bestMethod = best.id
+      self.recommendedMethod = best.id
     } else {
       return
     }

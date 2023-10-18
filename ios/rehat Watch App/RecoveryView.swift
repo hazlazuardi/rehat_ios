@@ -103,7 +103,7 @@ struct RecoveryView: View {
     return
       HStack {
         icon
-        if methodName == workoutManager.bestMethod {
+        if methodName == workoutManager.recommendedMethod {
           Spacer()
           Image(systemName: "star.fill")
             .resizable()
