@@ -4,39 +4,48 @@
     "slides": [
       {
         "title": "Lie or sit. Relax. Take five breaths.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-1"
       },
       {
         "title": "Lift toes up. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-2"
       },
       {
         "title": "Curl toes down. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-3"
       },
       {
         "title": "Clench hands. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-4"
       },
       {
         "title": "Tense arms. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-5"
       },
       {
         "title": "Tighten abs. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-6"
       },
       {
         "title": "Lift shoulders. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-7"
       },
       {
         "title": "Open mouth. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-8"
       },
       {
         "title": "Shut eyes tight. Hold. Release.",
-        "subTitle": "SubTitle1"
+        "subTitle": "",
+        "image": "MuscleRelaxation-9"
       }
     ],
     "icon": "figure.mixed.cardio",
