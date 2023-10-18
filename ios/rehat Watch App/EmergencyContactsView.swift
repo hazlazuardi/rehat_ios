@@ -37,13 +37,14 @@ struct EmergencyContactsView: View {
         }
         .buttonStyle(PlainButtonStyle()) // This will remove the default button appearance
       }
+      .containerBackground(.green.gradient, for: .navigation)
       .navigationTitle("Emergency Contacts")
-    }.onAppear {
+    }
+    .onAppear {
       if appState.isPanic {
         workoutManager.methodsUsed.append(RecoveryMethodNames.call.rawValue)
       }
     }
-    .containerBackground(.green.gradient, for: .navigation)
   }
 }
 
