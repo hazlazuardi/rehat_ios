@@ -42,8 +42,8 @@ struct EmergencyContactsView: View {
       if appState.isPanic {
         workoutManager.methodsUsed.append(RecoveryMethodNames.call.rawValue)
       }
-      .containerBackground(.green.gradient, for: .navigation)
     }
+    .containerBackground(.green.gradient, for: .navigation)
   }
 }
 
