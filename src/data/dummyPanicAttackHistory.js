@@ -98,7 +98,8 @@ export function generateDummyDataForPreviousWeeks(numWeeks) {
         if (!dummyData[weekStartEpoch][currentDayEpoch]) dummyData[weekStartEpoch][currentDayEpoch] = { date: currentDayEpoch, value: 0 };
 
         // Generate a random value for the current day
-        dummyData[weekStartEpoch][currentDayEpoch].value = Math.floor(Math.random() * 10);
+        // dummyData[weekStartEpoch][currentDayEpoch].value = Math.floor(Math.random() * 10);
+        dummyData[weekStartEpoch][currentDayEpoch].value = 0
     }
 
     return dummyData;

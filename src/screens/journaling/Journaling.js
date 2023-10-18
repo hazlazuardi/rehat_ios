@@ -84,7 +84,7 @@ function Journaling({ navigation }) {
                                                         {journal.title || 'Untitled'}
                                                     </Text>
                                                     <Text style={{ ...styles.text.captionTransparent }}>
-                                                        {formattedDate.dateString} at {formattedDate.timeString}
+                                                        {formattedDate.dayString} at {formattedDate.timeString}
                                                     </Text>
                                                 </View>
                                             </View>

@@ -26,7 +26,7 @@ function GroundingSteps({navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
   const {journal, dispatchJournal} = useJournal();
   const {journalingConfig, dispatchJournalingConfig} = useJournalingConfig();
-  const {dateString, timeString} = useFormattedDate(journal.dateAdded);
+  const {dayString, timeString} = useFormattedDate(journal.dateAdded);
   const [isShouldReturn, setIsShouldReturn] = useState(false);
   const requiredChipsCount = 5 - state;
 

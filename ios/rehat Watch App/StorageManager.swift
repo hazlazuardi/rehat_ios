@@ -12,6 +12,7 @@ class StorageManager {
     
     private let contactsKey = "storedContacts"
     private let recoveryReferencesKey = "storedRecoveryReferences" // New key for recoveryReferences
+    private let methodScoringDataKey = "methodsUsed"
 
     // MARK: - Contacts
     func saveContacts(_ contacts: [Contact]) {
@@ -44,4 +45,21 @@ class StorageManager {
         }
         return []
     }
+  
+    // MARK: Recovery Method Scoring Data
+    func saveMethodScoringData(_ methodScoringData: [MethodScoringData]) {
+        if let encoded = try? JSONEncoder().encode(methodScoringData) {
+            UserDefaults.standard.set(encoded, forKey: methodScoringDataKey)
+        }
+    }
+
+    func retrieveMethodScoringData() -> [MethodScoringData] {
+        if let savedMethodScoringData = UserDefaults.standard.object(forKey: methodScoringDataKey) as? Data {
+            if let loadedMethodScoringData = try? JSONDecoder().decode([MethodScoringData].self, from: savedMethodScoringData) {
+                return loadedMethodScoringData
+            }
+        }
+        return []
+    }
+    
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 function useFormattedDate(timestamp) {
-    const [formattedDate, setFormattedDate] = useState({ dateString: '', timeString: '' });
+    const [formattedDate, setFormattedDate] = useState({ dayString: '', timeString: '' });
 
     useEffect(() => {
         const date = new Date(timestamp);
@@ -19,10 +19,10 @@ function useFormattedDate(timestamp) {
             hour12: true        // Use 12-hour clock format (e.g., am/pm)
         }
 
-        const dateString = date.toLocaleDateString('en-US', dateOptions);
+        const dayString = date.toLocaleDateString('en-US', dateOptions);
         const timeString = date.toLocaleTimeString('en-US', timeOptions);
 
-        setFormattedDate({ dateString, timeString });
+        setFormattedDate({ dayString, timeString });
     }, [timestamp]);
 
     return formattedDate;

@@ -37,11 +37,19 @@ export function formatDate(timestamp) {
         day: '2-digit'
     }
 
-    const dateString = date.toLocaleDateString('en-US', dateOptions);
-    const timeString = date.toLocaleTimeString('en-US', timeOptions);
-    const dateNumString = date.toLocaleTimeString('en-US', dateNumOptions);
+    const compactDateOptions = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    };
 
-    return { dateString, timeString, dateNumString };
+
+    const dayString = date.toLocaleDateString('en-US', dateOptions);
+    const timeString = date.toLocaleTimeString('en-US', timeOptions);
+    const dateString = date.toLocaleTimeString('en-US', dateNumOptions);
+    const compactDateString = date.toLocaleDateString('en-GB', compactDateOptions);
+
+    return { dayString, timeString, dateString, compactDateString };
 }
 
 export function toAssetCase(text) {
