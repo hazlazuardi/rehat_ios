@@ -23,9 +23,8 @@ struct PanicRecoveryPipelineView: View {
         
         if otherTechniquesAreShown {
           // TODO: don't use recovery view here
-          RecoveryPanicView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
+          RecoveryView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
         } else {
-          // TODO: show user's first preference
           if rnConnector.recoveryReferences.isEmpty {
             Text("Loading...")
           } else {
@@ -49,10 +48,7 @@ struct PanicRecoveryPipelineView: View {
         selection = 1
         
         // start tracking duration
-        if (!workoutManager.running) {
-          workoutManager.isPanic = true
-          workoutManager.startWorkout()
-        } 
+        workoutManager.startTracking()
       }
     }
 }

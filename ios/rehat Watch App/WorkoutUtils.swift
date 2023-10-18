@@ -31,8 +31,10 @@ class WorkoutManager: NSObject, ObservableObject {
   private let PREDICT_DOWNTIME: Double = -60
   
   // panic state tracking
-  @Published var isPanic: Bool = false
+  private var isPanic: Bool = false
+  @Published var methodsUsed: [String] = []
   private var treatmentStart: Date = Calendar.current.startOfDay(for: .now)
+  private var treatmentEnd: Date = Calendar.current.startOfDay(for: .now)
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -72,10 +74,16 @@ class WorkoutManager: NSObject, ObservableObject {
   // Background processing
   // Continuously scan for new HK readings and make classification
   func updateForStatistics(_ statistics: HKStatistics?) {
-      guard let statistics = statistics else { return }
+    guard statistics != nil else { return }
 
       DispatchQueue.main.async {
-        self.runBackgroundTask()
+        if self.isPanic {
+          // stop tracking if hr falls below threshold
+          self.endOnPanicStop()
+        } else {
+          // classify panic states
+          self.runBackgroundTask()
+        }
       }
   }
   
@@ -93,6 +101,13 @@ class WorkoutManager: NSObject, ObservableObject {
     let clock = ContinuousClock()
     let runtime = clock.measure {
       print("Running Background Task!")
+      // update resting HR
+      startHealthKitQuery(
+        quantityTypeIdentifier: .restingHeartRate,
+        healthStore: self.healthStore,
+        updateFunction: self.updateRestingHeartRate
+      )
+      
       startAverageQuery(
         quantityTypeIdentifier: .heartRate,
         healthStore: self.healthStore,
@@ -130,6 +145,11 @@ class WorkoutManager: NSObject, ObservableObject {
     print("Got latest HRV: \(self.hrv)")
   }
   
+  private func updateRestingHeartRate(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {
+    (self.restingHeartRate, _) = getLatestSample(samples: samples, type: type)
+    print("Updated Resting HR to: \(self.restingHeartRate)")
+  }
+  
   // MARK: - State Control
   // The workout session state.
   @Published var running = false
@@ -155,6 +175,48 @@ class WorkoutManager: NSObject, ObservableObject {
   func endWorkout() {
       print("Ending workout.")
       session?.end()
+  }
+  
+  // MARK: Panic State Tracking
+  func startTracking() {
+    self.isPanic = true
+    if !self.running { self.startWorkout() }
+    self.treatmentStart = Date()
+  }
+  
+  func endTracking() {
+    // panic state has ended,
+    // either by user input or hr prediction
+    print("Stopped tracking")
+    self.isPanic = false
+    
+    let duration = self.getTrackedDuration()
+    print("Session lasted \(duration)s")
+      
+    // TODO: save tracked data
+    print("Methods used: \(Set(self.methodsUsed))")
+    
+    // clean up
+    self.methodsUsed = []
+  }
+  
+  func getTrackedDuration() -> Int {
+    // FIXME: this may crash if time interval overflows int limit
+    let duration = Int( self.treatmentStart.timeIntervalSinceNow * -1 )
+    return duration
+  }
+  
+  private func endOnPanicStop() {
+    startHealthKitQuery(
+      quantityTypeIdentifier: .heartRateVariabilitySDNN,
+      healthStore: self.healthStore,
+      updateFunction: self.updateHRV
+    )
+    
+    // HR falls below threshold of resting HR. May need to tweak this
+    if self.heartRate < (self.restingHeartRate * 0.1 + self.restingHeartRate) {
+      self.endTracking()
+    }
   }
 }
 
@@ -215,3 +277,4 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
 func setPanic(appState: AppState) {
   appState.setPanicTrue()
 }
+

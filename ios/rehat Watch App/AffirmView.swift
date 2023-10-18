@@ -65,6 +65,7 @@ class ReadDataAffirm: ObservableObject {
 
 #warning ("TODO: show end component when AppState is panic, and user wants to quit")
 struct AffirmView: View {
+  @EnvironmentObject var workoutManager: WorkoutManager
   @EnvironmentObject var appState: AppState
   @ObservedObject var affirmData = ReadDataAffirm()
   @State private var randomAffirmation: Affirm?
@@ -98,6 +99,10 @@ struct AffirmView: View {
     .navigationTitle("Affirmation")
     .containerBackground(.purple.gradient, for: .navigation)
     .onAppear {
+      if appState.isPanic {
+        workoutManager.methodsUsed.append(RecoveryMethodNames.affirmation.rawValue)
+      }
+      
       // Load an initial random affirmation
       randomAffirmation = affirmData.getRandomAffirmation()
     }

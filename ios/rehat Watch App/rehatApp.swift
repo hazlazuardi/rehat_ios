@@ -53,7 +53,6 @@ class AppNotificationCenterDelegate: NSObject, ObservableObject, UNUserNotificat
 class AppState: ObservableObject {
   static let shared = AppState()
   @Published var isPanic = false
-  @Published var methodsUsed: [String] = []
   
   func setPanicTrue() {
     self.isPanic = true

@@ -13,7 +13,8 @@ enum RecoveryMethodNames: String {
     affirmation = "Self-Affirmation",
     muscle_relaxation = "Muscle Relaxation",
     closed_eyes = "Closed Eyes Visualization",
-    five_to_one = "5-4-3-2-1"
+    five_to_one = "5-4-3-2-1",
+    call = "Emergency Call"
 }
 
 // buttons that appear on recovery method end
@@ -24,6 +25,7 @@ enum RecoveryMethodNames: String {
 // Takes the chosen method as a string
 struct EndComponentView: View {
   @EnvironmentObject var appState: AppState
+  @EnvironmentObject var workoutManager: WorkoutManager
   @Binding var selection: Int
   @Binding var otherTechniquesAreShown: Bool
     var body: some View {
@@ -42,6 +44,7 @@ struct EndComponentView: View {
           Text("Try Something Else")
         }
         Button {
+          workoutManager.endTracking()
           otherTechniquesAreShown = false
           appState.setPanicFalse()
           // TODO: wrap up panic pipeline.
