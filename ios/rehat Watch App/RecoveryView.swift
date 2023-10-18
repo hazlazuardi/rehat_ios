@@ -1,5 +1,15 @@
 import SwiftUI
 
+enum RecoveryMethodNames: String {
+  case
+    breathing = "Guided Breathing",
+    affirmation = "Self-Affirmation",
+    muscle_relaxation = "Muscle Relaxation",
+    closed_eyes = "Closed Eyes Visualization",
+    five_to_one = "5-4-3-2-1",
+    call = "Emergency Call"
+}
+
 struct Therapy: Identifiable, Decodable {
   var id: UUID?
   var name: String
@@ -55,83 +65,123 @@ struct RecoveryView: View {
   var body: some View {
     NavigationSplitView {
       List {
-        ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
-          if reference.label == "Self-Affirmation" {
-            NavigationLink(destination: AffirmView()) {
-              VStack(alignment: .leading) {
-                Image(systemName: "face.smiling.inverse")
-                  .foregroundColor(.purple)
-                  .frame(width: 30, height: 30)
-                  .padding(.top, 5)
-                  .scaleEffect(1.5)
-                Text(reference.label)
-                  .padding(.bottom, 10)
-                  .font(.title3)
-              }
-            }
-          } else if reference.label == "Guided Breathing" {
-            NavigationLink(destination: BreathView()) {
-              VStack(alignment: .leading) {
-                Image(systemName: "lungs.fill")
-                  .foregroundColor(.blue)
-                  .frame(width: 30, height: 30)
-                  .padding(.top, 5)
-                  .scaleEffect(1.5)
-                Text(reference.label)
-                  .padding(.bottom, 10)
-                  .font(.title3)
-              }
-            }
-          } else if reference.label == "Grounding Technique" {
-            let grounding_techniques = {
-              ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-                NavigationLink(destination: DetailView(therapy: therapy)) {
-                  VStack(alignment: .leading) {
-                    Image(systemName: therapy.icon)
-                      .foregroundColor(colorFromString(therapy.color))
-                      .frame(width: 30, height: 30)
-                      .padding(.top, 7)
-                      .scaleEffect(1.5)
-                    Text(therapy.name)
-                      .padding(.bottom, 10)
-                      .font(.title3)
-                  }
-                }
-              }
-            }
-            
-            if appState.isPanic {
-              grounding_techniques()
-            } else {
-              Section {
-                grounding_techniques()
-              } header : {
-                Text("Grounding Technique")
-              }
+        if appState.isPanic {
+          // panic state ordering
+          let _ = print(rnConnector.recoveryReferences)
+          ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
+            if reference.label == RecoveryMethodNames.affirmation.rawValue {
+              showAffirmRow()
+            } else if reference.label == RecoveryMethodNames.breathing.rawValue {
+              showBreathRow()
+            } else if reference.label == RecoveryMethodNames.muscle_relaxation.rawValue {
+              showGroundingTechniqueRow(methodName: reference.label)
+            } else if reference.label == RecoveryMethodNames.closed_eyes.rawValue {
+              showGroundingTechniqueRow(methodName: reference.label)
+            } else if reference.label == RecoveryMethodNames.five_to_one.rawValue {
+              showGroundingTechniqueRow(methodName: reference.label)
+            } else if reference.label == RecoveryMethodNames.call.rawValue {
+              showEmergencyContactsRow()
             }
           }
-          else if appState.isPanic && reference.label == "Emergency Call" {
-            NavigationLink(destination: EmergencyContactsView(rnConnector: rnConnector)) {
-              VStack(alignment: .leading) {
-                Image(systemName: "phone")
-                  .foregroundColor(.orange) // placeholder
-                  .frame(width: 30, height: 30)
-                  .padding(.top, 5)
-                  .scaleEffect(1.5)
-                Text(reference.label)
-                  .padding(.bottom, 10)
-                  .font(.title3)
-              }
-            }
-          }
+        } else {
+          // default ordering
+          showAffirmRow()
+          showBreathRow()
+          showGroundingTechniquesGrouped()
         }
-        .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       }
+      .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       .navigationTitle("Recovery")
     } detail: {
       BreathView()
     }
   }
+  
+  func showAffirmRow() -> some View {
+    return
+      NavigationLink(destination: AffirmView()) {
+        VStack(alignment: .leading) {
+          Image(systemName: "face.smiling.inverse")
+            .foregroundColor(.purple)
+            .frame(width: 30, height: 30)
+            .padding(.top, 5)
+            .scaleEffect(1.5)
+          Text(RecoveryMethodNames.affirmation.rawValue)
+            .padding(.bottom, 10)
+            .font(.title3)
+        }
+      }
+  }
+  
+  func showGroundingTechniquesGrouped() -> some View {
+    return
+      Section {
+        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
+          NavigationLink(destination: DetailView(therapy: therapy)) {
+            VStack(alignment: .leading) {
+              Image(systemName: therapy.icon)
+                .foregroundColor(colorFromString(therapy.color))
+                .frame(width: 30, height: 30)
+                .padding(.top, 7)
+                .scaleEffect(1.5)
+              Text(therapy.name)
+                .padding(.bottom, 10)
+                .font(.title3)
+            }
+          }
+        }
+      }
+  }
+  
+  func showGroundingTechniqueRow(methodName: String) -> some View {
+    let therapy = recoveryDatas.therapies.first(where: {$0.name == methodName})!
+    return
+      NavigationLink(destination: DetailView(therapy: therapy)) {
+        VStack(alignment: .leading) {
+          Image(systemName: therapy.icon)
+            .foregroundColor(colorFromString(therapy.color))
+            .frame(width: 30, height: 30)
+            .padding(.top, 7)
+            .scaleEffect(1.5)
+          Text(therapy.name)
+            .padding(.bottom, 10)
+            .font(.title3)
+        }
+      }
+  }
+  
+  func showEmergencyContactsRow() -> some View {
+    return
+      NavigationLink(destination: EmergencyContactsView(rnConnector: rnConnector)) {
+        VStack(alignment: .leading) {
+          Image(systemName: "phone")
+            .foregroundColor(.orange) // placeholder
+            .frame(width: 30, height: 30)
+            .padding(.top, 5)
+            .scaleEffect(1.5)
+          Text(RecoveryMethodNames.call.rawValue)
+            .padding(.bottom, 10)
+            .font(.title3)
+        }
+      }
+  }
+  
+  func showBreathRow() -> some View {
+    return
+      NavigationLink(destination: BreathView()) {
+        VStack(alignment: .leading) {
+          Image(systemName: "lungs.fill")
+            .foregroundColor(.blue)
+            .frame(width: 30, height: 30)
+            .padding(.top, 5)
+            .scaleEffect(1.5)
+          Text(RecoveryMethodNames.breathing.rawValue)
+            .padding(.bottom, 10)
+            .font(.title3)
+        }
+      }
+  }
+  
 }
 
 func colorFromString(_ name: String) -> Color {
