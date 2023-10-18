@@ -31,7 +31,7 @@ function CognitiveAnotherWay({route, navigation}) {
   } = route.params;
   const [input, setInput] = useState('');
 
-  console.log('trfdata');
+  // console.log('trfdata');
   const filteredData = previousData
     ?.filter(d => d.choosen === true)
     .map(dats => ({
