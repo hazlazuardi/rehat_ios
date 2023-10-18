@@ -14,9 +14,10 @@ function BarChart({ groupedData }) {
             <View key={weekIndex}
                 style={{
                     width: weekIntervalWidth,
+                    // backgroundColor: 'red',
                     flexDirection: 'row',
                     alignItems: 'flex-end',
-                    height: 200
+                    height: 300
                 }}>
                 {Object.entries(weekData).map(([dayEpoch, dayData], dayIndex) => (
                     <View key={dayIndex}>
@@ -31,7 +32,7 @@ function BarChart({ groupedData }) {
                         </Text>
                         <View
                             style={{
-                                height: dayData.value * 10,
+                                height: dayData.value * 60,
                                 width: weekIntervalWidth / 7,
                                 backgroundColor: colors.orange,
                                 borderTopStartRadius: 20,
@@ -48,10 +49,13 @@ function BarChart({ groupedData }) {
                             }}
                         >
                             <Text style={{ ...styles.text.caption, textAlign: 'center' }}>
-                                {formatDate(dayData.date).dateString.slice(0, 3)}
+                                {formatDate(dayData.date).dayString.slice(0, 3)}
                             </Text>
                             <Text style={{ ...styles.text.caption, textAlign: 'center' }}>
-                                {formatDate(dayData.date).dateNumString.slice(0, 2)}
+                                {formatDate(dayData.date).compactDateString.slice(0,5)}
+                            </Text>
+                            <Text style={{ ...styles.text.caption, textAlign: 'center' }}>
+                                {formatDate(dayData.date).compactDateString.slice(6,10)}
                             </Text>
                         </View>
                     </View>

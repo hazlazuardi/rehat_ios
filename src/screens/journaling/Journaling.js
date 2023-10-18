@@ -121,16 +121,6 @@ function Journaling({navigation}) {
                 />
               )}
             </View>
-
-            {/* For Debugging Only */}
-            {/* <PrimaryButton
-                            color='red'
-                            text='Clear all journal'
-                            onPress={() => {
-                                dispatchJournal({ type: 'eraseJournals' })
-                                trigger('impactHeavy')
-                            }}
-                        /> */}
           </View>
         </SafeAreaView>
       </ScrollView>

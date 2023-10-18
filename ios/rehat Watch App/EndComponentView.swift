@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-enum RecoveryMethodNames: String {
-  case
-    breathing = "Guided Breathing",
-    affirmation = "Self-Affirmation",
-    muscle_relaxation = "Muscle Relaxation",
-    closed_eyes = "Closed Eyes Visualization",
-    five_to_one = "5-4-3-2-1",
-    call = "Emergency Call"
-}
 
 // buttons that appear on recovery method end
 // shows buttons to either
@@ -30,12 +21,6 @@ struct EndComponentView: View {
   @Binding var otherTechniquesAreShown: Bool
     var body: some View {
       VStack {
-//        Button {
-//          // TODO: append another instance to methodsUsed?
-//          selection = 1
-//        } label: {
-//          Text("Restart Recovery")
-//        }
         Button {
           // TODO: add method to methodsUsed
           otherTechniquesAreShown = true

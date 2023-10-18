@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import WatchConnectivity
 
 // Workout Management
 // ==================
@@ -14,6 +15,8 @@ import HealthKit
 // as I couldn't get the BackgroundTasks module working.
 // Adapted from: https://developer.apple.com/videos/play/wwdc2021/10009/
 class WorkoutManager: NSObject, ObservableObject {
+  
+  
   let healthStore = RehatHealthStore.store
   
   // biofeedback data
@@ -34,7 +37,7 @@ class WorkoutManager: NSObject, ObservableObject {
   private var isPanic: Bool = false
   @Published var methodsUsed: [String] = []
   private var treatmentStart: Date = Calendar.current.startOfDay(for: .now)
-  private var treatmentEnd: Date = Calendar.current.startOfDay(for: .now)
+  private var treatmentEnd: Double = Calendar.current.startOfDay(for: .now).timeIntervalSince1970
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -189,12 +192,16 @@ class WorkoutManager: NSObject, ObservableObject {
     // either by user input or hr prediction
     print("Stopped tracking")
     self.isPanic = false
+    self.treatmentEnd = Date().timeIntervalSince1970
     
     let duration = self.getTrackedDuration()
-    print("Session lasted \(duration)s")
       
     // TODO: save tracked data
-    print("Methods used: \(Set(self.methodsUsed))")
+    let recoverySessionData = [
+      "Timestamp": self.treatmentEnd
+    ]
+    
+    transferRecoverySessionData(data: recoverySessionData)
     
     // clean up
     self.methodsUsed = []
@@ -217,6 +224,22 @@ class WorkoutManager: NSObject, ObservableObject {
     if self.heartRate < (self.restingHeartRate * 0.1 + self.restingHeartRate) {
       self.endTracking()
     }
+  }
+  
+  func transferRecoverySessionData(data: [String:Any]) {
+    print("Transferring data: \(data)")
+    WCSession.default.transferUserInfo(data)
+  }
+  
+  // MARK: Recovery Method Scoring
+  func updateMethodScores() {
+    let duration = self.getTrackedDuration()
+    
+    var scoringData: [MethodScoringData] = StorageManager.shared.retrieveMethodScoringData()
+    
+//    for method in self.methodsUsed {
+//      scoringData[method].
+//    }
   }
 }
 
