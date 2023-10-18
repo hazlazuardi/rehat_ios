@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { generateDummyDataForPreviousWeeks, getMonday, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
+import { generateDummyDataForPreviousWeeks, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
 import PrimaryButton from '../components/PrimaryButton';
 import { colors, sizes, styles } from '../data/theme';
-import { formatDate, getStandardTimestamp, getWeekStart, groupDataByWeek, initializeWeek } from '../helpers/helpers'
+import { formatDate, getMonday, getStandardTimestamp, getWeekStart, groupDataByWeek, initializeWeek } from '../helpers/helpers'
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 import BarChart from '../components/monitoring/BarChart';
 import { useMonitoring } from '../context/MonitoringProvider';
-import usePanicHistory, { weekIntervalWidth } from '../helpers/usePanicHistory';
+import usePanicHistory, { currentEpochTime, weekIntervalWidth } from '../helpers/usePanicHistory';
 import { useJournal } from '../context/Context';
 import useManageJournaling from '../helpers/useManageJournaling';
 import EmotionTriggerAnalysis from '../components/monitoring/EmotionTriggerAnalysis';
@@ -21,6 +21,8 @@ function Monitoring(props) {
         handleClearData,
         handleClearAllData,
         scrollViewRef: scrollRefPanicAttackHistory,
+        scrollToWeek,
+        handleMonthButtonClick
     } = usePanicHistory()
 
 
@@ -92,6 +94,17 @@ function Monitoring(props) {
                                 text='Clear All'
                                 onPress={handleClearAllData}
                             /> */}
+                            <PrimaryButton
+                                color={colors.darkGrey}
+                                text='Scroll to Today'
+                                onPress={() => scrollToWeek(getMonday(currentEpochTime()).getTime())}
+                            />
+                            <PrimaryButton
+                                color={colors.darkGrey}
+                                text='Scroll to November 2023'
+                                onPress={() => handleMonthButtonClick(2023, 10)}
+                            />
+
                         </View>
 
 
