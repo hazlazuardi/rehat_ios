@@ -15,7 +15,7 @@ function JournalDetail({ route }) {
 
     const { journal } = route.params
 
-    const { dateString, timeString } = useFormattedDate(journal.dateAdded)
+    const { dayString, timeString } = useFormattedDate(journal.dateAdded)
 
     // console.log('detail journal: ', journal)
 
@@ -64,7 +64,7 @@ function JournalDetail({ route }) {
                                         style={{
                                             color: colors.textArea.color
                                         }}
-                                    >{dateString}
+                                    >{dayString}
                                     </Text>
                                     <Text
                                         style={{

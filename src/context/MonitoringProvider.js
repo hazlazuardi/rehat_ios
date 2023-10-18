@@ -1,7 +1,7 @@
 import React, { useReducer, createContext, useCallback, useContext } from 'react';
-import { generateDummyDataForPreviousWeeks, getMonday, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
+import { generateDummyDataForPreviousWeeks, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
 import { watchEvents } from 'react-native-watch-connectivity';
-import { formatDate } from '../helpers/helpers';
+import { formatDate, getMonday } from '../helpers/helpers';
 
 
 const MonitoringContext = createContext(null)
@@ -21,6 +21,38 @@ export const initializeWeek = (state, weekStartTimestamp) => {
     }
     return newState;
 };
+
+export function initializeWeeks(numPrevWeeks, numNextWeeks) {
+    // Get the current date and time
+    const today = new Date();
+
+    // Calculate the epoch timestamp for the start date, which is `numPrevWeeks` weeks before today
+    const startEpoch = today.getTime() - (numPrevWeeks * 7 * 24 * 3600 * 1000);
+    const endEpoch = today.getTime() + (numNextWeeks * 7 * 24 * 3600 * 1000);
+
+    // Initialize an empty object to hold the dummy data
+    const dummyData = {};
+
+    // Loop through each day from the start date to today
+    for (let epoch = startEpoch; epoch <= endEpoch; epoch += 24 * 3600 * 1000) {
+        // Calculate the week number and day number for the current epoch
+        const currentDayEpoch = Math.floor(epoch / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Round down to the nearest day
+
+        // Get the epoch for the start of the current week
+        const weekStartEpoch = getMonday(currentDayEpoch).getTime();
+
+        // Ensure the week and day objects exist in the dummy data
+        if (!dummyData[weekStartEpoch]) dummyData[weekStartEpoch] = {};
+        if (!dummyData[weekStartEpoch][currentDayEpoch]) dummyData[weekStartEpoch][currentDayEpoch] = { date: currentDayEpoch, value: 0 };
+
+        // Generate a random value for the current day
+        // dummyData[weekStartEpoch][currentDayEpoch].value = Math.floor(Math.random() * 10);
+        dummyData[weekStartEpoch][currentDayEpoch].value = 0
+    }
+
+    return dummyData;
+}
+
 
 // Initial State
 const currentWeekData = generateDummyDataForPreviousWeeks(4);
@@ -84,7 +116,8 @@ function monitoringReducer(state, action) {
     switch (action.type) {
         case 'INITIALIZE_CURRENT_WEEK': {
             const weekStartTimestamp = action.payload;
-            return initializeWeek(state, weekStartTimestamp);
+            // return initializeWeek(state, weekStartTimestamp);
+            return initializeWeeks(26, 26)
         }
         case 'ADD_DATA': {
             const { date, value } = action.payload;
@@ -135,7 +168,8 @@ function monitoringReducer(state, action) {
         }
 
         case 'clearAllHistory': {
-            return {}
+            // return generateDummyDataForPreviousWeeks(20)
+            return initializeWeeks(20, 20)
         }
 
         default:
