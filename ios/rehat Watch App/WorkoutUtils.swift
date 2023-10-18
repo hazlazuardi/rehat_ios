@@ -37,7 +37,7 @@ class WorkoutManager: NSObject, ObservableObject {
   private var isPanic: Bool = false
   @Published var methodsUsed: [String] = []
   private var treatmentStart: Date = Calendar.current.startOfDay(for: .now)
-  private var treatmentEnd: Date = Calendar.current.startOfDay(for: .now)
+  private var treatmentEnd: Double = Calendar.current.startOfDay(for: .now).timeIntervalSince1970
   
   var session: HKWorkoutSession?
   var builder: HKLiveWorkoutBuilder?
@@ -192,6 +192,7 @@ class WorkoutManager: NSObject, ObservableObject {
     // either by user input or hr prediction
     print("Stopped tracking")
     self.isPanic = false
+    self.treatmentEnd = Date().timeIntervalSince1970
     
     let duration = self.getTrackedDuration()
       

@@ -77,7 +77,7 @@ function Monitoring(props) {
                             </ScrollView>
 
                             {/* Debugging Purpose */}
-                            {/* <PrimaryButton
+                            <PrimaryButton
                                 color='green'
                                 text='Generate'
                                 onPress={handleNewData}
@@ -91,7 +91,7 @@ function Monitoring(props) {
                                 color='red'
                                 text='Clear All'
                                 onPress={handleClearAllData}
-                            /> */}
+                            />
                         </View>
 
 

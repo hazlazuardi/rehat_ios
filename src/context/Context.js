@@ -119,9 +119,11 @@ function recoveryReferencesReducer(state, action) {
 
 const initialRecoveryReferences = [
 	{ key: '1', label: 'Guided Breathing' },
-	{ key: '2', label: 'Grounding Technique' },
-	{ key: '3', label: 'Self-Affirmation' },
-	{ key: '4', label: 'Emergency Call' },
+	{ key: '2', label: 'Self-Affirmation' },
+	{ key: '3', label: 'Muscle Relaxation' },
+	{ key: '4', label: 'Closed Eyes Visualization' },
+	{ key: '5', label: '5-4-3-2-1' },
+	{ key: '6', label: 'Emergency Call' },
 ]
 
 function contactReducer(state, action) {

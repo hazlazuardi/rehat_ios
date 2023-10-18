@@ -1,8 +1,13 @@
 import React, { useReducer, createContext, useCallback, useContext } from 'react';
 import { generateDummyDataForPreviousWeeks, getMonday, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
+import { watchEvents } from 'react-native-watch-connectivity';
+import { formatDate } from '../helpers/helpers';
 
 
 const MonitoringContext = createContext(null)
+
+// Keep track of duplicate User Info
+const processedTimestamps = new Set();
 
 // Helper Functions
 export const getStandardTimestamp = (date) => Math.floor(date.getTime() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
@@ -20,6 +25,58 @@ export const initializeWeek = (state, weekStartTimestamp) => {
 // Initial State
 const currentWeekData = generateDummyDataForPreviousWeeks(4);
 const initialState = initializeCurrentWeek(currentWeekData);
+
+
+// Provider Component
+export const MonitoringProvider = ({ children }) => {
+    const [data, dispatch] = useReducer(monitoringReducer, initialState);
+
+
+    // To Do: Receive userInfo from watch
+    const unsubscribe = watchEvents.on('user-info', userInfo => {
+        userInfo.forEach(info => {
+            const timestamp = info['Timestamp'] * 1000;
+            if (!processedTimestamps.has(timestamp)) {
+                console.log('received user info', info['Timestamp']);
+                console.log('parsed', formatDate(timestamp).timeString);
+                handleNewData(timestamp);
+                processedTimestamps.add(timestamp);  // Mark this timestamp as processed
+            }
+        });
+    });
+
+    const handleInitializeCurrentWeek = useCallback((weekStartTimestamp) => {
+        dispatch({ type: 'INITIALIZE_CURRENT_WEEK', payload: weekStartTimestamp });
+    }, []);
+
+    const handleNewData = useCallback((timestamp) => {
+        // const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
+        dispatch({ type: 'ADD_DATA', payload: { date: timestamp, value: 1 } });
+    }, []);
+
+    const handleClearData = useCallback(() => {
+        const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
+        dispatch({ type: 'clearTodayHistory', payload: { date: epochTime, value: 1 } });
+    }, []);
+
+    const handleClearAllData = useCallback(() => {
+        dispatch({ type: 'clearAllHistory' });
+    }, []);
+
+    const value = {
+        data,
+        handleInitializeCurrentWeek,
+        handleNewData,
+        handleClearData,
+        handleClearAllData,
+    };
+
+    return (
+        <MonitoringContext.Provider value={{ ...value }}>
+            {children}
+        </MonitoringContext.Provider>
+    );
+};
 
 // Reducer
 // TODO: add a case to store each entry from Avatar
@@ -86,43 +143,6 @@ function monitoringReducer(state, action) {
     }
 }
 
-// Provider Component
-export const MonitoringProvider = ({ children }) => {
-    const [data, dispatch] = useReducer(monitoringReducer, initialState);
-
-
-    const handleInitializeCurrentWeek = useCallback((weekStartTimestamp) => {
-        dispatch({ type: 'INITIALIZE_CURRENT_WEEK', payload: weekStartTimestamp });
-    }, []);
-
-    const handleNewData = useCallback(() => {
-        const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
-        dispatch({ type: 'ADD_DATA', payload: { date: epochTime, value: 1 } });
-    }, []);
-
-    const handleClearData = useCallback(() => {
-        const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
-        dispatch({ type: 'clearTodayHistory', payload: { date: epochTime, value: 1 } });
-    }, []);
-
-    const handleClearAllData = useCallback(() => {
-        dispatch({ type: 'clearAllHistory' });
-    }, []);
-
-    const value = {
-        data,
-        handleInitializeCurrentWeek,
-        handleNewData,
-        handleClearData,
-        handleClearAllData,
-    };
-
-    return (
-        <MonitoringContext.Provider value={{ ...value }}>
-            {children}
-        </MonitoringContext.Provider>
-    );
-};
 
 // to make it accessible by others
 export function useMonitoring() {
