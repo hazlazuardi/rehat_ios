@@ -29,6 +29,7 @@
     "react-native-reanimated": "^3.5.4",
     "react-native-safe-area-context": "^4.7.2",
     "react-native-screens": "^3.25.0",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-watch-connectivity": "^1.1.0"
   },
   "devDependencies": {
