@@ -43,7 +43,7 @@ function Dashboard({navigation}) {
     return a.isCompleted ? 1 : -1; // Place uncompleted goals before completed ones
   });
 
-  console.log('sgol', sortedGoals);
+//   console.log('sgol', sortedGoals);
 
   const handleGoToGoalMethod = method => {
     if (['Journaling', 'Cognitive Restructuring'].includes(method)) {

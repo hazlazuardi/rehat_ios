@@ -1,80 +1,168 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, ScrollView } from 'react-native';
-import { Pressable } from 'react-native';
-import { colors } from '../../data/theme';
-import { sizes } from '../../data/theme';
+import React, {useEffect, useState} from 'react';
+import {
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+} from 'react-native';
+import {Pressable} from 'react-native';
+import {colors, styles as styleses} from '../../data/theme';
+import {sizes} from '../../data/theme';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../../components/learn/LearnCard';
 import data from '../../data/articles';
-import { storage } from '../../../App';
+import {storage} from '../../../App';
 import useManageLearn from '../../helpers/useManageLearn';
+import assets from '../../data/assets';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
-function LearnDetail({ route, navigation }) {
+function LearnDetail({route, navigation}) {
+  const {arc, assetsImg, title, category} = route.params;
+  const [number, setNumber] = useState(0);
 
-  const { arc } = route.params
-  const [number, setNumber] = useState(0)
+  const {addLearnedArticle} = useManageLearn();
 
-  const { addLearnedArticle } = useManageLearn()
+  console.log('arc det', arc);
 
-  console.log('arc det', arc)
+  const arcUpdated = {arc,catId:category}
 
   return (
     <BlurredEllipsesBackground>
-    <ScrollView style={{
-        flex: 1,
-        // backgroundColor: colors.darkTurquoise
-    }}
-        contentInsetAdjustmentBehavior='automatic'
-    >
-        <SafeAreaView style={{ marginBottom:100}}>
-            <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg}}>
-      <Text style={styles.headingLearn}>{arc?.title}</Text>
-      {arc?.content?.sections[number] !== '' ? (
-        arc?.content?.sections[number]?.end ? (
-          <>
-            <Text style={styles.descLearn}>
-              {arc?.content?.sections[number]?.header}
-            </Text>
-            <Text style={styles.descLearn}>
-              {arc?.content?.sections[number]?.text}
-            </Text>
-            <Pressable
-              onPress={() => {
-                navigation.goBack();
-                addLearnedArticle(arc)
-                setNumber(0)
-              }}>
-              <Text style={styles.descLearn}>Back To Learn</Text>
-            </Pressable>
-          </>
-        ) : (
-          <>
-            <Text style={styles.descLearn}>
-              {arc?.content?.sections[number]?.header}
-            </Text>
-            <Text style={styles.descLearn}>
-              {arc?.content?.sections[number]?.text}
-            </Text>
-            {number > 0 ? (
-              <Pressable onPress={() => setNumber(number - 1)}>
-                <Text style={styles.descLearn}>Previous Section</Text>
-              </Pressable>
+      <ScrollView
+        style={{
+          flex: 1,
+          // backgroundColor: colors.darkTurquoise
+        }}
+        contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={{marginBottom: 100}}>
+          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+            <View style={innerStyles.progressLearn}>
+              <View style={innerStyles.progressText}>
+                <Image
+                  source={
+                    assetsImg === 'brain'
+                      ? assets.images.brain
+                      : assets.images.lung
+                  }
+                  style={{width: 20, height: 20}}
+                />
+                <Text style={{...styleses.text.body3}}>{title}</Text>
+              </View>
+
+              <View style={innerStyles.progressBarContainer}>
+                {/* {articles.map((arc, key) => {
+                  return (
+                    <View key={key} style={innerStyles.progressBar}></View>
+                  );
+                })} */}
+              </View>
+            </View>
+            <Text style={{...styleses.text.header1}}>{arc?.title}</Text>
+            {arc?.content?.sections[number] !== '' ? (
+              arc?.content?.sections[number]?.end ? (
+                <>
+                  <Text style={{...styleses.text.header3}}>
+                    {arc?.content?.sections[number]?.header}
+                  </Text>
+                  <View
+                    style={{
+                      padding: 14,
+                      backgroundColor: 'white',
+                      borderRadius: 16,
+                    }}>
+                    <Text style={{...styleses.text.body3, color: colors.black}}>
+                      {arc?.content?.sections[number]?.text}
+                    </Text>
+                  </View>
+                  <Pressable
+                    onPress={() => {
+                      navigation.goBack();
+                      addLearnedArticle(arc,category);
+                      setNumber(0);
+                    }}>
+                    <View
+                      style={{
+                        gap: 20,
+                      }}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          padding: 10,
+                          backgroundColor: colors.green,
+                          borderRadius: 14,
+                        }}>
+                        <Text
+                          style={{...styleses.text.body3, color: colors.white}}>
+                          {'Back to Learn '}
+                        </Text>
+                      </View>
+                    </View>
+                  </Pressable>
+                </>
+              ) : (
+                <>
+                  <Text style={{...styleses.text.header3}}>
+                    {arc?.content?.sections[number]?.header}
+                  </Text>
+                  <View
+                    style={{
+                      padding: 14,
+                      backgroundColor: 'white',
+                      borderRadius: 16,
+                    }}>
+                    <Text style={{...styleses.text.body3, color: colors.black}}>
+                      {arc?.content?.sections[number]?.text}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      gap: 20,
+                    }}>
+                    {number > 0 ? (
+                      <Pressable onPress={() => setNumber(number - 1)}>
+                        <View
+                          style={{
+                            padding: 10,
+                            backgroundColor: 'white',
+                            borderRadius: 14,
+                          }}>
+                          <Text
+                            style={{
+                              ...styleses.text.body3,
+                              color: colors.black,
+                            }}>
+                            {'< Back'}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    ) : (
+                      <></>
+                    )}
+                    <Pressable onPress={() => setNumber(number + 1)}>
+                      <View
+                        style={{
+                          padding: 10,
+                          backgroundColor: colors.green,
+                          borderRadius: 14,
+                        }}>
+                        <Text
+                          style={{...styleses.text.body3, color: colors.white}}>
+                          {'Next >'}
+                        </Text>
+                      </View>
+                    </Pressable>
+                  </View>
+                </>
+              )
             ) : (
-              <></>
+              <Text>tdk ada</Text>
             )}
-            <Pressable onPress={() => setNumber(number + 1)}>
-              <Text style={styles.descLearn}>Next Section</Text>
-            </Pressable>
-          </>
-        )
-      ) : (
-        <Text>tdk ada</Text>
-      )}
-    </View>
-    </SafeAreaView>
-  </ScrollView>
-</BlurredEllipsesBackground>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+    </BlurredEllipsesBackground>
   );
 }
 const styles = StyleSheet.create({
@@ -96,6 +184,53 @@ const styles = StyleSheet.create({
     fontSize: sizes.text.bodylg,
     width: '75%',
     fontFamily: 'Poppins-regular',
+  },
+});
+
+const innerStyles = StyleSheet.create({
+  progressText: {
+    gap: 10,
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  headingText: {
+    fontSize: sizes.text.header3,
+    // marginTop: sizes.padding.lg,
+    // marginHorizontal: sizes.padding.lg,
+  },
+  progressLearn: {
+    padding: sizes.padding.md,
+    borderRadius: sizes.padding.md,
+    backgroundColor: '#0E6E74',
+  },
+  textProgressHeading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    height: '50%',
+    color: colors.white,
+    paddingBottom: sizes.padding.md,
+  },
+  textProgress: {
+    color: colors.white,
+    // marginLeft: 3,
+    // marginTop: 15,
+  },
+  containerCards: {
+    // marginBottom: 100,
+    gap: sizes.gap.md,
+  },
+  progressBar: {
+    height: 20,
+    gap: 50,
+    backgroundColor: 'red',
+    // borderRadius: 10
+  },
+  progressBarContainer: {
+    justifyContent: 'space-evenly',
+    flex: 1,
+    flexDirection: 'row',
   },
 });
 
