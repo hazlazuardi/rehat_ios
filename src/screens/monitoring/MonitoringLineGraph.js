@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { LineGraph } from 'react-native-graph';
-import { sizes } from '../data/theme';
-import { groupAndSumDataByWeekAndDay } from '../helpers/helpers';
-import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
+import { sizes } from '../../data/theme';
+import { groupAndSumDataByWeekAndDay } from '../../helpers/helpers';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
 
 const weekIntervalWidth = Dimensions.get('screen').width - 32;

@@ -7,20 +7,21 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import { colors, styles } from '../data/theme';
-import { sizes } from '../data/theme';
-import LearnCard from '../components/learn/LearnCard';
-import data from '../data/articles';
+import { colors, styles } from '../../data/theme';
+import { sizes } from '../../data/theme';
+import LearnCard from '../../components/learn/LearnCard';
+import data from '../../data/articles';
 import { Pressable } from 'react-native';
-import progress from '../../assets/img/progress.png';
+import progress from '../../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import { storage } from '../../App';
-import useManageLearn from '../helpers/useManageLearn';
-import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
+import { storage } from '../../../App';
+import useManageLearn from '../../helpers/useManageLearn';
+import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 
 function Learn({ navigation }) {
   const { articles, getProgress, clearAllLearnedArticles } = useManageLearn()
 
+storage.clearAll()
   // clearAllLearnedArticles()
   return (
     <BlurredEllipsesBackground>
