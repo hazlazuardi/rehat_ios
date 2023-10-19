@@ -9,21 +9,13 @@ function LearnCard({ article, done }) {
   return (
     <View style={done ? { opacity: 0.4 } : { opacity: 1 }}>
       <View style={innerStyles.container}>
-        <ImageBackground
-          resizeMode="cover"
-          source={art1}
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: sizes.padding.md,
-            overflow: 'hidden',
-          }}>
+        <View style={{width:'100%', backgroundColor:colors.orange, borderRadius:16}}>
           <View style={innerStyles.firstCard}>
             <Text style={styles.text.header3}>{article?.title}</Text>
             <Text style={styles.text.body3}>{article?.desc}</Text>
           </View>
           <View style={innerStyles.secondCard}></View>
-        </ImageBackground>
+        </View>
       </View>
     </View>
   );
@@ -57,7 +49,7 @@ const innerStyles = StyleSheet.create({
     borderTopRightRadius: sizes.padding.lg,
     borderBottomRightRadius: sizes.padding.lg,
     borderRadius: sizes.padding.md,
-    width: '70%',
+    width: '80%',
   },
   secondCard: {
     width: '50%',

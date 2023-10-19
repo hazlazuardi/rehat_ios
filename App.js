@@ -42,6 +42,7 @@ import OnboardingScreen from './src/screens/onboarding/Onboarding';
 import OnboardingDetailOne from './src/screens/onboarding/OnboardingDetailOne';
 import OnboardingDetailTwo from './src/screens/onboarding/OnboardingDetailTwo';
 import ThoughtsReframingMain from './src/screens/thoughts/ThoughtsReframingMain';
+import LearnCategory from './src/screens/learn/LearnCategory';
 
 const Stack = createNativeStackNavigator();
 
@@ -246,6 +247,11 @@ function App() {
 								<Stack.Screen
 									name="Learn Detail"
 									component={LearnDetail}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Learn' }}
+								/>
+                <Stack.Screen
+									name="Learn Category"
+									component={LearnCategory}
 									options={{ ...nestedHeaderOptions, headerBackTitle: 'Learn' }}
 								/>
 							</Stack.Group>

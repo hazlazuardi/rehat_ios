@@ -29,6 +29,8 @@ import monitoring from '../assets/icons/monitoring_icon.png'
 import kutip from '../assets/images/kutip.png'
 import kutipakhir from '../assets/images/kutipakhir.png'
 import call from '../assets/images/Call.png'
+import lung from '../assets/images/lung.png' 
+import brain from '../assets/images/brain.png'
 
 
 export default {
@@ -64,6 +66,8 @@ export default {
         very_pleasant: very_pleasant,
         kutip: kutip,
         kutipakhir:kutipakhir,
-        call:call
+        call:call,
+        lung:lung,
+        brain:brain
     }
 }
