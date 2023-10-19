@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,18 +7,19 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Pressable} from 'react-native';
-import {colors} from '../../data/theme';
-import {sizes} from '../../data/theme';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { Pressable } from 'react-native';
+import { colors } from '../../data/theme';
+import { sizes } from '../../data/theme';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LearnCard from '../../components/learn/LearnCard';
 import data from '../../data/articles';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import { styles as styleses } from '../../data/theme';
+import PrimaryButton from '../../components/PrimaryButton';
 
-function CognitiveDetail({route, navigation}) {
+function CognitiveDetail({ route, navigation }) {
   const [isShouldReturn, setIsShouldReturn] = useState(false);
-  const {data, title, inputText} = route.params;
+  const { data, title, inputText } = route.params;
   const [input, setInput] = useState('');
 
   const isInputChanged = () => {
@@ -50,24 +51,24 @@ function CognitiveDetail({route, navigation}) {
         enableResetScrollToCoords={false}
         keyboardDismissMode={isShouldReturn ? 'none' : 'interactive'}
         keyboardShouldPersistTaps={isShouldReturn ? 'always' : 'never'}
-        contentContainerStyle={{flexGrow: 1}}
+        contentContainerStyle={{ flexGrow: 1 }}
         contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
-          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+        <SafeAreaView style={{ marginBottom: 100 }}>
+          <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View>
-            <Text style={{...styleses.text.header1}}>Cognitive Restructuring</Text>
+              <Text style={{ ...styleses.text.header1 }}>Cognitive Restructuring</Text>
             </View>
 
             <View style={styles.prevText}>
               <Text style={styles.descLearn}>"{inputText}"</Text>
             </View>
-            <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {data
                 ?.filter(d => d.choosen === true)
                 .map(dats => {
                   return (
                     <View key={dats?.text} style={styles.choice2}>
-                      <Text style={{color: 'white'}}>{dats?.text}</Text>
+                      <Text style={{ color: 'white' }}>{dats?.text}</Text>
                     </View>
                   );
                 })}
@@ -91,17 +92,19 @@ function CognitiveDetail({route, navigation}) {
                 style={styles.textInput}
               />
             </View>
-            <View style={styles.containerButton}>
-              <Pressable onPress={handleBackPress}>
-                <View style={styles.buttonBack}>
-                  <Text style={styles.buttonNextBack}>Back</Text>
-                </View>
-              </Pressable>
-              <Pressable onPress={handleNextPress}>
-                <View style={styles.buttonNext}>
-                  <Text style={styles.buttonNextText}>Next</Text>
-                </View>
-              </Pressable>
+            <View style={{
+              gap: sizes.gap.md
+            }}>
+              <PrimaryButton
+                text='Next'
+                color={colors.green}
+                onPress={handleNextPress}
+              />
+              <PrimaryButton
+                text='Back'
+                color={colors.darkGreyTransparent}
+                onPress={handleBackPress}
+              />
             </View>
           </View>
         </SafeAreaView>

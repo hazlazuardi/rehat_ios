@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,16 +7,17 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Pressable} from 'react-native';
-import {colors} from '../../data/theme';
-import {sizes} from '../../data/theme';
+import { Pressable } from 'react-native';
+import { colors } from '../../data/theme';
+import { sizes } from '../../data/theme';
 import LearnCard from '../../components/learn/LearnCard';
-import {storage} from '../../../App';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { storage } from '../../../App';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
-import {styles as styleses} from '../../data/theme';
+import { styles as styleses } from '../../data/theme';
+import PrimaryButton from '../../components/PrimaryButton';
 
-function CognitiveAnotherWay({route, navigation}) {
+function CognitiveAnotherWay({ route, navigation }) {
   const [isShouldReturn, setIsShouldReturn] = useState(false);
   const {
     previousData,
@@ -87,17 +88,17 @@ function CognitiveAnotherWay({route, navigation}) {
         enableResetScrollToCoords={false}
         keyboardDismissMode={isShouldReturn ? 'none' : 'interactive'}
         keyboardShouldPersistTaps={isShouldReturn ? 'always' : 'never'}
-        contentContainerStyle={{flexGrow: 1}}
+        contentContainerStyle={{ flexGrow: 1 }}
         contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
-          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+        <SafeAreaView style={{ marginBottom: 100 }}>
+          <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View>
-              <Text style={{...styleses.text.header1}}>
+              <Text style={{ ...styleses.text.header1 }}>
                 Cognitive Restructuring
               </Text>
             </View>
             {isPreview && (
-              <Text style={{color: 'white'}}>
+              <Text style={{ color: 'white' }}>
                 What unhelpful thought do you have?
               </Text>
             )}
@@ -107,14 +108,14 @@ function CognitiveAnotherWay({route, navigation}) {
               )}
               {isPreview && <Text style={styles.descLearn}>"{TRFI}"</Text>}
             </View>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {!isPreview &&
                 previousData
                   ?.filter(d => d.choosen === true)
                   .map(dats => {
                     return (
                       <View key={dats?.text} style={styles.choice2}>
-                        <Text style={{color: 'white'}}>{dats?.text}</Text>
+                        <Text style={{ color: 'white' }}>{dats?.text}</Text>
                       </View>
                     );
                   })}
@@ -122,14 +123,14 @@ function CognitiveAnotherWay({route, navigation}) {
                 TRData?.map((dats, index) => {
                   return (
                     <View key={index} style={styles.choice2}>
-                      <Text style={{color: 'white'}}>{dats}</Text>
+                      <Text style={{ color: 'white' }}>{dats}</Text>
                     </View>
                   );
                 })}
             </View>
             {isPreview && (
               <View>
-                <Text style={{color: 'white'}}>
+                <Text style={{ color: 'white' }}>
                   How can you challenge your thought?
                 </Text>
               </View>
@@ -142,7 +143,7 @@ function CognitiveAnotherWay({route, navigation}) {
             </View>
             {isPreview && (
               <View>
-                <Text style={{color: 'white'}}>
+                <Text style={{ color: 'white' }}>
                   What is another way of thinking about this?
                 </Text>
               </View>
@@ -168,17 +169,19 @@ function CognitiveAnotherWay({route, navigation}) {
               )}
             </View>
             {!isPreview && (
-              <View style={styles.containerButton}>
-                <Pressable onPress={handleBackPress}>
-                  <View style={styles.buttonBack}>
-                    <Text style={styles.buttonNextBack}>Back</Text>
-                  </View>
-                </Pressable>
-                <Pressable onPress={handleNextPress}>
-                  <View style={styles.buttonNext}>
-                    <Text style={styles.buttonNextText}>Next</Text>
-                  </View>
-                </Pressable>
+              <View style={{
+                gap: sizes.gap.md
+              }}>
+                <PrimaryButton
+                  text='Next'
+                  color={colors.green}
+                  onPress={handleNextPress}
+                />
+                <PrimaryButton
+                  text='Back'
+                  color={colors.darkGreyTransparent}
+                  onPress={handleBackPress}
+                />
               </View>
             )}
           </View>

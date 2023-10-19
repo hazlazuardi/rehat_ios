@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Image,
@@ -8,15 +8,15 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useJournal} from '../../context/Context';
-import {storage} from '../../../App';
-import {colors, sizes, styles} from '../../data/theme';
+import { useJournal } from '../../context/Context';
+import { storage } from '../../../App';
+import { colors, sizes, styles } from '../../data/theme';
 import PrimaryButton from '../../components/PrimaryButton';
-import {trigger} from 'react-native-haptic-feedback';
+import { trigger } from 'react-native-haptic-feedback';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 import useFormattedDate from '../../helpers/useDateFormatter';
-import {formatDate, toAssetCase} from '../../helpers/helpers';
+import { formatDate, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
 import EmptyState from '../../components/EmptyState';
@@ -28,14 +28,14 @@ import EmptyState from '../../components/EmptyState';
  * @param {JournalingProps} props - The component's properties.
  * @returns {JSX.Element} The rendered Journaling component.
  */
-function ThoughtsReframingMain({navigation}) {
+function ThoughtsReframingMain({ navigation }) {
   const [cognitiveData, setCognitiveData] = useState([]);
 
 
   const strAllJournals = storage.getString('journals');
   const allJournals = strAllJournals ? JSON.parse(strAllJournals) : [];
 
-  const {date} = useFormattedDate();
+  const { date } = useFormattedDate();
 
   useEffect(() => {
     const storedData = storage.getString('cognitiveData');
@@ -52,15 +52,15 @@ function ThoughtsReframingMain({navigation}) {
     setCognitiveData(parsedData);
   }, []);
 
-//   console.log(cognitiveData);
+  //   console.log(cognitiveData);
 
   return (
     <BlurredEllipsesBackground>
-      <ScrollView style={{flex: 1}} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
         <SafeAreaView>
-          <View style={{gap: sizes.gap.lg, padding: sizes.padding.md}}>
-            <View style={{gap: sizes.gap.sm}}>
-              <Text style={{...styles.text.header1}}>Thoughts Reframing</Text>
+          <View style={{ gap: sizes.gap.lg, padding: sizes.padding.md }}>
+            <View style={{ gap: sizes.gap.sm }}>
+              <Text style={{ ...styles.text.header1 }}>Thoughts Reframing</Text>
 
               {/* Card */}
               <JournalingCTACard
@@ -73,16 +73,16 @@ function ThoughtsReframingMain({navigation}) {
             </View>
 
             {/* My Journals */}
-            <View style={{gap: sizes.gap.md}}>
+            <View style={{ gap: sizes.gap.md }}>
               {/* Section Title */}
-              <Text style={{...styles.text.header2}}>My thoughts</Text>
+              <Text style={{ ...styles.text.header2 }}>My thoughts</Text>
 
               {/* List of My Journal */}
 
               {cognitiveData?.map((cog, index) => {
                 const formattedDate = formatDate(cog.time);
                 return (
-                  <Pressable onPress={()=>{navigation.navigate('Cognitive Another Way', {isPreview:true, TRData:cog.data, TRFI:cog.input.firstInput, TRSI:cog.input.secondInput, TRTI:cog.input.thirdInput})}}>
+                  <Pressable onPress={() => { navigation.navigate('Cognitive Another Way', { isPreview: true, TRData: cog.data, TRFI: cog.input.firstInput, TRSI: cog.input.secondInput, TRTI: cog.input.thirdInput }) }}>
                     <View
                       key={index}
                       style={{
@@ -91,7 +91,7 @@ function ThoughtsReframingMain({navigation}) {
                         borderRadius: 14,
                       }}>
                       <View>
-                        <Text style={{...styles.text.body1, marginBottom: 14}}>
+                        <Text style={{ ...styles.text.body1, marginBottom: 14 }}>
                           {cog.title || 'test'}
                         </Text>
                       </View>
@@ -104,6 +104,7 @@ function ThoughtsReframingMain({navigation}) {
                         {cog.data.map(res => {
                           return (
                             <View
+                              key={res}
                               style={{
                                 padding: 5,
                                 margin: 5,
@@ -111,7 +112,7 @@ function ThoughtsReframingMain({navigation}) {
                                 borderRadius: 10,
                               }}>
                               <Text
-                                style={{...styles.text.body1, fontSize: 12}}>
+                                style={{ ...styles.text.body1, fontSize: 12 }}>
                                 {res}
                               </Text>
                             </View>
@@ -119,7 +120,7 @@ function ThoughtsReframingMain({navigation}) {
                         })}
                       </View>
                       <View>
-                        <Text style={{...styles.text.body1, fontSize: 10}}>
+                        <Text style={{ ...styles.text.body1, fontSize: 10 }}>
                           {formattedDate.dayString} at{' '}
                           {formattedDate.timeString}
                         </Text>
@@ -138,7 +139,7 @@ function ThoughtsReframingMain({navigation}) {
               )}
             </View>
 
-            
+
           </View>
         </SafeAreaView>
       </ScrollView>
