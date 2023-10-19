@@ -23,9 +23,9 @@ import assets from '../../data/assets';
 function Learn({navigation}) {
   const {learnedArticles,articles, getProgress, clearAllLearnedArticles} = useManageLearn();
   // clearAllLearnedArticles()
-  console.log("learnedArticles", learnedArticles)
+  console.log('learnedArt',learnedArticles)
 
-  // storage.clearAll()
+  storage.clearAll()
   return (
     <BlurredEllipsesBackground>
       <ScrollView style={{flex: 1}} contentInsetAdjustmentBehavior="automatic">
