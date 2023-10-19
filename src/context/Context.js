@@ -6,34 +6,39 @@ import React, {
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import {storage} from '../../App';
+import { storage } from '../../App';
 import {
   updateApplicationContext,
   watchEvents,
   sendMessage,
+  getApplicationContext,
 } from 'react-native-watch-connectivity';
-import {Appearance} from 'react-native';
-import {MonitoringProvider} from './MonitoringProvider';
+import { Appearance } from 'react-native';
+import { MonitoringProvider } from './MonitoringProvider';
 import CurrentJournalProvider from './CurrentJournalProvider';
 import JournalingProvider from './JournalingProvider';
 
 const ThemeContext = createContext(null);
 // const JournalContext = createContext(null);
 const EmergencyContactsContext = createContext(null);
-const RecoveryReferencesContext = createContext(null);
+const RecoveryPreferencesContext = createContext(null);
 const GoalsContext = createContext(null);
 const GoalsConfigContext = createContext(null);
 const LearnContext = createContext(null);
+const RecommendedMethodContext = createContext(null);
 
-function StoreProvider({children}) {
+
+const processedTimestamps = new Set();
+
+function StoreProvider({ children }) {
   // const [journal, dispatchJournal] = useReducer(journalReducer, initialJournal);
   const [emergencyContacts, dispatchEmergencyContacts] = useReducer(
     contactReducer,
     initialEmergencyContactConfig,
   );
-  const [recoveryReferences, dispatchRecoveryReferences] = useReducer(
-    recoveryReferencesReducer,
-    initialRecoveryReferences,
+  const [recoveryPreferences, dispatchRecoveryPreferences] = useReducer(
+    recoveryPreferencesReducer,
+    initialRecoveryPreferences,
   );
   const [goals, dispatchGoals] = useReducer(goalsReducer, initialGoals);
   const [goalsConfig, dispatchGoalsConfig] = useReducer(
@@ -44,38 +49,68 @@ function StoreProvider({children}) {
     learnReducer,
     initialLearnedArticles,
   );
+  const [recommendedMethod, dispatchRecommendedMethod] = useReducer(recommendedMethodReducer, "")
 
   // const { currentJournal } = useManageJournaling();
 
   useEffect(() => {
     Appearance.setColorScheme('dark');
-    dispatchEmergencyContacts({type: 'getAllEmergencyContacts'});
-    dispatchRecoveryReferences({type: 'getRecoveryReferences'});
-    dispatchLearnedArticles({type: 'getAllLearnedArticles'});
-    dispatchGoals({type: 'getAllGoals'});
-    dispatchGoalsConfig({type: 'getGoalsConfig'});
+    dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
+    dispatchRecoveryPreferences({ type: 'getRecoveryPreferences' });
+    dispatchLearnedArticles({ type: 'getAllLearnedArticles' });
+    dispatchGoals({ type: 'getAllGoals' });
+    dispatchGoalsConfig({ type: 'getGoalsConfig' });
   }, []);
+
+  // const unsubscribe = watchEvents.addListener('application-context', event => {
+  //   console.log('context', event)
+  // })
+
+  // unsubscribe()
+
+  // To Do: Receive userInfo from watch
+  const unsubscribe = watchEvents.on('user-info', userInfo => {
+    console.log('shouldBeAllUserInfo', userInfo)
+    userInfo.forEach(info => {
+      const recommendedMethod = info['recommendedMethod'];
+      const methodName = recommendedMethod['name']
+      console.log('recmedinf', methodName)
+      if (!processedTimestamps.has(recommendedMethod['timestamp'])) {
+        // console.log('received user info', recommendedMethod);
+        console.log('parsedRecMed', methodName);
+        dispatchRecommendedMethod({ type: 'updateRecommendedMethod', payload: methodName })
+        processedTimestamps.add(recommendedMethod['timestamp']);  // Mark this timestamp as processed
+      }
+    });
+  });
+
+  // unsubscribe()
+
+
+
 
   return (
     <ThemeContext.Provider value={{}}>
       <MonitoringProvider>
         <JournalingProvider>
           <CurrentJournalProvider>
-            <RecoveryReferencesContext.Provider
-              value={{recoveryReferences, dispatchRecoveryReferences}}>
-              <EmergencyContactsContext.Provider
-                value={{emergencyContacts, dispatchEmergencyContacts}}>
-                <GoalsContext.Provider value={{goals, dispatchGoals}}>
-                  <GoalsConfigContext.Provider
-                    value={{goalsConfig, dispatchGoalsConfig}}>
-                    <LearnContext.Provider
-                      value={{learnedArticles, dispatchLearnedArticles}}>
-                      {children}
-                    </LearnContext.Provider>
-                  </GoalsConfigContext.Provider>
-                </GoalsContext.Provider>
-              </EmergencyContactsContext.Provider>
-            </RecoveryReferencesContext.Provider>
+            <RecommendedMethodContext.Provider value={{ recommendedMethod, dispatchRecommendedMethod }}>
+              <RecoveryPreferencesContext.Provider
+                value={{ recoveryPreferences, dispatchRecoveryPreferences }}>
+                <EmergencyContactsContext.Provider
+                  value={{ emergencyContacts, dispatchEmergencyContacts }}>
+                  <GoalsContext.Provider value={{ goals, dispatchGoals }}>
+                    <GoalsConfigContext.Provider
+                      value={{ goalsConfig, dispatchGoalsConfig }}>
+                      <LearnContext.Provider
+                        value={{ learnedArticles, dispatchLearnedArticles }}>
+                        {children}
+                      </LearnContext.Provider>
+                    </GoalsConfigContext.Provider>
+                  </GoalsContext.Provider>
+                </EmergencyContactsContext.Provider>
+              </RecoveryPreferencesContext.Provider>
+            </RecommendedMethodContext.Provider>
           </CurrentJournalProvider>
         </JournalingProvider>
       </MonitoringProvider>
@@ -99,8 +134,8 @@ export function useEmergencyContact() {
   return useContext(EmergencyContactsContext);
 }
 
-export function useRecoveryReferences() {
-  return useContext(RecoveryReferencesContext);
+export function useRecoveryPreferences() {
+  return useContext(RecoveryPreferencesContext);
 }
 
 export function useGoals() {
@@ -115,37 +150,42 @@ export function useLearn() {
   return useContext(LearnContext);
 }
 
-function recoveryReferencesReducer(state, action) {
+export function useRecommendedMethod() {
+  return useContext(RecommendedMethodContext)
+}
+
+function recoveryPreferencesReducer(state, action) {
   switch (action.type) {
-    case 'getRecoveryReferences': {
-      const strRecoveryReferences = storage.getString('recoveryReferences');
-      if (strRecoveryReferences) {
-        const recoveryReferences = JSON.parse(strRecoveryReferences);
-        return recoveryReferences;
+    case 'getRecoveryPreferences': {
+      const strRecoveryPreferences = storage.getString('recoveryPreferences');
+      if (strRecoveryPreferences) {
+        const recoveryPreferences = JSON.parse(strRecoveryPreferences);
+        return recoveryPreferences;
       }
       return [...state]; // return the current state if there is no data in storage
     }
-    case 'sortRecoveryReferences': {
+    case 'sortRecoveryPreferences': {
       // console.log('sorted', action.payload)
-      const strRecoveryReferences = JSON.stringify(action.payload);
-      storage.set('recoveryReferences', strRecoveryReferences);
+      const strRecoveryPreferences = JSON.stringify(action.payload);
+      storage.set('recoveryPreferences', strRecoveryPreferences);
       // console.log('saved', action.payload)
-      updateApplicationContext({recoveryReferences: [...action.payload]});
+      updateApplicationContext({ recoveryPreferences: [...action.payload] });
       return [...action.payload];
     }
+    // case 'updateRecommendedRecoveryPreferences'
     default: {
       throw Error(`Unknown action: ${action.type}`);
     }
   }
 }
 
-const initialRecoveryReferences = [
-  {key: '1', label: 'Guided Breathing'},
-  {key: '2', label: 'Self-Affirmation'},
-  {key: '3', label: 'Muscle Relaxation'},
-  {key: '4', label: 'Closed Eyes Visualization'},
-  {key: '5', label: '5-4-3-2-1'},
-  {key: '6', label: 'Emergency Call'},
+const initialRecoveryPreferences = [
+  { key: '1', label: 'Guided Breathing' },
+  { key: '2', label: 'Self-Affirmation' },
+  { key: '3', label: 'Muscle Relaxation' },
+  { key: '4', label: 'Closed Eyes Visualization' },
+  { key: '5', label: '5-4-3-2-1' },
+  { key: '6', label: 'Emergency Call' },
 ];
 
 function contactReducer(state, action) {
@@ -161,7 +201,7 @@ function contactReducer(state, action) {
     case 'saveEmergencyContacts': {
       const strEmergencyContacts = JSON.stringify(state);
       storage.set('emergencyContacts', strEmergencyContacts);
-      updateApplicationContext({emergencyContacts: [...state]});
+      updateApplicationContext({ emergencyContacts: [...state] });
       return [...state]; // return the current state as there is no change in state
     }
     case 'removeContact': {
@@ -219,7 +259,7 @@ function goalsReducer(state, action) {
       storage.set('goals', newGoals);
       // console.log('saved goals', newGoals);
 
-      return {...initialGoals};
+      return { ...initialGoals };
     }
     case 'addGoal': {
       const updatedGoals = [...state, action.payload];
@@ -234,7 +274,7 @@ function goalsReducer(state, action) {
     case 'toggleGoalCompletion': {
       const updatedGoals = state.map(goal =>
         goal.id === action.payload.id
-          ? {...goal, isCompleted: !goal.isCompleted}
+          ? { ...goal, isCompleted: !goal.isCompleted }
           : goal,
       );
       storage.set('goals', JSON.stringify(updatedGoals)); // consider saving to storage here too
@@ -270,7 +310,7 @@ function goalsConfigReducer(state, action) {
         const goalsConfig = JSON.parse(strGoalsConfig);
         return goalsConfig;
       }
-      return {...state}; // return the current state if there is no data in storage
+      return { ...state }; // return the current state if there is no data in storage
     }
 
     case 'addGoalsConfig': {
@@ -282,7 +322,7 @@ function goalsConfigReducer(state, action) {
       console.log('upconfgol', updatedConfig);
 
       // Save goalsConfig to storage
-      const newGoalsConfig = {...state, [action.payload.type]: updatedConfig};
+      const newGoalsConfig = { ...state, [action.payload.type]: updatedConfig };
       const strGoalsConfig = JSON.stringify(newGoalsConfig);
       storage.set('goalsConfig', strGoalsConfig);
       return newGoalsConfig;
@@ -296,7 +336,7 @@ function goalsConfigReducer(state, action) {
       }
 
       // Save goalsConfig to storage
-      const newGoalsConfig = {...state, [action.payload.type]: updatedConfig};
+      const newGoalsConfig = { ...state, [action.payload.type]: updatedConfig };
       const strGoalsConfig = JSON.stringify(newGoalsConfig);
       storage.set('goalsConfig', strGoalsConfig);
       return newGoalsConfig;
@@ -306,7 +346,7 @@ function goalsConfigReducer(state, action) {
       // Clear goalsConfig from storage
       storage.delete('goalsConfig');
       // Return the initial state or some other default configuration
-      return {...initialGoalsConfig};
+      return { ...initialGoalsConfig };
     }
 
     default:
@@ -426,5 +466,24 @@ const initialLearnedArticles = [
   //     }
   //   },
 ];
+
+function recommendedMethodReducer(state, action) {
+  switch (action.type) {
+    case 'getRecommendedMethod': {
+      const recommendedMethod = storage.getString('recommendedMethod')
+      return recommendedMethod
+    }
+    case 'updateRecommendedMethod': {
+      storage.set('recommendedMethod', action.payload)
+      return action.payload
+    }
+    case 'clearRecommendedMethod': {
+      storage.delete('recommendedMethod')
+      return ""
+    }
+    default:
+      break;
+  }
+}
 
 export default StoreProvider;

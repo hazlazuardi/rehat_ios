@@ -9,6 +9,7 @@ import Divider from '../../components/Divider'
 import useManageGoals from '../../helpers/useManageGoals'
 import { trigger } from 'react-native-haptic-feedback'
 import useManageJournaling from '../../helpers/useManageJournaling'
+import { storage } from '../../../App'
 
 function Settings({ navigation }) {
     const {
@@ -50,6 +51,10 @@ function Settings({ navigation }) {
             case 'eraseAllJournals': {
                 eraseAllJournals()
                 return
+            }
+            case 'clearAllData': {
+                storage.clearAll()
+                trigger('impactHeavy')
             }
             default: {
                 throw Error(`Unknown action: ${action}`);
@@ -125,6 +130,10 @@ function Settings({ navigation }) {
                                 <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear All Journals</Text>
                             </Pressable>
 
+                            <Divider color={colors.white} />
+                            <Pressable onPress={() => handleAlert('clearAllData')} >
+                                <Text style={{ ...styles.text.semi1, color: colors.red }}>Clear All Data</Text>
+                            </Pressable>
 
                             {/* <Divider color={colors.white} />
                             <Pressable onPress={() => navigation.navigate('Manage Emergency Contact')}>

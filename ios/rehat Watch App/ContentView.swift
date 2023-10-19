@@ -21,12 +21,13 @@ struct ContentView: View {
         PanicView().tag(1)
         RecoveryView(rnConnector: rnConnector)
         EmergencyContactsView(rnConnector: rnConnector)
+        NotifTestView()
       }.onAppear(perform: {
         self.selection = 1
         requestAuthorizations()
-        if (!workoutManager.running) {
-          workoutManager.startWorkout()
-        }
+//        if (!workoutManager.running) {
+//          workoutManager.startWorkout()
+//        }
       })
     }
   }

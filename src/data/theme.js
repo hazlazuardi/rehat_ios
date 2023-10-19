@@ -11,6 +11,7 @@ export const colors = {
     almostBlack: '#2C3333',
     red: 'red',
     blue: '#0084E3',
+    yellow: '#FFD60A',
     textArea: {
         backgroundColor: 'rgba(217,217,217,.08)',
         color: 'rgba(203, 228, 222, .45)'
