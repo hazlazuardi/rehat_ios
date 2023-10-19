@@ -347,26 +347,49 @@ function learnReducer(state, action) {
       return initialLearnedArticles;
     }
     case 'addNewCategoryAndArticle': {
-		console.log("action.payloads", action.payload.content)
-      const existingCategory = state.find(
+      console.log('action.payloads', action.payload);
+
+      const existingCategoryIndex = state.findIndex(
         cat => cat.catId === action.payload.catId,
       );
 
-      if (existingCategory) {
-        // If category exists, add the article to its content
-        existingCategory.content.push(action.payload.content);
-        storage.set('learnedArticles', JSON.stringify(state)); // save updated state to storage
-        return [...state];
+      if (existingCategoryIndex !== -1) {
+        // Category exists
+        const existingContent = state[existingCategoryIndex].content.find(
+          contentItem => contentItem.id === action.payload.content[0].id,
+        );
+
+        console.log(
+          'Existing content in the category:',
+          state[existingCategoryIndex].content,
+        );
+        console.log('Searched content ID:', action.payload.content[0].id);
+        console.log('Result of find:', existingContent);
+
+        if (!existingContent) {
+          // Content with the given id doesn't exist, so add it
+          console.log('Adding new content to existing category');
+          state[existingCategoryIndex].content.push(...action.payload.content); // Flattening the content array
+          storage.set('learnedArticles', JSON.stringify(state));
+          return [...state];
+        } else {
+          console.log('Content with given id already exists in category');
+        }
       } else {
-        // If category doesn't exist, add new category and article
+        // Category doesn't exist, so add the new category and content
+        console.log('Adding new category and content');
         const newCategory = {
           catId: action.payload.catId,
-          content: [action.payload.content],
+          content: [...action.payload.content], // Flattening the content array
         };
         const updatedState = [...state, newCategory];
-        storage.set('learnedArticles', JSON.stringify(updatedState)); // save updated state to storage
+        storage.set('learnedArticles', JSON.stringify(updatedState));
         return updatedState;
       }
+
+      // Default return
+      console.log('Returning state without any changes');
+      return state;
     }
 
     default: {
