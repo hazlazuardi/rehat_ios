@@ -140,13 +140,16 @@ struct BreathView: View {
             }
             .containerBackground(.blue.gradient, for: .navigation)
           } else if doneBreathing == true {
-            Button {
-              doneBreathing = false
-              let lastOption = self.lastPickedBreathingOption ?? breathingOptions[self.firstPreferenceIndex]
-              startTimer(with: lastOption)
-            } label: {
-              Text("Retry")
+            VStack{
+              Button {
+                doneBreathing = false
+                let lastOption = self.lastPickedBreathingOption ?? breathingOptions[self.firstPreferenceIndex]
+                startTimer(with: lastOption)
+              } label: {
+                Text("Retry")
+              }
             }
+            .containerBackground(.blue.gradient, for: .navigation)
           }
 //        }
 //      }
@@ -157,14 +160,13 @@ struct BreathView: View {
         workoutManager.methodsUsed.append(RecoveryMethodNames.breathing.rawValue)
       }
 //      startTextTimer()
-      print(autoStart)
-      if self.autoStart {
+      if self.autoStart && !doneBreathing{
         let breathePhase = breathingOptions[self.firstPreferenceIndex]
         startTimer(with: breathePhase)
       }
     }
     .onDisappear {
-      textTimer?.invalidate()
+//      textTimer?.invalidate()
       print(autoStart)
       if autoStart {
         timer?.invalidate()
@@ -176,6 +178,14 @@ struct BreathView: View {
         currentScaleFactor = 0.8
         
         // TODO: Find alternative way to stopTimer when Try Something Else or I'm Fine Now
+      } else if !autoStart {
+        timer?.invalidate()
+        timer = nil
+        
+        timerState = .selection
+        remainingTime = 0
+        breathingStatus = ""
+        currentScaleFactor = 0.8
       }
     }
   }
@@ -207,7 +217,7 @@ struct BreathView: View {
     timer?.invalidate()
     timer = nil
     
-//    timerState = .selection
+    timerState = .selection
     remainingTime = 0
     breathingStatus = ""
     currentScaleFactor = 0.8
