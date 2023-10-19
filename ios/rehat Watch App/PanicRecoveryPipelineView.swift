@@ -34,8 +34,12 @@ struct PanicRecoveryPipelineView: View {
                 BreathView(autoStart: true).tag(1)
               case "Self-Affirmation":
                 AffirmView().tag(1)
-              case "Grounding Technique":
-                DetailView(therapy: recoveryDatas.therapies.first!).tag(1)
+              case "Muscle Relaxation":
+                DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "Muscle Relaxation"})!).tag(1)
+              case "Closed Eyes Visualization":
+                DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "Closed Eyes Visualization"})!).tag(1)
+              case "5-4-3-2-1":
+                DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "5-4-3-2-1"})!).tag(1)
               case "Emergency Call":
                 EmergencyContactsView(rnConnector: rnConnector).tag(1)
               default:

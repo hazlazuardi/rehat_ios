@@ -17,16 +17,12 @@ import { colors, sizes, styles } from '../../data/theme';
 import useFormattedDate from '../../helpers/useDateFormatter';
 // import checklist from '../../../assets/img/checklist1.png';
 import ChipInput from '../../components/ChipInput';
-import { useJournal, useJournalingConfig } from '../../context/Context';
 
 function GroundingSteps({ navigation }) {
   const [input, setInput] = useState();
   const [state, setState] = useState(0);
   const [finished, setFinished] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
-  const { journal, dispatchJournal } = useJournal();
-  const { journalingConfig, dispatchJournalingConfig } = useJournalingConfig();
-  const { dayString, timeString } = useFormattedDate(journal.dateAdded);
+  const [isModalVisible, setModalVisible] = useState(false)
   const [isShouldReturn, setIsShouldReturn] = useState(false);
   const requiredChipsCount = 5 - state;
 
