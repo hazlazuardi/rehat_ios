@@ -159,7 +159,7 @@ function JournalThoughts({ navigation }) {
 								...styles.text.body1,
 								// color: styles.text.body2Transparent.color
 							}}
-							placeholder={'Title'}
+							placeholder={'Title (max 40 characters)'}
 							onEndEditing={(titleValue) => handleWriteThoughts('title', titleValue)}
 							value={currentJournal.title}
 							onFocus={() => setIsShouldReturn(false)}

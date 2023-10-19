@@ -64,29 +64,6 @@ function Monitoring(props) {
                             )} >
                                 <PanicHistory />
                             </Suspense>
-
-                            {/* Debugging Purpose */}
-                            {/* <PrimaryButton
-                                color='green'
-                                text='Generate'
-                                onPress={handleNewData}
-                            />
-                            <PrimaryButton
-                                color='red'
-                                text='Clear'
-                                onPress={handleClearData}
-                            />
-                            <PrimaryButton
-                                color='red'
-                                text='Clear All'
-                                onPress={handleClearAllData}
-                            /> */}
-                            {/* <PrimaryButton
-                                color={colors.darkGrey}
-                                text='Scroll to November 2023'
-                                onPress={() => handleMonthButtonClick(2023, 10)}
-                            /> */}
-
                         </View>
 
 
@@ -110,9 +87,6 @@ function Monitoring(props) {
                                         key={index}
                                         style={{
                                             width: weekIntervalWidth,
-                                            // backgroundColor: 'red',
-                                            // borderColor: 'blue',
-                                            // borderWidth: 1
                                         }}>
                                         <EmotionTriggerAnalysis weekData={weekData} />
                                     </View>
