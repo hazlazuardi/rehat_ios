@@ -17,8 +17,9 @@ struct ContentView: View {
       // handle flow on panic button pressed
       PanicRecoveryPipelineView(rnConnector: rnConnector)
     } else {
+      // default view
       TabView {
-        PanicView().tag(1)
+        PanicView().tag(1) // show quick calm button by default
         RecoveryView(rnConnector: rnConnector)
         EmergencyContactsView(rnConnector: rnConnector)
       }.onAppear(perform: {
@@ -32,6 +33,7 @@ struct ContentView: View {
   }
 }
 
+// Requests authorization for access to HealthKit and Notifications
 func requestAuthorizations() {
   requestHealthKitAuthorization(healthStore: RehatHealthStore.store)
   requestNotifAuthorization()

@@ -63,7 +63,6 @@ class ReadDataAffirm: ObservableObject {
     }
 }
 
-#warning ("TODO: show end component when AppState is panic, and user wants to quit")
 struct AffirmView: View {
   @EnvironmentObject var workoutManager: WorkoutManager
   @EnvironmentObject var appState: AppState

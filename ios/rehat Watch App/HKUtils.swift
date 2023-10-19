@@ -8,11 +8,12 @@
 import Foundation
 import HealthKit
 
-// Singleton health store
+/// Singleton health store
 class RehatHealthStore {
   static let store = HKHealthStore()
 }
 
+/// Requests user for HealthKit access
 func requestHealthKitAuthorization(healthStore: HKHealthStore) {
   let healthKitTypes: Set = [
     HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!,
@@ -24,15 +25,20 @@ func requestHealthKitAuthorization(healthStore: HKHealthStore) {
   healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { _, _ in }
 }
 
+/// HealthKit Update Handler function type
 typealias HKUpdateHandlerType = (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void
 
-// Fetches HK data of specified type from health store
-// data provided starts from beginning of the day to the current timestamp.
+/// Fetches HK data of specified type from health store
+/// data provided starts from beginning of the day to the current timestamp.
+///
+/// Parameters:
+/// - quantityTypeIdentifier: type of samples to query
+/// - healthStore: HealthKit store to pull from
+/// - updateFunction: function to call when new samples are received
 func startHealthKitQuery(
   quantityTypeIdentifier: HKQuantityTypeIdentifier,
   healthStore: HKHealthStore,
   updateFunction: @escaping ([HKQuantitySample], HKQuantityTypeIdentifier) -> Void) {
-//  let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
   let startDate = Calendar.current.startOfDay(for: .now)
   let endDate = Date()
   let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
@@ -48,15 +54,23 @@ func startHealthKitQuery(
     updateFunction(samples, quantityTypeIdentifier)
   }
   
-  // 4
+  // form the query to be executed on the HealthKit store
   let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: predicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
   
   query.updateHandler = updateHandler
   
-  // 5
   healthStore.execute(query)
 }
 
+/// Gets the latest sample stores in the HealthKit store
+///
+/// Parameters:
+/// - samples: a range of samples in the HK store
+/// - type: the type of sample we want
+/// Returns:
+/// - Tuple of
+///   - Latest sample of the given type
+///   - Timestamp at which the latest sample was taken
 func getLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> (Double, String) {
   var latestSample: Double = 0.0
   var lastTimestamp = ""
@@ -82,8 +96,14 @@ func getLatestSample(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier
   return (latestSample, lastTimestamp)
 }
 
-// fetches average of samples over a given time interval
-// FIXME: some duplication, maybe join this with startHealthKitQuery.
+/// Fetches the average of HK data of specified type from health store
+/// data provided starts from the last N seconds before the time of execution
+///
+/// Parameters:
+/// - quantityTypeIdentifier: type of samples to query
+/// - healthStore: HealthKit store to pull from
+/// - lastNSeconds: time interval from which to pull the samples
+/// - updateFunction: function to call when new samples are received
 func startAverageQuery(
   quantityTypeIdentifier: HKQuantityTypeIdentifier,
   healthStore: HKHealthStore,
@@ -112,6 +132,15 @@ func startAverageQuery(
   healthStore.execute(query)
 }
 
+/// Gets the average of samples in the HealthKit store
+///
+/// Parameters:
+/// - samples: All samples in the HK store
+/// - type: the type of sample we want
+/// Returns:
+/// - Tuple of
+///   - average of samples of the given type
+///   - boolean of whether or not the app should notify the user
 func getAverageOfSamples(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> (Double, Bool) {
   var sampleValues: [Double] = []
   var average = 0.0

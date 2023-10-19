@@ -10,6 +10,7 @@ import UserNotifications
 
 @main
 struct rehat_Watch_App: App {
+  // Variables to be shared app-wide
   @StateObject var workoutManager = WorkoutManager() // enables all views to access workout manager
   @StateObject var appState: AppState = AppState()
   @StateObject var notifCenterDelegate = AppNotificationCenterDelegate()
@@ -21,6 +22,7 @@ struct rehat_Watch_App: App {
   }
 }
 
+// DEPRECATED
 // handles user's responses to notification
 class AppNotificationCenterDelegate: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
   override init() {
@@ -39,6 +41,7 @@ class AppNotificationCenterDelegate: NSObject, ObservableObject, UNUserNotificat
         case "SEEK_HELP":
           // user seeks recovery
           // scrapped. can't set app state from here.
+          // will open the app when user presses the action button
           break
         default:
           break
@@ -49,7 +52,7 @@ class AppNotificationCenterDelegate: NSObject, ObservableObject, UNUserNotificat
   }
 }
 
-// indicator for panic state
+// app-wide indicator for panic state
 class AppState: ObservableObject {
   static let shared = AppState()
   @Published var isPanic = false
