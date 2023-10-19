@@ -55,6 +55,7 @@ function StoreProvider({ children }) {
 
   useEffect(() => {
     Appearance.setColorScheme('dark');
+    dispatchRecommendedMethod({ type: 'getRecommendedMethod' })
     dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
     dispatchRecoveryPreferences({ type: 'getRecoveryPreferences' });
     dispatchLearnedArticles({ type: 'getAllLearnedArticles' });
@@ -172,7 +173,6 @@ function recoveryPreferencesReducer(state, action) {
       updateApplicationContext({ recoveryPreferences: [...action.payload] });
       return [...action.payload];
     }
-    // case 'updateRecommendedRecoveryPreferences'
     default: {
       throw Error(`Unknown action: ${action.type}`);
     }
@@ -471,7 +471,7 @@ function recommendedMethodReducer(state, action) {
   switch (action.type) {
     case 'getRecommendedMethod': {
       const recommendedMethod = storage.getString('recommendedMethod')
-      return recommendedMethod
+      return recommendedMethod || state
     }
     case 'updateRecommendedMethod': {
       storage.set('recommendedMethod', action.payload)
