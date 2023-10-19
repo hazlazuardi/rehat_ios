@@ -369,18 +369,14 @@
 				5D9CDD422AAEBD9000748DDD /* rehatApp.swift */,
 				EA63C9EC2AB17165004D33D9 /* MLUtils.swift */,
 				EAD7C81A2AD4F53D008721AB /* NotifUtils.swift */,
-				EAD7C81C2AD4FF91008721AB /* NotifTestView.swift */,
-				EAD7C80A2ACB5722008721AB /* CSVUtils.swift */,
 				EAD7C80C2ACB7054008721AB /* dataset.csv */,
 				5D9CDD442AAEBD9000748DDD /* ContentView.swift */,
 				805FE2C82ACBF0E8001CDD55 /* EmergencyContactsView.swift */,
-				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
+				EA89B3412AE13459001A074F /* Archived */,
 				80B5C8BF2AC481540059AA10 /* PanicView.swift */,
 				EA5165FA2ADBF2D900496F9A /* PanicRecoveryPipelineView.swift */,
 				EAD6EA002ADC1587006D5206 /* EndComponentView.swift */,
 				EA9564E52AD82220003D2F94 /* WorkoutUtils.swift */,
-				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
-				EA9564E12AD80D94003D2F94 /* WorkoutView.swift */,
 				EADDF11C2AD55CEC00987695 /* HKUtils.swift */,
 				288DAB2D2AB37B3E00892CE7 /* DetailView.swift */,
 				805FE2C22ACBDC68001CDD55 /* RNConnector.swift */,
@@ -392,7 +388,6 @@
 				2864EA962AB31E3100217F34 /* recoveryData.json */,
 				5D9CDD462AAEBD9300748DDD /* Assets.xcassets */,
 				5D9CDD482AAEBD9300748DDD /* Preview Content */,
-				281E82C22ABAC49B00CEB553 /* HealthKit.swift */,
 				286BB84D2AE1176000D6AFCB /* PulsatingCirclesView.swift */,
 			);
 			path = "rehat Watch App";
@@ -452,6 +447,19 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-rehat_ios-rehat_iosTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EA89B3412AE13459001A074F /* Archived */ = {
+			isa = PBXGroup;
+			children = (
+				281E82C22ABAC49B00CEB553 /* HealthKit.swift */,
+				EAD7C80A2ACB5722008721AB /* CSVUtils.swift */,
+				EA6E4E542AB98D6200F8BBAC /* HealthUtils.swift */,
+				EAD7C81C2AD4FF91008721AB /* NotifTestView.swift */,
+				80AE77EA2ABE2B9A00217E1B /* HKView.swift */,
+				EA9564E12AD80D94003D2F94 /* WorkoutView.swift */,
+			);
+			path = Archived;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
