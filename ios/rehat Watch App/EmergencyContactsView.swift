@@ -22,23 +22,44 @@ struct EmergencyContactsView: View {
   
   var body: some View {
     NavigationStack {
-      List(rnConnector.contacts, id: \.id) { contact in
-        Button(action: {
-          // Button to call someone
-          self.makePhoneCall(phoneNumber: contact.phoneNum)
-        }) {
-          VStack(alignment: .leading) {
-            Text(contact.name)
-              .font(.title3)
-            Text(contact.phoneNum)
-              .font(.caption2)
-              .foregroundColor(Color.white.opacity(0.5))
-          }
+      if rnConnector.contacts.isEmpty {
+        VStack {
+          
+          Text("No contacts have been set.")
+            .frame(width: 150, alignment: .leading)
+            .foregroundColor(.white)
+            .font(.caption)
+          
+          Spacer()
+            .frame(height: 8)
+          
+          Text("Set it on Settings > Manage Emergency Contacts on the iOS app")
+            .frame(width: 150, alignment: .leading)
+            .foregroundColor(.white.opacity(0.5))
+            .font(.custom("test", size: 12))
+          
         }
-        .buttonStyle(PlainButtonStyle()) // This will remove the default button appearance
+        .containerBackground(.green.gradient, for: .navigation)
+        .navigationTitle("Emergency Contacts")
+      } else {
+        List(rnConnector.contacts, id: \.id) { contact in
+          Button(action: {
+            // Button to call someone
+            self.makePhoneCall(phoneNumber: contact.phoneNum)
+          }) {
+            VStack(alignment: .leading) {
+              Text(contact.name)
+                .font(.title3)
+              Text(contact.phoneNum)
+                .font(.caption2)
+                .foregroundColor(Color.white.opacity(0.5))
+            }
+          }
+          .buttonStyle(PlainButtonStyle()) // This will remove the default button appearance
+        }
+        .containerBackground(.green.gradient, for: .navigation)
+        .navigationTitle("Emergency Contacts")
       }
-      .containerBackground(.green.gradient, for: .navigation)
-      .navigationTitle("Emergency Contacts")
     }
     .onAppear {
       if appState.isPanic {
