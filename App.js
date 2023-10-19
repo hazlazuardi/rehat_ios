@@ -217,7 +217,7 @@ function App() {
 							{/* Grounding Technique */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
 								<Stack.Screen
-									name="Grounding Journey"
+									name="Five Senses"
 									component={GroundingJourney}
 									options={{
 										...nestedHeaderOptions,
@@ -229,7 +229,7 @@ function App() {
 									component={GroundingSteps}
 									options={{
 										...nestedHeaderOptions,
-										headerBackTitle: 'Grounding Journey',
+										headerBackTitle: 'Five Senses',
 									}}
 								/>
 							</Stack.Group>

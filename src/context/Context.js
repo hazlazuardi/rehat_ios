@@ -181,10 +181,10 @@ function recoveryPreferencesReducer(state, action) {
 
 const initialRecoveryPreferences = [
   { key: '1', label: 'Guided Breathing' },
-  { key: '2', label: 'Self-Affirmation' },
+  { key: '2', label: 'Affirmation' },
   { key: '3', label: 'Muscle Relaxation' },
   { key: '4', label: 'Closed Eyes Visualization' },
-  { key: '5', label: '5-4-3-2-1' },
+  { key: '5', label: 'Five Senses' },
   { key: '6', label: 'Emergency Call' },
 ];
 
@@ -361,7 +361,7 @@ const initialGoalsConfig = {
     'Journaling',
     'Thoughts Reframing',
     'Guided Breathing',
-    '5-4-3-2-1',
+    'Five Senses',
     'Connecting with My Body',
     'Muscle Relaxation',
   ],

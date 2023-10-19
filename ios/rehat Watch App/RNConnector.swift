@@ -31,10 +31,10 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   
   @Published var recoveryPreferences: [RecoveryReference] = [
       RecoveryReference(id: "1", label: "Guided Breathing"),
-      RecoveryReference(id: "2", label: "Self-Affirmation"),
+      RecoveryReference(id: "2", label: "Affirmation"),
       RecoveryReference(id: "3", label: "Muscle Relaxation"),
       RecoveryReference(id: "4", label: "Closed Eyes Visualization"),
-      RecoveryReference(id: "5", label: "5-4-3-2-1"),
+      RecoveryReference(id: "5", label: "Five Senses"),
       RecoveryReference(id: "6", label: "Emergency Call")
   ]
   

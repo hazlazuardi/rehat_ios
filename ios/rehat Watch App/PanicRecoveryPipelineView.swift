@@ -32,7 +32,7 @@ struct PanicRecoveryPipelineView: View {
             switch firstPreference {
               case "Guided Breathing":
                 BreathView(autoStart: true).tag(1)
-              case "Self-Affirmation":
+              case "Affirmation":
               AffirmView()
                 .tag(1)
                 .containerBackground(.purple.gradient, for: .navigation)
@@ -41,8 +41,8 @@ struct PanicRecoveryPipelineView: View {
                 DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "Muscle Relaxation"})!).tag(1)
               case "Closed Eyes Visualization":
                 DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "Closed Eyes Visualization"})!).tag(1)
-              case "5-4-3-2-1":
-                DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "5-4-3-2-1"})!).tag(1)
+              case "Five Senses":
+                DetailView(therapy: recoveryDatas.therapies.first(where: {$0.name == "Five Senses"})!).tag(1)
               case "Emergency Call":
                 EmergencyContactsView(rnConnector: rnConnector).tag(1)
               default:

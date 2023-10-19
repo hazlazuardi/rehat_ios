@@ -1,4 +1,5 @@
 export const methods = [
     'Journaling',
-    'Cognitive Restructuring',
+    'Thoughts Restructuring',
+    'Five Senses'
 ]
