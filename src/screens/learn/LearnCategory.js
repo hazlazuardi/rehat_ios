@@ -59,7 +59,7 @@ function LearnCategory({ route, navigation }) {
                 </Text>
               </View>
               <Text style={{ ...styles.text.semi2, marginTop: 15 }}>
-                {`${getProgress()}  Articles`}
+                {`${getProgressEach(category)}  Articles`}
               </Text>
 
               {/* Progress Bar */}
