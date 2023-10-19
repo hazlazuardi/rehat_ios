@@ -68,8 +68,8 @@ struct RecoveryView: View {
       NavigationStack {
       List {
           // panic state ordering
-          let _ = print(rnConnector.recoveryReferences)
-          ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
+          let _ = print(rnConnector.recoveryPreferences)
+          ForEach(rnConnector.recoveryPreferences, id: \.id) { reference in
             if reference.label == RecoveryMethodNames.affirmation.rawValue {
               showAffirmRow()
             } else if reference.label == RecoveryMethodNames.breathing.rawValue {

@@ -25,11 +25,10 @@ struct PanicRecoveryPipelineView: View {
           // TODO: don't use recovery view here
           RecoveryView(rnConnector: rnConnector, emergencyContactsShown: true).tag(2)
         } else {
-          if rnConnector.recoveryReferences.isEmpty {
+          if rnConnector.recoveryPreferences.isEmpty {
             Text("Loading...")
           } else {
-            let firstPreference = rnConnector.recoveryReferences.first?.label
-            let _ = print(firstPreference ?? "First preference not found")
+            let firstPreference = rnConnector.recoveryPreferences.first?.label
             switch firstPreference {
               case "Guided Breathing":
                 BreathView(autoStart: true).tag(1)

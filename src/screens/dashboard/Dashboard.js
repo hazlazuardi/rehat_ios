@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   Pressable,
@@ -14,27 +14,34 @@ import {
 import PrimaryButton from '../../components/PrimaryButton';
 import JournalSuccess from '../journaling/JournalSuccess';
 import useManageGoals from '../../helpers/useManageGoals';
-import {colors, sizes, styles} from '../../data/theme';
+import { colors, sizes, styles } from '../../data/theme';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
-import {formatDate, getContrastColor} from '../../helpers/helpers';
+import { formatDate, getContrastColor } from '../../helpers/helpers';
 import CircularIcon from '../../components/CircularIcon';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
 import CreateGoal from '../goal/CreateGoal';
 import Chip from '../../components/Chip';
 import SecondaryButton from '../../components/SecondaryButton';
-import {methods} from '../../data/recoveryMethods';
+import { methods } from '../../data/recoveryMethods';
 import useEmergencyContacts from '../../helpers/useEmergencyContacts';
+import { useRecommendedMethod } from '../../context/Context';
 
-function Dashboard({navigation}) {
+function Dashboard({ navigation }) {
   const [quoteIndex, setQuoteIndex] = useState(0);
+
+
+  const { recommendedMethod, dispatchRecommendedMethod } = useRecommendedMethod()
+
+  console.log('recMed', recommendedMethod)
+
 
   const {
     emergencyContacts,
     getAllEmergencyContacts,
     dispatchEmergencyContacts,
   } = useEmergencyContacts();
-  const {goals, toggleGoalCompletion} = useManageGoals();
+  const { goals, toggleGoalCompletion } = useManageGoals();
 
   const sortedGoals = goals?.sort((a, b) => {
     if (a.isCompleted === b.isCompleted) {
@@ -43,7 +50,7 @@ function Dashboard({navigation}) {
     return a.isCompleted ? 1 : -1; // Place uncompleted goals before completed ones
   });
 
-//   console.log('sgol', sortedGoals);
+  //   console.log('sgol', sortedGoals);
 
   const handleGoToGoalMethod = method => {
     if (['Journaling', 'Cognitive Restructuring'].includes(method)) {
@@ -76,7 +83,7 @@ function Dashboard({navigation}) {
 
   return (
     <BlurredEllipsesBackground>
-      <ScrollView style={{flex: 1}} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
         <SafeAreaView>
           <View
             style={{
@@ -163,7 +170,7 @@ function Dashboard({navigation}) {
             </View>
 
             {/* QUOTATION */}
-            <View style={{padding: 14}}>
+            <View style={{ padding: 14 }}>
               <View
                 style={{
                   backgroundColor: '#1E252A',
@@ -171,7 +178,7 @@ function Dashboard({navigation}) {
                   borderRadius: 30,
                   marginBottom: 24,
                 }}>
-                <View style={{marginVertical: 10}}>
+                <View style={{ marginVertical: 10 }}>
                   <Image source={assets.images.kutip} />
                 </View>
                 <View>
@@ -185,7 +192,7 @@ function Dashboard({navigation}) {
                     {quotes[quoteIndex]}
                   </Text>
                 </View>
-                <View style={{marginVertical: 10, alignSelf: 'flex-end'}}>
+                <View style={{ marginVertical: 10, alignSelf: 'flex-end' }}>
                   <Image source={assets.images.kutipakhir} />
                 </View>
               </View>
@@ -199,7 +206,7 @@ function Dashboard({navigation}) {
                 }}>
                 Emergency Contacts
               </Text>
-              <View style={{width: '100%', padding: sizes.padding.sm}}>
+              <View style={{ width: '100%', padding: sizes.padding.sm }}>
                 {emergencyContacts?.map(econ => (
                   <Pressable
                     key={econ.recordID}
@@ -241,7 +248,7 @@ function Dashboard({navigation}) {
                         alignItem: 'center',
                         marginVertical: 10,
                       }}>
-                      <View style={{gap: sizes.gap.sm}}>
+                      <View style={{ gap: sizes.gap.sm }}>
                         <Text style={innerStyles.contactName}>
                           {econ.givenName} {econ.familyName}
                         </Text>
@@ -257,7 +264,7 @@ function Dashboard({navigation}) {
                         }}>
                         <Image
                           source={assets.images.call}
-                          style={{width: 25, height: 25}}
+                          style={{ width: 25, height: 25 }}
                         />
                       </View>
                     </View>
@@ -275,11 +282,11 @@ function Dashboard({navigation}) {
                       style={{
                         ...styles.text.body2,
                         color: 'white',
-                        textAlign:'center'
+                        textAlign: 'center'
                       }}>
                       You haven't added any emergency contacts!
                     </Text>
-                    <Pressable onPress={()=>{navigation.navigate('Manage Emergency Contact')}}>
+                    <Pressable onPress={() => { navigation.navigate('Manage Emergency Contact') }}>
                       <View
                         style={{
                           padding: 16,
@@ -293,7 +300,7 @@ function Dashboard({navigation}) {
                           style={{
                             ...styles.text.body3,
                             color: 'white',
-                            textAlign:'center'
+                            textAlign: 'center'
                           }}>
                           Add Emergency Contact
                         </Text>
@@ -338,7 +345,7 @@ const innerStyles = {
   },
 };
 
-function GoalCard({goal, toggleGoalCompletion, onPressButton}) {
+function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
   return (
     <View
       key={goal.id}

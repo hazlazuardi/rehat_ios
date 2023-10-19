@@ -4,6 +4,7 @@ import { colors, sizes, styles } from '../data/theme';
 import BlurredEllipsesBackground from '../components/BlurredEllipsesBackground';
 import assets from '../data/assets';
 import { styles as styleses } from '../data/theme';
+import { useRecommendedMethod } from '../context/Context';
 
 function Recovery({ navigation }) {
 
@@ -24,17 +25,6 @@ function Recovery({ navigation }) {
                     }}>
                         <Text style={{ ...styles.text.header2, color: colors.orange }}>Recovery</Text>
 
-                        {/* Section Guided Breathing */}
-                        <View style={{ gap: sizes.gap.md }}>
-                            <Text style={styles.text.semi1}>Guided Breathing</Text>
-                            <RecoveryList
-                                icon={assets.icons.journaling_head}
-                                title={"Extended Exhale"}
-                                description={"4 seconds breath-in, 6 seconds breath-out"}
-                                iconColor={colors.orange}
-                                backgroundColor={colors.orangeTransparent}
-                                onPress={() => navigation.navigate("Journaling")} />
-                        </View>
 
                         {/* Section Journaling */}
                         <View style={{ gap: sizes.gap.md }}>
@@ -82,6 +72,7 @@ function Recovery({ navigation }) {
 
 
 function RecoveryList({ icon, title, description, iconColor, backgroundColor, onPress }) {
+    const { recommendedMethod } = useRecommendedMethod()
     return (
         <Pressable onPress={onPress}>
             <View style={{
@@ -125,6 +116,17 @@ function RecoveryList({ icon, title, description, iconColor, backgroundColor, on
                     <Text style={styles.text.semi1}>{title}</Text>
                     <Text style={styles.text.body3} >{description}</Text>
                 </View>
+
+                {/* isRecommended */}
+                {title === recommendedMethod && (
+                    <Image
+                        source={assets.icons.star}
+                        style={{
+                            width: 24,
+                            height: 24,
+                        }}
+                    />
+                )}
             </View>
         </Pressable>
     )

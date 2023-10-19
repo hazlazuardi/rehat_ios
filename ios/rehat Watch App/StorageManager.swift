@@ -11,7 +11,7 @@ class StorageManager {
     static let shared = StorageManager()
     
     private let contactsKey = "storedContacts"
-    private let recoveryReferencesKey = "storedRecoveryReferences" // New key for recoveryReferences
+    private let recoveryPreferencesKey = "storedRecoveryPreferences" // New key for recoveryPreferences
     private let methodScoringDataKey = "methodsUsed"
 
     // MARK: - Contacts
@@ -31,14 +31,14 @@ class StorageManager {
     }
 
     // MARK: - Recovery References
-    func saveRecoveryReferences(_ references: [RecoveryReference]) {
+    func saveRecoveryPreferences(_ references: [RecoveryReference]) {
         if let encoded = try? JSONEncoder().encode(references) {
-            UserDefaults.standard.set(encoded, forKey: recoveryReferencesKey)
+            UserDefaults.standard.set(encoded, forKey: recoveryPreferencesKey)
         }
     }
 
-    func retrieveRecoveryReferences() -> [RecoveryReference] {
-        if let savedReferences = UserDefaults.standard.object(forKey: recoveryReferencesKey) as? Data {
+    func retrieveRecoveryPreferences() -> [RecoveryReference] {
+        if let savedReferences = UserDefaults.standard.object(forKey: recoveryPreferencesKey) as? Data {
             if let loadedReferences = try? JSONDecoder().decode([RecoveryReference].self, from: savedReferences) {
                 return loadedReferences
             }

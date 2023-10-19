@@ -204,11 +204,7 @@ class WorkoutManager: NSObject, ObservableObject {
     self.recoveryDuration = self.getTrackedDuration()
     self.treatmentEnd = Date().timeIntervalSince1970
       
-    // Send data to iOS for self-monitoring
-    let recoverySessionData = [
-      "timestamp": self.treatmentEnd
-    ]
-    transferRecoverySessionData(data: recoverySessionData)
+    
     
     // Save recovery durations for each method to calculate effectiveness
     self.methodScoringData = StorageManager.shared.retrieveMethodScoringData()
@@ -219,7 +215,18 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // update recommended recovery method
     self.updateRecommendedMethod()
-    self.transferRecommendedMethod()
+//    self.transferRecommendedMethod()
+    
+    // Send data to iOS for self-monitoring
+    let recoverySessionData: [String:Any] = [
+      "timestamp": self.treatmentEnd,
+      "recommendedMethod": [
+        "name": self.recommendedMethod,
+        "timestamp": self.treatmentEnd
+      ]
+    ]
+
+    transferRecoverySessionData(data: recoverySessionData)
     
     // clean up
     self.methodsUsed = []
@@ -251,12 +258,7 @@ class WorkoutManager: NSObject, ObservableObject {
   
   func transferRecommendedMethod() {
     print("Transferring recommended recovery method: \(self.recommendedMethod)")
-    do {
-      try WCSession.default.updateApplicationContext(["recommendedMethod" : self.recommendedMethod])
-    }
-    catch {
-      print("error sending application context: \(error)")
-    }
+    WCSession.default.transferUserInfo(["recommendedMethod" : self.recommendedMethod])
   }
   
   // MARK: Recovery Method Scoring

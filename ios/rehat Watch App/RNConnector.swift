@@ -29,7 +29,7 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
   
   @Published var contacts: [Contact] = []
   
-  @Published var recoveryReferences: [RecoveryReference] = [
+  @Published var recoveryPreferences: [RecoveryReference] = [
       RecoveryReference(id: "1", label: "Guided Breathing"),
       RecoveryReference(id: "2", label: "Self-Affirmation"),
       RecoveryReference(id: "3", label: "Muscle Relaxation"),
@@ -43,7 +43,7 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
     super.init()
     setupWatchConnectivity()
     loadStoredContacts()
-    loadStoredRecoveryReferences()
+    loadStoredRecoveryPreferences()
   }
   
   private func setupWatchConnectivity() {
@@ -57,10 +57,10 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
     self.contacts = StorageManager.shared.retrieveContacts()
   }
   
-  private func loadStoredRecoveryReferences() {
-      let temp = StorageManager.shared.retrieveRecoveryReferences()
+  private func loadStoredRecoveryPreferences() {
+      let temp = StorageManager.shared.retrieveRecoveryPreferences()
       if !temp.isEmpty {
-          self.recoveryReferences = temp
+          self.recoveryPreferences = temp
       }
   }
   
@@ -91,8 +91,8 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
       }
     }
     
-    // Handle recoveryReferences
-    if let referencesArray = applicationContext["recoveryReferences"] as? [[String: Any]] {
+    // Handle recoveryPreferences
+    if let referencesArray = applicationContext["recoveryPreferences"] as? [[String: Any]] {
       let newReferences = referencesArray.compactMap { dict -> RecoveryReference? in
         guard let key = dict["key"] as? String,
               let label = dict["label"] as? String
@@ -102,8 +102,8 @@ class RNConnector: NSObject, ObservableObject, WCSessionDelegate {
       }
       
       DispatchQueue.main.async {
-        self.recoveryReferences = newReferences
-        StorageManager.shared.saveRecoveryReferences(newReferences)
+        self.recoveryPreferences = newReferences
+        StorageManager.shared.saveRecoveryPreferences(newReferences)
         print("Successfully updated recovery references from ApplicationContext.")
       }
     }

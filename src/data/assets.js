@@ -33,6 +33,8 @@ import lung from '../assets/images/lung.png'
 import brain from '../assets/images/brain.png'
 import progress from '../assets/images/progress.png';
 
+import star from '../assets/icons/star_icon.png';
+
 
 
 export default {
@@ -58,6 +60,7 @@ export default {
         recovery: recovery,
         learn: learn,
         monitoring: monitoring,
+        star: star,
 
     },
 

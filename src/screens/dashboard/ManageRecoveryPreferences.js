@@ -6,15 +6,15 @@ import { colors, sizes, styles } from '../../data/theme'
 import Divider from '../../components/Divider'
 import PrimaryButton from '../../components/PrimaryButton'
 import DraggableFlatList from 'react-native-draggable-flatlist';
-import { useRecoveryReferences } from '../../context/Context'
+import { useRecoveryPreferences } from '../../context/Context'
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground'
 
 function ManageRecoveryPreferences(props) {
 
-    const { recoveryReferences, dispatchRecoveryReferences } = useRecoveryReferences()
+    const { recoveryPreferences, dispatchRecoveryPreferences } = useRecoveryPreferences()
 
     useEffect(() => {
-        dispatchRecoveryReferences({ type: 'getRecoveryReferences' })
+        dispatchRecoveryPreferences({ type: 'getRecoveryPreferences' })
     }, [])
 
     const renderItem = ({ item, drag, isActive }) => {
@@ -31,12 +31,12 @@ function ManageRecoveryPreferences(props) {
         );
     };
 
-    const [data, setData] = useState(recoveryReferences);
+    const [data, setData] = useState(recoveryPreferences);
     const [isDraggingEnabled, setDraggingEnabled] = useState(false);
 
     const handleDragEnd = ({ data }) => {
         setData(data)
-        dispatchRecoveryReferences({ type: 'sortRecoveryReferences', payload: [...data] })
+        dispatchRecoveryPreferences({ type: 'sortRecoveryPreferences', payload: [...data] })
     }
 
     const handlePrimaryButton = () => {
