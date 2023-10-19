@@ -14,7 +14,7 @@ import { sizes } from '../../data/theme';
 import LearnCard from '../../components/learn/LearnCard';
 import data from '../../data/articles';
 import { Pressable } from 'react-native';
-import progress from '../../../assets/img/progress.png';
+// import progress from '../../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storage } from '../../../App';
 import useManageLearn from '../../helpers/useManageLearn';
@@ -22,7 +22,7 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
 import assets from '../../data/assets';
 
 function LearnCategory({ route, navigation }) {
-  const { title, category, assetsImg } = route.params;
+  const { title, category, assetImg } = route.params;
   const { articles, getProgress, getProgressEach, clearAllLearnedArticles,
 
     countContentByCatId, countContentsByCatId } = useManageLearn();
@@ -32,7 +32,11 @@ function LearnCategory({ route, navigation }) {
 
   return (
     <BlurredEllipsesBackground>
-      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView
+        style={{ flex: 1 }}
+        contentInsetAdjustmentBehavior="automatic"
+        showsVerticalScrollIndicator={false}
+      >
         <SafeAreaView>
           <View
             style={{
@@ -41,14 +45,24 @@ function LearnCategory({ route, navigation }) {
               paddingBottom: sizes.padding.lg * 2,
             }}>
             <Text style={styles.text.header2}>Insight Hub</Text>
+
+
+            {/* Card Progress Learn */}
             <View style={innerStyles.progressLearn}>
-              <View style={innerStyles.progressText}>
-                <Image source={assetsImg === 'brain' ? assets.images.brain : assets.images.lung} style={{ width: 20, height: 20 }} />
-                <Text style={{ ...styles.text.body3 }}>
+              <View style={{
+                ...innerStyles.progressText,
+                gap: sizes.gap.md,
+              }}>
+                <Image source={assetImg} style={{ width: 30, height: 30 }} />
+                <Text style={{ ...styles.text.header3 }}>
                   {title}
                 </Text>
               </View>
-              <Text style={{ ...styles.text.body3, marginTop: 15 }}>{getProgressEach(category)} <Text style={{ ...styles.text.body3, color: colors.orange }}>Articles</Text></Text>
+              <Text style={{ ...styles.text.semi2, marginTop: 15 }}>
+                {`${getProgress()}  Articles`}
+              </Text>
+
+              {/* Progress Bar */}
               <View style={{ position: 'relative', height: 20, marginTop: sizes.padding.md }}>
                 <View style={{
                   position: 'absolute',
@@ -69,31 +83,30 @@ function LearnCategory({ route, navigation }) {
                   borderRadius: sizes.radius.lg,
                 }} />
               </View>
-              <View style={innerStyles.progressBarContainer}>
-                {/* {articles.map((arc, key) => {
-                  return (
-                    <View key={key} style={innerStyles.progressBar}></View>
-                  );
-                })} */}
-              </View>
             </View>
-            <Text style={styles.text.header3}>About Self Wellbeing</Text>
-            <View
-              style={{
-                ...innerStyles.containerCards,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-              }}>
-              {articlesNew.filter((d) => d.catId === category)[0].content?.map((arc, key) => {
-                return (
-                  <Pressable
-                    key={key}
-                    onPress={() => navigation.navigate('Learn Detail', { arc, assetsImg: assetsImg, title: title, category })}>
-                    <LearnCard article={arc} />
-                  </Pressable>
-                );
-              })}
+
+            {/* Articles */}
+            <View style={{
+              gap: sizes.gap.md
+            }}>
+              <Text style={styles.text.header3}>About Self Wellbeing</Text>
+              <View
+                style={{
+                  ...innerStyles.containerCards,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                }}>
+                {articlesNew.filter((d) => d.catId === category)[0].content?.map((arc, key) => {
+                  return (
+                    <Pressable
+                      key={key}
+                      onPress={() => navigation.navigate('Learn Detail', { arc, assetImg: assetImg, title: title, category })}>
+                      <LearnCard article={arc} done={true} />
+                    </Pressable>
+                  );
+                })}
+              </View>
             </View>
           </View>
         </SafeAreaView>

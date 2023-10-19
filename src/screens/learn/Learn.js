@@ -14,7 +14,6 @@ import { sizes } from '../../data/theme';
 import LearnCard from '../../components/learn/LearnCard';
 import data from '../../data/articles';
 import { Pressable } from 'react-native';
-import progress from '../../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storage } from '../../../App';
 import useManageLearn from '../../helpers/useManageLearn';
@@ -44,7 +43,7 @@ function Learn({ navigation }) {
         navigation.navigate('Learn Category', {
           title: 'Understanding Anxiety',
           category: 1,
-          assetImg: 'brain',
+          assetImg: assets.images.brain,
         });
       },
     },
@@ -57,7 +56,7 @@ function Learn({ navigation }) {
         navigation.navigate('Learn Category', {
           title: 'Understanding Panic Attack',
           category: 2,
-          assetImg: 'lung',
+          assetImg: assets.images.lung,
         });
       },
     },
@@ -70,7 +69,7 @@ function Learn({ navigation }) {
         navigation.navigate('Learn Category', {
           title: 'Treatment',
           category: 3,
-          assetImg: 'brain',
+          assetImg: assets.images.lung,
         });
       },
     },
@@ -83,7 +82,7 @@ function Learn({ navigation }) {
         navigation.navigate('Learn Category', {
           title: 'Coping Methods',
           category: 4,
-          assetImg: 'lung',
+          assetImg: assets.images.brain,
         });
       },
     }
@@ -98,7 +97,11 @@ function Learn({ navigation }) {
   const progress = totalCount / totalContentsCount
   return (
     <BlurredEllipsesBackground>
-      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView
+        style={{ flex: 1 }}
+        contentInsetAdjustmentBehavior="automatic"
+        showsVerticalScrollIndicator={false}
+      >
         <SafeAreaView>
           <View
             style={{
@@ -110,8 +113,11 @@ function Learn({ navigation }) {
 
             {/* Card Progress Learn */}
             <View style={innerStyles.progressLearn}>
-              <View style={innerStyles.progressText}>
-                <Image source={progress} style={{ width: 30, height: 30 }} />
+              <View style={{
+                ...innerStyles.progressText,
+                gap: sizes.gap.md,
+              }}>
+                <Image source={assets.images.progress} style={{ width: 30, height: 30 }} />
                 <Text style={{ ...styles.text.header3 }}>
                   Progress Of Learn
                 </Text>
@@ -139,15 +145,6 @@ function Learn({ navigation }) {
                   backgroundColor: progress === 0 ? colors.whiteSoTransparent : colors.orange,
                   borderRadius: sizes.radius.lg,
                 }} />
-              </View>
-
-
-              <View style={innerStyles.progressBarContainer}>
-                {/* {articles.map((arc, key) => {
-                  return (
-                    <View key={key} style={innerStyles.progressBar}></View>
-                  );
-                })} */}
               </View>
             </View>
 

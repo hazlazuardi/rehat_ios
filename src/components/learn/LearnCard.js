@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, Text, StyleSheet, View, Image, Alert, Dimensions } from 'react-native';
 import { colors, styles } from '../../data/theme';
 import { sizes } from '../../data/theme';
-import art1 from '../../../assets/img/art1.png';
+// import art1 from '../../../assets/img/art1.png';
 import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import { storage } from '../../../App';
 

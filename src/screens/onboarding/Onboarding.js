@@ -13,7 +13,7 @@ import {
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 import {colors, sizes, styles} from '../../data/theme';
-import checklist from '../../../assets/img/checklist1.png';
+// import checklist from '../../../assets/img/checklist1.png';
 import BlurredOnboarding from '../../components/BlurredBackgroundOnboarding';
 import {storage} from '../../../App';
 

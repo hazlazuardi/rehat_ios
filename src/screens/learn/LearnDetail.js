@@ -20,7 +20,7 @@ import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackgroun
 import PrimaryButton from '../../components/PrimaryButton';
 
 function LearnDetail({ route, navigation }) {
-  const { arc, assetsImg, title, category } = route.params;
+  const { arc, assetImg, title, category } = route.params;
   const [number, setNumber] = useState(0);
 
   const { addLearnedArticle, totalCount, totalContentsCount } = useManageLearn();
@@ -43,13 +43,13 @@ function LearnDetail({ route, navigation }) {
               <View style={innerStyles.progressText}>
                 <Image
                   source={
-                    assetsImg === 'brain'
+                    assetImg === 'brain'
                       ? assets.images.brain
                       : assets.images.lung
                   }
                   style={{ width: 20, height: 20 }}
                 />
-                <Text style={{ ...styleses.text.body3 }}>{title}</Text>
+                <Text style={{ ...styleses.text.semi2 }}>{title}</Text>
               </View>
 
               <View style={innerStyles.progressBarContainer}>
