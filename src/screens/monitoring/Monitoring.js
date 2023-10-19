@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer, useRef } from 'react';
+import React, { Suspense, useCallback, useEffect, useReducer, useRef } from 'react';
 import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { generateDummyDataForPreviousWeeks, initializeCurrentWeek } from '../../data/dummyPanicAttackHistory';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -11,19 +11,13 @@ import usePanicHistory, { currentEpochTime, weekIntervalWidth } from '../../help
 import { useJournal } from '../../context/Context';
 import useManageJournaling from '../../helpers/useManageJournaling';
 import EmotionTriggerAnalysis from '../../components/monitoring/EmotionTriggerAnalysis';
+import PanicHistory from './PanicHistory';
+
+// const PanicHistory = React.lazy(() => import('./PanicHistory'));
 
 
 function Monitoring(props) {
 
-    const {
-        data,
-        handleNewData,
-        handleClearData,
-        handleClearAllData,
-        scrollViewRef: scrollRefPanicAttackHistory,
-        scrollToWeek,
-        handleMonthButtonClick
-    } = usePanicHistory()
 
 
     const {
@@ -65,18 +59,11 @@ function Monitoring(props) {
                             paddingBottom: sizes.padding.md
                             // backgroundColor: 'red'
                         }} >
-                            <Text style={styles.text.header3}>Panic Attack History</Text>
-
-                            <ScrollView
-                                ref={scrollRefPanicAttackHistory}
-                                horizontal
-                                snapToAlignment='center'
-                                snapToInterval={weekIntervalWidth}
-                                decelerationRate={'fast'}
-                                showsHorizontalScrollIndicator={false}
-                            >
-                                <BarChart groupedData={Object.values(data)} />
-                            </ScrollView>
+                            <Suspense fallback={(
+                                <Text style={styles.text.semi2}>Loading...</Text>
+                            )} >
+                                <PanicHistory />
+                            </Suspense>
 
                             {/* Debugging Purpose */}
                             {/* <PrimaryButton
@@ -94,11 +81,6 @@ function Monitoring(props) {
                                 text='Clear All'
                                 onPress={handleClearAllData}
                             /> */}
-                            <PrimaryButton
-                                color={colors.darkGrey}
-                                text='Scroll to Today'
-                                onPress={() => scrollToWeek(getMonday(currentEpochTime()).getTime())}
-                            />
                             {/* <PrimaryButton
                                 color={colors.darkGrey}
                                 text='Scroll to November 2023'
