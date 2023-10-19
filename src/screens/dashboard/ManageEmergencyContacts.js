@@ -7,6 +7,7 @@ import {
     Pressable,
     ActivityIndicator,
     SafeAreaView,
+    Image,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import useContacts from '../../helpers/useContacts';
@@ -16,6 +17,8 @@ import { colors, sizes, styles } from '../../data/theme';
 import Contacts from 'react-native-contacts';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ListItem } from './ManageRecoveryPreferences';
+import assets from '../../data/assets';
 
 
 
@@ -30,21 +33,22 @@ function ManageEmergencyContacts() {
         getAllEmergencyContacts(); // Get all emergency contacts when the component mounts
     }, []);
 
-    // if (loading) return (
-    //     <BlurredEllipsesBackground>
-    //     </BlurredEllipsesBackground>
-
-    // );
-    // if (error) return <Text>Error loading contacts: {error.message}</Text>;
-
-    // console.log(searchResult)
     const displayedContacts = !loading ? (
         searchResult?.length > 0
-            ? searchResult
+            ? searchResult.filter(
+                contact => !emergencyContacts.some(
+                    emContact => emContact.recordID === contact.recordID
+                )
+            )
             : searchString
                 ? [] // Show nothing when textInput is not empty, but no searchResult
-                : contacts || [] // Show all contacts when textInput is empty and no searchResult
+                : contacts.filter(
+                    contact => !emergencyContacts.some(
+                        emContact => emContact.recordID === contact.recordID
+                    )
+                ) || [] // Show all contacts when textInput is empty and no searchResult
     ) : [];
+
 
     const handleAddEmergencyContact = (econ) => {
         dispatchEmergencyContacts({ type: 'addContact', payload: econ });
@@ -69,6 +73,8 @@ function ManageEmergencyContacts() {
     const insets = useSafeAreaInsets()
 
     console.log('load', loading)
+    console.log('contacts', searchResult)
+
 
     return (
         <BlurredEllipsesBackground>
@@ -76,6 +82,8 @@ function ManageEmergencyContacts() {
                 extraScrollHeight={64}
                 keyboardOpeningTime={10}
                 contentContainerStyle={{ flexGrow: 1 }}
+            // keyboardDismissMode='none'
+            // keyboardShouldPersistTaps='always'
             >
                 <View style={{ paddingTop: insets.top + sizes.padding.lg }} >
                     <View style={{ paddingVertical: sizes.padding.lg, paddingHorizontal: sizes.padding.md, flexDirection: 'column', gap: sizes.padding.md }}>
@@ -85,24 +93,27 @@ function ManageEmergencyContacts() {
                             {emergencyContacts.length === 0 ? (
                                 <Text style={styles.text.body3}>You haven't set up emergency contact yet.</Text>
                             ) : emergencyContacts.map(econ => (
-                                <View key={econ.recordID} style={innerStyles.contactItem}>
-                                    <View style={{ gap: sizes.gap.sm }}>
-                                        <Text style={innerStyles.contactName}>{econ.givenName} {econ.familyName}</Text>
-                                        <Text style={innerStyles.contactNumber} >{econ.phoneNumbers[0]?.number}</Text>
-                                    </View>
-                                    {editMode && (
-                                        <Pressable style={{ backgroundColor: 'red' }} onPress={() => handleRemoveEmergencyContact(econ.recordID)}>
-                                            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
-                                                <Text>-</Text>
-                                            </View>
+                                <ListItem
+                                    key={econ.recordID}
+                                    title={`${econ.givenName} ${econ.familyName}`}
+                                    subtitle={`${econ.phoneNumbers[0]?.number}`}
+                                    renderRightItem={editMode && (
+                                        <Pressable onPress={() => handleRemoveEmergencyContact(econ.recordID)}>
+                                            <Image
+                                                source={assets.icons.remove}
+                                                style={{
+                                                    width: 24,
+                                                    height: 24,
+                                                }}
+                                            />
                                         </Pressable>
                                     )}
-                                </View>
+                                />
                             ))}
                         </View>
                         <PrimaryButton
                             text={editMode ? 'Save' : 'Edit'}
-                            color={editMode ? colors.green : colors.almostBlack}
+                            color={editMode ? colors.green : colors.whiteSoTransparent}
                             onPress={handleButtonPress}
                         />
                         <Text style={styles.text.header3} >My Contacts</Text>
@@ -120,19 +131,22 @@ function ManageEmergencyContacts() {
                         ) : (
                             <View style={innerStyles.contactList}>
                                 {displayedContacts.length > 0 ? displayedContacts?.map((contact) => (
-                                    <View key={contact.recordID} style={innerStyles.contactItem}>
-                                        <View>
-                                            <Text style={innerStyles.contactName}>{contact.givenName} {contact.familyName}</Text>
-                                            <Text>{contact.phoneNumbers[0]?.number}</Text>
-                                        </View>
-                                        {editMode && (
-                                            <Pressable style={{ backgroundColor: 'green' }} onPress={() => handleAddEmergencyContact(contact)}>
-                                                <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', width: 40, height: 40 }}>
-                                                    <Text>+</Text>
-                                                </View>
+                                    <ListItem
+                                        key={contact.recordID}
+                                        title={`${contact.givenName} ${contact.familyName}`}
+                                        subtitle={`${contact.phoneNumbers[0]?.number}`}
+                                        renderRightItem={editMode && (
+                                            <Pressable onPress={() => handleAddEmergencyContact(contact)}>
+                                                <Image
+                                                    source={assets.icons.add}
+                                                    style={{
+                                                        width: 24,
+                                                        height: 24
+                                                    }}
+                                                />
                                             </Pressable>
                                         )}
-                                    </View>
+                                    />
                                 )) :
                                     <View style={{
                                         flex: 1,
@@ -201,6 +215,8 @@ function ContactSearch({ searchString, setSearchString, handleSearch }) {
             value={searchString}
             onChangeText={setSearchString}
             onEndEditing={() => handleSearch(searchString)} // Directly use handleSearch from the hook
+            onSubmitEditing={() => handleSearch(searchString)} // Directly use handleSearch from the hook
+
         />
     );
 }

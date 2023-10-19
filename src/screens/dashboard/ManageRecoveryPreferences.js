@@ -25,9 +25,8 @@ function ManageRecoveryPreferences(props) {
 
     const renderItem = ({ item, drag, isActive }) => {
 
-        console.log('whatsItem', item)
 
-        const isRecommended = toAssetCase(item.label) === toAssetCase(recommendedMethod)
+        const isRecommended = recommendedMethod && toAssetCase(item.label) === toAssetCase(recommendedMethod)
         return (
             <Pressable
                 onLongPress={isDraggingEnabled ? drag : null}
@@ -87,7 +86,7 @@ ManageRecoveryPreferences.propTypes = {}
 
 export default ManageRecoveryPreferences
 
-function ListItem({ title, subtitle, isRecommended, isActive, isDraggingEnabled }) {
+export function ListItem({ title, subtitle, isRecommended, isActive, isDraggingEnabled, renderRightItem }) {
 
     return (
         <View style={{
@@ -102,7 +101,7 @@ function ListItem({ title, subtitle, isRecommended, isActive, isDraggingEnabled 
             <View>
                 <View style={{
                     flexDirection: 'row',
-                    gap: sizes.gap.sm
+                    gap: sizes.gap.md
                 }}>
                     <Text style={{ ...styles.text.semi1 }}>{title}</Text>
                     {/* isRecommended */}
@@ -116,9 +115,14 @@ function ListItem({ title, subtitle, isRecommended, isActive, isDraggingEnabled 
                         />
                     )}
                 </View>
-                {subtitle && (<Text style={styles.text.semi2}>{subtitle}</Text>)}
+                {subtitle && (<Text style={{
+                    ...styles.text.body2,
+                    opacity: .75
+
+                }}>{subtitle}</Text>)}
             </View>
             <Text style={{ fontWeight: '300', fontSize: sizes.text.header1, color: 'white' }} >{isDraggingEnabled ? '=' : ' '}</Text>
+            {renderRightItem}
         </View>
     )
 }

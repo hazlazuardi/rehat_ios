@@ -55,6 +55,7 @@ function Settings({ navigation }) {
             case 'clearAllData': {
                 storage.clearAll()
                 trigger('impactHeavy')
+                return
             }
             default: {
                 throw Error(`Unknown action: ${action}`);
