@@ -64,9 +64,9 @@ struct RecoveryView: View {
   @State public var emergencyContactsShown: Bool = false
   
   var body: some View {
-    NavigationSplitView {
+    if appState.isPanic {
+      NavigationStack {
       List {
-        if appState.isPanic {
           // panic state ordering
           let _ = print(rnConnector.recoveryReferences)
           ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
@@ -84,17 +84,23 @@ struct RecoveryView: View {
               showEmergencyContactsRow()
             }
           }
-        } else {
+      }
+      .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
+      .navigationTitle("Recovery")
+      }
+    } else {
+    NavigationSplitView {
+      List {
           // default ordering
           showAffirmRow()
           showBreathRow()
           showGroundingTechniquesGrouped()
-        }
       }
       .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       .navigationTitle("Recovery")
     } detail: {
       BreathView()
+    }
     }
   }
   
@@ -222,7 +228,7 @@ func colorFromString(_ name: String) -> Color {
     }
 }
 
-#Preview {
-  let rnConnector = RNConnector() // Create an instance of RNConnector
-  return RecoveryView(rnConnector: rnConnector) // Pass it to RecoveryView
-}
+//#Preview {
+//  let rnConnector = RNConnector() // Create an instance of RNConnector
+//  return RecoveryView(rnConnector: rnConnector) // Pass it to RecoveryView
+//}

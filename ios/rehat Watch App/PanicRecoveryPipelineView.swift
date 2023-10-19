@@ -2,7 +2,7 @@
 //  PanicRecoveryPipelineView.swift
 //  rehat Watch App
 //
-//  Created by Avanox on 15/10/23.
+//  Created by Avatar Azka on 15/10/23.
 //
 
 import SwiftUI

@@ -2,7 +2,7 @@
 //  WorkoutView.swift
 //  rehat Watch App
 //
-//  Created by Avanox on 12/10/23.
+//  Created by Avatar Azka on 12/10/23.
 //
 
 import SwiftUI

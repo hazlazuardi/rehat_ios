@@ -2,7 +2,7 @@
 //  WorkoutUtils.swift
 //  rehat Watch App
 //
-//  Created by Avanox on 12/10/23.
+//  Created by Avatar Azka on 12/10/23.
 //
 
 import Foundation
@@ -27,6 +27,7 @@ class WorkoutManager: NSObject, ObservableObject {
   private var averageHeartRate: Double = 0.0
   
   // prediction notif downtime settings
+  private var shouldNotify: Bool = true
   private var dateOnLastNotifSent: Date = Calendar.current.startOfDay(for: .now)
   private var dateOnLastPredict: Date = Calendar.current.startOfDay(for: .now)
   // FIXME: Tweak these downtime intervals
@@ -95,6 +96,7 @@ class WorkoutManager: NSObject, ObservableObject {
       }
   }
   
+  // MARK: Panic State Notification
   private func runBackgroundTask() {
     // skip if it's been too soon since last bg task
     if (dateOnLastPredict.timeIntervalSinceNow > PREDICT_DOWNTIME) {
@@ -133,7 +135,7 @@ class WorkoutManager: NSObject, ObservableObject {
       let label = predict(hr: self.averageHeartRate, sdnn: self.hrv).label
       self.dateOnLastPredict = Date()
       
-      if ([1,2].contains(label)) {
+      if ([1,2].contains(label) && self.shouldNotify) {
         self.endWorkout()
         sendNotification()
         self.dateOnLastNotifSent = Date()
@@ -144,7 +146,7 @@ class WorkoutManager: NSObject, ObservableObject {
   }
   
   private func updateAverageHeartRate(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Void {
-    self.averageHeartRate = getAverageOfSamples(samples: samples, type: type)
+    (self.averageHeartRate, self.shouldNotify) = getAverageOfSamples(samples: samples, type: type)
     print("Updated average HR: \(self.averageHeartRate)")
   }
   
