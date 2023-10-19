@@ -52,7 +52,7 @@ function ThoughtsReframingMain({navigation}) {
     setCognitiveData(parsedData);
   }, []);
 
-  console.log(cognitiveData);
+//   console.log(cognitiveData);
 
   return (
     <BlurredEllipsesBackground>

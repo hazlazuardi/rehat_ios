@@ -29,6 +29,10 @@ import monitoring from '../assets/icons/monitoring_icon.png'
 import kutip from '../assets/images/kutip.png'
 import kutipakhir from '../assets/images/kutipakhir.png'
 import call from '../assets/images/Call.png'
+import lung from '../assets/images/lung.png'
+import brain from '../assets/images/brain.png'
+import progress from '../assets/images/progress.png';
+
 
 
 export default {
@@ -43,17 +47,18 @@ export default {
         activity: activity,
         checklist_completed: checklist_completed,
         checklist_not_completed: checklist_not_completed,
-        hearing:hearing,
-        see:see,
-        smell:smell,
-        taste:taste,
-        touch:touch,
+        hearing: hearing,
+        see: see,
+        smell: smell,
+        taste: taste,
+        touch: touch,
 
         settings: settings,
         home: home,
         recovery: recovery,
         learn: learn,
-        monitoring: monitoring
+        monitoring: monitoring,
+
     },
 
     images: {
@@ -63,7 +68,11 @@ export default {
         pleasant: pleasant,
         very_pleasant: very_pleasant,
         kutip: kutip,
-        kutipakhir:kutipakhir,
-        call:call
+        kutipakhir: kutipakhir,
+        call: call,
+        lung: lung,
+        brain: brain,
+        progress: progress
+
     }
 }

@@ -42,6 +42,7 @@ import OnboardingScreen from './src/screens/onboarding/Onboarding';
 import OnboardingDetailOne from './src/screens/onboarding/OnboardingDetailOne';
 import OnboardingDetailTwo from './src/screens/onboarding/OnboardingDetailTwo';
 import ThoughtsReframingMain from './src/screens/thoughts/ThoughtsReframingMain';
+import LearnCategory from './src/screens/learn/LearnCategory';
 
 const Stack = createNativeStackNavigator();
 
@@ -248,17 +249,22 @@ function App() {
 									component={LearnDetail}
 									options={{ ...nestedHeaderOptions, headerBackTitle: 'Learn' }}
 								/>
+								<Stack.Screen
+									name="Learn Category"
+									component={LearnCategory}
+									options={{ ...nestedHeaderOptions, headerBackTitle: 'Learn' }}
+								/>
 							</Stack.Group>
 
-              {/* Thoughts Reframing Screens */}
+							{/* Thoughts Reframing Screens */}
 							<Stack.Group screenOptions={{ headerShown: true }}>
-              <Stack.Screen
+								<Stack.Screen
 									name="Thoughts Reframing"
 									component={ThoughtsReframingMain}
 									options={{
 										...nestedHeaderOptions,
 										headerBackTitle: 'Recovery',
-                    
+
 									}}
 								/>
 								<Stack.Screen
@@ -296,7 +302,7 @@ function App() {
 								/>
 							</Stack.Group>
 
-              <Stack.Screen
+							<Stack.Screen
 								name="Create a Goal"
 								component={CreateGoal}
 								options={{
@@ -306,7 +312,7 @@ function App() {
 								}}
 							/>
 
-							
+
 						</Stack.Navigator>
 						{/* </View> */}
 					</NavigationContainer>

@@ -7,16 +7,17 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import checklist from '../../../assets/img/checklist1.png';
-import {colors} from '../../data/theme';
+// import checklist from '../../../assets/img/checklist1.png';
+import { colors } from '../../data/theme';
 import { styles as styleses } from '../../data/theme';
+import assets from '../../data/assets';
 
-function SuccessDetail({navigation}) {
+function SuccessDetail({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
-        source={checklist}
-        style={{width: 100, height: 100, marginBottom: 20}}
+        source={assets.icons.checklist_completed}
+        style={{ width: 100, height: 100, marginBottom: 20 }}
       />
       <Text style={styles.textSuccess}>All Set!</Text>
       <Text style={styles.descSuccess}>
@@ -27,16 +28,16 @@ function SuccessDetail({navigation}) {
       <Pressable
         style={styles.buttonDone}
         onPress={() => {
-            navigation.navigate('Thoughts Reframing')
+          navigation.navigate('Thoughts Reframing')
         }}>
-        <Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
+        <Text style={{ color: 'white', textAlign: 'center' }}>Done</Text>
       </Pressable>
       <Pressable
         style={styles.buttonGoal}
         onPress={() => {
           navigation.navigate('Create a Goal', { nextPage: 'Thoughts Reframing' })
         }}>
-        <Text style={{color: colors.green, textAlign: 'center'}}>
+        <Text style={{ color: colors.green, textAlign: 'center' }}>
           Create A Goal
         </Text>
       </Pressable>

@@ -64,9 +64,9 @@ struct RecoveryView: View {
   @State public var emergencyContactsShown: Bool = false
   
   var body: some View {
-    NavigationSplitView {
+    if appState.isPanic {
+      NavigationStack {
       List {
-        if appState.isPanic {
           // panic state ordering
           let _ = print(rnConnector.recoveryReferences)
           ForEach(rnConnector.recoveryReferences, id: \.id) { reference in
@@ -84,17 +84,23 @@ struct RecoveryView: View {
               showEmergencyContactsRow()
             }
           }
-        } else {
+      }
+      .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
+      .navigationTitle("Recovery")
+      }
+    } else {
+    NavigationSplitView {
+      List {
           // default ordering
           showAffirmRow()
           showBreathRow()
           showGroundingTechniquesGrouped()
-        }
       }
       .navigationDestination(isPresented: $isPresented, destination: {BreathView()})
       .navigationTitle("Recovery")
     } detail: {
       BreathView()
+    }
     }
   }
   
@@ -135,26 +141,25 @@ struct RecoveryView: View {
   
   func showGroundingTechniquesGrouped() -> some View {
     return
-      Section {
-        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-          NavigationLink(destination: DetailView(therapy: therapy)) {
-            VStack(alignment: .leading) {
-              recommendIfBest(
-                icon: Image(systemName: therapy.icon)
-                      .foregroundColor(colorFromString(therapy.color))
-                      .frame(width: 30, height: 30)
-                      .padding(.top, 7)
-                      .scaleEffect(1.5),
-                methodName: therapy.name)
-              Text(therapy.name)
-                .padding(.bottom, 10)
-                .font(.title3)
-            }
+    Section(header: Text("Grounding Techniques")) {
+      ForEach(recoveryDatas.therapies, id: \.id) { therapy in
+        NavigationLink(destination: DetailView(therapy: therapy)) {
+          VStack(alignment: .leading) {
+            recommendIfBest(
+              icon: Image(systemName: therapy.icon)
+                .foregroundColor(colorFromString(therapy.color))
+                .frame(width: 30, height: 30)
+                .padding(.top, 7)
+                .scaleEffect(1.5),
+              methodName: therapy.name)
+            Text(therapy.name)
+              .padding(.bottom, 10)
+              .font(.title3)
           }
         }
-      }.navigationTitle("Grounding Techniques")
+      }
+    }
   }
-  
   func showGroundingTechniqueRow(methodName: String) -> some View {
     let therapy = recoveryDatas.therapies.first(where: {$0.name == methodName})!
     return
@@ -223,7 +228,7 @@ func colorFromString(_ name: String) -> Color {
     }
 }
 
-#Preview {
-  let rnConnector = RNConnector() // Create an instance of RNConnector
-  return RecoveryView(rnConnector: rnConnector) // Pass it to RecoveryView
-}
+//#Preview {
+//  let rnConnector = RNConnector() // Create an instance of RNConnector
+//  return RecoveryView(rnConnector: rnConnector) // Pass it to RecoveryView
+//}

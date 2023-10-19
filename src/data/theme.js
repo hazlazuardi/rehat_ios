@@ -10,6 +10,7 @@ export const colors = {
     darkGrey: '#454545',
     almostBlack: '#2C3333',
     red: 'red',
+    blue: '#0084E3',
     textArea: {
         backgroundColor: 'rgba(217,217,217,.08)',
         color: 'rgba(203, 228, 222, .45)'

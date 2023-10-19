@@ -2,7 +2,7 @@
 //  HKUtils.swift
 //  rehat Watch App
 //
-//  Created by Avanox on 10/10/23.
+//  Created by Avatar Azka on 10/10/23.
 //
 
 import Foundation
@@ -112,14 +112,30 @@ func startAverageQuery(
   healthStore.execute(query)
 }
 
-func getAverageOfSamples(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> Double {
+func getAverageOfSamples(samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) -> (Double, Bool) {
   var sampleValues: [Double] = []
   var average = 0.0
+  var shouldNotify = false
   
   if (!samples.isEmpty) {
+    
     if type == .heartRate {
+      // check if user is sedentary
+      let motionContext: HKHeartRateMotionContext = HKHeartRateMotionContext(rawValue: (samples.last?.metadata?["HKMetadataKeyHeartRateMotionContext"])! as! Int) ?? HKHeartRateMotionContext.active
+      print("HR Motion Context: \(motionContext)")
+      if motionContext == HKHeartRateMotionContext.sedentary {
+        // less chance of high HR due to activity
+        shouldNotify = true
+      } else {
+        // higher chance of high HR due to activity
+        // don't notify user to prevent false positive
+        shouldNotify = false
+      }
+      
+      // set extract values to double data type
       sampleValues = samples.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
     } else if type == .heartRateVariabilitySDNN {
+      // set extract values to double data type
       sampleValues = samples.map { $0.quantity.doubleValue(for: HKUnit.secondUnit(with: HKMetricPrefix.milli)) }
     }
     
@@ -127,5 +143,5 @@ func getAverageOfSamples(samples: [HKQuantitySample], type: HKQuantityTypeIdenti
     average = (sum / Double(samples.count))
   }
   
-  return average
+  return (average, shouldNotify)
 }

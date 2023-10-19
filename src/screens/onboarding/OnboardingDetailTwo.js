@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -13,12 +13,12 @@ import {
 } from 'react-native';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
-import {colors, sizes, styles} from '../../data/theme';
-import checklist from '../../../assets/img/checklist1.png';
+import { colors, sizes, styles } from '../../data/theme';
+// import checklist from '../../../assets/img/checklist1.png';
 import BlurredOnboarding from '../../components/BlurredBackgroundOnboarding';
-import {storage} from '../../../App';
+import { storage } from '../../../App';
 
-function OnboardingDetailTwo({navigation}) {
+function OnboardingDetailTwo({ navigation }) {
   const [input, setInput] = useState();
   const [state, setState] = useState(0);
   const [finished, setFinished] = useState(false);
@@ -26,9 +26,9 @@ function OnboardingDetailTwo({navigation}) {
 
   return (
     <BlurredOnboarding>
-      <SafeAreaView style={{marginBottom: 100}}>
-        <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
-          <View style={{padding: 24}}>
+      <SafeAreaView style={{ marginBottom: 100 }}>
+        <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
+          <View style={{ padding: 24 }}>
             <View>
               <Text
                 style={{
@@ -64,7 +64,7 @@ function OnboardingDetailTwo({navigation}) {
                   borderWidth: 1,
                   borderRadius: 30,
                 }}>
-                <Text style={{color: colors.white}}>Guided Breathing</Text>
+                <Text style={{ color: colors.white }}>Guided Breathing</Text>
               </View>
               <View
                 style={{
@@ -74,7 +74,7 @@ function OnboardingDetailTwo({navigation}) {
                   borderWidth: 1,
                   borderRadius: 30,
                 }}>
-                <Text style={{color: colors.white}}>Calling Loved Ones</Text>
+                <Text style={{ color: colors.white }}>Calling Loved Ones</Text>
               </View>
               <View
                 style={{
@@ -84,7 +84,7 @@ function OnboardingDetailTwo({navigation}) {
                   borderWidth: 1,
                   borderRadius: 30,
                 }}>
-                <Text style={{color: colors.white}}>Grounding</Text>
+                <Text style={{ color: colors.white }}>Grounding</Text>
               </View>
               <View
                 style={{
@@ -94,7 +94,7 @@ function OnboardingDetailTwo({navigation}) {
                   borderWidth: 1,
                   borderRadius: 30,
                 }}>
-                <Text style={{color: colors.white}}>
+                <Text style={{ color: colors.white }}>
                   Thoughts Restructuring
                 </Text>
               </View>
@@ -118,7 +118,7 @@ function OnboardingDetailTwo({navigation}) {
                     textAlign: 'center',
                     marginTop: 100,
                   }}>
-                  <Text style={{color: 'white', textAlign: 'center'}}>
+                  <Text style={{ color: 'white', textAlign: 'center' }}>
                     Start Exploring -{'>'}
                   </Text>
                 </View>
@@ -137,7 +137,7 @@ function OnboardingDetailTwo({navigation}) {
                     textAlign: 'center',
                     marginTop: 20,
                   }}>
-                  <Text style={{color: 'black', textAlign: 'center'}}>
+                  <Text style={{ color: 'black', textAlign: 'center' }}>
                     Back
                   </Text>
                 </View>
