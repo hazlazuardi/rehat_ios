@@ -135,26 +135,25 @@ struct RecoveryView: View {
   
   func showGroundingTechniquesGrouped() -> some View {
     return
-      Section {
-        ForEach(recoveryDatas.therapies, id: \.id) { therapy in
-          NavigationLink(destination: DetailView(therapy: therapy)) {
-            VStack(alignment: .leading) {
-              recommendIfBest(
-                icon: Image(systemName: therapy.icon)
-                      .foregroundColor(colorFromString(therapy.color))
-                      .frame(width: 30, height: 30)
-                      .padding(.top, 7)
-                      .scaleEffect(1.5),
-                methodName: therapy.name)
-              Text(therapy.name)
-                .padding(.bottom, 10)
-                .font(.title3)
-            }
+    Section(header: Text("Grounding Techniques")) {
+      ForEach(recoveryDatas.therapies, id: \.id) { therapy in
+        NavigationLink(destination: DetailView(therapy: therapy)) {
+          VStack(alignment: .leading) {
+            recommendIfBest(
+              icon: Image(systemName: therapy.icon)
+                .foregroundColor(colorFromString(therapy.color))
+                .frame(width: 30, height: 30)
+                .padding(.top, 7)
+                .scaleEffect(1.5),
+              methodName: therapy.name)
+            Text(therapy.name)
+              .padding(.bottom, 10)
+              .font(.title3)
           }
         }
-      }.navigationTitle("Grounding Techniques")
+      }
+    }
   }
-  
   func showGroundingTechniqueRow(methodName: String) -> some View {
     let therapy = recoveryDatas.therapies.first(where: {$0.name == methodName})!
     return
