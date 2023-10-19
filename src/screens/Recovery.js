@@ -116,17 +116,6 @@ function RecoveryList({ icon, title, description, iconColor, backgroundColor, on
                     <Text style={styles.text.semi1}>{title}</Text>
                     <Text style={styles.text.body3} >{description}</Text>
                 </View>
-
-                {/* isRecommended */}
-                {title === recommendedMethod && (
-                    <Image
-                        source={assets.icons.star}
-                        style={{
-                            width: 24,
-                            height: 24,
-                        }}
-                    />
-                )}
             </View>
         </Pressable>
     )

@@ -55,6 +55,7 @@ function StoreProvider({ children }) {
 
   useEffect(() => {
     Appearance.setColorScheme('dark');
+    dispatchRecommendedMethod({ type: 'getRecommendedMethod' })
     dispatchEmergencyContacts({ type: 'getAllEmergencyContacts' });
     dispatchRecoveryPreferences({ type: 'getRecoveryPreferences' });
     dispatchLearnedArticles({ type: 'getAllLearnedArticles' });
