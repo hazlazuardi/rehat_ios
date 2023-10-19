@@ -2,7 +2,7 @@
 //  HKUtils.swift
 //  rehat Watch App
 //
-//  Created by Avanox on 10/10/23.
+//  Created by Avatar Azka on 10/10/23.
 //
 
 import Foundation

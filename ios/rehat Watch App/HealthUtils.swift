@@ -2,7 +2,7 @@
 //  HealthUtils.swift
 //  rehat Watch App
 //
-//  Created by Avanox on 19/09/23.
+//  Created by Avatar Azka on 19/09/23.
 //
 
 import Foundation
