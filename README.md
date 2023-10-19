@@ -10,6 +10,22 @@
 - Avatar Putra Pertama Azka - 47286238
 - Yolanda Sirait - 47325221
 
+## Project Structure
+```
+.                           # project root
+├── ios/                    # main location for Swift files
+│   ├── rehat Watch App/    # main Apple Watch app files
+│   ├── rehat Watch Widget/ # watch complication files
+│   └── rehat_ios/          # TODO: what this do
+└── src/                    # main location for React Native files
+    ├── assets/             # TODO: what this all do
+    ├── components/         #
+    ├── context/            #
+    ├── data/               #
+    ├── helpers/            #
+    └── screens/            #
+```
+
 ## Acknowledgements
 Panic Attack HR & HRV Dataset and ML Model:
 - Jonathan Rubin, Rui Abreu, Shane Ahern, Hoda Eldardiry, and Daniel G. Bobrow. Time, Frequency & Complexity Analysis for Recognizing Panic States from Physiologic Time-Series. *In Proceedings of the 10th EAI International Conference on Pervasive Computing Technologies for Healthcare*, PervasiveHealth, 2016.
