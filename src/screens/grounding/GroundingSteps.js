@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -13,20 +13,20 @@ import {
 } from 'react-native';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
-import {colors, sizes, styles} from '../../data/theme';
+import { colors, sizes, styles } from '../../data/theme';
 import useFormattedDate from '../../helpers/useDateFormatter';
-import checklist from '../../../assets/img/checklist1.png';
+// import checklist from '../../../assets/img/checklist1.png';
 import ChipInput from '../../components/ChipInput';
-import {useJournal, useJournalingConfig} from '../../context/Context';
+import { useJournal, useJournalingConfig } from '../../context/Context';
 
-function GroundingSteps({navigation}) {
+function GroundingSteps({ navigation }) {
   const [input, setInput] = useState();
   const [state, setState] = useState(0);
   const [finished, setFinished] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
-  const {journal, dispatchJournal} = useJournal();
-  const {journalingConfig, dispatchJournalingConfig} = useJournalingConfig();
-  const {dayString, timeString} = useFormattedDate(journal.dateAdded);
+  const { journal, dispatchJournal } = useJournal();
+  const { journalingConfig, dispatchJournalingConfig } = useJournalingConfig();
+  const { dayString, timeString } = useFormattedDate(journal.dateAdded);
   const [isShouldReturn, setIsShouldReturn] = useState(false);
   const requiredChipsCount = 5 - state;
 
@@ -74,8 +74,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Acknowledge <Text style={{color: colors.orange}}>FIVE</Text> things
-          you can <Text style={{color: colors.orange}}>SEE</Text> around you.
+          Acknowledge <Text style={{ color: colors.orange }}>FIVE</Text> things
+          you can <Text style={{ color: colors.orange }}>SEE</Text> around you.
         </Text>
       ),
       learnText:
@@ -92,8 +92,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Recognise <Text style={{color: colors.orange}}>FOUR</Text> things you
-          can <Text style={{color: colors.orange}}>TOUCH</Text> around you.
+          Recognise <Text style={{ color: colors.orange }}>FOUR</Text> things you
+          can <Text style={{ color: colors.orange }}>TOUCH</Text> around you.
         </Text>
       ),
       learnText:
@@ -110,8 +110,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Listen for <Text style={{color: colors.orange}}>THREE</Text> things
-          you can <Text style={{color: colors.orange}}>HEAR</Text>.
+          Listen for <Text style={{ color: colors.orange }}>THREE</Text> things
+          you can <Text style={{ color: colors.orange }}>HEAR</Text>.
         </Text>
       ),
       learnText:
@@ -128,8 +128,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Note <Text style={{color: colors.orange}}>TWO</Text> things you can{' '}
-          <Text style={{color: colors.orange}}>SMELL</Text>.
+          Note <Text style={{ color: colors.orange }}>TWO</Text> things you can{' '}
+          <Text style={{ color: colors.orange }}>SMELL</Text>.
         </Text>
       ),
       learnText:
@@ -146,8 +146,8 @@ function GroundingSteps({navigation}) {
             paddingTop: sizes.padding.lg,
             fontWeight: 800,
           }}>
-          Recognize <Text style={{color: colors.orange}}>ONE</Text> thing you
-          can <Text style={{color: colors.orange}}>TASTE</Text>.
+          Recognize <Text style={{ color: colors.orange }}>ONE</Text> thing you
+          can <Text style={{ color: colors.orange }}>TASTE</Text>.
         </Text>
       ),
       learnText:
@@ -164,10 +164,10 @@ function GroundingSteps({navigation}) {
           // backgroundColor: colors.darkTurquoise
         }}
         contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
+        <SafeAreaView style={{ marginBottom: 100 }}>
           {!finished ? (
             <>
-              <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+              <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
                 {data[state]?.iconText}
               </View>
               <View
@@ -184,7 +184,7 @@ function GroundingSteps({navigation}) {
                       borderWidth: 1,
                       borderColor: 'white',
                     }}>
-                    <Text style={{padding: 14, color: 'white'}}>
+                    <Text style={{ padding: 14, color: 'white' }}>
                       Learn More
                     </Text>
                   </View>
@@ -218,7 +218,7 @@ function GroundingSteps({navigation}) {
                           borderRadius: 5,
                         }}
                         onPress={() => setModalVisible(false)}>
-                        <Text style={{color: 'white'}}>Close</Text>
+                        <Text style={{ color: 'white' }}>Close</Text>
                       </TouchableHighlight>
                     </View>
                   </View>
@@ -244,7 +244,7 @@ function GroundingSteps({navigation}) {
                   gap: 10,
                   flexWrap: 'wrap',
                 }}>
-                {Array.from({length: requiredChipsCount}, (_, i) =>
+                {Array.from({ length: requiredChipsCount }, (_, i) =>
                   (i + 1).toString(),
                 ).map(type => (
                   <ChipInput
@@ -258,7 +258,7 @@ function GroundingSteps({navigation}) {
                   />
                 ))}
               </View>
-              <View style={{padding: 24}}>
+              <View style={{ padding: 24 }}>
                 <Pressable onPress={handleNextPress}>
                   <View
                     style={{
@@ -269,7 +269,7 @@ function GroundingSteps({navigation}) {
                       textAlign: 'center',
                       marginTop: 20,
                     }}>
-                    <Text style={{color: 'white', textAlign: 'center'}}>
+                    <Text style={{ color: 'white', textAlign: 'center' }}>
                       Next
                     </Text>
                   </View>
@@ -277,7 +277,7 @@ function GroundingSteps({navigation}) {
               </View>
             </>
           ) : (
-            <View style={{padding: 24}}>
+            <View style={{ padding: 24 }}>
               <View
                 style={{
                   paddingTop: 100,
@@ -287,8 +287,8 @@ function GroundingSteps({navigation}) {
                   alignItems: 'center',
                 }}>
                 <Image
-                  source={checklist}
-                  style={{width: 100, height: 100, marginBottom: 20}}
+                  source={assets.icons.checklist_completed}
+                  style={{ width: 100, height: 100, marginBottom: 20 }}
                 />
                 <Text
                   style={{
@@ -297,7 +297,7 @@ function GroundingSteps({navigation}) {
                     paddingTop: sizes.padding.lg,
                     fontWeight: 800,
                   }}>
-                  <Text style={{color: colors.orange}}>Excercise Complete</Text>
+                  <Text style={{ color: colors.orange }}>Excercise Complete</Text>
                 </Text>
                 <Text
                   style={{
@@ -329,7 +329,7 @@ function GroundingSteps({navigation}) {
                     textAlign: 'center',
                     marginTop: 100,
                   }}>
-                  <Text style={{color: 'white', textAlign: 'center'}}>
+                  <Text style={{ color: 'white', textAlign: 'center' }}>
                     Next
                   </Text>
                 </View>

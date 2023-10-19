@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,26 +7,27 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import {Pressable} from 'react-native';
-import {colors, styles as styleses} from '../../data/theme';
-import {sizes} from '../../data/theme';
+import { Pressable } from 'react-native';
+import { colors, styles as styleses } from '../../data/theme';
+import { sizes } from '../../data/theme';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import LearnCard from '../../components/learn/LearnCard';
 import data from '../../data/articles';
-import {storage} from '../../../App';
+import { storage } from '../../../App';
 import useManageLearn from '../../helpers/useManageLearn';
 import assets from '../../data/assets';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
+import PrimaryButton from '../../components/PrimaryButton';
 
-function LearnDetail({route, navigation}) {
-  const {arc, assetsImg, title, category} = route.params;
+function LearnDetail({ route, navigation }) {
+  const { arc, assetImg, title, category } = route.params;
   const [number, setNumber] = useState(0);
 
-  const {addLearnedArticle} = useManageLearn();
+  const { addLearnedArticle, totalCount, totalContentsCount } = useManageLearn();
 
   console.log('arc det', arc);
 
-  const arcUpdated = {arc,catId:category}
+  const arcUpdated = { arc, catId: category }
 
   return (
     <BlurredEllipsesBackground>
@@ -36,19 +37,19 @@ function LearnDetail({route, navigation}) {
           // backgroundColor: colors.darkTurquoise
         }}
         contentInsetAdjustmentBehavior="automatic">
-        <SafeAreaView style={{marginBottom: 100}}>
-          <View style={{padding: sizes.padding.md, gap: sizes.gap.lg}}>
+        <SafeAreaView style={{ marginBottom: 100 }}>
+          <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View style={innerStyles.progressLearn}>
               <View style={innerStyles.progressText}>
                 <Image
                   source={
-                    assetsImg === 'brain'
+                    assetImg === 'brain'
                       ? assets.images.brain
                       : assets.images.lung
                   }
-                  style={{width: 20, height: 20}}
+                  style={{ width: 20, height: 20 }}
                 />
-                <Text style={{...styleses.text.body3}}>{title}</Text>
+                <Text style={{ ...styleses.text.semi2 }}>{title}</Text>
               </View>
 
               <View style={innerStyles.progressBarContainer}>
@@ -59,11 +60,11 @@ function LearnDetail({route, navigation}) {
                 })} */}
               </View>
             </View>
-            <Text style={{...styleses.text.header1}}>{arc?.title}</Text>
+            <Text style={{ ...styleses.text.header1 }}>{arc?.title}</Text>
             {arc?.content?.sections[number] !== '' ? (
               arc?.content?.sections[number]?.end ? (
                 <>
-                  <Text style={{...styleses.text.header3}}>
+                  <Text style={{ ...styleses.text.header3 }}>
                     {arc?.content?.sections[number]?.header}
                   </Text>
                   <View
@@ -72,38 +73,23 @@ function LearnDetail({route, navigation}) {
                       backgroundColor: 'white',
                       borderRadius: 16,
                     }}>
-                    <Text style={{...styleses.text.body3, color: colors.black}}>
+                    <Text style={{ ...styleses.text.body3, color: colors.black }}>
                       {arc?.content?.sections[number]?.text}
                     </Text>
                   </View>
-                  <Pressable
+                  <PrimaryButton
+                    text='Back to Learn'
+                    color={colors.darkGrey}
                     onPress={() => {
                       navigation.goBack();
-                      addLearnedArticle(arc,category);
+                      addLearnedArticle(arc, category);
                       setNumber(0);
-                    }}>
-                    <View
-                      style={{
-                        gap: 20,
-                      }}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          padding: 10,
-                          backgroundColor: colors.green,
-                          borderRadius: 14,
-                        }}>
-                        <Text
-                          style={{...styleses.text.body3, color: colors.white}}>
-                          {'Back to Learn '}
-                        </Text>
-                      </View>
-                    </View>
-                  </Pressable>
+                    }}
+                  />
                 </>
               ) : (
                 <>
-                  <Text style={{...styleses.text.header3}}>
+                  <Text style={{ ...styleses.text.header3 }}>
                     {arc?.content?.sections[number]?.header}
                   </Text>
                   <View
@@ -112,7 +98,7 @@ function LearnDetail({route, navigation}) {
                       backgroundColor: 'white',
                       borderRadius: 16,
                     }}>
-                    <Text style={{...styleses.text.body3, color: colors.black}}>
+                    <Text style={{ ...styleses.text.body2, color: colors.black }}>
                       {arc?.content?.sections[number]?.text}
                     </Text>
                   </View>
@@ -120,39 +106,20 @@ function LearnDetail({route, navigation}) {
                     style={{
                       gap: 20,
                     }}>
+                    <PrimaryButton
+                      text='Next'
+                      color={colors.green}
+                      onPress={() => setNumber(number + 1)}
+                    />
                     {number > 0 ? (
-                      <Pressable onPress={() => setNumber(number - 1)}>
-                        <View
-                          style={{
-                            padding: 10,
-                            backgroundColor: 'white',
-                            borderRadius: 14,
-                          }}>
-                          <Text
-                            style={{
-                              ...styleses.text.body3,
-                              color: colors.black,
-                            }}>
-                            {'< Back'}
-                          </Text>
-                        </View>
-                      </Pressable>
+                      <PrimaryButton
+                        text='Back'
+                        color={colors.darkGrey}
+                        onPress={() => setNumber(number - 1)}
+                      />
                     ) : (
                       <></>
                     )}
-                    <Pressable onPress={() => setNumber(number + 1)}>
-                      <View
-                        style={{
-                          padding: 10,
-                          backgroundColor: colors.green,
-                          borderRadius: 14,
-                        }}>
-                        <Text
-                          style={{...styleses.text.body3, color: colors.white}}>
-                          {'Next >'}
-                        </Text>
-                      </View>
-                    </Pressable>
                   </View>
                 </>
               )
