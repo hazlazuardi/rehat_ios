@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useLearn} from '../context/Context';
-import {articles} from '../data/articles';
+import { useLearn } from '../context/Context';
+import { articles } from '../data/articles';
 import articlesNew from '../data/learn';
 
 function useManageLearn() {
@@ -19,7 +19,7 @@ function useManageLearn() {
     return 0;
   }
 
-  const {learnedArticles, dispatchLearnedArticles} = useLearn();
+  const { learnedArticles, dispatchLearnedArticles } = useLearn();
 
   const totalCount = learnedArticles?.reduce((acc, category) => {
     return acc + category.content.length;
@@ -27,14 +27,14 @@ function useManageLearn() {
 
   function countContentByCatId(catId) {
     const category = learnedArticles.find(cat => cat.catId === catId);
-    
+
     if (category && category.content) {
       return category.content.length;
     }
-    
+
     return 0;
   }
-  
+
 
 
 
@@ -55,10 +55,10 @@ function useManageLearn() {
     });
   }
 
-  function getArticlesByCategory(article) {}
+  function getArticlesByCategory(article) { }
 
   function clearAllLearnedArticles() {
-    dispatchLearnedArticles({type: 'clearAllLearnedArticles'});
+    dispatchLearnedArticles({ type: 'clearAllLearnedArticles' });
   }
 
   function getProgress() {
@@ -77,6 +77,10 @@ function useManageLearn() {
     clearAllLearnedArticles,
     getProgress,
     getProgressEach,
+    totalCount,
+    totalContentsCount,
+    countContentByCatId,
+    countContentsByCatId
   };
 }
 

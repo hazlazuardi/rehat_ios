@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,27 +6,33 @@ import {
   View,
   ScrollView,
   Image,
+  Dimensions,
 } from 'react-native';
-import {colors, styles} from '../../data/theme';
+import { colors, styles } from '../../data/theme';
 import articlesNew from '../../data/learn';
-import {sizes} from '../../data/theme';
+import { sizes } from '../../data/theme';
 import LearnCard from '../../components/learn/LearnCard';
 import data from '../../data/articles';
-import {Pressable} from 'react-native';
+import { Pressable } from 'react-native';
 import progress from '../../../assets/img/progress.png';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import {storage} from '../../../App';
+import { storage } from '../../../App';
 import useManageLearn from '../../helpers/useManageLearn';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 
-function LearnCategory({route, navigation}) {
-  const {title, category, assetsImg} = route.params;
-  const {articles, getProgress, getProgressEach, clearAllLearnedArticles} = useManageLearn();
+function LearnCategory({ route, navigation }) {
+  const { title, category, assetsImg } = route.params;
+  const { articles, getProgress, getProgressEach, clearAllLearnedArticles,
+
+    countContentByCatId, countContentsByCatId } = useManageLearn();
   // clearAllLearnedArticles()
+
+  const progress = countContentByCatId(category) / countContentsByCatId(category)
+
   return (
     <BlurredEllipsesBackground>
-      <ScrollView style={{flex: 1}} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
         <SafeAreaView>
           <View
             style={{
@@ -37,12 +43,32 @@ function LearnCategory({route, navigation}) {
             <Text style={styles.text.header2}>Insight Hub</Text>
             <View style={innerStyles.progressLearn}>
               <View style={innerStyles.progressText}>
-                <Image source={assetsImg === 'brain' ? assets.images.brain:assets.images.lung} style={{width: 20, height: 20}} />
-                <Text style={{...styles.text.body3}}>
+                <Image source={assetsImg === 'brain' ? assets.images.brain : assets.images.lung} style={{ width: 20, height: 20 }} />
+                <Text style={{ ...styles.text.body3 }}>
                   {title}
                 </Text>
               </View>
-              <Text style={{...styles.text.body3, marginTop:15}}>{getProgressEach(category)} <Text style={{...styles.text.body3, color:colors.orange}}>Articles</Text></Text>
+              <Text style={{ ...styles.text.body3, marginTop: 15 }}>{getProgressEach(category)} <Text style={{ ...styles.text.body3, color: colors.orange }}>Articles</Text></Text>
+              <View style={{ position: 'relative', height: 20, marginTop: sizes.padding.md }}>
+                <View style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: 20,
+                  backgroundColor: colors.whiteSoTransparent,
+                  borderRadius: sizes.radius.lg,
+                }} />
+                <View style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: progress === 0 ? '100%' : (Dimensions.get('screen').width - 64) * progress,
+                  height: 20,
+                  backgroundColor: progress === 0 ? colors.whiteSoTransparent : colors.orange,
+                  borderRadius: sizes.radius.lg,
+                }} />
+              </View>
               <View style={innerStyles.progressBarContainer}>
                 {/* {articles.map((arc, key) => {
                   return (
@@ -59,12 +85,12 @@ function LearnCategory({route, navigation}) {
                 flexWrap: 'wrap',
                 justifyContent: 'center',
               }}>
-              {articlesNew.filter((d)=>d.catId===category)[0].content?.map((arc, key) => {
+              {articlesNew.filter((d) => d.catId === category)[0].content?.map((arc, key) => {
                 return (
                   <Pressable
                     key={key}
-                    onPress={() => navigation.navigate('Learn Detail', { arc, assetsImg:assetsImg, title:title, category })}>
-                    <LearnCard article={arc}  />
+                    onPress={() => navigation.navigate('Learn Detail', { arc, assetsImg: assetsImg, title: title, category })}>
+                    <LearnCard article={arc} />
                   </Pressable>
                 );
               })}
