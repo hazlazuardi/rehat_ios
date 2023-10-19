@@ -4,6 +4,7 @@ import { watchEvents } from 'react-native-watch-connectivity';
 import { formatDate, getMonday } from '../helpers/helpers';
 import { trigger } from 'react-native-haptic-feedback';
 import { weekIntervalWidth } from '../helpers/usePanicHistory';
+import { storage } from '../../App';
 
 
 const MonitoringContext = createContext(null)
@@ -25,31 +26,29 @@ export const initializeWeek = (state, weekStartTimestamp) => {
 };
 
 export function initializeWeeks(numPrevWeeks, numNextWeeks) {
-    // Get the current date and time
     const today = new Date();
 
-    // Calculate the epoch timestamp for the start date, which is `numPrevWeeks` weeks before today
-    const startEpoch = today.getTime() - (numPrevWeeks * 7 * 24 * 3600 * 1000);
-    const endEpoch = today.getTime() + (numNextWeeks * 7 * 24 * 3600 * 1000);
+    // Adjust today to the start of the day in UTC
+    today.setUTCHours(0, 0, 0, 0);
 
-    // Initialize an empty object to hold the dummy data
+    // Get the Monday of the current week
+    const currentWeekMonday = getMonday(today);
+
+    // Calculate the epoch timestamp for the start and end dates
+    const startEpoch = currentWeekMonday.getTime() - (numPrevWeeks * 7 * 24 * 3600 * 1000);
+    const endEpoch = currentWeekMonday.getTime() + ((numNextWeeks + 1) * 7 * 24 * 3600 * 1000) - 1;  // +1 to include the current week
+
     const dummyData = {};
 
-    // Loop through each day from the start date to today
     for (let epoch = startEpoch; epoch <= endEpoch; epoch += 24 * 3600 * 1000) {
-        // Calculate the week number and day number for the current epoch
-        const currentDayEpoch = Math.floor(epoch / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Round down to the nearest day
+        const currentDayEpoch = epoch;  // No need to round down as epoch is already at the start of a day
 
-        // Get the epoch for the start of the current week
         const weekStartEpoch = getMonday(currentDayEpoch).getTime();
 
-        // Ensure the week and day objects exist in the dummy data
         if (!dummyData[weekStartEpoch]) dummyData[weekStartEpoch] = {};
         if (!dummyData[weekStartEpoch][currentDayEpoch]) dummyData[weekStartEpoch][currentDayEpoch] = { date: currentDayEpoch, value: 0 };
 
-        // Generate a random value for the current day
-        // dummyData[weekStartEpoch][currentDayEpoch].value = Math.floor(Math.random() * 10);
-        dummyData[weekStartEpoch][currentDayEpoch].value = 0
+        dummyData[weekStartEpoch][currentDayEpoch].value = 0;
     }
 
     return dummyData;
@@ -76,13 +75,13 @@ function findTodayWeekIndex(weeksData) {
 
 
 // Initial State
-const currentWeekData = generateDummyDataForPreviousWeeks(4);
-const initialState = initializeCurrentWeek(currentWeekData);
+// const currentWeekData = generateDummyDataForPreviousWeeks(4);
+// const initialState = initializeCurrentWeek(currentWeekData);
 
 
 // Provider Component
 export const MonitoringProvider = ({ children }) => {
-    const [data, dispatch] = useReducer(monitoringReducer, initialState);
+    const [data, dispatch] = useReducer(monitoringReducer, initializeWeeks(1, 1));
 
 
     // To Do: Receive userInfo from watch
@@ -102,6 +101,8 @@ export const MonitoringProvider = ({ children }) => {
         data,
         dispatch
     };
+
+    // storage.clearAll()
 
     return (
         <MonitoringContext.Provider value={{ ...value }}>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Image,
@@ -8,15 +8,15 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useJournal} from '../../context/Context';
-import {storage} from '../../../App';
-import {colors, sizes, styles} from '../../data/theme';
+import { useJournal } from '../../context/Context';
+import { storage } from '../../../App';
+import { colors, sizes, styles } from '../../data/theme';
 import PrimaryButton from '../../components/PrimaryButton';
-import {trigger} from 'react-native-haptic-feedback';
+import { trigger } from 'react-native-haptic-feedback';
 import BlurredEllipsesBackground from '../../components/BlurredEllipsesBackground';
 import assets from '../../data/assets';
 import useFormattedDate from '../../helpers/useDateFormatter';
-import {formatDate, toAssetCase} from '../../helpers/helpers';
+import { formatDate, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
 import useManageJournaling from '../../helpers/useManageJournaling';
@@ -31,8 +31,8 @@ import EmptyState from '../../components/EmptyState';
  * @param {JournalingProps} props - The component's properties.
  * @returns {JSX.Element} The rendered Journaling component.
  */
-function Journaling({navigation}) {
-  const {journals, getAllJournals} = useManageJournaling();
+function Journaling({ navigation }) {
+  const { journals, getAllJournals } = useManageJournaling();
 
   useEffect(() => {
     getAllJournals();
@@ -42,11 +42,11 @@ function Journaling({navigation}) {
 
   return (
     <BlurredEllipsesBackground>
-      <ScrollView style={{flex: 1}} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
         <SafeAreaView>
-          <View style={{gap: sizes.gap.lg, padding: sizes.padding.md}}>
-            <View style={{gap: sizes.gap.sm}}>
-              <Text style={{...styles.text.header1}}>Journaling</Text>
+          <View style={{ gap: sizes.gap.lg, padding: sizes.padding.md }}>
+            <View style={{ gap: sizes.gap.sm }}>
+              <Text style={{ ...styles.text.header1 }}>Journaling</Text>
 
               {/* Card */}
               <JournalingCTACard
@@ -59,18 +59,18 @@ function Journaling({navigation}) {
             </View>
 
             {/* My Journals */}
-            <View style={{gap: sizes.gap.md}}>
+            <View style={{ gap: sizes.gap.md }}>
               {/* Section Title */}
-              <Text style={{...styles.text.header2}}>My Journals</Text>
+              <Text style={{ ...styles.text.header2 }}>My Journals</Text>
 
               {/* List of My Journal */}
-              {journals.map(journal => {
+              {journals.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)).map(journal => {
                 const formattedDate = formatDate(journal.dateAdded);
                 return (
                   <Pressable
                     key={journal.dateAdded + journal.emotions[0]}
                     onPress={() =>
-                      navigation.navigate('Journal Detail', {journal})
+                      navigation.navigate('Journal Detail', { journal })
                     }>
                     <View
                       style={{
@@ -79,7 +79,7 @@ function Journaling({navigation}) {
                         justifyContent: 'space-between',
                         alignItems: 'flex-start',
                       }}>
-                      <View style={{flex: 1}}>
+                      <View style={{ flex: 1 }}>
                         <View
                           style={{
                             flex: 1,
@@ -96,8 +96,8 @@ function Journaling({navigation}) {
                             }}>
                             {journal.title || 'Untitled'}
                           </Text>
-                          <Text style={{...styles.text.captionTransparent}}>
-                            {formattedDate.dateString} at{' '}
+                          <Text style={{ ...styles.text.captionTransparent }}>
+                            {formattedDate.dayString} at{' '}
                             {formattedDate.timeString}
                           </Text>
                         </View>

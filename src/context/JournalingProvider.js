@@ -21,6 +21,7 @@ function JournalingProvider({ children }) {
 
     useEffect(() => {
         dispatchJournals({ type: 'getAllJournals' })
+        dispatchJournalingConfig({ type: 'getJournalingConfig' })
     }, [])
 
 
