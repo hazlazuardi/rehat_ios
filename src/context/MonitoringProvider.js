@@ -88,9 +88,9 @@ export const MonitoringProvider = ({ children }) => {
     // To Do: Receive userInfo from watch
     const unsubscribe = watchEvents.on('user-info', userInfo => {
         userInfo.forEach(info => {
-            const timestamp = info['Timestamp'] * 1000;
+            const timestamp = info['timestamp'] * 1000;
             if (!processedTimestamps.has(timestamp)) {
-                console.log('received user info', info['Timestamp']);
+                console.log('received user info', info['timestamp']);
                 console.log('parsed', formatDate(timestamp).timeString);
                 dispatch({ type: 'ADD_DATA', payload: { date: timestamp, value: 1 } })
                 processedTimestamps.add(timestamp);  // Mark this timestamp as processed

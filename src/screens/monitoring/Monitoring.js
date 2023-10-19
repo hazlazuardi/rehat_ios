@@ -99,11 +99,11 @@ function Monitoring(props) {
                                 text='Scroll to Today'
                                 onPress={() => scrollToWeek(getMonday(currentEpochTime()).getTime())}
                             />
-                            <PrimaryButton
+                            {/* <PrimaryButton
                                 color={colors.darkGrey}
                                 text='Scroll to November 2023'
                                 onPress={() => handleMonthButtonClick(2023, 10)}
-                            />
+                            /> */}
 
                         </View>
 
