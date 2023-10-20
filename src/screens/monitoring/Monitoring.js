@@ -12,17 +12,20 @@ import { useJournal } from '../../context/Context';
 import useManageJournaling from '../../helpers/useManageJournaling';
 import EmotionTriggerAnalysis from '../../components/monitoring/EmotionTriggerAnalysis';
 import PanicHistory from './PanicHistory';
+import useEmotionHistory from '../../helpers/useEmotionHistory';
+import SecondaryButton from '../../components/SecondaryButton';
+import Divider from '../../components/Divider';
 
 // const PanicHistory = React.lazy(() => import('./PanicHistory'));
 
-
+export const screenHeight = Dimensions.get('screen').height
 function Monitoring(props) {
-
-
 
     const {
         journals
     } = useManageJournaling()
+
+
 
     // Group data by week
     const groupedData = journals.reduce((acc, entry) => {
@@ -35,20 +38,27 @@ function Monitoring(props) {
     }, {});
     const weeksData = Object.values(groupedData);
 
-    const scrollRefEmotions = useRef(null);
+    console.log('weeksData', weeksData)
+
+    const sortedWeeksData = weeksData.sort((a, b) => a[0].dateAdded - b[0].dateAdded);
+    const { scrollViewRef: scrollRefEmotions, scrollToCurrentWeek } = useEmotionHistory(sortedWeeksData);
+
+
     return (
         <BlurredEllipsesBackground >
             <ScrollView
                 style={{ flex: 1 }}
                 contentInsetAdjustmentBehavior='automatic'
                 showsVerticalScrollIndicator={false}
+                snapToAlignment='center'
+            // snapToInterval={ }
             >
-                <SafeAreaView>
+                <SafeAreaView >
 
                     <View style={{
                         padding: sizes.padding.md,
                         gap: sizes.gap.lg,
-                        paddingBottom: sizes.padding.lg * 2
+                        paddingBottom: sizes.padding.lg * 2,
                     }}>
                         <Text style={{ ...styles.text.header2, color: colors.orange }}>Monitoring</Text>
 
@@ -56,7 +66,7 @@ function Monitoring(props) {
                         {/* Panic Attack History */}
                         <View style={{
                             gap: sizes.gap.md,
-                            paddingBottom: sizes.padding.md
+                            paddingBottom: sizes.padding.lg
                             // backgroundColor: 'red'
                         }} >
                             <Suspense fallback={(
@@ -67,12 +77,32 @@ function Monitoring(props) {
                         </View>
 
 
+
                         {/* Journaling Analysis */}
                         <View style={{
                             gap: sizes.gap.md
                         }} >
-                            <Text style={styles.text.header3}>Emotions and Their Triggers</Text>
-
+                            <View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}>
+                                    <Text style={{
+                                        ...styles.text.header3,
+                                        flex: 3 / 4
+                                    }}>
+                                        Emotions and Their Triggers
+                                    </Text>
+                                    <SecondaryButton
+                                        text={'Go to Today'}
+                                        onPress={scrollToCurrentWeek}
+                                        color={colors.whiteSoTransparent}
+                                        font={'caption'}
+                                        size={'sm'}
+                                    />
+                                </View>
+                            </View>
 
                             <ScrollView
                                 ref={scrollRefEmotions}
@@ -82,17 +112,17 @@ function Monitoring(props) {
                                 decelerationRate={'fast'}
                                 showsHorizontalScrollIndicator={false}
                             >
+
                                 {weeksData.map((weekData, index) => (
                                     <View
                                         key={index}
                                         style={{
                                             width: weekIntervalWidth,
                                         }}>
-                                        <EmotionTriggerAnalysis weekData={weekData} />
+                                        <EmotionTriggerAnalysis weekData={weekData} handleScroll={scrollToCurrentWeek} />
                                     </View>
                                 ))}
                             </ScrollView>
-
                         </View>
 
                     </View>

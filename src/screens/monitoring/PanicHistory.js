@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { colors, styles } from '../../data/theme'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import BarChart from '../../components/monitoring/BarChart'
 import usePanicHistory, { currentEpochTime, weekIntervalWidth } from '../../helpers/usePanicHistory'
 import PrimaryButton from '../../components/PrimaryButton'
 import { getMonday } from '../../helpers/helpers'
 import { initializeWeeks } from '../../context/MonitoringProvider'
+import Chip from '../../components/Chip'
+import SecondaryButton from '../../components/SecondaryButton'
 
 function PanicHistory(props) {
     const {
@@ -21,8 +23,19 @@ function PanicHistory(props) {
     // console.log(scrollRefPanicAttackHistory.current)
     return (
         <>
-            <Text style={styles.text.header3}>Panic Attack History</Text>
-
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+            }}>
+                <Text style={styles.text.header3}>Panic Attack History</Text>
+                <SecondaryButton
+                    text={'Go to Today'}
+                    onPress={scrollToCurrentDay}
+                    color={colors.whiteSoTransparent}
+                    font={'caption'}
+                    size={'sm'}
+                />
+            </View>
             <ScrollView
                 ref={scrollViewRef}
                 horizontal
@@ -31,14 +44,8 @@ function PanicHistory(props) {
                 decelerationRate={'fast'}
                 showsHorizontalScrollIndicator={false}
             >
-                <BarChart groupedData={Object.values(data)} />
+                <BarChart groupedData={Object.values(data)} handleScroll={scrollToCurrentDay} />
             </ScrollView>
-            <PrimaryButton
-                color={colors.darkGrey}
-                text='Scroll to Today'
-                onPress={scrollToCurrentDay}
-            />
-
         </>
     )
 }

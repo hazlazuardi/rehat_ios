@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Pressable, Text } from 'react-native';
 import { colors, sizes, styles } from '../data/theme';
 import { getContrastColor } from '../helpers/helpers';
+import { BlurView } from '@react-native-community/blur';
 
 /**
  * A customizable chip component for React Native.
@@ -18,7 +19,7 @@ import { getContrastColor } from '../helpers/helpers';
  * @param {string} [props.color] - The color of the chip (optional).
  * @returns {JSX.Element} The rendered Chip component.
  */
-function Chip({ text, onPress, isSelected, font, size, variant, color }) {
+function Chip({ text, onPress, isSelected, font, size, variant, color, isBlurred }) {
     /**
      * Handles the press event of the chip.
      */
@@ -50,6 +51,23 @@ function Chip({ text, onPress, isSelected, font, size, variant, color }) {
                 ...innerStyle[variant]
             }}
         >
+            {isBlurred && (
+                <BlurView
+                    blurType="dark"
+                    blurAmount={10}
+                    reducedTransparencyFallbackColor="white"
+                    style={{
+                        flex: 1,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        borderRadius: sizes.radius.md,
+                        zIndex: -100,
+
+                    }} />
+            )}
             <Text style={{
                 ...styles.text[font],
                 color: variant === 'outlined' ? color : color ? getContrastColor(color) : colors.white

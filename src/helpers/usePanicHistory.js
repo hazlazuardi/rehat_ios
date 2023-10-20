@@ -9,7 +9,7 @@ import { storage } from '../../App';
 
 
 // Helper function to get the start of the week (Monday) for a given date
-const getMondayTimestamp = (d) => {
+export const getMondayTimestamp = (d) => {
     const date = new Date(d);
     const day = date.getUTCDay();
     const diff = date.getUTCDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
