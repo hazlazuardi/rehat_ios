@@ -1,19 +1,60 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { analyzeEmotionTriggers, toAssetCase } from '../../helpers/helpers';
+import { View, Text, Pressable } from 'react-native';
+import { analyzeEmotionTriggers, formatDate, getMonday, toAssetCase } from '../../helpers/helpers';
 import { colors, sizes, styles } from '../../data/theme';
-import { weekIntervalWidth } from '../../helpers/usePanicHistory';
+import { getMondayTimestamp, weekIntervalWidth } from '../../helpers/usePanicHistory';
 import Chip from '../Chip';
+import SecondaryButton from '../SecondaryButton';
+import Divider from '../Divider';
 
-function EmotionTriggerAnalysis({ weekData }) {
+
+export function getSunday(mondayTimestamp) {
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    const sundayTimestamp = mondayTimestamp + (6 * millisecondsPerDay);
+    return sundayTimestamp;
+}
+
+function EmotionTriggerAnalysis({ weekData, handleScroll }) {
 
     const weekAnalysis = analyzeEmotionTriggers(weekData);
+
+    console.log('emotrig', weekData[0]['dateAdded'])
+    console.log('weekDataET', weekData[0])
+    const weekKey = weekData[0]['dateAdded']
+    console.log(formatDate(weekKey).dayString)
+    // console.log('monday', getMondayTimestamp(weekKey))
+    // console.log('friday', getMondayTimestamp(weekKey) + 86_400_000_000)
+
+    const mondayThisWeek = getMondayTimestamp(weekKey)
+    const sundayThisWeek = getSunday(mondayThisWeek)
+    console.log(formatDate(mondayThisWeek).dayString)
+    console.log(formatDate(sundayThisWeek).dayString)
 
     return (
         <View style={{
             // flexDirection: 'row',
             gap: sizes.gap.lg,
         }}>
+
+            <View style={{
+                // flexDirection: 'row',
+                gap: sizes.gap.sm,
+                justifyContent: 'space-between',
+                flex: 1,
+                // backgroundColor: 'red'
+            }}>
+                <Divider color={colors.whiteSoTransparent} />
+                <View style={{
+                    alignSelf: 'flex-start',
+                }}>
+                    <Chip
+                        text={`${formatDate(mondayThisWeek).compactDateString} - ${formatDate(sundayThisWeek).compactDateString}`}
+                        variant='outlined'
+                        color={colors.whiteTransparent}
+                        isBlurred
+                    />
+                </View>
+            </View>
             {emotionOrder.map(emotionCategory => {
                 const analysis = weekAnalysis[emotionCategory];
                 if (analysis) {

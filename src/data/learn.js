@@ -321,23 +321,23 @@ const articlesNew = [
       },
       {
         id: '11',
-        title: '5-4-3-2-1 Grounding Technique for Anxiety Management',
-        desc: 'An overview of the 5-4-3-2-1 grounding technique often used to manage heightened moments of anxiety or distress.',
+        title: 'Five Senses Grounding Technique for Anxiety Management',
+        desc: 'An overview of the Five Senses grounding technique often used to manage heightened moments of anxiety or distress.',
         content: {
           sections: [
             {
-              header: 'Introduction to the 5-4-3-2-1 Method',
-              text: 'The 5-4-3-2-1 method is a grounding technique employed to manage episodes of anxiety, panic attacks, or intense distress. By engaging your senses, this method helps you shift your focus to the present, reducing feelings of distress.',
+              header: 'Introduction to the Five Senses Method',
+              text: 'The Five Senses method is a grounding technique employed to manage episodes of anxiety, panic attacks, or intense distress. By engaging your senses, this method helps you shift your focus to the present, reducing feelings of distress.',
               imageUrl: 'https://yourwebsite.com/path/to/intro-image.jpg',
             },
             {
-              header: 'Steps to Implement the 5-4-3-2-1 Method',
+              header: 'Steps to Implement the Five Senses Method',
               text: 'Start by finding a calm space. First, name 5 things you can see around you. Next, name 4 things you can touch. After that, identify 3 sounds you can hear. Then, recognize 2 things you can smell. Finally, discern 1 taste in your mouth. Engaging each of your senses helps divert your attention from distressing thoughts, centering you in your environment.',
               imageUrl: 'https://yourwebsite.com/path/to/steps-image.jpg',
             },
             {
               header: 'Benefits and Practicality of the Technique',
-              text: 'The 5-4-3-2-1 technique assists in redirecting focus away from anxiety-inducing or distressing thoughts, grounding you in the here and now. It fosters feelings of control and calm during heightened emotional states. This approach is straightforward, discreet, and can be a valuable tool during moments of increased anxiety or stress.',
+              text: 'The Five Senses technique assists in redirecting focus away from anxiety-inducing or distressing thoughts, grounding you in the here and now. It fosters feelings of control and calm during heightened emotional states. This approach is straightforward, discreet, and can be a valuable tool during moments of increased anxiety or stress.',
               imageUrl: 'https://yourwebsite.com/path/to/benefits-image.jpg',
               end: true,
             },

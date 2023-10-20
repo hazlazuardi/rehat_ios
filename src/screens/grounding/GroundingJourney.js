@@ -95,13 +95,13 @@ function GroundingJourney({navigation}) {
                 />
                 <RecoveryList
                   icon={assets.icons.taste}
-                  title={'5-4-3-2-1 Technique'}
+                  title={'Five Senses'}
                   description={
                     'Challenge and reshape negative thought patterns'
                   }
                   iconColor={colors.orange}
                   backgroundColor={colors.orangeTransparent}
-                  onPress={() => navigation.navigate('Grounding Journey')}
+                  onPress={() => navigation.navigate('Five Senses')}
                 />
               </View>
             </View>

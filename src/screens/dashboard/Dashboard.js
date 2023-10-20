@@ -53,7 +53,8 @@ function Dashboard({ navigation }) {
   //   console.log('sgol', sortedGoals);
 
   const handleGoToGoalMethod = method => {
-    if (['Journaling', 'Cognitive Restructuring'].includes(method)) {
+    console.log('handle', method)
+    if (methods.includes(method)) {
       navigation.navigate(method);
     }
   };
@@ -346,6 +347,7 @@ const innerStyles = {
 };
 
 function GoalCard({ goal, toggleGoalCompletion, onPressButton }) {
+  console.log(goal.method)
   return (
     <View
       key={goal.id}

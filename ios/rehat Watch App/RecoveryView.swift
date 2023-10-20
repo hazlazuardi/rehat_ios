@@ -3,10 +3,10 @@ import SwiftUI
 enum RecoveryMethodNames: String {
   case
     breathing = "Guided Breathing",
-    affirmation = "Self-Affirmation",
+    affirmation = "Affirmation",
     muscle_relaxation = "Muscle Relaxation",
     closed_eyes = "Closed Eyes Visualization",
-    five_to_one = "5-4-3-2-1",
+    five_to_one = "Five Senses",
     call = "Emergency Call"
 }
 
