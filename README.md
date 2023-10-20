@@ -10,6 +10,22 @@
 - Avatar Putra Pertama Azka - 47286238
 - Yolanda Sirait - 47325221
 
+## Project Structure
+```
+.                           # project root
+├── ios/                    # main location for Swift files
+│   ├── rehat Watch App/    # main Apple Watch app files
+│   ├── rehat Watch Widget/ # watch complication files
+│   └── rehat_ios/          # TODO: what this do
+└── src/                    # main location for React Native files
+    ├── assets/             # TODO: what this all do
+    ├── components/         #
+    ├── context/            #
+    ├── data/               #
+    ├── helpers/            #
+    └── screens/            #
+```
+
 ## How to run the app
 Here's a step by step to run the app.
 1. Open XCode
