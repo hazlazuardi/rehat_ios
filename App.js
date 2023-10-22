@@ -268,7 +268,7 @@ function App() {
 									}}
 								/>
 								<Stack.Screen
-									name="Cognitive Restructuring"
+									name="Thoughts Reframing"
 									component={CognitiveRestructuing}
 									options={{
 										...nestedHeaderOptions,

@@ -71,7 +71,7 @@ function CognitiveRestructuring({ navigation }) {
         <SafeAreaView style={{ marginBottom: 100 }}>
           <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View>
-              <Text style={{ ...styleses.text.header1 }}>Cognitive Restructuring</Text>
+              <Text style={{ ...styleses.text.header1 }}>Thoughts Reframing</Text>
               <Text style={styles.descLearn}>
                 What unhelpful thought do you have?
               </Text>

@@ -68,7 +68,7 @@ function ThoughtsReframingMain({ navigation }) {
                 description={'Another day, another story. Share yours now!'}
                 buttonText={'Check in'}
                 icon={assets.icons.journaling}
-                onPress={() => navigation.navigate('Cognitive Restructuring')}
+                onPress={() => navigation.navigate('Thoughts Reframing')}
               />
             </View>
 
@@ -133,7 +133,7 @@ function ThoughtsReframingMain({ navigation }) {
                 <EmptyState
                   createOrAdd={'created'}
                   subject={'Thoughts Reframing'}
-                  onPressTo={'Cognitive Restructuring'}
+                  onPressTo={'Thoughts Reframing'}
                   navigation={navigation}
                 />
               )}

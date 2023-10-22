@@ -94,7 +94,7 @@ function CognitiveAnotherWay({ route, navigation }) {
           <View style={{ padding: sizes.padding.md, gap: sizes.gap.lg }}>
             <View>
               <Text style={{ ...styleses.text.header1 }}>
-                Cognitive Restructuring
+                Thoughts Reframing
               </Text>
             </View>
             {isPreview && (
