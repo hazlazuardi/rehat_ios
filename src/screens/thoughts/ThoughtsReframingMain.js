@@ -82,9 +82,11 @@ function ThoughtsReframingMain({ navigation }) {
               {cognitiveData?.map((cog, index) => {
                 const formattedDate = formatDate(cog.time);
                 return (
-                  <Pressable onPress={() => { navigation.navigate('Cognitive Another Way', { isPreview: true, TRData: cog.data, TRFI: cog.input.firstInput, TRSI: cog.input.secondInput, TRTI: cog.input.thirdInput }) }}>
+                  <Pressable 
+                  key={index}
+                  onPress={() => { navigation.navigate('Cognitive Another Way', { isPreview: true, TRData: cog.data, TRFI: cog.input.firstInput, TRSI: cog.input.secondInput, TRTI: cog.input.thirdInput }) }}>
                     <View
-                      key={index}
+                      
                       style={{
                         padding: 14,
                         backgroundColor: colors.turqoise,

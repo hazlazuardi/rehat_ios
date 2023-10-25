@@ -47,6 +47,10 @@ function useManageJournaling() {
         trigger('impactHeavy')
     }
 
+    function getJournalingConfig() {
+        dispatchJournalingConfig({ type: 'getJournalingConfig' })
+    }
+
     function addJournalingConfig(newConfig, type) {
         // console.log('addConfig')
         dispatchJournalingConfig({
@@ -70,6 +74,7 @@ function useManageJournaling() {
         addJournalingConfig,
         getAllJournals,
         eraseAllJournals,
+        getJournalingConfig,
         clearAllJournalingConfigs,
     };
 }

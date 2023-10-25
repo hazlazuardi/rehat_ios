@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useCallback, useContext } from 'react';
+import React, { useReducer, createContext, useCallback, useContext, useEffect } from 'react';
 import { generateDummyDataForPreviousWeeks, initializeCurrentWeek } from '../data/dummyPanicAttackHistory';
 import { watchEvents } from 'react-native-watch-connectivity';
 import { formatDate, getMonday } from '../helpers/helpers';
@@ -81,21 +81,32 @@ function findTodayWeekIndex(weeksData) {
 
 // Provider Component
 export const MonitoringProvider = ({ children }) => {
-    const [data, dispatch] = useReducer(monitoringReducer, initializeWeeks(1, 1));
+
+    const storedData = storage.getString('panicHistory');
+    const initialState = storedData ? JSON.parse(storedData) : initializeWeeks(1, 1);
+
+    const [data, dispatch] = useReducer(monitoringReducer, initialState);
 
 
     // To Do: Receive userInfo from watch
-    const unsubscribe = watchEvents.on('user-info', userInfo => {
-        userInfo.forEach(info => {
-            const timestamp = info['timestamp'] * 1000;
-            if (!processedTimestamps.has(timestamp)) {
-                console.log('received user info', info['timestamp']);
-                console.log('parsed', formatDate(timestamp).timeString);
-                dispatch({ type: 'ADD_DATA', payload: { date: timestamp, value: 1 } })
-                processedTimestamps.add(timestamp);  // Mark this timestamp as processed
-            }
+    useEffect(() => {
+        console.log('subsInfo')
+        const unsubscribe = watchEvents.on('user-info', userInfo => {
+            userInfo.forEach(info => {
+                const timestamp = info['timestamp'] * 1000;
+                if (!processedTimestamps.has(timestamp)) {
+                    console.log('received user info', info['timestamp']);
+                    console.log('parsed', formatDate(timestamp).timeString);
+                    dispatch({ type: 'addPanicEntry', payload: { date: timestamp, value: 1 } })
+                    processedTimestamps.add(timestamp);  // Mark this timestamp as processed
+                }
+            });
         });
-    });
+        return () => {
+            unsubscribe();
+        };
+
+    }, [dispatch])
 
     const value = {
         data,
@@ -113,66 +124,43 @@ export const MonitoringProvider = ({ children }) => {
 
 // Reducer
 // TODO: add a case to store each entry from Avatar
+// Reducer
 function monitoringReducer(state, action) {
     switch (action.type) {
-        case 'INITIALIZE_CURRENT_WEEK': {
-            const weekStartTimestamp = action.payload;
-            // return initializeWeek(state, weekStartTimestamp);
-            return initializeWeeks(26, 26)
+        case 'initializePanicHistory': {
+            return initializeWeeks(26, 26);
         }
-        case 'ADD_DATA': {
+        case 'addPanicEntry': {
             const { date, value } = action.payload;
-            const standardTimestamp = Math.floor(date / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
-            const dayOfWeek = new Date(standardTimestamp).getDay();
-            const adjustment = (dayOfWeek + 6) % 7;
-            const weekStartTimestamp = standardTimestamp - adjustment * 24 * 3600 * 1000;
-            const newState = { ...state };
-
-            if (!newState[weekStartTimestamp]) {
-                newState[weekStartTimestamp] = {};
-            }
-
-            // Initialize all days of the week with a value of 0, if they don't already exist
-            for (let i = 0; i < 7; i++) {
-                const dayTimestamp = weekStartTimestamp + i * 24 * 3600 * 1000;
-                if (!newState[weekStartTimestamp][dayTimestamp]) {
-                    newState[weekStartTimestamp][dayTimestamp] = { date: dayTimestamp, value: 0 };
-                }
-            }
-
-            // Update the value for the specific day
-            if (!newState[weekStartTimestamp][standardTimestamp]) {
-                newState[weekStartTimestamp][standardTimestamp] = { date: standardTimestamp, value: 0 };
-            }
-            newState[weekStartTimestamp][standardTimestamp].value += value;
-
+            const weekStartTimestamp = getWeekStartTimestamp(date);
+            const newState = {
+                ...state,
+                [weekStartTimestamp]: {
+                    ...state[weekStartTimestamp],
+                    [date]: { date, value: (state[weekStartTimestamp]?.[date]?.value || 0) + value },
+                },
+            };
+            storage.set('panicHistory', JSON.stringify(newState));
             return newState;
         }
-
         case 'clearTodayHistory': {
             const { date } = action.payload;
-            const standardTimestamp = Math.floor(date / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
-            const weekStartTimestamp = getMonday(standardTimestamp).getTime();
-
-            // Clone the current state
-            const newState = { ...state };
-
-            // If the week or day doesn't exist, don't create a new one
-            if (!newState[weekStartTimestamp] || !newState[weekStartTimestamp][standardTimestamp]) {
-                return state;
-            }
-
-            // Set the value for the specific day to 0
-            newState[weekStartTimestamp][standardTimestamp].value = 0;
-
+            const weekStartTimestamp = getWeekStartTimestamp(date);
+            const newState = {
+                ...state,
+                [weekStartTimestamp]: {
+                    ...state[weekStartTimestamp],
+                    [date]: { date, value: 0 },
+                },
+            };
+            storage.set('panicHistory', JSON.stringify(newState));
             return newState;
         }
-
         case 'clearAllHistory': {
-            // return generateDummyDataForPreviousWeeks(20)
-            return initializeWeeks(20, 20)
+            const newState = initializeWeeks(20, 20);
+            storage.set('panicHistory', JSON.stringify(newState));
+            return newState;
         }
-
         default:
             return state;
     }

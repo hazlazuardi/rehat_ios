@@ -40,6 +40,7 @@ function JournalThoughts({ navigation }) {
 
 	const handleAddJournalConfig = (newConfig, type) => {
 		if (newConfig.length !== 0) {
+			console.log('added Config', { type, newConfig })
 			addJournalingConfig(newConfig, type)
 		}
 		Keyboard.dismiss()

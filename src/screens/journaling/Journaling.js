@@ -32,10 +32,11 @@ import EmptyState from '../../components/EmptyState';
  * @returns {JSX.Element} The rendered Journaling component.
  */
 function Journaling({ navigation }) {
-  const { journals, getAllJournals } = useManageJournaling();
+  const { journals, getAllJournals, getJournalingConfig } = useManageJournaling();
 
   useEffect(() => {
     getAllJournals();
+    getJournalingConfig()
   }, []);
 
   // console.log('journals', [...journals])

@@ -42,7 +42,7 @@ function usePanicHistory(props) {
 
     const handleNewData = useCallback((timestamp) => {
         // const epochTime = Math.floor(Date.now() / (24 * 3600 * 1000)) * 24 * 3600 * 1000;  // Modify this line
-        dispatch({ type: 'ADD_DATA', payload: { date: timestamp, value: 1 } });
+        dispatch({ type: 'addPanicEntry', payload: { date: timestamp, value: 1 } });
     }, []);
 
     const handleClearData = useCallback(() => {

@@ -105,13 +105,12 @@ function journalingConfigReducer(state, action) {
             const updatedConfig = { ...state.journalThoughts };
             updatedConfig[action.payload.type] = [...updatedConfig[action.payload.type], action.payload.newConfig];
 
-            // console.log('updatedConfig', updatedConfig)
-
             // Save journalingConfig to storage
-            const newJournalingConfig = { ...state, ...action.payload };
+            const newJournalingConfig = { ...state, journalThoughts: updatedConfig };  // Adjusted this line
             const strJournalingConfig = JSON.stringify(newJournalingConfig);
+            console.log('toSetConfig', newJournalingConfig)
             storage.set('journalingConfig', strJournalingConfig);
-            return { ...state, journalThoughts: updatedConfig };
+            return newJournalingConfig;  // Adjusted this line to return the updated state
         }
         case 'clearJournalingConfig': {
             // Clear journalingConfig from storage
