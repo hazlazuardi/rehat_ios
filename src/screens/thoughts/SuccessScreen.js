@@ -45,7 +45,7 @@ function SuccessDetail({ navigation }) {
             text='Done'
             color={colors.darkGreyTransparent}
             onPress={() => {
-              navigation.navigate('Thoughts Reframing')
+              navigation.navigate('Thoughts Reframing', {param: new Date().getTime()})
             }} />
         </View>
       </SafeAreaView>

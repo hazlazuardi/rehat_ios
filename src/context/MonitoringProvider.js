@@ -72,6 +72,12 @@ function findTodayWeekIndex(weeksData) {
     });
 }
 
+function getWeekStartTimestamp(timestamp) {
+    const standardTimestamp = Math.floor(timestamp / (24 * 3600 * 1000)) * 24 * 3600 * 1000;
+    const dayOfWeek = new Date(standardTimestamp).getDay();
+    const adjustment = (dayOfWeek + 6) % 7;
+    return standardTimestamp - adjustment * 24 * 3600 * 1000;
+}
 
 
 // Initial State
