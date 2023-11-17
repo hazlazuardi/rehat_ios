@@ -17,6 +17,7 @@ import { Appearance } from 'react-native';
 import { MonitoringProvider } from './MonitoringProvider';
 import CurrentJournalProvider from './CurrentJournalProvider';
 import JournalingProvider from './JournalingProvider';
+import ThoughtsProvider from './ThoughtsProvider';
 
 const ThemeContext = createContext(null);
 // const JournalContext = createContext(null);
@@ -92,29 +93,31 @@ function StoreProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={{}}>
-      <MonitoringProvider>
-        <JournalingProvider>
-          <CurrentJournalProvider>
-            <RecommendedMethodContext.Provider value={{ recommendedMethod, dispatchRecommendedMethod }}>
-              <RecoveryPreferencesContext.Provider
-                value={{ recoveryPreferences, dispatchRecoveryPreferences }}>
-                <EmergencyContactsContext.Provider
-                  value={{ emergencyContacts, dispatchEmergencyContacts }}>
-                  <GoalsContext.Provider value={{ goals, dispatchGoals }}>
-                    <GoalsConfigContext.Provider
-                      value={{ goalsConfig, dispatchGoalsConfig }}>
-                      <LearnContext.Provider
-                        value={{ learnedArticles, dispatchLearnedArticles }}>
-                        {children}
-                      </LearnContext.Provider>
-                    </GoalsConfigContext.Provider>
-                  </GoalsContext.Provider>
-                </EmergencyContactsContext.Provider>
-              </RecoveryPreferencesContext.Provider>
-            </RecommendedMethodContext.Provider>
-          </CurrentJournalProvider>
-        </JournalingProvider>
-      </MonitoringProvider>
+      <ThoughtsProvider>
+        <MonitoringProvider>
+          <JournalingProvider>
+            <CurrentJournalProvider>
+              <RecommendedMethodContext.Provider value={{ recommendedMethod, dispatchRecommendedMethod }}>
+                <RecoveryPreferencesContext.Provider
+                  value={{ recoveryPreferences, dispatchRecoveryPreferences }}>
+                  <EmergencyContactsContext.Provider
+                    value={{ emergencyContacts, dispatchEmergencyContacts }}>
+                    <GoalsContext.Provider value={{ goals, dispatchGoals }}>
+                      <GoalsConfigContext.Provider
+                        value={{ goalsConfig, dispatchGoalsConfig }}>
+                        <LearnContext.Provider
+                          value={{ learnedArticles, dispatchLearnedArticles }}>
+                          {children}
+                        </LearnContext.Provider>
+                      </GoalsConfigContext.Provider>
+                    </GoalsContext.Provider>
+                  </EmergencyContactsContext.Provider>
+                </RecoveryPreferencesContext.Provider>
+              </RecommendedMethodContext.Provider>
+            </CurrentJournalProvider>
+          </JournalingProvider>
+        </MonitoringProvider>
+      </ThoughtsProvider>
     </ThemeContext.Provider>
   );
 }

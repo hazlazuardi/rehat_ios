@@ -20,6 +20,7 @@ import { formatDate, toAssetCase } from '../../helpers/helpers';
 import EmotionCategoryButton from '../../components/journaling/EmotionCategoryButton';
 import JournalingCTACard from '../../components/journaling/JournalingCTACard';
 import EmptyState from '../../components/EmptyState';
+import useManageThoughts from '../../helpers/useManageThoughts';
 
 /**
  * A component for journaling and managing journals.
@@ -30,6 +31,11 @@ import EmptyState from '../../components/EmptyState';
  */
 function ThoughtsReframingMain({ navigation }) {
   const [cognitiveData, setCognitiveData] = useState([]);
+  const { thoughts, getAllThoughts } = useManageThoughts();
+
+  useEffect(() => {
+    getAllThoughts();
+  }, []);
 
 
   const strAllJournals = storage.getString('journals');
@@ -37,20 +43,20 @@ function ThoughtsReframingMain({ navigation }) {
 
   const { date } = useFormattedDate();
 
-  useEffect(() => {
-    const storedData = storage.getString('cognitiveData');
-    let parsedData = [];
+  // useEffect(() => {
+  //   const storedData = storage.getString('cognitiveData');
+  //   let parsedData = [];
 
-    if (storedData) {
-      try {
-        parsedData = JSON.parse(storedData);
-      } catch (error) {
-        console.error('Error parsing cognitiveData:', error);
-      }
-    }
+  //   if (storedData) {
+  //     try {
+  //       parsedData = JSON.parse(storedData);
+  //     } catch (error) {
+  //       console.error('Error parsing cognitiveData:', error);
+  //     }
+  //   }
 
-    setCognitiveData(parsedData);
-  }, []);
+  //   setCognitiveData(parsedData);
+  // }, []);
 
   //   console.log(cognitiveData);
 
@@ -79,12 +85,14 @@ function ThoughtsReframingMain({ navigation }) {
 
               {/* List of My Journal */}
 
-              {cognitiveData?.map((cog, index) => {
+              {thoughts?.map((cog, index) => {
                 const formattedDate = formatDate(cog.time);
                 return (
-                  <Pressable onPress={() => { navigation.navigate('Cognitive Another Way', { isPreview: true, TRData: cog.data, TRFI: cog.input.firstInput, TRSI: cog.input.secondInput, TRTI: cog.input.thirdInput }) }}>
+                  <Pressable
+                    key={index}
+                    onPress={() => { navigation.navigate('Cognitive Another Way', { isPreview: true, TRData: cog.data, TRFI: cog.input.firstInput, TRSI: cog.input.secondInput, TRTI: cog.input.thirdInput }) }}>
                     <View
-                      key={index}
+
                       style={{
                         padding: 14,
                         backgroundColor: colors.turqoise,
@@ -129,11 +137,11 @@ function ThoughtsReframingMain({ navigation }) {
                   </Pressable>
                 );
               })}
-              {cognitiveData.length === 0 && (
+              {thoughts.length === 0 && (
                 <EmptyState
                   createOrAdd={'created'}
                   subject={'Thoughts Reframing'}
-                  onPressTo={'Cognitive Restructuring'}
+                  onPressTo={'Thoughts Reframing'}
                   navigation={navigation}
                 />
               )}

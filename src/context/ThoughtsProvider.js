@@ -2,37 +2,37 @@ import React, { useReducer, createContext, useCallback, useContext, useState, us
 import { storage } from '../../App';
 
 
-const JournalingContext = createContext(null)
+const ThoughtsContext = createContext(null)
 
 
 // Provider Component
-function JournalingProvider({ children }) {
+function ThoughtsProvider({ children }) {
 
     // Save and Set Journals
-    const [journals, dispatchJournals] = useReducer(journalReducer, [])
+    const [thoughts, dispatchThoughts] = useReducer(thoughtsReducer, [])
     const [journalingConfig, dispatchJournalingConfig] = useReducer(journalingConfigReducer, initialJournalingConfig);
 
     const value = {
-        journals,
-        dispatchJournals,
+        thoughts,
+        dispatchThoughts,
         journalingConfig,
         dispatchJournalingConfig,
     }
 
     useEffect(() => {
-        dispatchJournals({ type: 'getAllJournals' })
-        dispatchJournalingConfig({ type: 'getJournalingConfig' })
+        dispatchThoughts({ type: 'getAllThoughts' })
+        // dispatchJournalingConfig({ type: 'getJournalingConfig' })
     }, [])
 
 
     return (
-        <JournalingContext.Provider value={{ ...value }}>
+        <ThoughtsContext.Provider value={{ ...value }}>
             {children}
-        </JournalingContext.Provider>
+        </ThoughtsContext.Provider>
     );
 };
 
-export default JournalingProvider
+export default ThoughtsProvider
 
 
 const initialJournalingConfig = {
@@ -126,50 +126,23 @@ function journalingConfigReducer(state, action) {
 
 
 // Reducer to manage all journals from and to storage
-function journalReducer(state, action) {
+function thoughtsReducer(state, action) {
     switch (action.type) {
-        case 'getAllJournals': {
+        case 'getAllThoughts': {
 
             // Get from storage
-            const strJournals = storage.getString('journals');
+            const strJournals = storage.getString('cognitiveData');
 
             // If any
             if (strJournals) {
                 // Parse
                 const journals = JSON.parse(strJournals);
-                // console.log('from storage', journals);
+                console.log('from storage', journals);
                 // Put in the state
                 return [...journals]
             }
             // else empty
             return [...state]
-        }
-        case 'saveJournal': {
-            const strJournals = storage.getString('journals');
-
-            const newJournalData = {
-                ...action.payload,
-                id: state.dateAdded
-            };
-
-            let journals = [];
-
-            if (strJournals) {
-                journals = JSON.parse(strJournals);
-                // console.log('from storage', journals);
-            }
-
-            journals.push(newJournalData);
-
-            const newJournals = JSON.stringify(journals);
-            storage.set('journals', newJournals);
-            // console.log('saved journals', newJournals);
-
-            return [...state, newJournalData];
-        }
-        case 'eraseAllJournals': {
-            storage.delete('journals');
-            return [];
         }
         default: {
             throw Error(`Unknown action: ${action.type}`);
@@ -179,7 +152,7 @@ function journalReducer(state, action) {
 
 
 // to make it accessible by others
-export function useJournaling() {
-    return useContext(JournalingContext);
+export function useReframing() {
+    return useContext(ThoughtsContext);
 }
 

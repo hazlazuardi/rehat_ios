@@ -79,7 +79,7 @@ function GroundingJourney({navigation}) {
                   }
                   iconColor={colors.orange}
                   backgroundColor={colors.orangeTransparent}
-                  onPress={() => navigation.navigate('Cognitive Restructuring')}
+                  onPress={() => navigation.navigate('Thoughts Reframing')}
                 />
               </View>
               <View style={{paddingHorizontal: sizes.padding.sm}}>
@@ -91,7 +91,7 @@ function GroundingJourney({navigation}) {
                   }
                   iconColor={colors.orange}
                   backgroundColor={colors.orangeTransparent}
-                  onPress={() => navigation.navigate('Cognitive Restructuring')}
+                  onPress={() => navigation.navigate('Thoughts Reframing')}
                 />
                 <RecoveryList
                   icon={assets.icons.taste}

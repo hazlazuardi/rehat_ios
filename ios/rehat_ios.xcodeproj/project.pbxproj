@@ -1119,7 +1119,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = rehat_ios/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = rehat_ios;
+				INFOPLIST_KEY_CFBundleDisplayName = Rehat;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use camera to add photos";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Read contacts to set Emergency Contacts";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Rehat App wants to access health data and analyze it";
@@ -1177,7 +1177,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = rehat_ios/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = rehat_ios/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = rehat_ios;
+				INFOPLIST_KEY_CFBundleDisplayName = Rehat;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use camera to add photos";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Read contacts to set Emergency Contacts";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Rehat App wants to access health data and analyze it";

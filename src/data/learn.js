@@ -239,7 +239,7 @@ const articlesNew = [
             },
             {
               header: 'Cognitive-Behavioral Therapy (CBT) Components',
-              text: 'CBT is a prominent approach in treating anxiety disorders. It comprises various components like Exposure and Response Prevention (ERP) tailored for OCD, Cognitive Restructuring to challenge distorted thoughts, and Acceptance and Commitment Therapy (ACT) emphasizing mindfulness and value-based actions.',
+              text: 'CBT is a prominent approach in treating anxiety disorders. It comprises various components like Exposure and Response Prevention (ERP) tailored for OCD, Thoughts Reframing to challenge distorted thoughts, and Acceptance and Commitment Therapy (ACT) emphasizing mindfulness and value-based actions.',
               imageUrl: 'https://yourwebsite.com/path/to/cbt-image.jpg',
             },
             {
